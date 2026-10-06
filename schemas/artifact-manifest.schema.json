@@ -1,0 +1,96 @@
+{
+  "$comment": "Bootstrap interchange schema generated from typed Python declarations; no execution engine is implied.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "access_conditions": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "artifact_id": {
+      "type": "string"
+    },
+    "artifact_kind": {
+      "type": "string"
+    },
+    "copyright_holder": {
+      "type": "string"
+    },
+    "generated_at": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "license_expression": {
+      "type": "string"
+    },
+    "origin_class": {
+      "enum": [
+        "NEWLY_AUTHORED",
+        "PUBLIC_PROJECTION_OF_FROZEN_SPEC",
+        "GENERATED_PUBLIC_ARTIFACT",
+        "EXTERNAL_LICENSED_ARTIFACT"
+      ],
+      "type": "string"
+    },
+    "redistribution_status": {
+      "type": "string"
+    },
+    "sha256": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "source_reference": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "tool_identity": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "artifact_id",
+    "artifact_kind",
+    "license_expression",
+    "copyright_holder",
+    "origin_class",
+    "source_reference",
+    "sha256",
+    "redistribution_status",
+    "access_conditions",
+    "generated_at",
+    "tool_identity"
+  ],
+  "title": "Public artifact rights manifest",
+  "type": "object"
+}

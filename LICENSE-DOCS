@@ -1,0 +1,16 @@
+SPDX-License-Identifier: CC-BY-4.0
+
+# Documentation license
+
+Project-authored Markdown documentation in this repository is licensed under
+the Creative Commons Attribution 4.0 International license (CC BY 4.0).
+You may share and adapt that documentation under the attribution and other
+conditions in the license.
+
+Full legal code: https://creativecommons.org/licenses/by/4.0/legalcode
+
+This scope applies to repository-authored documentation only. Source code is
+covered by the MIT License in LICENSE. Dataset, model, figure, and other
+non-code artifacts carry the rights stated in their own manifest. No notice
+in this repository grants rights in historical private or third-party
+material.

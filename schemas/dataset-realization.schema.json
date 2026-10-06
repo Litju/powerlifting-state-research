@@ -1,0 +1,113 @@
+{
+  "$comment": "Bootstrap interchange schema generated from typed Python declarations; no execution engine is implied.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "dataset_spec_id": {
+      "type": "string"
+    },
+    "entity_count": {
+      "type": "integer"
+    },
+    "files": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "bytes": {
+            "type": "integer"
+          },
+          "path": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "bytes",
+          "path",
+          "sha256"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "generation": {
+      "additionalProperties": false,
+      "properties": {
+        "configuration_sha256": {
+          "type": "string"
+        },
+        "generator": {
+          "type": "string"
+        },
+        "generator_version": {
+          "type": "string"
+        },
+        "seeds_or_replicates": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "source": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "configuration_sha256",
+        "generator",
+        "generator_version",
+        "seeds_or_replicates",
+        "source"
+      ],
+      "type": "object"
+    },
+    "license_expression": {
+      "type": "string"
+    },
+    "origin_class": {
+      "type": "string"
+    },
+    "realization_id": {
+      "type": "string"
+    },
+    "redistribution_status": {
+      "type": "string"
+    },
+    "row_counts": {
+      "additionalProperties": {
+        "type": "integer"
+      },
+      "type": "object"
+    },
+    "schema_id": {
+      "type": "string"
+    },
+    "split_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "temporal_coverage": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "dataset_spec_id",
+    "entity_count",
+    "files",
+    "generation",
+    "license_expression",
+    "origin_class",
+    "realization_id",
+    "redistribution_status",
+    "row_counts",
+    "schema_id",
+    "split_ids",
+    "temporal_coverage"
+  ],
+  "title": "Dataset realization manifest",
+  "type": "object"
+}

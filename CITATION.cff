@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this software, cite the Powerlifting State Research repository."
+title: "Powerlifting State Research"
+type: software
+version: 0.1.0
+url: "https://github.com/Litju/powerlifting-state-research"
+abstract: >
+  Open research on latent powerlifting capacity, performance expression,
+  and forecast evaluation in synthetic dynamical systems.
+license: MIT

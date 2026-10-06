@@ -1,0 +1,122 @@
+{
+  "$comment": "Bootstrap interchange schema generated from typed Python declarations; no execution engine is implied.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "completeness_status": {
+      "enum": [
+        "PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS",
+        "FULL_FROM_EXISTING_EVIDENCE"
+      ],
+      "type": "string"
+    },
+    "component_references": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "canonical_key": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "component_class": {
+            "enum": [
+              "WORLD",
+              "POPULATION",
+              "INTERVENTION_REGIME",
+              "OBSERVATION_MODEL",
+              "QOI",
+              "TASK",
+              "REPRESENTATION",
+              "DATASET_SPEC",
+              "EVALUATION",
+              "METRIC",
+              "SHIFT"
+            ],
+            "type": "string"
+          },
+          "resolution": {
+            "enum": [
+              "DIRECT_HISTORICAL_IDENTITY",
+              "UNRESOLVED_DIRECT_ID",
+              "COMMITTED_BY_SYSTEM_CONFIG"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "component_class",
+          "canonical_key",
+          "resolution"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "docs_path": {
+      "type": "string"
+    },
+    "historical_qualification_state": {
+      "enum": [
+        "NOT_QUALIFIED_OR_UNRESOLVED",
+        "QUALIFIED_HISTORICAL"
+      ],
+      "type": "string"
+    },
+    "historical_specimen_status": {
+      "enum": [
+        "HISTORICAL_REGISTRY_ONLY",
+        "PARTIALLY_RECONSTRUCTED",
+        "REPRODUCIBLE_SPEC",
+        "QUALIFIED_HISTORICAL"
+      ],
+      "type": "string"
+    },
+    "public_implementation_status": {
+      "enum": [
+        "PUBLIC_IMPLEMENTATION_PENDING",
+        "PUBLIC_IMPLEMENTED"
+      ],
+      "type": "string"
+    },
+    "python_namespace": {
+      "type": "string"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "target_ontology": {
+      "type": "string"
+    },
+    "task_type": {
+      "type": "string"
+    },
+    "test_path": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "display_name",
+    "slug",
+    "python_namespace",
+    "docs_path",
+    "test_path",
+    "historical_specimen_status",
+    "historical_qualification_state",
+    "completeness_status",
+    "public_implementation_status",
+    "target_ontology",
+    "task_type",
+    "component_references"
+  ],
+  "title": "Public benchmark specification",
+  "type": "object"
+}

@@ -1,0 +1,13 @@
+# Studies
+
+## Scope
+
+Independent study outputs, including negative results.
+
+## Output identity
+
+A result bundle should reference the study, benchmark specifications, data realizations, model/evaluation records, source files, checksums, and claim scope that produced it.
+
+## Bootstrap state
+
+No historical study report or result artifact is reproduced here. Negative and null results should be retained with the same provenance as positive findings.

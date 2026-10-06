@@ -1,0 +1,73 @@
+{
+  "$comment": "Bootstrap interchange schema generated from typed Python declarations; no execution engine is implied.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "benchmark_id": {
+      "type": "string"
+    },
+    "claim_scope": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "dataset_realization_id": {
+      "type": "string"
+    },
+    "evaluation_id": {
+      "type": "string"
+    },
+    "metrics": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "metric_id": {
+            "type": "string"
+          },
+          "support": {
+            "type": "integer"
+          },
+          "uncertainty": {
+            "anyOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "value": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "metric_id",
+          "support",
+          "uncertainty",
+          "value"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "prediction_artifact_id": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "benchmark_id",
+    "claim_scope",
+    "created_at",
+    "dataset_realization_id",
+    "evaluation_id",
+    "metrics",
+    "prediction_artifact_id"
+  ],
+  "title": "Evaluation result",
+  "type": "object"
+}

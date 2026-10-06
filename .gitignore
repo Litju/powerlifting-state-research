@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+dist/
+build/
+*.egg-info/
+.coverage
+htmlcov/
+
+# Generated or locally cached research artifacts need a reviewed manifest first.
+/data/synthetic/*.parquet
+/data/external/*
+!/data/external/README.md
+/models/checkpoints/
+*.safetensors
+*.ckpt
+*.pt
+/results/**/*.parquet

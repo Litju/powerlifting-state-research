@@ -1,0 +1,59 @@
+{
+  "$comment": "Bootstrap interchange schema generated from typed Python declarations; no execution engine is implied.",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "benchmark_id": {
+      "type": "string"
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "dataset_realization_id": {
+      "type": "string"
+    },
+    "model_id": {
+      "type": "string"
+    },
+    "predictions": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "entity_id": {
+            "type": "string"
+          },
+          "horizon": {
+            "type": "string"
+          },
+          "qoi_id": {
+            "type": "string"
+          },
+          "query_id": {
+            "type": "string"
+          },
+          "value": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "entity_id",
+          "horizon",
+          "qoi_id",
+          "query_id",
+          "value"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "benchmark_id",
+    "created_at",
+    "dataset_realization_id",
+    "model_id",
+    "predictions"
+  ],
+  "title": "Prediction artifact",
+  "type": "object"
+}
