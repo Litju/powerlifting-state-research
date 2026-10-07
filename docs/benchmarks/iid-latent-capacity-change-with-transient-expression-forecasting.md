@@ -4,6 +4,8 @@
 
 This is the independently executable public-native benchmark variant. It shares the specified world, task, QOI, representation, and evaluation with the historical projection, and uses newly minted direct public-native population, intervention, observation, and dataset identities.
 
+The definitive data, participant-visible row, generation, rights, and limitations contract is the [IID public-native dataset card](../../artifacts/dataset-cards/iid-latent-capacity-change-with-transient-expression-forecasting.md). This benchmark page retains the historical comparison record.
+
 | Record | Identity authority | Benchmark ID | Semantic digest | Public implementation |
 |---|---|---|---|---|
 | [Historical projection](latent-capacity-change-with-transient-expression-forecasting.md) | HISTORICAL_PROJECTION | `psr:benchmark-spec:latent-capacity-change-with-transient-expression-forecasting@1.0.0~fbfbe59eb0a8` | `sha256:fbfbe59eb0a8e94b12b424c6d6837dfd455a6c5a55084bb2898b53f741cc6472` | PUBLIC_IMPLEMENTATION_PENDING for this exact DatasetSpec |
@@ -74,8 +76,12 @@ The checked-in manifest is `data/manifests/realizations/latent_capacity_change_w
 
 - Train SHA-256: `914dc51fcf9a0dca30224a8093431e97fe29272bf830160bf46a78396026d550`
 - Validation SHA-256: `0d7bd0c9291e7af5627ec18e2b82025aa1f5f3d46de07d502f7df90eace24b9a`
-- Realization ID: `psr:dataset-realization:latent-capacity-transient-iid-production@sha256:bbb19dee8cb843c7156e23d0c1d20d00c06fcc7c1c58326f59c22c23a80b5119`
-- Realization digest: `sha256:bbb19dee8cb843c7156e23d0c1d20d00c06fcc7c1c58326f59c22c23a80b5119`
-- Manifest digest: `sha256:2334a2e954f8f82536db0f35dc39272db2972cc2af2acb3abf23a9500db6b5a9`
+- Realization ID: `psr:dataset-realization:latent-capacity-transient-iid-production@sha256:2659bad8979e5a00829a50580c14bfbc90579c4520c46c8159dec8c34f1c8cad`
+- Realization digest: `sha256:2659bad8979e5a00829a50580c14bfbc90579c4520c46c8159dec8c34f1c8cad`
+- Manifest digest: `sha256:2655965129f99fa98857f6c9363aa28a0dd964c2d7d8554156c17073e0277e35`
+- Generator-source SHA-256: `sha256:284266740cdaebdbe7108a5abe1acf4a2eeb3c055852b6ebc3c439ec164d1ad3`
+- Generation-config SHA-256: `sha256:979aad4cea7be05ec8c4861ac9025f282c45903e0db0cab72c22d1fcdd87d850`
 
-Two clean production runs produced byte-identical train, validation, and generated manifest files; run 2 also matched the checked-in expected manifest. Generated JSONL is not checked into Git.
+The RES-396 realization is preserved as superseded provenance: realization digest `sha256:bbb19dee8cb843c7156e23d0c1d20d00c06fcc7c1c58326f59c22c23a80b5119`, manifest digest `sha256:2334a2e954f8f82536db0f35dc39272db2972cc2af2acb3abf23a9500db6b5a9`. Its train and validation hashes are unchanged because the source/configuration identity hardening changes manifest identity, not generated row content. It is not a second current manifest. Generated JSONL is not checked into Git.
+
+The opt-in full-production repeatability gate passed: two complete runs produced byte-identical train and validation JSONL, and both manifests matched the canonical manifest above.
