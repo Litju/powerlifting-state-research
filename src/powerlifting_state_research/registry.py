@@ -17,14 +17,14 @@ from .benchmarks.latent_capacity_change_with_transient_expression_forecasting im
 from .benchmarks.latent_origin_capacity_change_forecasting import (
     SPEC as LATENT_ORIGIN_CAPACITY_CHANGE,
 )
-from .benchmarks.observed_origin_performance_change_forecasting import (
-    SPEC as OBSERVED_ORIGIN_PERFORMANCE_CHANGE,
+from .benchmarks.observed_origin_referenced_capacity_change_forecasting import (
+    SPEC as OBSERVED_ORIGIN_REFERENCED_CAPACITY_CHANGE,
+)
+from .benchmarks.performance_forecasting_under_schedule_exposure_reporting_heterogeneity import (
+    SPEC as PERFORMANCE_FORECASTING_UNDER_SCHEDULE_EXPOSURE_REPORTING_HETEROGENEITY,
 )
 from .benchmarks.seasonal_five_target_load_velocity_performance_forecasting import (
     SPEC as SEASONAL_FIVE_TARGET_LOAD_VELOCITY_PERFORMANCE,
-)
-from .benchmarks.training_schedule_exposure_heterogeneity_forecasting import (
-    SPEC as TRAINING_SCHEDULE_EXPOSURE_HETEROGENEITY,
 )
 from .contracts.benchmark import BenchmarkSpec, CompletenessStatus, ImplementationStatus
 from .contracts.components import ComponentClass
@@ -39,9 +39,9 @@ BENCHMARKS: tuple[BenchmarkSpec, ...] = tuple(
             HELD_OUT_FINAL_ORIGIN_FIVE_TARGET,
             LATENT_CAPACITY_CHANGE_WITH_TRANSIENT_EXPRESSION,
             LATENT_ORIGIN_CAPACITY_CHANGE,
-            OBSERVED_ORIGIN_PERFORMANCE_CHANGE,
+            OBSERVED_ORIGIN_REFERENCED_CAPACITY_CHANGE,
             SEASONAL_FIVE_TARGET_LOAD_VELOCITY_PERFORMANCE,
-            TRAINING_SCHEDULE_EXPOSURE_HETEROGENEITY,
+            PERFORMANCE_FORECASTING_UNDER_SCHEDULE_EXPOSURE_REPORTING_HETEROGENEITY,
         ),
         key=lambda item: item.slug,
     )

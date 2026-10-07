@@ -1,14 +1,14 @@
-# Training Schedule/Exposure Heterogeneity Forecasting
+# Performance Forecasting Under Schedule, Exposure, and Reporting Heterogeneity
 
 ## Research question
 
-Within a synthetic system with heterogeneous training schedules, realized exposure, and reporting, can models forecast target-load velocity, load at a reference velocity, next-set velocity loss, and competition-day capacity over 25 days from completed histories? The available evidence does not establish that added heterogeneity improves prediction.
+Can models forecast four performance targets from completed histories in a synthetic system where training schedule, realized exposure, and reporting vary across athletes? The targets are forecast outcomes; the heterogeneity describes the conditions under which performance is forecast. The available evidence does not establish that added heterogeneity improves prediction.
 
 This question is classified as **RETROSPECTIVE_TECHNICAL_CHARACTERIZATION**. It characterizes the recorded task where retrospective; it does not assert that the same wording was the original historical motivation.
 
 ## Scientific objective
 
-Characterize the same four targets when training schedule, realized exposure, and reporting vary in a synthetic system.
+Forecast performance under schedule, exposure, and reporting heterogeneity; the benchmark does not forecast the heterogeneity itself.
 
 ## Specimen and completeness
 
@@ -27,11 +27,11 @@ A reproducible historical specification is not the same as an independent public
 
 | Component | Canonical reference | Resolution |
 |---|---|---|
-| WORLD | heterogeneous_training_schedule_exposure_and_reporting | DIRECT_HISTORICAL_IDENTITY |
+| WORLD | athlete_state_transition_dynamics | DIRECT_HISTORICAL_IDENTITY |
 | POPULATION | unresolved direct identity | UNRESOLVED_DIRECT_ID |
 | INTERVENTION_REGIME | unresolved direct identity | UNRESOLVED_DIRECT_ID |
 | OBSERVATION_MODEL | schedule_reporting_observation | DIRECT_HISTORICAL_IDENTITY |
-| DATASET_SPEC | training_schedule_exposure_heterogeneity_forecasting_sampling_design | DIRECT_HISTORICAL_IDENTITY |
+| DATASET_SPEC | performance_forecasting_under_schedule_exposure_reporting_heterogeneity_sampling_design | DIRECT_HISTORICAL_IDENTITY |
 | TASK | four_target_load_velocity_and_competition_performance_forecast | DIRECT_HISTORICAL_IDENTITY |
 | QOI | four_load_velocity_and_competition_performance_targets | DIRECT_HISTORICAL_IDENTITY |
 | REPRESENTATION | four_target_temporal_inputs | DIRECT_HISTORICAL_IDENTITY |
@@ -56,4 +56,4 @@ These records describe synthetic benchmark formulations. They do not establish r
 
 No historical dataset, checkpoint, or benchmark mechanics are bundled at bootstrap. Public data realizations, model weights, and results require their own identity, provenance, and rights records.
 
-The scientific declaration is available as powerlifting_state_research.benchmarks.training_schedule_exposure_heterogeneity_forecasting. The canonical alias and provenance record is kept in the centralized provenance module.
+The scientific declaration is available as powerlifting_state_research.benchmarks.performance_forecasting_under_schedule_exposure_reporting_heterogeneity. The historical alias and provenance record is kept in the centralized provenance module.

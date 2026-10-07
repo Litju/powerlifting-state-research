@@ -39,6 +39,11 @@ class IdentityResolution(StrEnum):
     UNRESOLVED = "UNRESOLVED"
 
 
+class BenchmarkIdentityAuthority(StrEnum):
+    HISTORICAL_PROJECTION = "HISTORICAL_PROJECTION"
+    PUBLIC_NATIVE = "PUBLIC_NATIVE"
+
+
 class ClaimScope(StrEnum):
     IDENTIFIABILITY = "IDENTIFIABILITY"
     INTERVENTION_EFFECT = "INTERVENTION_EFFECT"
@@ -195,17 +200,39 @@ class BenchmarkSemanticIdentity:
             or not self.claim_scope
         ):
             raise ValueError("benchmark semantic identity is missing a required reference")
-        for label, value in (
-            ("scientific-system config ID", self.scientific_system_config_id),
-            ("dataset-spec ID", self.dataset_spec_id),
-            ("task ID", self.task_id),
-            ("evaluation ID", self.evaluation_id),
+        for label, value, expected_class in (
+            (
+                "scientific-system config ID",
+                self.scientific_system_config_id,
+                "scientific-system-config",
+            ),
+            ("dataset-spec ID", self.dataset_spec_id, "dataset-spec"),
+            ("task ID", self.task_id, "task"),
+            ("evaluation ID", self.evaluation_id, "evaluation"),
         ):
-            require_scientific_id(value, label)
+            require_scientific_id(value, label, expected_class=expected_class)
         for qoi_id in self.qoi_ids:
-            require_scientific_id(qoi_id, "QOI ID")
+            require_scientific_id(qoi_id, "QOI ID", expected_class="qoi")
         if self.representation_id is not None:
-            require_scientific_id(self.representation_id, "representation ID")
+            require_scientific_id(
+                self.representation_id, "representation ID", expected_class="representation"
+            )
+        for label, component, component_class in (
+            ("WORLD", self.world_id, "world"),
+            ("POPULATION", self.population_id, "population"),
+            ("INTERVENTION_REGIME", self.intervention_regime_id, "intervention-regime"),
+            ("OBSERVATION_MODEL", self.observation_model_id, "observation-model"),
+        ):
+            if component.resolution is IdentityResolution.DIRECT:
+                require_scientific_id(
+                    component.id or "", f"{label} ID", expected_class=component_class
+                )
+            elif component.resolution is IdentityResolution.COMMITTED_BY_SYSTEM_CONFIG:
+                require_scientific_id(
+                    component.system_config_id or "",
+                    f"{label} system-config ID",
+                    expected_class="scientific-system-config",
+                )
         if len(set(self.qoi_ids)) != len(self.qoi_ids):
             raise ValueError("QOI identity references must be unique")
 
@@ -264,6 +291,7 @@ class BenchmarkSpec:
     historical_qualification_state: HistoricalQualificationState
     completeness_status: CompletenessStatus
     public_implementation_status: ImplementationStatus
+    identity_authority: BenchmarkIdentityAuthority
     target_ontology: str
     task_type: str
     component_references: tuple[ComponentReference, ...]
@@ -290,6 +318,22 @@ class BenchmarkSpec:
             )
         ):
             raise ValueError("benchmark name, paths, and task semantics must be explicit")
+        if not isinstance(self.identity_authority, BenchmarkIdentityAuthority):
+            raise ValueError("benchmark identity authority must be explicit")
+        if self.identity_authority is BenchmarkIdentityAuthority.PUBLIC_NATIVE:
+            if self.semantic_identity is None or any(
+                component.resolution is not IdentityResolution.DIRECT
+                for component in (
+                    self.semantic_identity.world_id,
+                    self.semantic_identity.population_id,
+                    self.semantic_identity.intervention_regime_id,
+                    self.semantic_identity.observation_model_id,
+                )
+            ):
+                raise ValueError(
+                    "PUBLIC_NATIVE benchmarks need explicit direct WORLD, POPULATION, "
+                    "INTERVENTION_REGIME, and OBSERVATION_MODEL identities"
+                )
 
     @property
     def identity_mintable(self) -> bool:

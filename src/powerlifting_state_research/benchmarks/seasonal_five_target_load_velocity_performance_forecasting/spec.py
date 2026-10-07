@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from ...components import COMPONENT_REGISTRIES
 from ...contracts.benchmark import (
+    BenchmarkIdentityAuthority,
     BenchmarkSpec,
     CompletenessStatus,
     HistoricalQualificationState,
@@ -24,10 +25,11 @@ SPEC = BenchmarkSpec(
     historical_qualification_state=HistoricalQualificationState.NOT_QUALIFIED_OR_UNRESOLVED,
     completeness_status=CompletenessStatus.PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS,
     public_implementation_status=IMPLEMENTATION_STATUS,
+    identity_authority=BenchmarkIdentityAuthority.HISTORICAL_PROJECTION,
     target_ontology="MULTI_OUTPUT_OTHER",
     task_type="MULTI_OUTPUT_SEASONAL_PERFORMANCE_FORECAST",
     component_references=(
-        COMPONENT_REGISTRIES[ComponentClass.WORLD]["seasonal_load_velocity_and_performance"],
+        COMPONENT_REGISTRIES[ComponentClass.WORLD]["latent_state_transition_dynamics"],
         ComponentReference(
             ComponentClass.POPULATION, None, ComponentResolution.UNRESOLVED_DIRECT_ID
         ),

@@ -24,9 +24,9 @@ task_references: dict[str, ComponentReference] = {
         "latent_capacity_change_forecast",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
-    "observed_origin_performance_change_forecast": ComponentReference(
+    "observed_origin_referenced_capacity_change_forecast": ComponentReference(
         ComponentClass.TASK,
-        "observed_origin_performance_change_forecast",
+        "observed_origin_referenced_capacity_change_forecast",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
     "seasonal_five_target_performance_forecast": ComponentReference(

@@ -101,7 +101,11 @@ class DatasetRealizationManifest:
     def __post_init__(self) -> None:
         if not self.dataset_spec_id.strip() or not self.realization_id.strip():
             raise ValueError("dataset spec and realization IDs must be non-empty")
-        require_scientific_id(self.dataset_spec_id, "dataset-spec ID")
+        require_scientific_id(
+            self.dataset_spec_id, "dataset-spec ID", expected_class="dataset-spec"
+        )
+        if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", self.realization_id):
+            raise ValueError("realization ID must be a lowercase hyphenated slug")
         if not (self.generator_identity or self.source_identity):
             raise ValueError("a realization needs a generator or collection source identity")
         if not self.schema_identity.strip() or not self.provenance.strip():
@@ -135,18 +139,31 @@ class DatasetRealizationManifest:
             "observation_availability": sorted(
                 self.observation_availability, key=lambda item: item.field
             ),
+        }
+
+    def manifest_payload(self) -> dict[str, object]:
+        return {
+            **self.identity_payload(),
             "provenance": self.provenance,
             "rights": self.rights,
         }
 
     @property
     def canonical_serialization(self) -> str:
-        return canonical_json(self.identity_payload())
+        return canonical_json(self.manifest_payload())
 
     @property
-    def digest(self) -> str:
+    def realization_digest(self) -> str:
         return sha256_record(self.identity_payload())
 
     @property
+    def manifest_digest(self) -> str:
+        return sha256_record(self.manifest_payload())
+
+    @property
+    def digest(self) -> str:
+        return self.realization_digest
+
+    @property
     def identity_id(self) -> str:
-        return f"psr:dataset-realization:{self.realization_id}@{self.digest}"
+        return f"psr:dataset-realization:{self.realization_id}@{self.realization_digest}"

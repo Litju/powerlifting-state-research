@@ -13,8 +13,11 @@ from powerlifting_state_research.components.source_identity_provenance import (
     SOURCE_COMPONENT_ALIASES,
 )
 from powerlifting_state_research.contracts.benchmark import (
+    BenchmarkIdentityAuthority,
     ClaimScope,
+    ComponentIdentity,
     DecisionCutoff,
+    IdentityResolution,
 )
 from powerlifting_state_research.contracts.comparability import (
     ComparisonProfile,
@@ -48,16 +51,19 @@ from powerlifting_state_research.contracts.shifts import (
 )
 from powerlifting_state_research.evaluation.metrics import (
     MetricName,
+    MetricResult,
     MetricStatus,
     NonFiniteMetricInputPolicy,
     canonical_target_metrics,
 )
 from powerlifting_state_research.evaluation.protocols import (
+    AggregationRecord,
     EvaluationResult,
     MetricEvidenceStatus,
     MetricIdentity,
     PredictionArtifactReference,
     ResultStatus,
+    UncertaintyRecord,
 )
 from powerlifting_state_research.models.references import (
     DeterminismStatus,
@@ -165,6 +171,15 @@ def test_registry_names_aliases_and_completeness_are_explicit() -> None:
     assert SOURCE_COMPONENT_ALIASES["parsimonious_capacity_expression"] == (
         "latent_capacity_transient_performance_expression_dynamics"
     )
+    assert resolve_historical_alias("observed_origin_performance_change_forecasting")[0].slug == (
+        "observed_origin_referenced_capacity_change_forecasting"
+    )
+    assert (
+        resolve_historical_alias("training_schedule_exposure_heterogeneity_forecasting")[0].slug
+        == "performance_forecasting_under_schedule_exposure_reporting_heterogeneity"
+    )
+    with pytest.raises(KeyError):
+        resolve_benchmark("observed_origin_performance_change_forecasting")
     assert "stable_slope_tilt_athlete_state" not in COMPONENT_REGISTRIES[ComponentClass.WORLD]
     assert (
         len(
@@ -185,6 +200,10 @@ def test_registry_names_aliases_and_completeness_are_explicit() -> None:
     assert all(
         spec.identity_mintable is (spec is TRANSIENT_EXPRESSION_BENCHMARK) for spec in BENCHMARKS
     )
+    assert all(
+        spec.identity_authority is BenchmarkIdentityAuthority.HISTORICAL_PROJECTION
+        for spec in BENCHMARKS
+    )
 
 
 def test_scientific_paths_are_migrated_across_code_tests_docs_data_and_results() -> None:
@@ -198,6 +217,60 @@ def test_scientific_paths_are_migrated_across_code_tests_docs_data_and_results()
         assert all((root / path).exists() for path in paths)
         assert all(not any(token in path.as_posix() for token in prohibited) for path in paths)
     assert all(not any(token in world.slug for token in prohibited) for world in WORLD_DECLARATIONS)
+
+
+def test_all_world_names_stay_within_the_causal_state_dynamics_boundary() -> None:
+    prohibited = (
+        "four_target",
+        "five_target",
+        "class_normalized",
+        "cross_lift",
+        "schedule",
+        "exposure",
+        "reporting",
+        "load_velocity",
+        "seasonal",
+    )
+    assert all(
+        not any(term in f"{world.slug} {world.display_name}" for term in prohibited)
+        for world in WORLD_DECLARATIONS
+    )
+    assert {world.component_identity_id for world in WORLD_DECLARATIONS} == {
+        "psr:world:refined-class-normalized-seasonal-cross-lift-world@1.0.0~c7dcec83d1f8",
+        "psr:world:c21-athlete-state-stable-slope-tilt-world@1.0.0~8956f2327a14",
+        "psr:world:c22-heterogeneous-schedule-exposure-world@1.0.0~55a292e3b1c6",
+        "psr:world:world-v2-parsimonious-response-world@1.0.0~a1afbf2f5c1e",
+        "psr:world:early-seasonal-capacity-load-velocity-world@1.0.0~168dadf66c15",
+        "psr:world:v1-dose-memory-response-world@1.0.0~11b6f0033502",
+    }
+    aliases = {alias for world in WORLD_DECLARATIONS for alias in world.historical_aliases}
+    assert {
+        "class_normalized_cross_lift_performance",
+        "four_target_longitudinal_performance_state",
+        "heterogeneous_training_schedule_exposure_and_reporting",
+        "seasonal_load_velocity_and_performance",
+    } <= aliases
+
+
+def test_observed_origin_and_schedule_heterogeneity_names_match_the_estimands() -> None:
+    observed = BENCHMARK_REGISTRY["observed_origin_referenced_capacity_change_forecasting"]
+    schedule = BENCHMARK_REGISTRY[
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity"
+    ]
+    observed_references = {
+        item.component_class: item.canonical_key for item in observed.component_references
+    }
+    assert observed_references[ComponentClass.QOI] == "observed_origin_referenced_capacity_change"
+    assert observed_references[ComponentClass.TASK] == (
+        "observed_origin_referenced_capacity_change_forecast"
+    )
+    assert "heterogeneity_forecasting" not in schedule.slug
+    assert "performance_forecasting_under_schedule_exposure_reporting_heterogeneity" in (
+        schedule.slug
+    )
+    root = Path(__file__).resolve().parents[1]
+    observed_doc = (root / observed.docs_path).read_text(encoding="utf-8")
+    assert "not a difference between two observed performance assessments" in observed_doc
 
 
 def test_frozen_v2_identity_and_all_semantic_axes_change_the_digest() -> None:
@@ -289,6 +362,64 @@ def test_frozen_v2_identity_and_all_semantic_axes_change_the_digest() -> None:
     assert all(item.digest != identity.digest for item in mutations)
 
 
+def test_identity_authority_scopes_historical_system_config_resolution() -> None:
+    spec = TRANSIENT_EXPRESSION_BENCHMARK
+    identity = spec.semantic_identity
+    assert identity is not None
+    assert identity.digest == (
+        "sha256:fbfbe59eb0a8e94b12b424c6d6837dfd455a6c5a55084bb2898b53f741cc6472"
+    )
+    assert spec.identity_authority is BenchmarkIdentityAuthority.HISTORICAL_PROJECTION
+    assert identity.population_id.resolution is IdentityResolution.COMMITTED_BY_SYSTEM_CONFIG
+    assert identity.intervention_regime_id.resolution is (
+        IdentityResolution.COMMITTED_BY_SYSTEM_CONFIG
+    )
+    with pytest.raises(ValueError, match="PUBLIC_NATIVE.*explicit direct"):
+        replace(spec, identity_authority=BenchmarkIdentityAuthority.PUBLIC_NATIVE)
+    with pytest.raises(ValueError, match="authority must be explicit"):
+        replace(spec, identity_authority="PUBLIC_NATIVE")
+    with pytest.raises(ValueError, match="WORLD ID"):
+        replace(
+            identity,
+            world_id=ComponentIdentity(
+                IdentityResolution.DIRECT,
+                id="psr:metric:not-a-world@1.0.0~000000000000",
+            ),
+        )
+    unresolved_identity = replace(
+        identity,
+        population_id=ComponentIdentity(
+            IdentityResolution.UNRESOLVED,
+            reason="historical population identity is unavailable",
+            evidence_ref="provenance:historical-population-gap",
+        ),
+    )
+    incomplete_projection = replace(spec, semantic_identity=unresolved_identity)
+    assert not incomplete_projection.identity_mintable
+    assert incomplete_projection.semantic_digest is None
+    with pytest.raises(ValueError, match="cannot mint an identity"):
+        _ = unresolved_identity.digest
+
+    direct_identity = replace(
+        identity,
+        population_id=ComponentIdentity(
+            IdentityResolution.DIRECT,
+            id="psr:population:public-native@1.0.0~000000000000",
+        ),
+        intervention_regime_id=ComponentIdentity(
+            IdentityResolution.DIRECT,
+            id="psr:intervention-regime:public-native@1.0.0~000000000000",
+        ),
+    )
+    historical_projection = replace(spec, semantic_identity=direct_identity)
+    public_native = replace(
+        historical_projection,
+        identity_authority=BenchmarkIdentityAuthority.PUBLIC_NATIVE,
+    )
+    assert public_native.identity_authority is BenchmarkIdentityAuthority.PUBLIC_NATIVE
+    assert public_native.semantic_digest == historical_projection.semantic_digest
+
+
 def test_names_paths_realizations_models_and_prose_do_not_change_benchmark_identity() -> None:
     spec = TRANSIENT_EXPRESSION_BENCHMARK
     renamed = replace(
@@ -316,10 +447,28 @@ def test_dataset_realization_identity_is_separate_and_records_rights_and_hashes(
     second = _manifest(12)
     assert first.dataset_spec_id == second.dataset_spec_id
     assert first.identity_id != second.identity_id
-    assert first.digest.startswith("sha256:")
+    assert first.realization_digest.startswith("sha256:")
     assert first.canonical_serialization == first.canonical_serialization
     assert first.artifact_hashes[0].sha256 == "a" * 64
     assert first.rights.license_expression == "CC0-1.0"
+    changed_provenance = replace(first, provenance="Updated administrative wording.")
+    changed_rights = replace(
+        first,
+        rights=RightsMetadata("CC-BY-4.0", "Research authors", "REDISTRIBUTABLE"),
+    )
+    assert changed_provenance.realization_digest == first.realization_digest
+    assert changed_rights.realization_digest == first.realization_digest
+    assert changed_provenance.identity_id == first.identity_id
+    assert changed_rights.identity_id == first.identity_id
+    assert changed_provenance.manifest_digest != first.manifest_digest
+    assert changed_rights.manifest_digest != first.manifest_digest
+    assert first.manifest_digest != first.realization_digest
+
+
+@pytest.mark.parametrize("realization_id", ("bad slug", "bad_slug", "bad/slugs", "-bad"))
+def test_dataset_realization_rejects_noncanonical_slugs(realization_id: str) -> None:
+    with pytest.raises(ValueError, match="lowercase hyphenated slug"):
+        replace(_manifest(9), realization_id=realization_id)
 
 
 def test_prediction_firewall_allows_history_and_permitted_plan_only() -> None:
@@ -344,6 +493,29 @@ def test_prediction_firewall_allows_history_and_permitted_plan_only() -> None:
             contract.validate()
 
 
+def test_prediction_contract_rejects_duplicate_scientific_and_row_identities() -> None:
+    contract = _prediction_contract((), allows_plan=False)
+    with pytest.raises(ValueError, match="QOI IDs must be unique"):
+        replace(contract, qoi_ids=(*contract.qoi_ids, contract.qoi_ids[0])).validate()
+    with pytest.raises(ValueError, match="entity identity fields must be unique"):
+        replace(
+            contract,
+            entity_identity_fields=("athlete_id", "athlete_id"),
+        ).validate()
+    with pytest.raises(ValueError, match="row identity fields must be unique"):
+        replace(contract, row_identity_fields=("query_id", "query_id")).validate()
+    with pytest.raises(ValueError, match="prediction input field names must be unique"):
+        replace(
+            contract,
+            inputs=(
+                InputField("history", InformationKind.HISTORICAL_OBSERVATION),
+                InputField("history", InformationKind.STATIC_CONTEXT),
+            ),
+        ).validate()
+    with pytest.raises(ValueError, match="prediction output field names must be unique"):
+        replace(contract, outputs=(contract.outputs[0], contract.outputs[0])).validate()
+
+
 def test_per_target_metrics_and_invalid_value_policies() -> None:
     result = canonical_target_metrics("squat", (1.0, 2.0, 3.0), (1.0, 2.0, 4.0), unit="kg")
     values = {metric.metric: metric for metric in result.metrics}
@@ -363,6 +535,8 @@ def test_per_target_metrics_and_invalid_value_policies() -> None:
     constant_values = {metric.metric: metric for metric in constant.metrics}
     assert constant_values[MetricName.R2].reason == "CONSTANT_TRUTH"
     assert constant_values[MetricName.SRE].reason == "ZERO_TRUTH_POPULATION_SD"
+    with pytest.raises(ValueError, match="metric names must be unique"):
+        replace(result, metrics=(result.metrics[0], result.metrics[0]))
     with pytest.raises(ValueError, match="missing predictions"):
         canonical_target_metrics("squat", (1.0,), (None,), unit="kg")
     missing = canonical_target_metrics(
@@ -383,6 +557,43 @@ def test_per_target_metrics_and_invalid_value_policies() -> None:
         non_finite_policy=NonFiniteMetricInputPolicy.MARK_TARGET_UNDEFINED,
     )
     assert all(metric.reason == "NON_FINITE_VALUE" for metric in non_finite.metrics)
+
+
+def test_durable_numeric_records_reject_non_finite_values_and_invalid_metric_ids() -> None:
+    metric_id = "psr:metric:rmse@1.0.0~000000000000"
+    aggregation = AggregationRecord(
+        "macro-rmse",
+        metric_id,
+        1.5,
+        "kg",
+        ("squat", "bench"),
+        weights=(1.0, 1.0),
+        rationale="Equal target weights.",
+    )
+    assert aggregation.metric_id == metric_id
+    for value in (float("nan"), float("inf"), float("-inf")):
+        with pytest.raises(ValueError, match="aggregate values must be finite"):
+            replace(aggregation, value=value)
+        with pytest.raises(ValueError, match="aggregation weights must be finite"):
+            replace(aggregation, weights=(value, 1.0))
+    with pytest.raises(ValueError, match="metric ID"):
+        replace(aggregation, metric_id="common-evaluation")
+    with pytest.raises(ValueError, match="target names must be unique"):
+        replace(aggregation, target_order=("squat", "squat"))
+    with pytest.raises(ValueError, match="target order must be non-empty"):
+        replace(aggregation, target_order=())
+
+    uncertainty = UncertaintyRecord("squat", "percentile bootstrap", 1.0, 0.5, 1.5, "athlete")
+    for field in ("estimate", "lower", "upper"):
+        with pytest.raises(ValueError, match="must be finite"):
+            replace(uncertainty, **{field: float("nan")})
+        with pytest.raises(ValueError, match="must be finite"):
+            replace(uncertainty, **{field: float("inf")})
+    with pytest.raises(ValueError, match="lower bound"):
+        replace(uncertainty, lower=2.0)
+
+    with pytest.raises(ValueError, match="computed metric values must be finite"):
+        MetricResult(MetricName.RMSE, float("nan"), "kg", MetricStatus.COMPUTED, None, 3)
 
 
 def test_shifts_and_historical_comparability_rules_are_executable() -> None:
@@ -407,7 +618,7 @@ def test_shifts_and_historical_comparability_rules_are_executable() -> None:
     observed = _profile(
         "psr:world:dose-history@1.0.0~000000000000",
         "psr:qoi:observed-origin-change@1.0.0~000000000000",
-        EstimandKind.OBSERVED_ORIGIN_PERFORMANCE_CHANGE,
+        EstimandKind.OBSERVED_ORIGIN_REFERENCED_CAPACITY_CHANGE,
         "psr:evaluation:common@1.0.0~000000000000",
     )
     latent = _profile(
@@ -434,17 +645,31 @@ def test_shifts_and_historical_comparability_rules_are_executable() -> None:
     unmatched = assess_comparability(
         latent_origin,
         transient_expression,
-        common_evaluation_id="common-evaluation",
+        common_evaluation_id="psr:evaluation:common@1.0.0~000000000000",
         support_alignment=SupportAlignment.UNMATCHED,
     )
     assert unmatched.support_match_required and not unmatched.direct_performance_comparable
     matched = assess_comparability(
         latent_origin,
         transient_expression,
-        common_evaluation_id="common-evaluation",
+        common_evaluation_id="psr:evaluation:common@1.0.0~000000000000",
         support_alignment=SupportAlignment.STRATIFIED_MATCHED,
     )
     assert matched.direct_performance_comparable
+    with pytest.raises(ValueError, match="common evaluation ID"):
+        assess_comparability(
+            latent_origin,
+            transient_expression,
+            common_evaluation_id="common-evaluation",
+            support_alignment=SupportAlignment.STRATIFIED_MATCHED,
+        )
+    with pytest.raises(ValueError, match="common evaluation ID"):
+        assess_comparability(
+            latent_origin,
+            transient_expression,
+            common_evaluation_id="psr:metric:common@1.0.0~000000000000",
+            support_alignment=SupportAlignment.STRATIFIED_MATCHED,
+        )
 
 
 def test_evaluation_result_binds_model_data_environment_and_metric_records() -> None:
@@ -505,6 +730,22 @@ def test_evaluation_result_binds_model_data_environment_and_metric_records() -> 
         status=ResultStatus.COMPLETE,
         rights=result_rights,
     )
+    bad_digest = "sha256:" + "0" * 64
+    with pytest.raises(ValueError, match="digest prefix"):
+        replace(prediction, benchmark_spec_digest=bad_digest)
+    with pytest.raises(ValueError, match="digest prefix"):
+        replace(result, benchmark_spec_digest=bad_digest)
+    mismatched_realization_id = "psr:dataset-realization:test-realization@sha256:" + "0" * 64
+    with pytest.raises(ValueError, match="digest does not match"):
+        replace(prediction, dataset_realization_id=mismatched_realization_id)
+    with pytest.raises(ValueError, match="digest does not match"):
+        replace(result, dataset_realization_id=mismatched_realization_id)
+    with pytest.raises(ValueError, match="same benchmark, data, and model"):
+        replace(result, model=ModelReference("psr:model:other@1.0.0~000000000000"))
+    with pytest.raises(ValueError, match="metric identities must be unique"):
+        replace(result, metric_identities=(metric_ids[0], metric_ids[0]))
+    with pytest.raises(ValueError, match="target records must be unique"):
+        replace(result, targets=(target, target))
     changed_prediction = replace(prediction, content_sha256=sha256_bytes(b"corrected predictions"))
     changed_model = replace(
         result,
@@ -522,6 +763,16 @@ def test_evaluation_result_binds_model_data_environment_and_metric_records() -> 
 
 
 def test_checked_in_exports_match_python_sources() -> None:
-    from powerlifting_state_research.exports import check_exports
+    import json
+
+    from powerlifting_state_research.contracts.benchmark import BenchmarkSpec
+    from powerlifting_state_research.exports import check_exports, schema_document
 
     assert check_exports() == ()
+    assert "Python contract validator" in schema_document(BenchmarkSpec)["x-semantic-validation"]
+    schema = json.loads(
+        (Path(__file__).resolve().parents[1] / "schemas/benchmark-spec.schema.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    assert "Semantic and cross-field invariants" in schema["$comment"]

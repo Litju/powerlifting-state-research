@@ -1,6 +1,6 @@
-# Training Schedule/Exposure Heterogeneity Forecasting
+# Performance Forecasting Under Schedule, Exposure, and Reporting Heterogeneity
 
-Characterize the same four targets when training schedule, realized exposure, and reporting vary in a synthetic system.
+Forecast performance under heterogeneous training schedules, realized exposure, and reporting in a synthetic system.
 
 **Research question:** Within a synthetic system with heterogeneous training schedules, realized exposure, and reporting, can models forecast target-load velocity, load at a reference velocity, next-set velocity loss, and competition-day capacity over 25 days from completed histories? The available evidence does not establish that added heterogeneity improves prediction.
 
@@ -8,4 +8,4 @@ Characterize the same four targets when training schedule, realized exposure, an
 
 The typed declaration is in spec.py, the research record is in research.py, and historical aliases are centralized in the package provenance registry. No benchmark mechanics or historical data are included.
 
-See the [full research card](../../../../docs/benchmarks/training-schedule-exposure-heterogeneity-forecasting.md) for component references, information boundaries, and claim limits.
+See the [full research card](../../../../docs/benchmarks/performance-forecasting-under-schedule-exposure-reporting-heterogeneity.md) for component references, information boundaries, and claim limits.

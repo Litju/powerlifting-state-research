@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from ...components import COMPONENT_REGISTRIES
 from ...contracts.benchmark import (
+    BenchmarkIdentityAuthority,
     BenchmarkSemanticIdentity,
     BenchmarkSpec,
     ClaimScope,
@@ -30,6 +31,7 @@ SPEC = BenchmarkSpec(
     historical_qualification_state=HistoricalQualificationState.QUALIFIED_HISTORICAL,
     completeness_status=CompletenessStatus.FULL_FROM_EXISTING_EVIDENCE,
     public_implementation_status=IMPLEMENTATION_STATUS,
+    identity_authority=BenchmarkIdentityAuthority.HISTORICAL_PROJECTION,
     target_ontology="LATENT_CAPACITY_CHANGE",
     task_type="LATENT_CAPACITY_CHANGE_FORECAST",
     component_references=(

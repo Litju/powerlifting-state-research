@@ -36,12 +36,28 @@ class MetricResult:
     reason: str | None
     sample_count: int
 
+    def __post_init__(self) -> None:
+        if not self.unit.strip() or self.sample_count < 0:
+            raise ValueError("metric results need a unit and non-negative sample count")
+        if self.status is MetricStatus.COMPUTED:
+            if self.value is None or not math.isfinite(self.value):
+                raise ValueError("computed metric values must be finite")
+        elif self.value is not None or not self.reason or not self.reason.strip():
+            raise ValueError("undefined metrics need no value and an explicit reason")
+
 
 @dataclass(frozen=True, slots=True)
 class TargetMetrics:
     target: str
     target_unit: str
     metrics: tuple[MetricResult, ...]
+
+    def __post_init__(self) -> None:
+        if not self.target.strip() or not self.target_unit.strip():
+            raise ValueError("target metrics need a target and unit")
+        names = [item.metric for item in self.metrics]
+        if len(names) != len(set(names)):
+            raise ValueError("target metric names must be unique")
 
 
 def _undefined(target_unit: str, sample_count: int, reason: str) -> tuple[MetricResult, ...]:

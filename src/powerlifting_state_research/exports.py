@@ -58,6 +58,7 @@ def registry_document() -> dict[str, object]:
                 "historical_qualification_state": spec.historical_qualification_state,
                 "completeness_status": spec.completeness_status,
                 "public_implementation_status": spec.public_implementation_status,
+                "identity_authority": spec.identity_authority,
                 "target_ontology": spec.target_ontology,
                 "task_type": spec.task_type,
                 "component_references": spec.component_references,
@@ -144,6 +145,10 @@ def schema_document(model: type[Any]) -> dict[str, object]:
         "$ref": f"#/$defs/{model.__name__}",
         "$defs": definitions,
         "x-generator": GENERATOR,
+        "x-semantic-validation": (
+            "JSON Schema describes record structure only; semantic and cross-field invariants "
+            "require the authoritative Python contract validator."
+        ),
     }
 
 

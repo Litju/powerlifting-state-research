@@ -1,5 +1,5 @@
 {
-  "$comment": "Bootstrap interchange schema generated from typed Python declarations; no execution engine is implied.",
+  "$comment": "JSON Schema describes record structure only. Semantic and cross-field invariants are enforced by the authoritative Python contract validator; no execution engine is implied.",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "properties": {

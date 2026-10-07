@@ -10,8 +10,8 @@ RESEARCH = ResearchMetadata(
         "available evidence does not establish that added heterogeneity improves prediction."
     ),
     canonical_scientific_objective=(
-        "Characterize the same four targets when training schedule, realized exposure, and reporting "
-        "vary in a synthetic system."
+        "Forecast performance targets under schedule, exposure, and reporting heterogeneity; the "
+        "benchmark does not forecast the heterogeneity itself."
     ),
     research_question_evidence_class="RETROSPECTIVE_TECHNICAL_CHARACTERIZATION",
     information_setting="HISTORY_ONLY",

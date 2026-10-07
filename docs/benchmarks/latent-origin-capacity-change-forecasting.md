@@ -48,7 +48,7 @@ Repeated canonical references are declared once in the shared component modules.
 
 - Individual causal treatment effect or responder classification.
 - Human validity, biological parameter ID, broad OOD, hidden/final qualification.
-- Raw score ranking against observed-origin performance change or latent capacity change with transient performance expression.
+- Raw score ranking against the observed-origin-referenced capacity target or latent capacity change with transient performance expression.
 
 These records describe synthetic benchmark formulations. They do not establish real-athlete validity, causal training effects, biological parameter recovery, or general-domain transfer.
 

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from ...components import COMPONENT_REGISTRIES
 from ...contracts.benchmark import (
+    BenchmarkIdentityAuthority,
     BenchmarkSpec,
     CompletenessStatus,
     HistoricalQualificationState,
@@ -15,21 +16,20 @@ from ...contracts.components import ComponentClass, ComponentReference, Componen
 IMPLEMENTATION_STATUS = ImplementationStatus.PUBLIC_IMPLEMENTATION_PENDING
 
 SPEC = BenchmarkSpec(
-    display_name="Training Schedule/Exposure Heterogeneity Forecasting",
-    slug="training_schedule_exposure_heterogeneity_forecasting",
-    python_namespace="powerlifting_state_research.benchmarks.training_schedule_exposure_heterogeneity_forecasting",
-    docs_path="docs/benchmarks/training-schedule-exposure-heterogeneity-forecasting.md",
-    test_path="tests/benchmarks/training_schedule_exposure_heterogeneity_forecasting/test_spec.py",
+    display_name="Performance Forecasting Under Schedule, Exposure, and Reporting Heterogeneity",
+    slug="performance_forecasting_under_schedule_exposure_reporting_heterogeneity",
+    python_namespace="powerlifting_state_research.benchmarks.performance_forecasting_under_schedule_exposure_reporting_heterogeneity",
+    docs_path="docs/benchmarks/performance-forecasting-under-schedule-exposure-reporting-heterogeneity.md",
+    test_path="tests/benchmarks/performance_forecasting_under_schedule_exposure_reporting_heterogeneity/test_spec.py",
     historical_specimen_status=HistoricalSpecimenStatus.PARTIALLY_RECONSTRUCTED,
     historical_qualification_state=HistoricalQualificationState.NOT_QUALIFIED_OR_UNRESOLVED,
     completeness_status=CompletenessStatus.PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS,
     public_implementation_status=IMPLEMENTATION_STATUS,
+    identity_authority=BenchmarkIdentityAuthority.HISTORICAL_PROJECTION,
     target_ontology="MULTI_OUTPUT_OTHER",
     task_type="FOUR_TARGET_25_DAY_PERFORMANCE_FORECAST",
     component_references=(
-        COMPONENT_REGISTRIES[ComponentClass.WORLD][
-            "heterogeneous_training_schedule_exposure_and_reporting"
-        ],
+        COMPONENT_REGISTRIES[ComponentClass.WORLD]["athlete_state_transition_dynamics"],
         ComponentReference(
             ComponentClass.POPULATION, None, ComponentResolution.UNRESOLVED_DIRECT_ID
         ),
@@ -38,7 +38,7 @@ SPEC = BenchmarkSpec(
         ),
         COMPONENT_REGISTRIES[ComponentClass.OBSERVATION_MODEL]["schedule_reporting_observation"],
         COMPONENT_REGISTRIES[ComponentClass.DATASET_SPEC][
-            "training_schedule_exposure_heterogeneity_forecasting_sampling_design"
+            "performance_forecasting_under_schedule_exposure_reporting_heterogeneity_sampling_design"
         ],
         COMPONENT_REGISTRIES[ComponentClass.TASK][
             "four_target_load_velocity_and_competition_performance_forecast"

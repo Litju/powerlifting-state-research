@@ -17,9 +17,9 @@ qoi_references: dict[str, ComponentReference] = {
     "latent_capacity_change": ComponentReference(
         ComponentClass.QOI, "latent_capacity_change", ComponentResolution.DIRECT_HISTORICAL_IDENTITY
     ),
-    "observed_origin_performance_change": ComponentReference(
+    "observed_origin_referenced_capacity_change": ComponentReference(
         ComponentClass.QOI,
-        "observed_origin_performance_change",
+        "observed_origin_referenced_capacity_change",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
     "seasonal_five_target_performance_outputs": ComponentReference(

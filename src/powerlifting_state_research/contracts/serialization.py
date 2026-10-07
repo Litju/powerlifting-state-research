@@ -11,13 +11,39 @@ from dataclasses import fields, is_dataclass
 from enum import Enum
 from typing import Any
 
-_SCIENTIFIC_ID = re.compile(r"^psr:[a-z0-9-]+:[a-z0-9][a-z0-9-]*@[^~]+~[a-f0-9]{12}$")
+_SCIENTIFIC_ID = re.compile(r"^psr:(?P<class>[a-z0-9-]+):[a-z0-9][a-z0-9-]*@[^~]+~[a-f0-9]{12}$")
+_SHA256_DIGEST = re.compile(r"^sha256:[a-f0-9]{64}$")
+_BENCHMARK_ID = re.compile(
+    r"^psr:benchmark-spec:[a-z0-9][a-z0-9-]*@[0-9]+\.[0-9]+\.[0-9]+~(?P<prefix>[a-f0-9]{12})$"
+)
+_DATASET_REALIZATION_ID = re.compile(
+    r"^psr:dataset-realization:[a-z0-9]+(?:-[a-z0-9]+)*@(?P<digest>sha256:[a-f0-9]{64})$"
+)
 
 
-def require_scientific_id(value: str, label: str) -> None:
+def require_scientific_id(value: str, label: str, *, expected_class: str | None = None) -> None:
     """Validate the stable public ID form used by component references."""
-    if not _SCIENTIFIC_ID.fullmatch(value):
+    match = _SCIENTIFIC_ID.fullmatch(value)
+    if match is None or (expected_class is not None and match["class"] != expected_class):
         raise ValueError(f"{label} must be a complete versioned scientific ID")
+
+
+def require_benchmark_digest_match(benchmark_id: str, digest: str, label: str) -> None:
+    match = _BENCHMARK_ID.fullmatch(benchmark_id)
+    if match is None or not _SHA256_DIGEST.fullmatch(digest):
+        raise ValueError(f"{label} must reference a minted benchmark ID and full SHA-256 digest")
+    if digest[7:19] != match["prefix"]:
+        raise ValueError(f"{label} digest prefix does not match the benchmark ID")
+
+
+def require_dataset_realization_digest_match(realization_id: str, digest: str, label: str) -> None:
+    match = _DATASET_REALIZATION_ID.fullmatch(realization_id)
+    if match is None or not _SHA256_DIGEST.fullmatch(digest):
+        raise ValueError(
+            f"{label} must reference a canonical dataset realization ID and full SHA-256 digest"
+        )
+    if digest != match["digest"]:
+        raise ValueError(f"{label} digest does not match the dataset realization ID")
 
 
 def _plain(value: Any, *, reject_floats: bool) -> Any:
