@@ -7,6 +7,9 @@ def test_shared_dose_history_world_keeps_distinct_origin_estimands() -> None:
     transient_expression = BENCHMARK_REGISTRY[
         "latent_capacity_change_with_transient_expression_forecasting"
     ]
+    iid_transient_expression = BENCHMARK_REGISTRY[
+        "iid_latent_capacity_change_with_transient_expression_forecasting"
+    ]
 
     def reference(spec, kind):
         return next(
@@ -19,6 +22,12 @@ def test_shared_dose_history_world_keeps_distinct_origin_estimands() -> None:
     assert (
         reference(latent, "QOI").canonical_key
         == reference(transient_expression, "QOI").canonical_key
+    )
+    assert reference(transient_expression, "WORLD") == reference(iid_transient_expression, "WORLD")
+    assert reference(transient_expression, "TASK") == reference(iid_transient_expression, "TASK")
+    assert reference(transient_expression, "QOI") == reference(iid_transient_expression, "QOI")
+    assert reference(transient_expression, "DATASET_SPEC") != reference(
+        iid_transient_expression, "DATASET_SPEC"
     )
     assert (
         reference(latent, "WORLD").canonical_key

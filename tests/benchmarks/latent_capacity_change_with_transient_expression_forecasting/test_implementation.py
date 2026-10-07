@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import random
 from collections import Counter
 from dataclasses import asdict, replace
@@ -14,6 +15,7 @@ from powerlifting_state_research.contracts.serialization import canonical_json_b
 DEFAULT_CONFIG = benchmark.DEFAULT_CONFIG
 GenerationConfig = benchmark.dataset.GenerationConfig
 iter_public_rows = benchmark.iter_public_rows
+_row_records = benchmark.dataset._row_records
 validate_public_row = benchmark.validate_public_row
 LiftParameters = benchmark.dynamics.LiftParameters
 TrainingSession = benchmark.dynamics.TrainingSession
@@ -188,3 +190,71 @@ def test_production_counts_strata_disjointness_and_repeat_serialization() -> Non
     assert first == second
     assert not first[2] & first[3]
     assert all(first[4][stratum] == 102 for stratum in first[4])
+
+
+def test_serialization_seed_changes_only_serialized_order(tmp_path) -> None:
+    config = GenerationConfig(train_rows=24, validation_rows=12)
+    first = benchmark.write_public_realization(tmp_path / "first", config)
+    second = benchmark.write_public_realization(
+        tmp_path / "second", replace(config, serialization_seed=config.serialization_seed + 1)
+    )
+
+    def read_rows(path):
+        return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines()]
+
+    first_rows = {
+        split: read_rows(first.output_directory / f"{split}.jsonl")
+        for split in ("train", "validation")
+    }
+    second_rows = {
+        split: read_rows(second.output_directory / f"{split}.jsonl")
+        for split in ("train", "validation")
+    }
+    assert {split: {row["row_id"]: row for row in rows} for split, rows in first_rows.items()} == {
+        split: {row["row_id"]: row for row in rows} for split, rows in second_rows.items()
+    }
+    assert any(
+        [row["row_id"] for row in first_rows[split]]
+        != [row["row_id"] for row in second_rows[split]]
+        for split in ("train", "validation")
+    )
+
+
+def test_scientific_seed_ownership_isolated() -> None:
+    config = GenerationConfig(train_rows=24, validation_rows=12)
+
+    def rows(cfg):
+        return {row.row_id: row for _, row in iter_public_rows(cfg)}
+
+    baseline = rows(config)
+
+    changed_population = rows(replace(config, population_seed=config.population_seed + 1))
+    assert baseline.keys() == changed_population.keys()
+    assert any(baseline[key].targets != changed_population[key].targets for key in baseline)
+
+    changed_observations = rows(replace(config, observation_seed=config.observation_seed + 1))
+    assert {
+        key: (row.inputs.declared_future_plan, row.inputs.horizon_days, row.targets)
+        for key, row in baseline.items()
+    } == {
+        key: (row.inputs.declared_future_plan, row.inputs.horizon_days, row.targets)
+        for key, row in changed_observations.items()
+    }
+    assert any(
+        baseline[key].inputs.lifts != changed_observations[key].inputs.lifts for key in baseline
+    )
+
+
+def test_intervention_and_split_seeds_change_only_their_allocations() -> None:
+    config = GenerationConfig(train_rows=768, validation_rows=768)
+    records = _row_records(config)
+    intervention_changed = _row_records(
+        replace(config, intervention_seed=config.intervention_seed + 1)
+    )
+    assert [(row[1], *row[2:]) for row in records] != [
+        (row[1], *row[2:]) for row in intervention_changed
+    ]
+
+    split_changed = _row_records(replace(config, split_seed=config.split_seed + 1))
+    assert [(row[1], *row[2:]) for row in records] == [(row[1], *row[2:]) for row in split_changed]
+    assert [row[0] for row in records] != [row[0] for row in split_changed]

@@ -1,4 +1,4 @@
-"""Importable package exposing one scientific benchmark record."""
+"""Importable mechanics package backing historical and public-native benchmark records."""
 
 from .dataset import (
     DEFAULT_CONFIG,
@@ -12,7 +12,7 @@ from .dataset import (
 from .implementation import IMPLEMENTATION_STATUS
 from .provenance import PROVENANCE
 from .research import RESEARCH
-from .spec import SPEC
+from .spec import PUBLIC_NATIVE_SPEC, SPEC
 
 __all__ = [
     "DEFAULT_CONFIG",
@@ -21,6 +21,7 @@ __all__ = [
     "PROVENANCE",
     "PublicForecastRow",
     "PublicRealization",
+    "PUBLIC_NATIVE_SPEC",
     "RESEARCH",
     "SPEC",
     "iter_public_rows",

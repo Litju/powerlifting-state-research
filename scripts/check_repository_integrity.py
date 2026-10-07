@@ -98,8 +98,8 @@ def git_files(*options: str) -> set[str]:
 
 
 def check_registry() -> None:
-    if len(BENCHMARKS) != 8 or len(BENCHMARK_REGISTRY) != 8:
-        fail("benchmark registry must contain exactly 8 canonical records")
+    if len(BENCHMARKS) != 9 or len(BENCHMARK_REGISTRY) != 9:
+        fail("benchmark registry must contain 8 historical records and 1 public-native variant")
     slugs = {spec.slug for spec in BENCHMARKS}
     if len(slugs) != len(BENCHMARKS):
         fail("benchmark slugs must be unique")
@@ -115,9 +115,16 @@ def check_registry() -> None:
     for spec in BENCHMARKS:
         if not isinstance(spec.public_implementation_status, ImplementationStatus):
             fail(f"invalid implementation status: {spec.slug}")
+        shared_namespace = (
+            spec.identity_authority is BenchmarkIdentityAuthority.PUBLIC_NATIVE
+            and len(spec.related_benchmark_slugs) == 1
+            and spec.related_benchmark_slugs[0] in BENCHMARK_REGISTRY
+            and BENCHMARK_REGISTRY[spec.related_benchmark_slugs[0]].python_namespace
+            == spec.python_namespace
+        )
         if (
             spec.slug.startswith("benchmark_")
-            or spec.python_namespace.rsplit(".", 1)[-1] != spec.slug
+            or (spec.python_namespace.rsplit(".", 1)[-1] != spec.slug and not shared_namespace)
             or spec.docs_path != f"docs/benchmarks/{spec.slug.replace('_', '-')}.md"
             or spec.test_path != f"tests/benchmarks/{spec.slug}/test_spec.py"
         ):
@@ -151,6 +158,19 @@ def check_registry() -> None:
     spec = resolve_benchmark("latent_capacity_change_with_transient_expression_forecasting")
     if not spec.identity_mintable or spec.semantic_digest != DIGEST:
         fail("frozen historical benchmark digest or mintability changed")
+    native = resolve_benchmark("iid_latent_capacity_change_with_transient_expression_forecasting")
+    if (
+        native.identity_authority is not BenchmarkIdentityAuthority.PUBLIC_NATIVE
+        or native.public_implementation_status is not ImplementationStatus.PUBLIC_IMPLEMENTED
+        or native.semantic_digest == spec.semantic_digest
+        or native.semantic_identity is None
+        or native.semantic_identity.dataset_spec_id == spec.semantic_identity.dataset_spec_id
+        or native.related_benchmark_slugs != (spec.slug,)
+        or spec.related_benchmark_slugs != (native.slug,)
+        or spec.public_implementation_status
+        is not ImplementationStatus.PUBLIC_IMPLEMENTATION_PENDING
+    ):
+        fail("historical projection and public-native identity/status relation is inconsistent")
     for path in check_exports():
         fail(f"generated export is stale or missing: {path}")
 
@@ -242,7 +262,10 @@ def main() -> int:
         print("FAIL: public repository integrity scan")
         print("\n".join(f"- {error}" for error in ERRORS))
         return 1
-    print(f"PASS: 8 benchmarks; frozen digest; exports; public safety; {rows} rights-ledger rows")
+    print(
+        f"PASS: 9 benchmark records (8 historical); frozen digest; exports; public safety; "
+        f"{rows} rights-ledger rows"
+    )
     return 0
 
 

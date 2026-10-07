@@ -59,12 +59,13 @@ def registry_document() -> dict[str, object]:
                 "completeness_status": spec.completeness_status,
                 "public_implementation_status": spec.public_implementation_status,
                 "identity_authority": spec.identity_authority,
+                "related_benchmark_slugs": spec.related_benchmark_slugs,
                 "target_ontology": spec.target_ontology,
                 "task_type": spec.task_type,
                 "component_references": spec.component_references,
                 "semantic_identity_payload": spec.identity_payload,
                 "research": research,
-                "historical_provenance": HISTORICAL_SOURCES[spec.slug],
+                "historical_provenance": HISTORICAL_SOURCES.get(spec.slug),
             }
         )
     worlds = [

@@ -12,7 +12,9 @@ Evaluate latent capacity-change forecasting in a synthetic system separating chr
 
 ## Specimen and completeness
 
-Historical specimen status: REPRODUCIBLE_SPEC. Historical qualification: QUALIFIED_HISTORICAL. Completeness: FULL_FROM_EXISTING_EVIDENCE. Public implementation: PUBLIC_IMPLEMENTED.
+Historical specimen status: REPRODUCIBLE_SPEC. Historical qualification: QUALIFIED_HISTORICAL. Completeness: FULL_FROM_EXISTING_EVIDENCE. Public implementation of this exact historical BenchmarkSpec: PUBLIC_IMPLEMENTATION_PENDING.
+
+The executable public IID variant is a separate PUBLIC_NATIVE BenchmarkSpec: [IID-Sampled Latent Capacity-Change Forecasting with Transient Performance Expression](iid-latent-capacity-change-with-transient-expression-forecasting.md). Its DatasetSpec differs because historical production used scrambled Sobol sampling and the public-native generator uses IID pseudorandom Uniform(0,1). The historical benchmark digest below remains unchanged.
 
 A reproducible historical specification is not the same as an independent public implementation or a qualification result.
 
@@ -55,7 +57,7 @@ These records describe synthetic benchmark formulations. They do not establish r
 
 ## Data and implementation
 
-The public implementation is in `src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/`. It uses the canonical world name and separates chronic adaptation `A`, latent capacity `C`, transient suppression `R`, expressed performance `P`, and recorded observations.
+The independently authored mechanics are in `src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/` and execute the separate public-native variant. They use the shared world mechanics and separate chronic adaptation `A`, latent capacity `C`, transient suppression `R`, expressed performance `P`, and recorded observations. Public implementation status belongs to that native BenchmarkSpec, not this historical projection.
 
 For each lift `l` and day `t`, dose `d` and intensity `i` produce bounded stimulus `s`:
 
@@ -92,6 +94,6 @@ python -m powerlifting_state_research.benchmarks.latent_capacity_change_with_tra
 
 Generated JSONL is left under `data/synthetic/` and is not checked in. The manifest is tracked under `data/manifests/realizations/`; realization identity does not alter the frozen benchmark digest.
 
-Historical qualification identified missing public detail. The state equations, population measure/support, observation law, and declared future-plan set are **SCIENTIFICALLY_IDENTITY_BEARING**. The finite history-template allocation and plan/horizon row counts are **DATASET_REALIZATION_BEARING**. These requirements are stated here in new public wording with qualification provenance; the frozen benchmark digest remains unchanged. Public generation uses independent uniform draws, not the historical scrambled Sobol points, so the finite population realization differs (**DATASET_REALIZATION_BEARING**). Canonical JSONL instead of Parquet and the seed/ordering codec are **SERIALIZATION_ONLY**. No historical dataset or checkpoint is bundled or used at runtime. This implementation claims no real-athlete validity, biological parameter recovery, or intervention efficacy.
+Historical qualification identified the state equations, population transform/support, observation law, and declared future-plan set as **SCIENTIFICALLY_IDENTITY_BEARING**. The historical DatasetSpec includes scrambled Sobol sampling. Public IID sampling is therefore **DATASET_SPEC_BEARING**, not realization-only. The public-native record preserves the fully specified IID design without changing this historical projection's digest. Canonical JSONL instead of Parquet and output ordering are **SERIALIZATION_ONLY**. No historical dataset or checkpoint is bundled or used at runtime. These synthetic benchmarks claim no real-athlete validity, biological parameter recovery, or intervention efficacy.
 
 The scientific declaration is available as powerlifting_state_research.benchmarks.latent_capacity_change_with_transient_expression_forecasting. The canonical alias and provenance record is kept in the centralized provenance module.

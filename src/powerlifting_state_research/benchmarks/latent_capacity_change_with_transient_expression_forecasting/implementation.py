@@ -1,4 +1,4 @@
-"""Executable public implementation of the frozen latent-capacity task."""
+"""Executable public-native IID implementation of the latent-capacity task."""
 
 from __future__ import annotations
 
@@ -10,7 +10,7 @@ from ...contracts.benchmark import ImplementationStatus
 from .dataset import DEFAULT_CONFIG, GenerationConfig, write_manifest_copy, write_public_realization
 
 IMPLEMENTATION_STATUS = ImplementationStatus.PUBLIC_IMPLEMENTED
-PUBLIC_IMPLEMENTATION = "latent_capacity_transient_performance_expression_dynamics/public-v4"
+PUBLIC_IMPLEMENTATION = "iid_latent_capacity_change_with_transient_expression_forecasting"
 
 
 def main(argv: Sequence[str] | None = None) -> int:
@@ -19,7 +19,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         "--output",
         type=Path,
         default=Path(
-            "data/synthetic/latent_capacity_change_with_transient_expression_forecasting/public-v4"
+            "data/synthetic/latent_capacity_change_with_transient_expression_forecasting/iid-production"
         ),
         help="new directory for train.jsonl, validation.jsonl, and manifest.json",
     )
@@ -28,7 +28,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         type=Path,
         default=Path(
             "data/manifests/realizations/"
-            "latent_capacity_change_with_transient_expression_forecasting/public-v4.json"
+            "latent_capacity_change_with_transient_expression_forecasting/iid-production.json"
         ),
         help="tracked copy of the DatasetRealizationManifest",
     )

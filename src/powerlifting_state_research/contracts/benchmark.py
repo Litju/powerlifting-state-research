@@ -302,6 +302,7 @@ class BenchmarkSpec:
     contract_schema_version: str = "1.0.0"
     semantic_identity: BenchmarkSemanticIdentity | None = None
     version: str = "1.0.0"
+    related_benchmark_slugs: tuple[str, ...] = ()
 
     def __post_init__(self) -> None:
         if not re.fullmatch(r"[a-z0-9][a-z0-9_]*", self.slug):
@@ -324,6 +325,14 @@ class BenchmarkSpec:
             raise ValueError("benchmark name, paths, and task semantics must be explicit")
         if not isinstance(self.identity_authority, BenchmarkIdentityAuthority):
             raise ValueError("benchmark identity authority must be explicit")
+        if self.slug in self.related_benchmark_slugs or len(
+            set(self.related_benchmark_slugs)
+        ) != len(self.related_benchmark_slugs):
+            raise ValueError("related benchmark slugs must be unique and exclude this benchmark")
+        if any(
+            not re.fullmatch(r"[a-z0-9][a-z0-9_]*", slug) for slug in self.related_benchmark_slugs
+        ):
+            raise ValueError("related benchmark slugs must be lowercase scientific identifiers")
         if self.identity_authority is BenchmarkIdentityAuthority.PUBLIC_NATIVE:
             if self.semantic_identity is None or any(
                 component.resolution is not IdentityResolution.DIRECT

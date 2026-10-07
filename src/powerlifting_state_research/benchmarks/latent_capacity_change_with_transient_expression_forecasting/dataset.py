@@ -69,18 +69,19 @@ from .population import (
     AthleteProfile,
     sample_athlete,
 )
+from .spec import PUBLIC_NATIVE_DATASET_SPEC_ID
 
 PRODUCTION_ROWS = {"train": 12_288, "validation": 3_072}
 SCHEMA_IDENTITY = "latent-capacity-transient-participant-row-v2"
 GENERATOR_IDENTITY = (
     "powerlifting_state_research.benchmarks."
-    "latent_capacity_change_with_transient_expression_forecasting.dataset:public-v4"
+    "latent_capacity_change_with_transient_expression_forecasting.dataset:iid-public-production"
 )
-REALIZATION_ID = "latent-capacity-transient-public-v4"
-DATASET_SPEC_ID = (
-    "psr:dataset-spec:pl-response-v2-parsimonious-production-sampling-design@1.0.0~7098655518cd"
+REALIZATION_ID = "latent-capacity-transient-iid-production"
+DATASET_SPEC_ID = PUBLIC_NATIVE_DATASET_SPEC_ID
+SOURCE_IDENTITY = (
+    "docs/benchmarks/iid-latent-capacity-change-with-transient-expression-forecasting.md"
 )
-SOURCE_IDENTITY = "docs/benchmarks/latent-capacity-change-with-transient-expression-forecasting.md"
 
 
 @dataclass(frozen=True, slots=True)
@@ -164,7 +165,9 @@ PUBLIC_GENERATION_CONFIGURATION: dict[str, object] = {
     },
     "population": {
         "coordinates": COORDINATE_ORDER,
-        "measure": "independent uniform coordinates in [0,1)",
+        "measure": "independent Uniform(0,1) coordinates",
+        "sampling_algorithm": ("IID pseudorandom draws from random.Random(population_seed).random"),
+        "sampling_order": "one complete coordinate vector per entity in increasing entity index",
         "baseline_scale_kg": BASELINE_SCALE_KG_RANGE,
         "bench_ratio": BENCH_RATIO_RANGE,
         "deadlift_ratio": DEADLIFT_RATIO_RANGE,
@@ -211,13 +214,13 @@ PUBLIC_GENERATION_CONFIGURATION: dict[str, object] = {
     },
     "production_rows": PRODUCTION_ROWS,
     "schema": SCHEMA_IDENTITY,
-    "serialization": "seeded row order; compact sorted-key UTF-8 JSONL; LF",
+    "serialization": "seeded permutation after row completion; compact sorted-key UTF-8 JSONL; LF",
     "rng_ownership": (
         "population",
-        "intervention/history and plan-horizon stratum order",
-        "split membership within each stratum",
+        "intervention/history-template and plan-horizon stratum order",
+        "split labels within fixed history-template groups",
         "observation noise",
-        "serialization order",
+        "serialization order over complete rows",
     ),
 }
 PUBLIC_GENERATION_CONFIGURATION_SHA256 = sha256_record(PUBLIC_GENERATION_CONFIGURATION)
@@ -239,13 +242,21 @@ def _row_records(config: GenerationConfig) -> list[tuple[str, int, str, int, tup
                 intervention_rng, validation_per_stratum
             ),
         }
-        split_labels = ["train"] * train_per_stratum + ["validation"] * validation_per_stratum
-        split_rng.shuffle(split_labels)
-        for split in split_labels:
-            templates = templates_by_split[split].pop()
-            records.append((split, next_entity, plan_id, horizon, templates))
-            next_entity += 1
-    random.Random(config.serialization_seed).shuffle(records)
+        template_order = dict.fromkeys(
+            (*templates_by_split["train"], *templates_by_split["validation"])
+        )
+        # ponytail: scans at most 64 template groups per stratum; pre-count if dimensions grow.
+        for templates in template_order:
+            split_labels = [
+                split
+                for split, assignments in templates_by_split.items()
+                for assignment in assignments
+                if assignment == templates
+            ]
+            split_rng.shuffle(split_labels)
+            for split in split_labels:
+                records.append((split, next_entity, plan_id, horizon, templates))
+                next_entity += 1
     return records
 
 
@@ -395,17 +406,21 @@ def write_public_realization(
         entity_ids: dict[str, set[str]] = {split: set() for split in ("train", "validation")}
         row_ids: set[str] = set()
         row_counts = {split: 0 for split in ("train", "validation")}
+        serialized_rows = [
+            (split, row.row_id, canonical_json_bytes(row) + b"\n")
+            for split, row in iter_public_rows(config)
+        ]
+        random.Random(config.serialization_seed).shuffle(serialized_rows)
         with (
             (staging / "train.jsonl").open("wb") as train_file,
             (staging / "validation.jsonl").open("wb") as validation_file,
         ):
             sinks = {"train": train_file, "validation": validation_file}
-            for split, row in iter_public_rows(config):
-                if row.row_id in row_ids or row.inputs.entity_id in entity_ids[split]:
+            for split, row_id, payload in serialized_rows:
+                if row_id in row_ids or row_id in entity_ids[split]:
                     raise ValueError("generated row/entity identities are not unique")
-                row_ids.add(row.row_id)
-                entity_ids[split].add(row.inputs.entity_id)
-                payload = canonical_json_bytes(row) + b"\n"
+                row_ids.add(row_id)
+                entity_ids[split].add(row_id)
                 sinks[split].write(payload)
                 digests[split].update(payload)
                 row_counts[split] += 1
@@ -435,7 +450,7 @@ def write_public_realization(
                 ("split_allocation", config.split_seed),
                 ("serialization_order", config.serialization_seed),
             ),
-            replicate_ids=("public-v4",),
+            replicate_ids=("iid-public-production",),
             entity_count=config.train_rows + config.validation_rows,
             row_count=config.train_rows + config.validation_rows,
             split_identities=(
@@ -476,10 +491,10 @@ def write_public_realization(
                 )
             ),
             provenance=(
-                "Generated by the independently authored public benchmark implementation. "
-                "World and observation requirements were clarified by historical-equivalence "
-                "qualification and are stated in public terms; historical source and data bytes "
-                "are not runtime inputs. Public configuration SHA-256: "
+                "Generated by the independently authored public-native IID benchmark. Its "
+                "sampling design is DatasetSpec-bearing and differs from the historical scrambled "
+                "Sobol design. Historical source and data bytes are not runtime inputs. Public "
+                "configuration SHA-256: "
                 f"{PUBLIC_GENERATION_CONFIGURATION_SHA256.removeprefix('sha256:')}."
             ),
             rights=RightsMetadata(
