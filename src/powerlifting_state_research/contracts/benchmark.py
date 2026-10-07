@@ -12,6 +12,7 @@ from .shifts import ShiftDeclaration
 
 
 class HistoricalSpecimenStatus(StrEnum):
+    NOT_HISTORICAL = "NOT_HISTORICAL"
     HISTORICAL_REGISTRY_ONLY = "HISTORICAL_REGISTRY_ONLY"
     PARTIALLY_RECONSTRUCTED = "PARTIALLY_RECONSTRUCTED"
     REPRODUCIBLE_SPEC = "REPRODUCIBLE_SPEC"
@@ -19,6 +20,7 @@ class HistoricalSpecimenStatus(StrEnum):
 
 
 class HistoricalQualificationState(StrEnum):
+    NOT_APPLICABLE = "NOT_APPLICABLE"
     NOT_QUALIFIED_OR_UNRESOLVED = "NOT_QUALIFIED_OR_UNRESOLVED"
     QUALIFIED_HISTORICAL = "QUALIFIED_HISTORICAL"
 
@@ -334,6 +336,13 @@ class BenchmarkSpec:
         ):
             raise ValueError("related benchmark slugs must be lowercase scientific identifiers")
         if self.identity_authority is BenchmarkIdentityAuthority.PUBLIC_NATIVE:
+            if self.historical_specimen_status is not HistoricalSpecimenStatus.NOT_HISTORICAL:
+                raise ValueError("PUBLIC_NATIVE benchmarks must be explicitly non-historical")
+            if (
+                self.historical_qualification_state
+                is not HistoricalQualificationState.NOT_APPLICABLE
+            ):
+                raise ValueError("PUBLIC_NATIVE benchmarks have no historical qualification")
             if self.semantic_identity is None or any(
                 component.resolution is not IdentityResolution.DIRECT
                 for component in (
@@ -347,6 +356,11 @@ class BenchmarkSpec:
                     "PUBLIC_NATIVE benchmarks need explicit direct WORLD, POPULATION, "
                     "INTERVENTION_REGIME, and OBSERVATION_MODEL identities"
                 )
+        elif (
+            self.historical_specimen_status is HistoricalSpecimenStatus.NOT_HISTORICAL
+            or self.historical_qualification_state is HistoricalQualificationState.NOT_APPLICABLE
+        ):
+            raise ValueError("HISTORICAL_PROJECTION benchmarks require historical status values")
 
     @property
     def identity_mintable(self) -> bool:
@@ -385,8 +399,11 @@ class ResearchMetadata:
     research_question_evidence_class: str
     information_setting: str
     source_prediction_setting: str
-    historical_objective: str
-    historical_objective_evidence: str
+    historical_objective: str | None
+    historical_objective_evidence: str | None
     canonical_claim_scope: tuple[str, ...]
     claim_escalations_prohibited: tuple[str, ...]
     unresolved_questions: tuple[str, ...]
+    dataset_spec_difference: str | None = None
+    limitations: tuple[str, ...] = ()
+    related_benchmark_relationship: str | None = None

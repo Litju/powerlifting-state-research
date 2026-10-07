@@ -49,9 +49,9 @@ class AthleteProfile:
 def parameters_from_coordinates(coordinates: Sequence[float]) -> WorldParameters:
     """Map normalized coordinates in ``COORDINATE_ORDER`` to lift parameters."""
     if len(coordinates) != COORDINATE_COUNT or any(
-        not math.isfinite(value) or not 0 <= value <= 1 for value in coordinates
+        not math.isfinite(value) or not 0 <= value < 1 for value in coordinates
     ):
-        raise ValueError("population requires 16 finite coordinates in [0, 1]")
+        raise ValueError("population requires 16 finite coordinates in [0, 1)")
     index = iter(coordinates)
     scale_z = next(index)
     bench_ratio_z = next(index)

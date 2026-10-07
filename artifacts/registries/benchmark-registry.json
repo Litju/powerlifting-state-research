@@ -127,9 +127,12 @@
           "Human/biological/coaching/digital-twin/intervention/identification/OOD claims.",
           "Raw historical ranking or undocumented claim the rewrite fixed a known defect."
         ],
+        "dataset_spec_difference": null,
         "historical_objective": "UNKNOWN",
         "historical_objective_evidence": "UNKNOWN_ORIGINAL_MOTIVATION",
         "information_setting": "HISTORY_ONLY",
+        "limitations": [],
+        "related_benchmark_relationship": null,
         "research_question_evidence_class": "RETROSPECTIVE_TECHNICAL_CHARACTERIZATION",
         "source_prediction_setting": "Past/completed context at each query; future outcomes excluded; no declared future-plan input.",
         "unresolved_questions": [
@@ -276,9 +279,12 @@
           "Qualification/performance claim from checkpoint/scalar alone.",
           "Real-athlete, biological, causal, parameter-identification, or OOD claims."
         ],
+        "dataset_spec_difference": null,
         "historical_objective": "UNKNOWN",
         "historical_objective_evidence": "UNKNOWN_ORIGINAL_MOTIVATION",
         "information_setting": "HISTORY_ONLY",
+        "limitations": [],
+        "related_benchmark_relationship": null,
         "research_question_evidence_class": "RETROSPECTIVE_TECHNICAL_CHARACTERIZATION",
         "source_prediction_setting": "Point-in-time histories; temporal features end at the current completed event. No future-plan field in the recovered interface.",
         "unresolved_questions": [
@@ -423,9 +429,12 @@
           "Human transfer, broad OOD generalization, causal effects.",
           "Prediction improvement, qualification, or raw-score superiority inferred from split design."
         ],
+        "dataset_spec_difference": null,
         "historical_objective": "Add public validation from the final held-out target domain using independent split streams.",
         "historical_objective_evidence": "CONTEMPORANEOUS_OBJECTIVE",
         "information_setting": "HISTORY_ONLY",
+        "limitations": [],
+        "related_benchmark_relationship": null,
         "research_question_evidence_class": "CONTEMPORANEOUS_RESEARCH_QUESTION",
         "source_prediction_setting": "Past/completed observations only. Training origins 200/260/315/340; validation/hidden at 340→365; no declared future-plan input.",
         "unresolved_questions": [
@@ -494,8 +503,8 @@
       "contract_schema_version": "1.0.0",
       "display_name": "IID-Sampled Latent Capacity-Change Forecasting with Transient Performance Expression",
       "historical_provenance": null,
-      "historical_qualification_state": "NOT_QUALIFIED_OR_UNRESOLVED",
-      "historical_specimen_status": "REPRODUCIBLE_SPEC",
+      "historical_qualification_state": "NOT_APPLICABLE",
+      "historical_specimen_status": "NOT_HISTORICAL",
       "identity_authority": "PUBLIC_NATIVE",
       "identity_mintable": true,
       "public_implementation_status": "PUBLIC_IMPLEMENTED",
@@ -504,27 +513,27 @@
       ],
       "research": {
         "canonical_claim_scope": [
-          "Qualified conditional synthetic prediction within the named latent-capacity and transient-expression system, support, and evaluation, subject to a missing readiness receipt.",
-          "Later audit studies support only their named findings and tested protocols."
+          "Conditional prediction of synthetic latent-capacity changes within this named world, population, schedule, observation law, and same-law validation design."
         ],
-        "canonical_research_question": "At day 224, given 32 weekly performance observations per lift through day 223, the declared future plan, and task-allowed context, can a model predict latent capacity change for three lifts at horizons 14, 28, and 56 days in a synthetic system that separates latent capacity from transient performance expression? This is conditional synthetic prediction, not human response, biological identification, intervention efficacy, or broad out-of-domain generalization.",
-        "canonical_scientific_objective": "Evaluate latent capacity-change forecasting in a synthetic system separating chronic adaptation, latent capacity, transient expression, and recorded observations.",
+        "canonical_research_question": "Why provide an independently implemented public benchmark for conditional synthetic latent-capacity-change forecasting, and can a learner predict squat, bench-press, and deadlift capacity change from the declared plan and pre-origin observations?",
+        "canonical_scientific_objective": "Independently implement the stated synthetic world and evaluate conditional forecasts under an explicit IID population measure, without claiming to reproduce historical scrambled-Sobol dataset bytes.",
         "claim_escalations_prohibited": [
-          "Real athlete/biological/coaching/digital twin, causal intervention effect, broad OOD.",
-          "Biological parameter/full-coordinate identification.",
-          "Bayes ceiling, exact hidden-model recovery, replayed sealed result, unsupported G4 load-bearing claim.",
-          "Treating audits/model branches as benchmarks."
+          "Real-athlete validation, coaching response, or biological parameter identification.",
+          "Causal intervention efficacy or broad out-of-distribution evidence."
         ],
-        "historical_objective": "Replace under-supported target-bearing training-exposure formulations with a simpler empirically bounded synthetic world that preserves latent capacity-change target meaning and origin/horizons.",
-        "historical_objective_evidence": "CONTEMPORANEOUS_OBJECTIVE",
+        "dataset_spec_difference": "The historical projection specifies scrambled Sobol sampling; this PUBLIC_NATIVE DatasetSpec specifies IID pseudorandom Uniform[0,1) coordinates. They are distinct DatasetSpecs, and historical train/validation bytes are not realizations of this one.",
+        "historical_objective": null,
+        "historical_objective_evidence": null,
         "information_setting": "DECLARED_FUTURE_PLAN_VISIBLE",
-        "research_question_evidence_class": "CONTEMPORANEOUS_RESEARCH_QUESTION",
-        "source_prediction_setting": "Cutoff day 224; 32 weekly observations/lift through day223 plus declared plan/context visible; latent coordinates, targets, future realized outcomes/observations hidden.",
-        "unresolved_questions": [
-          "Where is the expected model readiness receipt?",
-          "Do observation/data support geometry warrant future change after controlled evaluation?",
-          "Can claims beyond synthetic support be separately validated?"
-        ]
+        "limitations": [
+          "Synthetic benchmark with three lifts, finite schedule and plan support, and a fixed observation law.",
+          "IID finite-sample geometry and same-law validation do not establish real-athlete external validity or broad OOD performance.",
+          "Targets describe synthetic latent capacity change and do not estimate causal effects."
+        ],
+        "related_benchmark_relationship": "Shares specified world mechanics, task, QOI, representation, and evaluation with the separate historical projection. Population sampling, DatasetSpec, BenchmarkSpec, and realization identity remain public-native and distinct.",
+        "research_question_evidence_class": "INDEPENDENT_PUBLIC_NATIVE_OBJECTIVE",
+        "source_prediction_setting": "At origin day 224, expose history through day 223 and the declared future plan; hide future realized outcomes, observations, intervention deviations, latent coordinates, and target fields from participants.",
+        "unresolved_questions": []
       },
       "semantic_digest": "sha256:49b4994f7df4443c6f8d80c968d456d611b5e7886c32659727e8c351dfed9de3",
       "semantic_identity_payload": {
@@ -724,9 +733,12 @@
           "Bayes ceiling, exact hidden-model recovery, replayed sealed result, unsupported G4 load-bearing claim.",
           "Treating audits/model branches as benchmarks."
         ],
+        "dataset_spec_difference": null,
         "historical_objective": "Replace under-supported target-bearing training-exposure formulations with a simpler empirically bounded synthetic world that preserves latent capacity-change target meaning and origin/horizons.",
         "historical_objective_evidence": "CONTEMPORANEOUS_OBJECTIVE",
         "information_setting": "DECLARED_FUTURE_PLAN_VISIBLE",
+        "limitations": [],
+        "related_benchmark_relationship": null,
         "research_question_evidence_class": "CONTEMPORANEOUS_RESEARCH_QUESTION",
         "source_prediction_setting": "Cutoff day 224; 32 weekly observations/lift through day223 plus declared plan/context visible; latent coordinates, targets, future realized outcomes/observations hidden.",
         "unresolved_questions": [
@@ -923,9 +935,12 @@
           "Human validity, biological parameter ID, broad OOD, hidden/final qualification.",
           "Raw score ranking against the observed-origin-referenced capacity target or latent capacity change with transient performance expression."
         ],
+        "dataset_spec_difference": null,
         "historical_objective": "Replace the observed-origin-referenced capacity target with latent-origin capacity, removing origin measurement error from target while retaining noisy measurement as input.",
         "historical_objective_evidence": "CONTEMPORANEOUS_OBJECTIVE",
         "information_setting": "DECLARED_FUTURE_PLAN_VISIBLE",
+        "limitations": [],
+        "related_benchmark_relationship": null,
         "research_question_evidence_class": "CONTEMPORANEOUS_RESEARCH_QUESTION",
         "source_prediction_setting": "Origin 224; dose-history observations through origin and complete declared future dose/intensity plan; future realized outcomes unavailable.",
         "unresolved_questions": [
@@ -1069,9 +1084,12 @@
           "Pure latent-capacity-change, causal effect, responder classification, real-athlete validity, biological parameter ID.",
           "Do not rank raw scores across the observed-origin target, latent-origin target, or different dynamical systems."
         ],
+        "dataset_spec_difference": null,
         "historical_objective": "UNKNOWN",
         "historical_objective_evidence": "UNKNOWN_ORIGINAL_MOTIVATION",
         "information_setting": "DECLARED_FUTURE_PLAN_VISIBLE",
+        "limitations": [],
+        "related_benchmark_relationship": null,
         "research_question_evidence_class": "RETROSPECTIVE_TECHNICAL_CHARACTERIZATION",
         "source_prediction_setting": "Origin 224; use observations through origin and complete declared future dose/intensity plan. Future realized outcomes are unavailable.",
         "unresolved_questions": [
@@ -1221,9 +1239,12 @@
           "Human, biological, intervention-effect, parameter-ID, or OOD claims.",
           "Do not claim unresolved intermediate variants or treat a branch/version discrepancy as settled."
         ],
+        "dataset_spec_difference": null,
         "historical_objective": "Add variation in training schedules, realized exposure, and reporting while retaining the four-target 25-day task; the triggering need or expected gain is UNKNOWN.",
         "historical_objective_evidence": "CONTEMPORANEOUS_OBJECTIVE",
         "information_setting": "HISTORY_ONLY",
+        "limitations": [],
+        "related_benchmark_relationship": null,
         "research_question_evidence_class": "RETROSPECTIVE_TECHNICAL_CHARACTERIZATION",
         "source_prediction_setting": "Point-in-time completed histories for 25-day forecast; no declared future-plan input in the recovered interface.",
         "unresolved_questions": [
@@ -1361,9 +1382,12 @@
           "Human/biological/coaching/digital-twin/intervention/identification/OOD claims.",
           "Raw score ranking or claims that early equals later legacy worlds."
         ],
+        "dataset_spec_difference": null,
         "historical_objective": "UNKNOWN",
         "historical_objective_evidence": "UNKNOWN_ORIGINAL_MOTIVATION",
         "information_setting": "HISTORY_ONLY",
+        "limitations": [],
+        "related_benchmark_relationship": null,
         "research_question_evidence_class": "RETROSPECTIVE_TECHNICAL_CHARACTERIZATION",
         "source_prediction_setting": "Use past/completed records available at each query time; future meet outcomes and future/in-session records are excluded. No declared future-plan input.",
         "unresolved_questions": [

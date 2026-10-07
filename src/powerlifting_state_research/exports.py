@@ -20,6 +20,7 @@ from .components.source_identity_provenance import (
 )
 from .components.worlds import WORLD_DECLARATIONS
 from .contracts.benchmark import (
+    BenchmarkIdentityAuthority,
     BenchmarkSemanticIdentity,
     BenchmarkSpec,
     ComponentIdentity,
@@ -44,7 +45,12 @@ def _document(value: Any) -> str:
 def registry_document() -> dict[str, object]:
     benchmarks: list[dict[str, object]] = []
     for spec in BENCHMARKS:
-        research = import_module(spec.python_namespace + ".research").RESEARCH
+        research_module = (
+            ".public_native_research"
+            if spec.identity_authority is BenchmarkIdentityAuthority.PUBLIC_NATIVE
+            else ".research"
+        )
+        research = import_module(spec.python_namespace + research_module).RESEARCH
         benchmarks.append(
             {
                 "slug": spec.slug,
@@ -112,6 +118,14 @@ def _type_schema(annotation: Any, definitions: dict[str, Any]) -> dict[str, Any]
                 "additionalProperties": False,
             }
         return {"$ref": f"#/$defs/{name}"}
+    if isinstance(annotation, type) and hasattr(annotation, "__required_keys__"):
+        hints = get_type_hints(annotation)
+        return {
+            "type": "object",
+            "properties": {name: _type_schema(value, definitions) for name, value in hints.items()},
+            "required": sorted(annotation.__required_keys__),
+            "additionalProperties": False,
+        }
     origin = get_origin(annotation)
     args = get_args(annotation)
     if origin in (Union, UnionType):
@@ -168,11 +182,19 @@ SCHEMAS: tuple[tuple[str, type[Any]], ...] = (
 
 
 def generated_files() -> dict[Path, str]:
+    from .benchmarks.latent_capacity_change_with_transient_expression_forecasting.dataset import (
+        PublicForecastRow,
+    )
+
+    schemas: tuple[tuple[str, type[Any]], ...] = (
+        *SCHEMAS,
+        ("public-forecast-row.schema.json", PublicForecastRow),
+    )
     files = {Path("registries/benchmark-registry.json"): _document(registry_document())}
     files.update(
         {
             Path("schemas") / filename: _document(schema_document(model))
-            for filename, model in SCHEMAS
+            for filename, model in schemas
         }
     )
     return files
