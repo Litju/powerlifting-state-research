@@ -10,7 +10,7 @@ This benchmark is **not** real-athlete validation, causal intervention-efficacy 
 
 | Field | Identity |
 |---|---|
-| PUBLIC_NATIVE BenchmarkSpec | `psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression@1.0.0~49b4994f7df4` |
+| PUBLIC_NATIVE BenchmarkSpec | `psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting@1.0.0~49b4994f7df4` |
 | BenchmarkSpec digest | `sha256:49b4994f7df4443c6f8d80c968d456d611b5e7886c32659727e8c351dfed9de3` |
 | DatasetSpec | `psr:dataset-spec:latent-capacity-transient-iid-sampling-design@1.0.0~1d079eb645ed` |
 | WORLD | `psr:world:world-v2-parsimonious-response-world@1.0.0~a1afbf2f5c1e` |
@@ -116,7 +116,7 @@ The canonical public production realization uses DatasetSpec `psr:dataset-spec:l
 | Provenance value | Canonical value |
 |---|---|
 | Package version | `0.1.0` |
-| Generator-source SHA-256 | `sha256:4220684cf42beb5a322d8b122e0ba9558dbedda042005f8e10e0b41aa5953a3a` |
+| Generator-source SHA-256 | `sha256:284266740cdaebdbe7108a5abe1acf4a2eeb3c055852b6ebc3c439ec164d1ad3` |
 | Generation-config SHA-256 | `sha256:979aad4cea7be05ec8c4861ac9025f282c45903e0db0cab72c22d1fcdd87d850` |
 | Realization ID | `psr:dataset-realization:latent-capacity-transient-iid-production@sha256:2659bad8979e5a00829a50580c14bfbc90579c4520c46c8159dec8c34f1c8cad` |
 | Realization digest | `sha256:2659bad8979e5a00829a50580c14bfbc90579c4520c46c8159dec8c34f1c8cad` |
