@@ -12,7 +12,7 @@ Evaluate latent capacity-change forecasting in a synthetic system separating chr
 
 ## Specimen and completeness
 
-Historical specimen status: REPRODUCIBLE_SPEC. Historical qualification: QUALIFIED_HISTORICAL. Completeness: FULL_FROM_EXISTING_EVIDENCE. Public implementation: PUBLIC_IMPLEMENTATION_PENDING.
+Historical specimen status: REPRODUCIBLE_SPEC. Historical qualification: QUALIFIED_HISTORICAL. Completeness: FULL_FROM_EXISTING_EVIDENCE. Public implementation: PUBLIC_IMPLEMENTED.
 
 A reproducible historical specification is not the same as an independent public implementation or a qualification result.
 
@@ -55,6 +55,43 @@ These records describe synthetic benchmark formulations. They do not establish r
 
 ## Data and implementation
 
-No historical dataset, checkpoint, or benchmark mechanics are bundled at bootstrap. Public data realizations, model weights, and results require their own identity, provenance, and rights records.
+The public implementation is in `src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/`. It uses the canonical world name and separates chronic adaptation `A`, latent capacity `C`, transient suppression `R`, expressed performance `P`, and recorded observations.
+
+For each lift `l` and day `t`, dose `d` and intensity `i` produce bounded stimulus `s`:
+
+```text
+x_l(t) = d_l(t) * i_l(t)
+s_l(t) = x_l(t) / (x_l(t) + X_REF)
+alpha_A,l = exp(-1 / TAU_A,l)
+alpha_R,l = exp(-1 / TAU_R,l)
+A_l(t) = alpha_A,l * A_l(t-1) + (1-alpha_A,l) * s_l(t)
+C_l(t) = B_l * (1 + G_A,l * A_l(t))
+R_l(t) = alpha_R,l * R_l(t-1) + (1-alpha_R,l) * s_l(t)
+P_l(t) = C_l(t) * (1 - G_R,l * R_l(t))
+```
+
+Both dynamic states start at zero on the day before the simulated history. Each lift has a baseline, adaptation gain and time scale, and suppression gain and time scale. The baseline scale is log-linear in its normalized coordinate; the other parameter maps are linear. For reference stimulus `S_REF`, `X_REF = 0.6 * (1-S_REF)/S_REF`; the adaptation and suppression gains equal their reference-use values divided by `S_REF`. The adaptation time scale is `-28/log(1-adaptation_retention_over_28d)` days, and the suppression time scale is `-1/log(daily_suppression_retention)` days. Each lift evolves from only its own parameters and training schedule; there are no cross-lift dynamic edges. The transition has no process shocks.
+
+The synthetic population draws 16 independent uniform coordinates in `[0,1)`. These are coverage coordinates, not a human prior. The shared baseline scale is log-uniform over 120–360 kg; bench and deadlift baseline ratios are uniform over 0.5–0.9 and 1.0–1.4. A reference dose product of 0.6 and reference stimulus coordinate determine `X_REF`. Per lift, adaptation utilization, 28-day adaptation retention, suppression utilization, and daily suppression retention are uniform over `[0.04,0.18]`, `[0.15,0.90]`, `[0.01,0.07]`, and `[0.30,0.95]`. The code applies the documented transforms to obtain the time constants and gains. No latent coordinate is participant-visible.
+
+Historical dose/intensity support is finite: `(0.0,0.75)`, `(0.4,0.75)`, `(0.8,0.75)`, and `(1.2,0.75)`. Each lift receives one of four fixed 32-week piecewise-constant histories, with at least one zero-dose recovery block. The four profiles are specified as run-length sequences in `interventions.py`; all 64 three-lift profile combinations are balanced within every plan/horizon stratum of each split. The future plan is one of four constant 56-day declarations: cessation, step-down, continue, or step-up. A row is one entity, one plan, and one horizon, with all three lift targets. Plan/horizon combinations are balanced: each of the 12 strata contributes 1,024 train rows and 256 validation rows. The splits contain 12,288 and 3,072 distinct entities and use the same population, history, plan, and observation laws.
+
+The origin and inclusive decision cutoff are day 224. Per lift, inputs contain the past training schedule and 32 observations on days 6, 13, …, 223. Each observation contains a noisy assessment, prescribed load, and velocity. The declared future plan covers days 224–279 and is exposed as a plan only; future realized observations or deviations are not generated into inputs. Assessment noise is multiplicative with lift-specific coefficients of variation (squat 0.05, bench 0.04, deadlift 0.05). Prescribed load is a uniform fraction in `[0.68,0.71)` of that noisy assessment. Velocity uses a monotone lift-specific relation of relative load plus independent additive noise (standard deviations 0.04, 0.03, and 0.05 m/s for squat, bench, and deadlift). Observation noise never changes `A`, `C`, `R`, `P`, or target truth.
+
+Each row has `row_id`, `inputs`, and `targets`. Inputs contain the entity key, origin, one horizon, one declared plan, per-lift historical schedule segments, and per-lift observations. Targets contain only the three latent-capacity changes for that row's horizon. For every lift:
+
+```text
+Delta C_l(h) = C_l(224 + h - 1) - C_l(223)
+```
+
+The validator enforces the observation dates, the inclusive cutoff, history ending on day 223, declared plan bounds, dose support, target fields, entity uniqueness, and train/validation disjointness. JSONL uses compact canonical UTF-8 JSON with sorted keys and one record per line. The `DatasetRealizationManifest` records the schema, counts, split identities, RNG seeds, support, and train/validation hashes. Regenerate from the repository root with:
+
+```sh
+python -m powerlifting_state_research.benchmarks.latent_capacity_change_with_transient_expression_forecasting
+```
+
+Generated JSONL is left under `data/synthetic/` and is not checked in. The manifest is tracked under `data/manifests/realizations/`; realization identity does not alter the frozen benchmark digest.
+
+Historical qualification identified missing public detail. The state equations, population measure/support, observation law, and declared future-plan set are **SCIENTIFICALLY_IDENTITY_BEARING**. The finite history-template allocation and plan/horizon row counts are **DATASET_REALIZATION_BEARING**. These requirements are stated here in new public wording with qualification provenance; the frozen benchmark digest remains unchanged. Public generation uses independent uniform draws, not the historical scrambled Sobol points, so the finite population realization differs (**DATASET_REALIZATION_BEARING**). Canonical JSONL instead of Parquet and the seed/ordering codec are **SERIALIZATION_ONLY**. No historical dataset or checkpoint is bundled or used at runtime. This implementation claims no real-athlete validity, biological parameter recovery, or intervention efficacy.
 
 The scientific declaration is available as powerlifting_state_research.benchmarks.latent_capacity_change_with_transient_expression_forecasting. The canonical alias and provenance record is kept in the centralized provenance module.
