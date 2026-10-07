@@ -186,14 +186,15 @@ def generated_files() -> dict[Path, str]:
         PublicForecastRow,
     )
 
+    schemas: tuple[tuple[str, type[Any]], ...] = (
+        *SCHEMAS,
+        ("public-forecast-row.schema.json", PublicForecastRow),
+    )
     files = {Path("registries/benchmark-registry.json"): _document(registry_document())}
     files.update(
         {
             Path("schemas") / filename: _document(schema_document(model))
-            for filename, model in (
-                *SCHEMAS,
-                ("public-forecast-row.schema.json", PublicForecastRow),
-            )
+            for filename, model in schemas
         }
     )
     return files
