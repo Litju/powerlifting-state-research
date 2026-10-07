@@ -1,0 +1,582 @@
+{
+  "$defs": {
+    "AggregationRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregation_id": {
+          "type": "string"
+        },
+        "metric_id": {
+          "type": "string"
+        },
+        "rationale": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "target_order": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number"
+        },
+        "weights": {
+          "items": {
+            "type": "number"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "aggregation_id",
+        "metric_id",
+        "value",
+        "unit",
+        "target_order"
+      ],
+      "type": "object"
+    },
+    "CheckpointReference": {
+      "additionalProperties": false,
+      "properties": {
+        "checkpoint_id": {
+          "type": "string"
+        },
+        "content_sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "checkpoint_id",
+        "content_sha256"
+      ],
+      "type": "object"
+    },
+    "EnvironmentProvenance": {
+      "additionalProperties": false,
+      "properties": {
+        "dependency_identity": {
+          "type": "string"
+        },
+        "environment_id": {
+          "type": "string"
+        },
+        "hardware": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "platform": {
+          "type": "string"
+        },
+        "python_version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "environment_id",
+        "python_version",
+        "platform",
+        "dependency_identity"
+      ],
+      "type": "object"
+    },
+    "EvaluationResult": {
+      "additionalProperties": false,
+      "properties": {
+        "aggregations": {
+          "items": {
+            "$ref": "#/$defs/AggregationRecord"
+          },
+          "type": "array"
+        },
+        "benchmark_id": {
+          "type": "string"
+        },
+        "benchmark_spec_digest": {
+          "type": "string"
+        },
+        "checkpoint": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/CheckpointReference"
+            },
+            {}
+          ]
+        },
+        "dataset_realization_digest": {
+          "type": "string"
+        },
+        "dataset_realization_id": {
+          "type": "string"
+        },
+        "environment": {
+          "$ref": "#/$defs/EnvironmentProvenance"
+        },
+        "evaluation_id": {
+          "type": "string"
+        },
+        "exclusions": {
+          "items": {
+            "$ref": "#/$defs/ExclusionRecord"
+          },
+          "type": "array"
+        },
+        "fitted_instance": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/FittedInstanceReference"
+            },
+            {}
+          ]
+        },
+        "metric_identities": {
+          "items": {
+            "$ref": "#/$defs/MetricIdentity"
+          },
+          "type": "array"
+        },
+        "model": {
+          "$ref": "#/$defs/ModelReference"
+        },
+        "prediction_artifact": {
+          "$ref": "#/$defs/PredictionArtifactReference"
+        },
+        "rights": {
+          "$ref": "#/$defs/RightsMetadata"
+        },
+        "rng": {
+          "$ref": "#/$defs/RNGProvenance"
+        },
+        "status": {
+          "enum": [
+            "COMPLETE",
+            "PARTIAL",
+            "INVALID",
+            "NOT_COMPARABLE"
+          ],
+          "type": "string"
+        },
+        "stratifications": {
+          "items": {
+            "$ref": "#/$defs/StratificationRecord"
+          },
+          "type": "array"
+        },
+        "targets": {
+          "items": {
+            "$ref": "#/$defs/TargetMetrics"
+          },
+          "type": "array"
+        },
+        "training_protocol": {
+          "$ref": "#/$defs/TrainingProtocolReference"
+        },
+        "uncertainty": {
+          "items": {
+            "$ref": "#/$defs/UncertaintyRecord"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "benchmark_id",
+        "benchmark_spec_digest",
+        "dataset_realization_id",
+        "dataset_realization_digest",
+        "model",
+        "training_protocol",
+        "fitted_instance",
+        "checkpoint",
+        "environment",
+        "rng",
+        "prediction_artifact",
+        "evaluation_id",
+        "metric_identities",
+        "targets",
+        "aggregations",
+        "stratifications",
+        "exclusions",
+        "uncertainty",
+        "status",
+        "rights"
+      ],
+      "type": "object"
+    },
+    "ExclusionRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "reason": {
+          "type": "string"
+        },
+        "row_identity": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "row_identity",
+        "target",
+        "reason"
+      ],
+      "type": "object"
+    },
+    "FittedInstanceReference": {
+      "additionalProperties": false,
+      "properties": {
+        "content_sha256": {
+          "type": "string"
+        },
+        "fitted_instance_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "fitted_instance_id",
+        "content_sha256"
+      ],
+      "type": "object"
+    },
+    "MetricIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "definition": {
+          "type": "string"
+        },
+        "evidence_status": {
+          "enum": [
+            "HISTORICAL_REPORTED",
+            "CANONICAL_RESEARCH",
+            "RECOMPUTED_CANONICAL",
+            "NOT_COMPARABLE"
+          ],
+          "type": "string"
+        },
+        "metric": {
+          "enum": [
+            "RMSE",
+            "MAE",
+            "R²",
+            "SRE(ddof=0)"
+          ],
+          "type": "string"
+        },
+        "metric_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "metric_id",
+        "metric",
+        "definition",
+        "evidence_status"
+      ],
+      "type": "object"
+    },
+    "MetricResult": {
+      "additionalProperties": false,
+      "properties": {
+        "metric": {
+          "enum": [
+            "RMSE",
+            "MAE",
+            "R²",
+            "SRE(ddof=0)"
+          ],
+          "type": "string"
+        },
+        "reason": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "sample_count": {
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "COMPUTED",
+            "UNDEFINED"
+          ],
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "value": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {}
+          ]
+        }
+      },
+      "required": [
+        "metric",
+        "value",
+        "unit",
+        "status",
+        "reason",
+        "sample_count"
+      ],
+      "type": "object"
+    },
+    "ModelReference": {
+      "additionalProperties": false,
+      "properties": {
+        "model_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "model_id"
+      ],
+      "type": "object"
+    },
+    "PredictionArtifactReference": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_id": {
+          "type": "string"
+        },
+        "benchmark_id": {
+          "type": "string"
+        },
+        "benchmark_spec_digest": {
+          "type": "string"
+        },
+        "content_sha256": {
+          "type": "string"
+        },
+        "dataset_realization_digest": {
+          "type": "string"
+        },
+        "dataset_realization_id": {
+          "type": "string"
+        },
+        "model_id": {
+          "type": "string"
+        },
+        "output_schema_identity": {
+          "type": "string"
+        },
+        "rights": {
+          "$ref": "#/$defs/RightsMetadata"
+        },
+        "row_count": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "artifact_id",
+        "benchmark_id",
+        "benchmark_spec_digest",
+        "dataset_realization_id",
+        "dataset_realization_digest",
+        "model_id",
+        "output_schema_identity",
+        "row_count",
+        "content_sha256",
+        "rights"
+      ],
+      "type": "object"
+    },
+    "RNGProvenance": {
+      "additionalProperties": false,
+      "properties": {
+        "explanation": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "seeds": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "type": "array"
+          },
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "DETERMINISTIC",
+            "SEEDED",
+            "NON_DETERMINISTIC",
+            "NOT_APPLICABLE"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "status"
+      ],
+      "type": "object"
+    },
+    "RightsMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "access_conditions": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "copyright_holder": {
+          "type": "string"
+        },
+        "license_expression": {
+          "type": "string"
+        },
+        "redistribution_status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "license_expression",
+        "copyright_holder",
+        "redistribution_status"
+      ],
+      "type": "object"
+    },
+    "StratificationRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "axis": {
+          "type": "string"
+        },
+        "levels": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "rationale": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "axis",
+        "levels",
+        "rationale"
+      ],
+      "type": "object"
+    },
+    "TargetMetrics": {
+      "additionalProperties": false,
+      "properties": {
+        "metrics": {
+          "items": {
+            "$ref": "#/$defs/MetricResult"
+          },
+          "type": "array"
+        },
+        "target": {
+          "type": "string"
+        },
+        "target_unit": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "target",
+        "target_unit",
+        "metrics"
+      ],
+      "type": "object"
+    },
+    "TrainingProtocolReference": {
+      "additionalProperties": false,
+      "properties": {
+        "not_applicable_reason": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "training_protocol_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        }
+      },
+      "required": [
+        "training_protocol_id"
+      ],
+      "type": "object"
+    },
+    "UncertaintyRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "estimate": {
+          "type": "number"
+        },
+        "lower": {
+          "type": "number"
+        },
+        "method": {
+          "type": "string"
+        },
+        "resampling_unit": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "upper": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "target",
+        "method",
+        "estimate",
+        "lower",
+        "upper",
+        "resampling_unit"
+      ],
+      "type": "object"
+    }
+  },
+  "$ref": "#/$defs/EvaluationResult",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-generator": {
+    "name": "powerlifting-state-research-python",
+    "version": "0.1.0"
+  }
+}

@@ -1,0 +1,183 @@
+{
+  "$defs": {
+    "DecisionCutoff": {
+      "additionalProperties": false,
+      "properties": {
+        "event_index": {
+          "type": "string"
+        },
+        "timestamp": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "timezone": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "value": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "required": [
+        "event_index",
+        "value"
+      ],
+      "type": "object"
+    },
+    "InputField": {
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": [
+            "HISTORICAL_OBSERVATION",
+            "STATIC_CONTEXT",
+            "DECLARED_FUTURE_PLAN",
+            "FUTURE_REALIZED_PERFORMANCE",
+            "FUTURE_OBSERVATION",
+            "FUTURE_PROCESS_DISTURBANCE",
+            "UNKNOWN_FUTURE_INTERVENTION_DEVIATION",
+            "TARGET_DERIVED",
+            "EVALUATION_TRUTH"
+          ],
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "kind"
+      ],
+      "type": "object"
+    },
+    "OutputField": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "qoi_id": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "qoi_id",
+        "unit"
+      ],
+      "type": "object"
+    },
+    "PredictionContract": {
+      "additionalProperties": false,
+      "properties": {
+        "cutoff_inclusive": {
+          "type": "boolean"
+        },
+        "decision_cutoff": {
+          "$ref": "#/$defs/DecisionCutoff"
+        },
+        "entity_identity_fields": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "event_index": {
+          "type": "string"
+        },
+        "inputs": {
+          "items": {
+            "$ref": "#/$defs/InputField"
+          },
+          "type": "array"
+        },
+        "missing_prediction_policy": {
+          "enum": [
+            "REJECT",
+            "MARK_TARGET_UNDEFINED"
+          ],
+          "type": "string"
+        },
+        "non_finite_output_policy": {
+          "enum": [
+            "REJECT",
+            "MARK_TARGET_UNDEFINED"
+          ],
+          "type": "string"
+        },
+        "ordering_alignment_policy": {
+          "enum": [
+            "EXACT_ROW_ORDER",
+            "ALIGN_BY_DECLARED_KEYS"
+          ],
+          "type": "string"
+        },
+        "outputs": {
+          "items": {
+            "$ref": "#/$defs/OutputField"
+          },
+          "type": "array"
+        },
+        "qoi_ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "row_identity_fields": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "task_allows_declared_future_plan": {
+          "type": "boolean"
+        },
+        "task_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "task_id",
+        "qoi_ids",
+        "entity_identity_fields",
+        "row_identity_fields",
+        "event_index",
+        "decision_cutoff",
+        "cutoff_inclusive",
+        "inputs",
+        "outputs",
+        "task_allows_declared_future_plan",
+        "missing_prediction_policy",
+        "non_finite_output_policy",
+        "ordering_alignment_policy"
+      ],
+      "type": "object"
+    }
+  },
+  "$ref": "#/$defs/PredictionContract",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-generator": {
+    "name": "powerlifting-state-research-python",
+    "version": "0.1.0"
+  }
+}

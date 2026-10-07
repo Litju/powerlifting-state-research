@@ -1,6 +1,21 @@
-"""
-Model research homes.
+"""Typed model, training, fitted-state, environment, and RNG references."""
 
-No model or historical checkpoint is included in the bootstrap.
+from .references import (
+    CheckpointReference,
+    DeterminismStatus,
+    EnvironmentProvenance,
+    FittedInstanceReference,
+    ModelReference,
+    RNGProvenance,
+    TrainingProtocolReference,
+)
 
-"""
+__all__ = [
+    "CheckpointReference",
+    "DeterminismStatus",
+    "EnvironmentProvenance",
+    "FittedInstanceReference",
+    "ModelReference",
+    "RNGProvenance",
+    "TrainingProtocolReference",
+]

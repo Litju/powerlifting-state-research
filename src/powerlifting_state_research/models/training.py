@@ -8,5 +8,7 @@ from __future__ import annotations
 
 from typing import TypeAlias
 
-TrainingProtocols: TypeAlias = tuple[()]
+from .references import TrainingProtocolReference
+
+TrainingProtocols: TypeAlias = tuple[TrainingProtocolReference, ...]
 TRAINING_PROTOCOLS: TrainingProtocols = ()

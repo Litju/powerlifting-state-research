@@ -1,0 +1,101 @@
+{
+  "$defs": {
+    "ShiftDeclaration": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "enum": [
+            "ATHLETE_SHIFT",
+            "INITIAL_STATE_SHIFT",
+            "INTERVENTION_SHIFT",
+            "HORIZON_SHIFT",
+            "TEMPORAL_SHIFT",
+            "OBSERVATION_SHIFT",
+            "SENSOR_MODALITY_SHIFT",
+            "MISSINGNESS_SHIFT",
+            "NOISE_SHIFT",
+            "WORLD_PARAMETER_SHIFT",
+            "WORLD_MECHANISM_SHIFT",
+            "COMPOSITIONAL_SHIFT"
+          ],
+          "type": "string"
+        },
+        "changed_axes": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "evaluation_id": {
+          "type": "string"
+        },
+        "evidence_status": {
+          "type": "string"
+        },
+        "hypothesis": {
+          "type": "string"
+        },
+        "invariant_axes": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "qoi_ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "shift_id": {
+          "type": "string"
+        },
+        "source_distribution_ref": {
+          "type": "string"
+        },
+        "support_overlap": {
+          "type": "string"
+        },
+        "support_relation": {
+          "enum": [
+            "MATCHED",
+            "OVERLAPPING",
+            "COVARIATE_SHIFT",
+            "EXTRAPOLATIVE",
+            "DISJOINT",
+            "MECHANISM_CHANGE"
+          ],
+          "type": "string"
+        },
+        "target_distribution_ref": {
+          "type": "string"
+        },
+        "task_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "shift_id",
+        "category",
+        "source_distribution_ref",
+        "target_distribution_ref",
+        "changed_axes",
+        "invariant_axes",
+        "support_relation",
+        "support_overlap",
+        "hypothesis",
+        "task_id",
+        "qoi_ids",
+        "evaluation_id",
+        "evidence_status"
+      ],
+      "type": "object"
+    }
+  },
+  "$ref": "#/$defs/ShiftDeclaration",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-generator": {
+    "name": "powerlifting-state-research-python",
+    "version": "0.1.0"
+  }
+}

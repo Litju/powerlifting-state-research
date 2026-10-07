@@ -1,0 +1,326 @@
+{
+  "$defs": {
+    "BenchmarkSemanticIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_scope": {
+          "items": {
+            "enum": [
+              "IDENTIFIABILITY",
+              "INTERVENTION_EFFECT",
+              "MECHANISTIC_MODEL",
+              "OOD_GENERALIZATION",
+              "PREDICTIVE",
+              "REAL_ATHLETE_EMPIRICAL",
+              "SYNTHETIC_BENCHMARK"
+            ],
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "dataset_spec_id": {
+          "type": "string"
+        },
+        "declared_shift_relations": {
+          "items": {
+            "$ref": "#/$defs/ShiftDeclaration"
+          },
+          "type": "array"
+        },
+        "evaluation_id": {
+          "type": "string"
+        },
+        "intervention_regime_id": {
+          "$ref": "#/$defs/ComponentIdentity"
+        },
+        "observation_model_id": {
+          "$ref": "#/$defs/ComponentIdentity"
+        },
+        "population_id": {
+          "$ref": "#/$defs/ComponentIdentity"
+        },
+        "prediction_information_boundary": {
+          "$ref": "#/$defs/PredictionInformationBoundary"
+        },
+        "qoi_ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "representation_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "scientific_system_config_id": {
+          "type": "string"
+        },
+        "task_id": {
+          "type": "string"
+        },
+        "world_id": {
+          "$ref": "#/$defs/ComponentIdentity"
+        }
+      },
+      "required": [
+        "scientific_system_config_id",
+        "world_id",
+        "population_id",
+        "intervention_regime_id",
+        "observation_model_id",
+        "dataset_spec_id",
+        "task_id",
+        "qoi_ids",
+        "prediction_information_boundary",
+        "representation_id",
+        "evaluation_id",
+        "declared_shift_relations",
+        "claim_scope"
+      ],
+      "type": "object"
+    },
+    "ComponentIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_ref": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "reason": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "resolution": {
+          "enum": [
+            "DIRECT",
+            "COMMITTED_BY_SYSTEM_CONFIG",
+            "UNRESOLVED"
+          ],
+          "type": "string"
+        },
+        "system_config_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        }
+      },
+      "required": [
+        "resolution"
+      ],
+      "type": "object"
+    },
+    "DecisionCutoff": {
+      "additionalProperties": false,
+      "properties": {
+        "event_index": {
+          "type": "string"
+        },
+        "timestamp": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "timezone": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "value": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "required": [
+        "event_index",
+        "value"
+      ],
+      "type": "object"
+    },
+    "PredictionInformationBoundary": {
+      "additionalProperties": false,
+      "properties": {
+        "cutoff_inclusive": {
+          "type": "boolean"
+        },
+        "decision_cutoff": {
+          "$ref": "#/$defs/DecisionCutoff"
+        },
+        "declared_future_plan_visible": {
+          "type": "boolean"
+        },
+        "evaluation_truth_forbidden": {
+          "type": "boolean"
+        },
+        "future_intervention_deviations_forbidden": {
+          "type": "boolean"
+        },
+        "future_plan_means_delivered_exposure": {
+          "type": "boolean"
+        },
+        "future_process_disturbances_forbidden": {
+          "type": "boolean"
+        },
+        "future_realized_observations_forbidden": {
+          "type": "boolean"
+        },
+        "future_realized_performance_forbidden": {
+          "type": "boolean"
+        },
+        "history_observation_last_day": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {}
+          ]
+        },
+        "static_or_context_inputs": {
+          "type": "string"
+        },
+        "target_derived_information_forbidden": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "decision_cutoff",
+        "cutoff_inclusive",
+        "history_observation_last_day",
+        "static_or_context_inputs",
+        "declared_future_plan_visible"
+      ],
+      "type": "object"
+    },
+    "ShiftDeclaration": {
+      "additionalProperties": false,
+      "properties": {
+        "category": {
+          "enum": [
+            "ATHLETE_SHIFT",
+            "INITIAL_STATE_SHIFT",
+            "INTERVENTION_SHIFT",
+            "HORIZON_SHIFT",
+            "TEMPORAL_SHIFT",
+            "OBSERVATION_SHIFT",
+            "SENSOR_MODALITY_SHIFT",
+            "MISSINGNESS_SHIFT",
+            "NOISE_SHIFT",
+            "WORLD_PARAMETER_SHIFT",
+            "WORLD_MECHANISM_SHIFT",
+            "COMPOSITIONAL_SHIFT"
+          ],
+          "type": "string"
+        },
+        "changed_axes": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "evaluation_id": {
+          "type": "string"
+        },
+        "evidence_status": {
+          "type": "string"
+        },
+        "hypothesis": {
+          "type": "string"
+        },
+        "invariant_axes": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "qoi_ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "shift_id": {
+          "type": "string"
+        },
+        "source_distribution_ref": {
+          "type": "string"
+        },
+        "support_overlap": {
+          "type": "string"
+        },
+        "support_relation": {
+          "enum": [
+            "MATCHED",
+            "OVERLAPPING",
+            "COVARIATE_SHIFT",
+            "EXTRAPOLATIVE",
+            "DISJOINT",
+            "MECHANISM_CHANGE"
+          ],
+          "type": "string"
+        },
+        "target_distribution_ref": {
+          "type": "string"
+        },
+        "task_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "shift_id",
+        "category",
+        "source_distribution_ref",
+        "target_distribution_ref",
+        "changed_axes",
+        "invariant_axes",
+        "support_relation",
+        "support_overlap",
+        "hypothesis",
+        "task_id",
+        "qoi_ids",
+        "evaluation_id",
+        "evidence_status"
+      ],
+      "type": "object"
+    }
+  },
+  "$ref": "#/$defs/BenchmarkSemanticIdentity",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-generator": {
+    "name": "powerlifting-state-research-python",
+    "version": "0.1.0"
+  }
+}

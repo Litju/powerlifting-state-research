@@ -27,7 +27,7 @@ SPEC = BenchmarkSpec(
     target_ontology="OBSERVED_PERFORMANCE",
     task_type="OBSERVED_ORIGIN_RESPONSE_FORECAST",
     component_references=(
-        COMPONENT_REGISTRIES[ComponentClass.WORLD]["dose_history_capacity_dynamics"],
+        COMPONENT_REGISTRIES[ComponentClass.WORLD]["training_dose_history_capacity_dynamics"],
         ComponentReference(
             ComponentClass.POPULATION, None, ComponentResolution.UNRESOLVED_DIRECT_ID
         ),

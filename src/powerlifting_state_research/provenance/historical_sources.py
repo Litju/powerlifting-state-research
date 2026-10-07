@@ -5,10 +5,12 @@ from __future__ import annotations
 from ..contracts.components import HistoricalProvenance
 
 HISTORICAL_SOURCES: dict[str, HistoricalProvenance] = {
-    "seasonal_capacity_fatigue_five_target_forecasting": HistoricalProvenance(
+    "seasonal_five_target_load_velocity_performance_forecasting": HistoricalProvenance(
         specimen_id="pl_legacy_capacity_early",
         historical_aliases=(
             "pl_legacy_capacity_early",
+            "seasonal_capacity_fatigue_five_target_forecasting",
+            "Seasonal Capacity–Fatigue Forecasting with Five Performance Targets",
             "initial Powerlifting task",
             "Worlds-phase task",
             "accumulation/intensification/taper/Worlds-specific peak phases",
@@ -67,10 +69,12 @@ HISTORICAL_SOURCES: dict[str, HistoricalProvenance] = {
         ),
         attached_audit_aliases=(),
     ),
-    "class_normalized_cross_lift_capacity_fatigue_forecasting": HistoricalProvenance(
+    "class_normalized_cross_lift_five_target_performance_forecasting": HistoricalProvenance(
         specimen_id="pl_legacy_capacity_refined",
         historical_aliases=(
             "pl_legacy_capacity_refined",
+            "class_normalized_cross_lift_capacity_fatigue_forecasting",
+            "Class-Normalized Cross-Lift Capacity–Fatigue Forecasting with Five Targets",
             "July refinement",
             "synthetic male Open Classic/raw cohort",
             "Powerlifting synthetic seasonal five-output forecast — refined specimen",
@@ -129,10 +133,12 @@ HISTORICAL_SOURCES: dict[str, HistoricalProvenance] = {
         ),
         attached_audit_aliases=(),
     ),
-    "final_origin_target_domain_evaluation": HistoricalProvenance(
+    "held_out_final_origin_five_target_performance_evaluation": HistoricalProvenance(
         specimen_id="pl_legacy_target_domain_split",
         historical_aliases=(
             "pl_legacy_target_domain_split",
+            "final_origin_target_domain_evaluation",
+            "Final-Origin Target-Domain Evaluation of Seasonal Performance Forecasts",
             "target-domain validation split",
             "CUDA reference proof",
             "Powerlifting synthetic seasonal five-output forecast — final-origin split",
@@ -200,10 +206,12 @@ HISTORICAL_SOURCES: dict[str, HistoricalProvenance] = {
         ),
         attached_audit_aliases=(),
     ),
-    "stable_slope_tilt_four_target_forecasting": HistoricalProvenance(
+    "four_target_load_velocity_and_competition_performance_forecasting": HistoricalProvenance(
         specimen_id="pl_c21_stable_slope_tilt",
         historical_aliases=(
             "pl_c21_stable_slope_tilt",
+            "stable_slope_tilt_four_target_forecasting",
+            "Stable-Slope/Tilt Four-Target Athlete-State Forecasting",
             "C21.2",
             "C21-athlete-state-stable-slope-tilt-seed3115",
             "phase4_c21_2_temporal_interface",
@@ -269,10 +277,12 @@ HISTORICAL_SOURCES: dict[str, HistoricalProvenance] = {
         ),
         attached_audit_aliases=(),
     ),
-    "schedule_exposure_heterogeneity_forecasting": HistoricalProvenance(
+    "training_schedule_exposure_heterogeneity_forecasting": HistoricalProvenance(
         specimen_id="pl_c22_schedule_exposure",
         historical_aliases=(
             "pl_c22_schedule_exposure",
+            "schedule_exposure_heterogeneity_forecasting",
+            "Schedule/Exposure Heterogeneity Four-Target Forecasting",
             "C22.4",
             "C22-schedule-exposure-v4",
             "local/c22.4-freeze",
@@ -494,10 +504,12 @@ HISTORICAL_SOURCES: dict[str, HistoricalProvenance] = {
         ),
         attached_audit_aliases=(),
     ),
-    "parsimonious_latent_capacity_change_forecasting": HistoricalProvenance(
+    "latent_capacity_change_with_transient_expression_forecasting": HistoricalProvenance(
         specimen_id="pl_response_v2_parsimonious_production",
         historical_aliases=(
             "pl_response_v2_parsimonious_production",
+            "parsimonious_latent_capacity_change_forecasting",
+            "Parsimonious Latent Capacity-Change Forecasting with Transient Performance Expression",
             "World-V2",
             "powerlifting.big3.response.parsimonious.v2",
             "powerlifting.big3.latent_capacity_change.dataset.v2",

@@ -37,6 +37,7 @@ packages = ["src/powerlifting_state_research"]
 
 [tool.hatch.build.targets.sdist]
 include = [
+  "artifacts/",
   "src/",
   "tests/",
   "docs/",

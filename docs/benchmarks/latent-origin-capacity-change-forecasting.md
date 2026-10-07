@@ -27,7 +27,7 @@ A reproducible historical specification is not the same as an independent public
 
 | Component | Canonical reference | Resolution |
 |---|---|---|
-| WORLD | dose_history_capacity_dynamics | DIRECT_HISTORICAL_IDENTITY |
+| WORLD | training_dose_history_capacity_dynamics | DIRECT_HISTORICAL_IDENTITY |
 | POPULATION | unresolved direct identity | UNRESOLVED_DIRECT_ID |
 | INTERVENTION_REGIME | unresolved direct identity | UNRESOLVED_DIRECT_ID |
 | OBSERVATION_MODEL | performance_assessment_observation | DIRECT_HISTORICAL_IDENTITY |
@@ -48,7 +48,7 @@ Repeated canonical references are declared once in the shared component modules.
 
 - Individual causal treatment effect or responder classification.
 - Human validity, biological parameter ID, broad OOD, hidden/final qualification.
-- Raw score ranking against observed-origin or parsimonious latent capacity-change.
+- Raw score ranking against observed-origin performance change or latent capacity change with transient performance expression.
 
 These records describe synthetic benchmark formulations. They do not establish real-athlete validity, causal training effects, biological parameter recovery, or general-domain transfer.
 

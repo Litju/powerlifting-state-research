@@ -9,14 +9,14 @@ from __future__ import annotations
 from ..contracts.components import ComponentClass, ComponentReference, ComponentResolution
 
 task_references: dict[str, ComponentReference] = {
-    "final_origin_seasonal_forecast": ComponentReference(
+    "held_out_final_origin_five_target_performance_forecast": ComponentReference(
         ComponentClass.TASK,
-        "final_origin_seasonal_forecast",
+        "held_out_final_origin_five_target_performance_forecast",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
-    "four_performance_target_forecast": ComponentReference(
+    "four_target_load_velocity_and_competition_performance_forecast": ComponentReference(
         ComponentClass.TASK,
-        "four_performance_target_forecast",
+        "four_target_load_velocity_and_competition_performance_forecast",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
     "latent_capacity_change_forecast": ComponentReference(
@@ -29,9 +29,9 @@ task_references: dict[str, ComponentReference] = {
         "observed_origin_performance_change_forecast",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
-    "seasonal_five_performance_forecast": ComponentReference(
+    "seasonal_five_target_performance_forecast": ComponentReference(
         ComponentClass.TASK,
-        "seasonal_five_performance_forecast",
+        "seasonal_five_target_performance_forecast",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
 }

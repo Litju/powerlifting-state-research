@@ -27,7 +27,7 @@ A reproducible historical specification is not the same as an independent public
 
 | Component | Canonical reference | Resolution |
 |---|---|---|
-| WORLD | dose_history_capacity_dynamics | DIRECT_HISTORICAL_IDENTITY |
+| WORLD | training_dose_history_capacity_dynamics | DIRECT_HISTORICAL_IDENTITY |
 | POPULATION | unresolved direct identity | UNRESOLVED_DIRECT_ID |
 | INTERVENTION_REGIME | unresolved direct identity | UNRESOLVED_DIRECT_ID |
 | OBSERVATION_MODEL | performance_assessment_observation | DIRECT_HISTORICAL_IDENTITY |
