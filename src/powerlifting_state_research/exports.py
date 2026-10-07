@@ -20,6 +20,7 @@ from .components.source_identity_provenance import (
 )
 from .components.worlds import WORLD_DECLARATIONS
 from .contracts.benchmark import (
+    BenchmarkIdentityAuthority,
     BenchmarkSemanticIdentity,
     BenchmarkSpec,
     ComponentIdentity,
@@ -44,7 +45,12 @@ def _document(value: Any) -> str:
 def registry_document() -> dict[str, object]:
     benchmarks: list[dict[str, object]] = []
     for spec in BENCHMARKS:
-        research = import_module(spec.python_namespace + ".research").RESEARCH
+        research_module = (
+            ".public_native_research"
+            if spec.identity_authority is BenchmarkIdentityAuthority.PUBLIC_NATIVE
+            else ".research"
+        )
+        research = import_module(spec.python_namespace + research_module).RESEARCH
         benchmarks.append(
             {
                 "slug": spec.slug,

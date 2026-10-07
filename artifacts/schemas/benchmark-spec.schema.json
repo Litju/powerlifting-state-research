@@ -110,6 +110,7 @@
         },
         "historical_qualification_state": {
           "enum": [
+            "NOT_APPLICABLE",
             "NOT_QUALIFIED_OR_UNRESOLVED",
             "QUALIFIED_HISTORICAL"
           ],
@@ -117,6 +118,7 @@
         },
         "historical_specimen_status": {
           "enum": [
+            "NOT_HISTORICAL",
             "HISTORICAL_REGISTRY_ONLY",
             "PARTIALLY_RECONSTRUCTED",
             "REPRODUCIBLE_SPEC",

@@ -17,6 +17,8 @@ from powerlifting_state_research.contracts.benchmark import (
     ClaimScope,
     ComponentIdentity,
     DecisionCutoff,
+    HistoricalQualificationState,
+    HistoricalSpecimenStatus,
     IdentityResolution,
 )
 from powerlifting_state_research.contracts.comparability import (
@@ -383,7 +385,12 @@ def test_identity_authority_scopes_historical_system_config_resolution() -> None
         IdentityResolution.COMMITTED_BY_SYSTEM_CONFIG
     )
     with pytest.raises(ValueError, match="PUBLIC_NATIVE.*explicit direct"):
-        replace(spec, identity_authority=BenchmarkIdentityAuthority.PUBLIC_NATIVE)
+        replace(
+            spec,
+            identity_authority=BenchmarkIdentityAuthority.PUBLIC_NATIVE,
+            historical_specimen_status=HistoricalSpecimenStatus.NOT_HISTORICAL,
+            historical_qualification_state=HistoricalQualificationState.NOT_APPLICABLE,
+        )
     with pytest.raises(ValueError, match="authority must be explicit"):
         replace(spec, identity_authority="PUBLIC_NATIVE")
     with pytest.raises(ValueError, match="WORLD ID"):
@@ -423,6 +430,8 @@ def test_identity_authority_scopes_historical_system_config_resolution() -> None
     public_native = replace(
         historical_projection,
         identity_authority=BenchmarkIdentityAuthority.PUBLIC_NATIVE,
+        historical_specimen_status=HistoricalSpecimenStatus.NOT_HISTORICAL,
+        historical_qualification_state=HistoricalQualificationState.NOT_APPLICABLE,
     )
     assert public_native.identity_authority is BenchmarkIdentityAuthority.PUBLIC_NATIVE
     assert public_native.semantic_digest == historical_projection.semantic_digest
