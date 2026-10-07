@@ -55,7 +55,7 @@ class OutputField:
     def __post_init__(self) -> None:
         if not self.name.strip() or not self.qoi_id.strip() or not self.unit.strip():
             raise ValueError("prediction outputs need a field, QOI identity, and unit")
-        require_scientific_id(self.qoi_id, "output QOI ID")
+        require_scientific_id(self.qoi_id, "output QOI ID", expected_class="qoi")
 
 
 @dataclass(frozen=True, slots=True)
@@ -79,9 +79,9 @@ class PredictionContract:
         if not self.task_id.strip() or not self.event_index.strip():
             errors.append("task_id and event_index must be explicit")
         try:
-            require_scientific_id(self.task_id, "task ID")
+            require_scientific_id(self.task_id, "task ID", expected_class="task")
             for qoi_id in self.qoi_ids:
-                require_scientific_id(qoi_id, "QOI ID")
+                require_scientific_id(qoi_id, "QOI ID", expected_class="qoi")
         except ValueError as error:
             errors.append(str(error))
         if self.event_index != self.decision_cutoff.event_index:

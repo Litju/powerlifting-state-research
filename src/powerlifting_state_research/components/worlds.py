@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from ..contracts.components import ComponentClass, ComponentReference, ComponentResolution
+from ..contracts.serialization import require_scientific_id
 
 
 @dataclass(frozen=True, slots=True)
@@ -14,6 +15,9 @@ class WorldDeclaration:
     component_identity_id: str
     historical_aliases: tuple[str, ...]
     scientific_summary: str
+
+    def __post_init__(self) -> None:
+        require_scientific_id(self.component_identity_id, "world ID", expected_class="world")
 
     @property
     def reference(self) -> ComponentReference:

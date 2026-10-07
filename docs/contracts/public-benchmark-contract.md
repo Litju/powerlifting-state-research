@@ -31,6 +31,6 @@ Evaluation reports RMSE, MAE, R², and SRE with population standard deviation (d
 
 Metric result records distinguish historical-reported values, canonical research metrics, recomputed canonical values, and non-comparable values; a historical metric is never silently relabeled.
 
-Shift records name changed and invariant axes, source and target, support relation, task/QOI, evaluation, hypothesis, and evidence. OOD alone is invalid. Direct comparison requires compatible QOIs, outputs, metrics/evaluation, and any required matched or stratified support. Observed-origin and latent-origin estimands cannot be ranked directly.
+Shift records name changed and invariant axes, source and target, support relation, task/QOI, evaluation, hypothesis, and evidence. OOD alone is invalid. Direct comparison requires compatible QOIs, outputs, metrics/evaluation, and any required matched or stratified support. Observed-origin and latent-origin estimands cannot be ranked directly. A supplied common evaluation ID is checked for syntax and class only; verifying that it exists and was applied to both result sets belongs to the Benchmark Audit Suite or experiment orchestration layer.
 
 Run python -m powerlifting_state_research.exports to regenerate the registry and schemas; add --check to detect drift.

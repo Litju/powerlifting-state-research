@@ -58,6 +58,12 @@ def assess_comparability(
     common_evaluation_id: str | None = None,
     support_alignment: SupportAlignment = SupportAlignment.NOT_ASSESSED,
 ) -> ComparabilityDecision:
+    """Assess declared compatibility; common-evaluation existence/application is external.
+
+    A supplied common evaluation ID is checked for syntax and class only. Verifying that it
+    exists and was applied to both result sets belongs to the Benchmark Audit Suite or
+    experiment orchestration layer.
+    """
     if common_evaluation_id is not None:
         require_scientific_id(
             common_evaluation_id, "common evaluation ID", expected_class="evaluation"

@@ -1,6 +1,7 @@
 path,origin_class,license_expression,owner,purpose
 .editorconfig,NEWLY_AUTHORED,MIT,repository,Text and whitespace conventions.
-.github/workflows/README.md,NEWLY_AUTHORED,CC-BY-4.0,ci-location,CI location reserved for RES-372; no CI gates in RES-295.
+.github/workflows/README.md,NEWLY_AUTHORED,CC-BY-4.0,ci-location,Public CI job summary; local parity commands; public/private fingerprint boundary.
+.github/workflows/ci.yml,NEWLY_AUTHORED,MIT,ci-location,Read-only public CI for locked quality/integrity; compatibility; and package smoke gates.
 .gitignore,NEWLY_AUTHORED,MIT,repository,"Excludes local data, caches, checkpoints, build output, and credentials."
 CITATION.cff,NEWLY_AUTHORED,MIT,repository,Research citation metadata.
 CONTRIBUTING.md,NEWLY_AUTHORED,CC-BY-4.0,repository,Scientific and software contribution rules.
@@ -95,6 +96,7 @@ schemas/dataset-realization.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,schema-exp
 schemas/evaluation-result.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,schema-export,Generated evaluation-result schema.
 schemas/prediction.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,schema-export,Generated prediction interchange schema.
 scripts/README.md,NEWLY_AUTHORED,CC-BY-4.0,scripts,Small reproducibility/export tools; no general CLI at bootstrap.
+scripts/check_repository_integrity.py,NEWLY_AUTHORED,MIT,repository-integrity,Public-only registry; origin-ledger; and repository-safety checks.
 scripts/export_benchmark_registry.py,NEWLY_AUTHORED,MIT,registry-export,Exports the typed Python registry to its JSON destination.
 src/powerlifting_state_research/__init__.py,NEWLY_AUTHORED,MIT,package,Typed package namespace/home; no benchmark mechanics at bootstrap.
 src/powerlifting_state_research/artifacts/__init__.py,NEWLY_AUTHORED,MIT,package,Typed package namespace/home; no benchmark mechanics at bootstrap.

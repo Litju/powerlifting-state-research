@@ -157,7 +157,7 @@ class PredictionArtifactReference:
             self.dataset_realization_digest,
             "prediction artifact",
         )
-        require_scientific_id(self.model_id, "model ID")
+        require_scientific_id(self.model_id, "model ID", expected_class="model")
         if self.row_count < 0:
             raise ValueError("prediction artifact row count cannot be negative")
         if not re.fullmatch(r"sha256:[a-f0-9]{64}", self.content_sha256):

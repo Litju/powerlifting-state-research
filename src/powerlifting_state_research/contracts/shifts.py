@@ -61,16 +61,16 @@ class ShiftDeclaration:
         )
         if any(not value.strip() for value in required):
             raise ValueError("shift identity and evidence fields must be non-empty")
-        for label, value in (
-            ("shift ID", self.shift_id),
-            ("task ID", self.task_id),
-            ("evaluation ID", self.evaluation_id),
+        for label, value, expected_class in (
+            ("shift ID", self.shift_id, "shift"),
+            ("task ID", self.task_id, "task"),
+            ("evaluation ID", self.evaluation_id, "evaluation"),
         ):
-            require_scientific_id(value, label)
+            require_scientific_id(value, label, expected_class=expected_class)
         if not self.changed_axes or not self.invariant_axes or not self.qoi_ids:
             raise ValueError("a shift needs changed axes, invariant axes, and at least one QOI")
         for qoi_id in self.qoi_ids:
-            require_scientific_id(qoi_id, "QOI ID")
+            require_scientific_id(qoi_id, "QOI ID", expected_class="qoi")
         if set(self.changed_axes) & set(self.invariant_axes):
             raise ValueError("a shift axis cannot be both changed and invariant")
         if "OOD" in self.changed_axes or self.support_overlap.strip().upper() == "OOD":

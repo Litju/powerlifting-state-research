@@ -72,7 +72,11 @@ class ComponentIdentity:
         ):
             raise ValueError("committed component identity needs a system-config ID only")
         if self.resolution is IdentityResolution.COMMITTED_BY_SYSTEM_CONFIG:
-            require_scientific_id(self.system_config_id or "", "system-config ID")
+            require_scientific_id(
+                self.system_config_id or "",
+                "system-config ID",
+                expected_class="scientific-system-config",
+            )
         if self.resolution is IdentityResolution.UNRESOLVED and (
             self.id or self.system_config_id or not self.reason or not self.evidence_ref
         ):
