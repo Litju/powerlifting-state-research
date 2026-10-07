@@ -88,6 +88,12 @@ class PredictionContract:
             errors.append("decision cutoff and input event index must use the same time coordinate")
         if not self.entity_identity_fields or not self.row_identity_fields:
             errors.append("entity and row identity fields are required")
+        if len(self.qoi_ids) != len(set(self.qoi_ids)):
+            errors.append("prediction QOI IDs must be unique")
+        if len(self.entity_identity_fields) != len(set(self.entity_identity_fields)):
+            errors.append("entity identity fields must be unique")
+        if len(self.row_identity_fields) != len(set(self.row_identity_fields)):
+            errors.append("row identity fields must be unique")
         if not self.qoi_ids or not self.outputs:
             errors.append("at least one QOI and output field are required")
         if set(self.qoi_ids) != {output.qoi_id for output in self.outputs}:
