@@ -27,7 +27,7 @@ SPEC = BenchmarkSpec(
     target_ontology="LATENT_CAPACITY_CHANGE",
     task_type="LATENT_CAPACITY_CHANGE_FORECAST",
     component_references=(
-        COMPONENT_REGISTRIES[ComponentClass.WORLD]["dose_history_capacity_dynamics"],
+        COMPONENT_REGISTRIES[ComponentClass.WORLD]["training_dose_history_capacity_dynamics"],
         ComponentReference(
             ComponentClass.POPULATION, None, ComponentResolution.UNRESOLVED_DIRECT_ID
         ),

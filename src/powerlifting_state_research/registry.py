@@ -2,24 +2,97 @@
 
 from __future__ import annotations
 
-from .benchmarks.class_normalized_cross_lift_capacity_fatigue_forecasting import SPEC as benchmark_1
-from .benchmarks.final_origin_target_domain_evaluation import SPEC as benchmark_2
-from .benchmarks.latent_origin_capacity_change_forecasting import SPEC as benchmark_6
-from .benchmarks.observed_origin_performance_change_forecasting import SPEC as benchmark_5
-from .benchmarks.parsimonious_latent_capacity_change_forecasting import SPEC as benchmark_7
-from .benchmarks.schedule_exposure_heterogeneity_forecasting import SPEC as benchmark_4
-from .benchmarks.seasonal_capacity_fatigue_five_target_forecasting import SPEC as benchmark_0
-from .benchmarks.stable_slope_tilt_four_target_forecasting import SPEC as benchmark_3
-from .contracts.benchmark import BenchmarkSpec
+from .benchmarks.class_normalized_cross_lift_five_target_performance_forecasting import (
+    SPEC as CLASS_NORMALIZED_CROSS_LIFT_FIVE_TARGET,
+)
+from .benchmarks.four_target_load_velocity_and_competition_performance_forecasting import (
+    SPEC as FOUR_TARGET_LOAD_VELOCITY_AND_COMPETITION_PERFORMANCE,
+)
+from .benchmarks.held_out_final_origin_five_target_performance_evaluation import (
+    SPEC as HELD_OUT_FINAL_ORIGIN_FIVE_TARGET,
+)
+from .benchmarks.latent_capacity_change_with_transient_expression_forecasting import (
+    SPEC as LATENT_CAPACITY_CHANGE_WITH_TRANSIENT_EXPRESSION,
+)
+from .benchmarks.latent_origin_capacity_change_forecasting import (
+    SPEC as LATENT_ORIGIN_CAPACITY_CHANGE,
+)
+from .benchmarks.observed_origin_performance_change_forecasting import (
+    SPEC as OBSERVED_ORIGIN_PERFORMANCE_CHANGE,
+)
+from .benchmarks.seasonal_five_target_load_velocity_performance_forecasting import (
+    SPEC as SEASONAL_FIVE_TARGET_LOAD_VELOCITY_PERFORMANCE,
+)
+from .benchmarks.training_schedule_exposure_heterogeneity_forecasting import (
+    SPEC as TRAINING_SCHEDULE_EXPOSURE_HETEROGENEITY,
+)
+from .contracts.benchmark import BenchmarkSpec, CompletenessStatus, ImplementationStatus
+from .contracts.components import ComponentClass
+from .provenance import HISTORICAL_SOURCES
 
-BENCHMARKS: tuple[BenchmarkSpec, ...] = (
-    benchmark_0,
-    benchmark_1,
-    benchmark_2,
-    benchmark_3,
-    benchmark_4,
-    benchmark_5,
-    benchmark_6,
-    benchmark_7,
+# Registry enumeration is lexicographic by canonical scientific slug.
+BENCHMARKS: tuple[BenchmarkSpec, ...] = tuple(
+    sorted(
+        (
+            CLASS_NORMALIZED_CROSS_LIFT_FIVE_TARGET,
+            FOUR_TARGET_LOAD_VELOCITY_AND_COMPETITION_PERFORMANCE,
+            HELD_OUT_FINAL_ORIGIN_FIVE_TARGET,
+            LATENT_CAPACITY_CHANGE_WITH_TRANSIENT_EXPRESSION,
+            LATENT_ORIGIN_CAPACITY_CHANGE,
+            OBSERVED_ORIGIN_PERFORMANCE_CHANGE,
+            SEASONAL_FIVE_TARGET_LOAD_VELOCITY_PERFORMANCE,
+            TRAINING_SCHEDULE_EXPOSURE_HETEROGENEITY,
+        ),
+        key=lambda item: item.slug,
+    )
 )
 BENCHMARK_REGISTRY: dict[str, BenchmarkSpec] = {item.slug: item for item in BENCHMARKS}
+
+
+def resolve_benchmark(identifier: str) -> BenchmarkSpec:
+    """Resolve only canonical slugs or currently minted scientific IDs."""
+    if identifier in BENCHMARK_REGISTRY:
+        return BENCHMARK_REGISTRY[identifier]
+    for benchmark in BENCHMARKS:
+        if benchmark.benchmark_id == identifier:
+            return benchmark
+    raise KeyError(identifier)
+
+
+def resolve_historical_alias(alias: str) -> tuple[BenchmarkSpec, ...]:
+    """Resolve provenance aliases separately from canonical names and IDs."""
+    matches = tuple(
+        benchmark
+        for benchmark in BENCHMARKS
+        if alias in HISTORICAL_SOURCES[benchmark.slug].historical_aliases
+    )
+    if not matches:
+        raise KeyError(alias)
+    return matches
+
+
+def query_benchmarks(
+    *,
+    implementation_status: ImplementationStatus | None = None,
+    completeness_status: CompletenessStatus | None = None,
+    component_class: ComponentClass | None = None,
+    component_key: str | None = None,
+) -> tuple[BenchmarkSpec, ...]:
+    """Filter the static registry without services or mutable global state."""
+    return tuple(
+        benchmark
+        for benchmark in BENCHMARKS
+        if (
+            implementation_status is None
+            or benchmark.public_implementation_status is implementation_status
+        )
+        and (completeness_status is None or benchmark.completeness_status is completeness_status)
+        and (
+            component_class is None
+            or any(
+                reference.component_class is component_class
+                and (component_key is None or reference.canonical_key == component_key)
+                for reference in benchmark.component_references
+            )
+        )
+    )

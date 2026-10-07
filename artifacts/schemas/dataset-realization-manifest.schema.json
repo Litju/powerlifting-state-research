@@ -1,0 +1,262 @@
+{
+  "$defs": {
+    "ArtifactHash": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_id": {
+          "type": "string"
+        },
+        "media_type": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "artifact_id",
+        "sha256",
+        "media_type"
+      ],
+      "type": "object"
+    },
+    "DatasetRealizationManifest": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_hashes": {
+          "items": {
+            "$ref": "#/$defs/ArtifactHash"
+          },
+          "type": "array"
+        },
+        "dataset_spec_id": {
+          "type": "string"
+        },
+        "entity_count": {
+          "type": "integer"
+        },
+        "generator_identity": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "observation_availability": {
+          "items": {
+            "$ref": "#/$defs/ObservationAvailability"
+          },
+          "type": "array"
+        },
+        "provenance": {
+          "type": "string"
+        },
+        "realization_id": {
+          "type": "string"
+        },
+        "realized_intervention_support": {
+          "items": {
+            "$ref": "#/$defs/SupportSummary"
+          },
+          "type": "array"
+        },
+        "replicate_ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "rights": {
+          "$ref": "#/$defs/RightsMetadata"
+        },
+        "row_count": {
+          "type": "integer"
+        },
+        "schema_identity": {
+          "type": "string"
+        },
+        "seeds": {
+          "items": {
+            "maxItems": 2,
+            "minItems": 2,
+            "prefixItems": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "type": "array"
+          },
+          "type": "array"
+        },
+        "source_identity": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "split_identities": {
+          "items": {
+            "$ref": "#/$defs/SplitIdentity"
+          },
+          "type": "array"
+        },
+        "temporal_coverage": {
+          "$ref": "#/$defs/TemporalCoverage"
+        }
+      },
+      "required": [
+        "dataset_spec_id",
+        "realization_id",
+        "generator_identity",
+        "source_identity",
+        "seeds",
+        "replicate_ids",
+        "entity_count",
+        "row_count",
+        "split_identities",
+        "artifact_hashes",
+        "schema_identity",
+        "temporal_coverage",
+        "realized_intervention_support",
+        "observation_availability",
+        "provenance",
+        "rights"
+      ],
+      "type": "object"
+    },
+    "ObservationAvailability": {
+      "additionalProperties": false,
+      "properties": {
+        "available_count": {
+          "type": "integer"
+        },
+        "field": {
+          "type": "string"
+        },
+        "missing_count": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "field",
+        "available_count",
+        "missing_count"
+      ],
+      "type": "object"
+    },
+    "RightsMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "access_conditions": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "copyright_holder": {
+          "type": "string"
+        },
+        "license_expression": {
+          "type": "string"
+        },
+        "redistribution_status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "license_expression",
+        "copyright_holder",
+        "redistribution_status"
+      ],
+      "type": "object"
+    },
+    "SplitIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "entity_count": {
+          "type": "integer"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "row_count": {
+          "type": "integer"
+        },
+        "split_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "split_id",
+        "purpose",
+        "entity_count",
+        "row_count"
+      ],
+      "type": "object"
+    },
+    "SupportSummary": {
+      "additionalProperties": false,
+      "properties": {
+        "axis": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "axis",
+        "description"
+      ],
+      "type": "object"
+    },
+    "TemporalCoverage": {
+      "additionalProperties": false,
+      "properties": {
+        "end": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "event_index": {
+          "type": "string"
+        },
+        "start": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        }
+      },
+      "required": [
+        "event_index",
+        "start",
+        "end"
+      ],
+      "type": "object"
+    }
+  },
+  "$ref": "#/$defs/DatasetRealizationManifest",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-generator": {
+    "name": "powerlifting-state-research-python",
+    "version": "0.1.0"
+  }
+}

@@ -9,14 +9,16 @@ from __future__ import annotations
 from ..contracts.components import ComponentClass, ComponentReference, ComponentResolution
 
 dataset_spec_references: dict[str, ComponentReference] = {
-    "class_normalized_cross_lift_capacity_fatigue_forecasting_sampling_design": ComponentReference(
+    (
+        "class_normalized_cross_lift_five_target_performance_forecasting_sampling_design"
+    ): ComponentReference(
         ComponentClass.DATASET_SPEC,
-        "class_normalized_cross_lift_capacity_fatigue_forecasting_sampling_design",
+        "class_normalized_cross_lift_five_target_performance_forecasting_sampling_design",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
-    "final_origin_target_domain_evaluation_sampling_design": ComponentReference(
+    "held_out_final_origin_five_target_performance_evaluation_sampling_design": ComponentReference(
         ComponentClass.DATASET_SPEC,
-        "final_origin_target_domain_evaluation_sampling_design",
+        "held_out_final_origin_five_target_performance_evaluation_sampling_design",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
     "latent_origin_capacity_change_forecasting_sampling_design": ComponentReference(
@@ -29,24 +31,30 @@ dataset_spec_references: dict[str, ComponentReference] = {
         "observed_origin_performance_change_forecasting_sampling_design",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
-    "parsimonious_latent_capacity_change_forecasting_sampling_design": ComponentReference(
+    (
+        "latent_capacity_change_with_transient_expression_forecasting_sampling_design"
+    ): ComponentReference(
         ComponentClass.DATASET_SPEC,
-        "parsimonious_latent_capacity_change_forecasting_sampling_design",
+        "latent_capacity_change_with_transient_expression_forecasting_sampling_design",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
-    "schedule_exposure_heterogeneity_forecasting_sampling_design": ComponentReference(
+    "training_schedule_exposure_heterogeneity_forecasting_sampling_design": ComponentReference(
         ComponentClass.DATASET_SPEC,
-        "schedule_exposure_heterogeneity_forecasting_sampling_design",
+        "training_schedule_exposure_heterogeneity_forecasting_sampling_design",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
-    "seasonal_capacity_fatigue_five_target_forecasting_sampling_design": ComponentReference(
+    (
+        "seasonal_five_target_load_velocity_performance_forecasting_sampling_design"
+    ): ComponentReference(
         ComponentClass.DATASET_SPEC,
-        "seasonal_capacity_fatigue_five_target_forecasting_sampling_design",
+        "seasonal_five_target_load_velocity_performance_forecasting_sampling_design",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
-    "stable_slope_tilt_four_target_forecasting_sampling_design": ComponentReference(
+    (
+        "four_target_load_velocity_and_competition_performance_forecasting_sampling_design"
+    ): ComponentReference(
         ComponentClass.DATASET_SPEC,
-        "stable_slope_tilt_four_target_forecasting_sampling_design",
+        "four_target_load_velocity_and_competition_performance_forecasting_sampling_design",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
 }

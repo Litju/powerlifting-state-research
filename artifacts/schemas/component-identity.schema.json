@@ -1,0 +1,59 @@
+{
+  "$defs": {
+    "ComponentIdentity": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence_ref": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "reason": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "resolution": {
+          "enum": [
+            "DIRECT",
+            "COMMITTED_BY_SYSTEM_CONFIG",
+            "UNRESOLVED"
+          ],
+          "type": "string"
+        },
+        "system_config_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        }
+      },
+      "required": [
+        "resolution"
+      ],
+      "type": "object"
+    }
+  },
+  "$ref": "#/$defs/ComponentIdentity",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-generator": {
+    "name": "powerlifting-state-research-python",
+    "version": "0.1.0"
+  }
+}

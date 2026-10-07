@@ -1,6 +1,13 @@
-"""
-Public artifact utilities.
+"""Content hashes and per-artifact rights declarations."""
 
-Only the small hashing primitive and metadata declaration needed by the frozen skeleton are present.
+from .hashes import sha256_bytes, sha256_file, sha256_file_content, sha256_record
+from .manifests import ArtifactManifest, RightsMetadata
 
-"""
+__all__ = [
+    "ArtifactManifest",
+    "RightsMetadata",
+    "sha256_bytes",
+    "sha256_file",
+    "sha256_file_content",
+    "sha256_record",
+]

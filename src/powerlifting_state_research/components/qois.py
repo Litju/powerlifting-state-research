@@ -9,9 +9,9 @@ from __future__ import annotations
 from ..contracts.components import ComponentClass, ComponentReference, ComponentResolution
 
 qoi_references: dict[str, ComponentReference] = {
-    "four_performance_targets": ComponentReference(
+    "four_load_velocity_and_competition_performance_targets": ComponentReference(
         ComponentClass.QOI,
-        "four_performance_targets",
+        "four_load_velocity_and_competition_performance_targets",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
     "latent_capacity_change": ComponentReference(
@@ -22,9 +22,9 @@ qoi_references: dict[str, ComponentReference] = {
         "observed_origin_performance_change",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
-    "seasonal_five_performance_outputs": ComponentReference(
+    "seasonal_five_target_performance_outputs": ComponentReference(
         ComponentClass.QOI,
-        "seasonal_five_performance_outputs",
+        "seasonal_five_target_performance_outputs",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
 }

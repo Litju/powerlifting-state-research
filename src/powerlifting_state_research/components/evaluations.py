@@ -14,9 +14,9 @@ evaluation_references: dict[str, ComponentReference] = {
         "class_normalized_five_output_evaluation",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
-    "final_origin_target_domain_evaluation": ComponentReference(
+    "held_out_final_origin_five_target_performance_evaluation": ComponentReference(
         ComponentClass.EVALUATION,
-        "final_origin_target_domain_evaluation",
+        "held_out_final_origin_five_target_performance_evaluation",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
     "four_target_weighted_evaluation": ComponentReference(

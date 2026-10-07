@@ -13,6 +13,7 @@ from .qois import qoi_references as qoi_references
 from .representations import representation_references as representation_references
 from .shifts import shift_references as shift_references
 from .tasks import task_references as task_references
+from .worlds import WORLD_DECLARATIONS as WORLD_DECLARATIONS
 from .worlds import world_references as world_references
 
 COMPONENT_REGISTRIES: dict[ComponentClass, dict[str, ComponentReference]] = {
@@ -31,6 +32,7 @@ COMPONENT_REGISTRIES: dict[ComponentClass, dict[str, ComponentReference]] = {
 
 __all__ = [
     "COMPONENT_REGISTRIES",
+    "WORLD_DECLARATIONS",
     "world_references",
     "population_references",
     "intervention_regime_references",

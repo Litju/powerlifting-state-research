@@ -4,7 +4,7 @@ Open research on latent powerlifting capacity, performance expression, and forec
 
 This repository starts with a public-safe research registry and typed package skeleton. It contains eight reconstructed historical benchmark specimens across six shared worlds. **No independent public benchmark mechanics are implemented at bootstrap.** Every specimen remains marked PUBLIC_IMPLEMENTATION_PENDING.
 
-The first independent public mechanics work is planned for the parsimonious latent capacity-change formulation in the next research phase. This repository does not implement that world at bootstrap.
+The first independent public mechanics work is planned for latent capacity-change forecasting with transient performance expression in the next research phase. This repository does not implement that system at bootstrap.
 
 ## Scientific object
 
@@ -12,18 +12,20 @@ The program separates latent capacity and its change from transient performance 
 
 ## Historical benchmark registry
 
+See [scientific naming decisions](docs/provenance/scientific-naming-decisions.md) for the audited benchmark and world names, terminology rationale, citations, and retained provenance aliases.
+
 | Scientific formulation | Canonical package slug | Historical status | Completeness | Public implementation |
 |---|---|---|---|---|
-| [Seasonal Capacity–Fatigue Forecasting with Five Performance Targets](docs/benchmarks/seasonal-capacity-fatigue-five-target-forecasting.md) | seasonal_capacity_fatigue_five_target_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
-| [Class-Normalized Cross-Lift Capacity–Fatigue Forecasting with Five Targets](docs/benchmarks/class-normalized-cross-lift-capacity-fatigue-forecasting.md) | class_normalized_cross_lift_capacity_fatigue_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
-| [Final-Origin Target-Domain Evaluation of Seasonal Performance Forecasts](docs/benchmarks/final-origin-target-domain-evaluation.md) | final_origin_target_domain_evaluation | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
-| [Stable-Slope/Tilt Four-Target Athlete-State Forecasting](docs/benchmarks/stable-slope-tilt-four-target-forecasting.md) | stable_slope_tilt_four_target_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
-| [Schedule/Exposure Heterogeneity Four-Target Forecasting](docs/benchmarks/schedule-exposure-heterogeneity-forecasting.md) | schedule_exposure_heterogeneity_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
-| [Observed-Origin Performance-Change Forecasting](docs/benchmarks/observed-origin-performance-change-forecasting.md) | observed_origin_performance_change_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
+| [Class-Normalized Cross-Lift Five-Target Performance Forecasting](docs/benchmarks/class-normalized-cross-lift-five-target-performance-forecasting.md) | class_normalized_cross_lift_five_target_performance_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
+| [Four-Target Load–Velocity and Competition Performance Forecasting](docs/benchmarks/four-target-load-velocity-and-competition-performance-forecasting.md) | four_target_load_velocity_and_competition_performance_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
+| [Held-Out Final-Origin Evaluation of Five Performance Targets](docs/benchmarks/held-out-final-origin-five-target-performance-evaluation.md) | held_out_final_origin_five_target_performance_evaluation | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
+| [Latent Capacity-Change Forecasting with Transient Performance Expression](docs/benchmarks/latent-capacity-change-with-transient-expression-forecasting.md) | latent_capacity_change_with_transient_expression_forecasting | REPRODUCIBLE_SPEC | FULL_FROM_EXISTING_EVIDENCE | PUBLIC_IMPLEMENTATION_PENDING |
 | [Latent-Origin Capacity-Change Forecasting](docs/benchmarks/latent-origin-capacity-change-forecasting.md) | latent_origin_capacity_change_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
-| [Parsimonious Latent Capacity-Change Forecasting with Transient Performance Expression](docs/benchmarks/parsimonious-latent-capacity-change-forecasting.md) | parsimonious_latent_capacity_change_forecasting | REPRODUCIBLE_SPEC | FULL_FROM_EXISTING_EVIDENCE | PUBLIC_IMPLEMENTATION_PENDING |
+| [Observed-Origin Performance-Change Forecasting](docs/benchmarks/observed-origin-performance-change-forecasting.md) | observed_origin_performance_change_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
+| [Seasonal Five-Target Load–Velocity and Performance Forecasting](docs/benchmarks/seasonal-five-target-load-velocity-performance-forecasting.md) | seasonal_five_target_load_velocity_performance_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
+| [Training Schedule/Exposure Heterogeneity Forecasting](docs/benchmarks/training-schedule-exposure-heterogeneity-forecasting.md) | training_schedule_exposure_heterogeneity_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
 
-Historical aliases and source identity strings are provenance metadata in the package registry. Public paths, module names, tests, and documentation use the scientific formulations above.
+Historical aliases and frozen component identity strings are provenance or identity references. Public paths, module names, tests, and descriptions use the scientific formulations above.
 
 ## What results can say
 

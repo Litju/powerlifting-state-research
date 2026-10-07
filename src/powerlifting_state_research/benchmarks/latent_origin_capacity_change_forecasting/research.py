@@ -32,7 +32,8 @@ RESEARCH = ResearchMetadata(
     claim_escalations_prohibited=(
         "Individual causal treatment effect or responder classification.",
         "Human validity, biological parameter ID, broad OOD, hidden/final qualification.",
-        "Raw score ranking against observed-origin or parsimonious latent capacity-change.",
+        "Raw score ranking against observed-origin performance change or latent capacity change with "
+        "transient performance expression.",
     ),
     unresolved_questions=(
         "No fresh latent-origin hidden challenge/final qualification.",
