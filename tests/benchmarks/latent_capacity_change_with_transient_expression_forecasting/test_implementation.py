@@ -354,3 +354,26 @@ def test_intervention_and_split_seeds_change_only_their_allocations() -> None:
     split_changed = _row_records(replace(config, split_seed=config.split_seed + 1))
     assert [(row[1], *row[2:]) for row in records] == [(row[1], *row[2:]) for row in split_changed]
     assert [row[0] for row in records] != [row[0] for row in split_changed]
+
+
+def test_canonical_manifest_binds_package_source_and_configuration() -> None:
+    from powerlifting_state_research import __version__
+
+    manifest_path = (
+        Path(__file__).resolve().parents[3]
+        / "data"
+        / "manifests"
+        / "realizations"
+        / "latent_capacity_change_with_transient_expression_forecasting"
+        / "iid-production.json"
+    )
+    generator_identity = json.loads(manifest_path.read_text(encoding="utf-8"))["generator_identity"]
+    assert f"package-version={__version__}" in generator_identity
+    assert (
+        f"generator-source-sha256={benchmark.dataset.GENERATOR_SOURCE_SHA256.removeprefix('sha256:')}"
+        in generator_identity
+    )
+    assert (
+        f"config-sha256={benchmark.dataset.PUBLIC_GENERATION_CONFIGURATION_SHA256.removeprefix('sha256:')}"
+        in generator_identity
+    )
