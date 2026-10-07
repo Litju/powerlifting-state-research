@@ -26,40 +26,47 @@ class WorldDeclaration:
 
 WORLD_DECLARATIONS: tuple[WorldDeclaration, ...] = (
     WorldDeclaration(
-        "class_normalized_cross_lift_performance",
-        "Class-Normalized Cross-Lift Performance World",
+        "athlete_latent_state_dynamics",
+        "Athlete Latent-State Dynamics",
         "psr:world:refined-class-normalized-seasonal-cross-lift-world@1.0.0~c7dcec83d1f8",
         (
+            "class_normalized_cross_lift_performance",
+            "Class-Normalized Cross-Lift Performance World",
             "class_normalized_cross_lift_capacity_fatigue",
             "WORLD_LEGACY_REFINED_CROSS_LIFT.v2",
         ),
-        "Refined class-normalized synthetic cross-lift outputs with field observations.",
+        "The historical specimen's specific latent-state transition law is not characterized.",
     ),
     WorldDeclaration(
-        "four_target_longitudinal_performance_state",
-        "Four-Target Longitudinal Performance-State World",
+        "longitudinal_athlete_state_dynamics",
+        "Longitudinal Athlete-State Dynamics",
         "psr:world:c21-athlete-state-stable-slope-tilt-world@1.0.0~8956f2327a14",
         (
+            "four_target_longitudinal_performance_state",
+            "Four-Target Longitudinal Performance-State World",
             "stable_slope_tilt_athlete_state",
             "C21",
             "C21.2",
             "C21-athlete-state-stable-slope-tilt-seed3115",
             "WORLD_C21_ATHLETE_STATE_STABLE_SLOPE_TILT.v1",
         ),
-        "Longitudinal synthetic athlete-state trajectories evaluated on four performance targets.",
+        "Longitudinal synthetic athlete-state trajectories; the specific transition law is not "
+        "characterized.",
     ),
     WorldDeclaration(
-        "heterogeneous_training_schedule_exposure_and_reporting",
-        "Heterogeneous Training Schedule, Exposure, and Reporting World",
+        "athlete_state_transition_dynamics",
+        "Athlete-State Transition Dynamics",
         "psr:world:c22-heterogeneous-schedule-exposure-world@1.0.0~55a292e3b1c6",
         (
+            "heterogeneous_training_schedule_exposure_and_reporting",
+            "Heterogeneous Training Schedule, Exposure, and Reporting World",
             "schedule_exposure_heterogeneity",
             "C22",
             "C22.4",
             "C22-schedule-exposure-v4",
             "WORLD_C22_HETEROGENEOUS_SCHEDULE_EXPOSURE.v1",
         ),
-        "Synthetic schedules, realized exposure, and reporting vary across athletes.",
+        "The historical specimen's specific athlete-state transition law is not characterized.",
     ),
     WorldDeclaration(
         "latent_capacity_transient_performance_expression_dynamics",
@@ -71,19 +78,20 @@ WORLD_DECLARATIONS: tuple[WorldDeclaration, ...] = (
             "WORLD_RESPONSE_PARSIMONIOUS.v2",
             "powerlifting.big3.response.parsimonious.v2",
         ),
-        "Separates chronic adaptation, latent capacity, transient performance expression, "
-        "and records.",
+        "Separates chronic adaptation, latent capacity, and transient performance expression.",
     ),
     WorldDeclaration(
-        "seasonal_load_velocity_and_performance",
-        "Seasonal Load–Velocity and Performance World",
+        "latent_state_transition_dynamics",
+        "Latent-State Transition Dynamics",
         "psr:world:early-seasonal-capacity-load-velocity-world@1.0.0~168dadf66c15",
         (
+            "seasonal_load_velocity_and_performance",
+            "Seasonal Load–Velocity and Performance World",
             "seasonal_capacity_fatigue",
             "WORLD_LEGACY_EARLY_CAPACITY_FATIGUE.v1",
             "initial Powerlifting task",
         ),
-        "Early seasonal synthetic system with load-velocity and competition-performance outputs.",
+        "The historical specimen's specific latent-state transition law is not characterized.",
     ),
     WorldDeclaration(
         "training_dose_history_capacity_dynamics",
@@ -95,7 +103,7 @@ WORLD_DECLARATIONS: tuple[WorldDeclaration, ...] = (
             "WORLD_RESPONSE_DOSE_MEMORY.v1",
             "powerlifting.big3.response.dose_memory.v1",
         ),
-        "Synthetic capacity dynamics depend on recorded training-dose history.",
+        "Synthetic capacity dynamics depend on training-dose history.",
     ),
 )
 

@@ -29,7 +29,7 @@ SPEC = BenchmarkSpec(
     target_ontology="MULTI_OUTPUT_OTHER",
     task_type="MULTI_OUTPUT_SEASONAL_PERFORMANCE_FORECAST",
     component_references=(
-        COMPONENT_REGISTRIES[ComponentClass.WORLD]["seasonal_load_velocity_and_performance"],
+        COMPONENT_REGISTRIES[ComponentClass.WORLD]["latent_state_transition_dynamics"],
         ComponentReference(
             ComponentClass.POPULATION, None, ComponentResolution.UNRESOLVED_DIRECT_ID
         ),

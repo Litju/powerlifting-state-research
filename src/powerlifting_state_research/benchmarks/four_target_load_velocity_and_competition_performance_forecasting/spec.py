@@ -29,7 +29,7 @@ SPEC = BenchmarkSpec(
     target_ontology="MULTI_OUTPUT_OTHER",
     task_type="FOUR_TARGET_25_DAY_PERFORMANCE_FORECAST",
     component_references=(
-        COMPONENT_REGISTRIES[ComponentClass.WORLD]["four_target_longitudinal_performance_state"],
+        COMPONENT_REGISTRIES[ComponentClass.WORLD]["longitudinal_athlete_state_dynamics"],
         ComponentReference(
             ComponentClass.POPULATION, None, ComponentResolution.UNRESOLVED_DIRECT_ID
         ),

@@ -4,7 +4,7 @@ A benchmark is a composition of scientific components. Each component class has 
 
 | Component class | Meaning |
 |---|---|
-| WORLD | Causal latent dynamics and constraints represented by one shared system declaration. |
+| WORLD | Causal latent-state transition mechanisms, consumed athlete parameters, process stochasticity, and intrinsic constraints. It excludes population, intervention regime, observations/reporting, tasks/QOIs, and evaluation design. |
 | POPULATION | The construction of athlete-specific characteristics and initial conditions. |
 | INTERVENTION_REGIME | Training or planned exposure rules, support, and scheduling. |
 | OBSERVATION_MODEL | How latent or expressed states become measured observations. |

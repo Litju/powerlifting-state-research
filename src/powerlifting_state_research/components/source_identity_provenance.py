@@ -13,7 +13,10 @@ SOURCE_COMPONENT_IDENTITIES: dict[str, tuple[tuple[str, str], ...]] = {
         ),
     ),
     "psr:dataset-spec:pl-c22-schedule-exposure-sampling-design@1.0.0~6fcc1c11df19": (
-        ("DATASET_SPEC", "training_schedule_exposure_heterogeneity_forecasting_sampling_design"),
+        (
+            "DATASET_SPEC",
+            "performance_forecasting_under_schedule_exposure_reporting_heterogeneity_sampling_design",
+        ),
     ),
     "psr:dataset-spec:pl-legacy-capacity-early-sampling-design@1.0.0~200b45f1c717": (
         (
@@ -41,7 +44,7 @@ SOURCE_COMPONENT_IDENTITIES: dict[str, tuple[tuple[str, str], ...]] = {
     ),
     "psr:dataset-spec:v1-response-shared-sampling-inputs@1.0.0~23bb079da836": (
         ("DATASET_SPEC", "latent_origin_capacity_change_forecasting_sampling_design"),
-        ("DATASET_SPEC", "observed_origin_performance_change_forecasting_sampling_design"),
+        ("DATASET_SPEC", "observed_origin_referenced_capacity_change_sampling_design"),
     ),
     "psr:evaluation:c21-c22-four-target-release-contract@1.0.0~a17c43781876": (
         ("EVALUATION", "four_target_weighted_evaluation"),
@@ -86,7 +89,7 @@ SOURCE_COMPONENT_IDENTITIES: dict[str, tuple[tuple[str, str], ...]] = {
         ("QOI", "four_load_velocity_and_competition_performance_targets"),
     ),
     "psr:qoi:future-capacity-minus-noisy-origin-assessment@1.0.0~b7e407fe2b81": (
-        ("QOI", "observed_origin_performance_change"),
+        ("QOI", "observed_origin_referenced_capacity_change"),
     ),
     "psr:qoi:latent-capacity-change@1.0.0~675491124046": (("QOI", "latent_capacity_change"),),
     "psr:qoi:legacy-five-target-set@1.0.0~d0a410b2edfc": (
@@ -120,19 +123,19 @@ SOURCE_COMPONENT_IDENTITIES: dict[str, tuple[tuple[str, str], ...]] = {
         ("TASK", "latent_capacity_change_forecast"),
     ),
     "psr:task:v1-t0-observed-origin-performance-change@1.0.0~6fedfb6051bb": (
-        ("TASK", "observed_origin_performance_change_forecast"),
+        ("TASK", "observed_origin_referenced_capacity_change_forecast"),
     ),
     "psr:world:c21-athlete-state-stable-slope-tilt-world@1.0.0~8956f2327a14": (
-        ("WORLD", "four_target_longitudinal_performance_state"),
+        ("WORLD", "longitudinal_athlete_state_dynamics"),
     ),
     "psr:world:c22-heterogeneous-schedule-exposure-world@1.0.0~55a292e3b1c6": (
-        ("WORLD", "heterogeneous_training_schedule_exposure_and_reporting"),
+        ("WORLD", "athlete_state_transition_dynamics"),
     ),
     "psr:world:early-seasonal-capacity-load-velocity-world@1.0.0~168dadf66c15": (
-        ("WORLD", "seasonal_load_velocity_and_performance"),
+        ("WORLD", "latent_state_transition_dynamics"),
     ),
     "psr:world:refined-class-normalized-seasonal-cross-lift-world@1.0.0~c7dcec83d1f8": (
-        ("WORLD", "class_normalized_cross_lift_performance"),
+        ("WORLD", "athlete_latent_state_dynamics"),
     ),
     "psr:world:v1-dose-memory-response-world@1.0.0~11b6f0033502": (
         ("WORLD", "training_dose_history_capacity_dynamics"),
@@ -144,10 +147,14 @@ SOURCE_COMPONENT_IDENTITIES: dict[str, tuple[tuple[str, str], ...]] = {
 
 # Old bootstrap keys are lookup metadata only; component registries contain only new names.
 SOURCE_COMPONENT_ALIASES: dict[str, str] = {
-    "seasonal_capacity_fatigue": "seasonal_load_velocity_and_performance",
-    "class_normalized_cross_lift_capacity_fatigue": "class_normalized_cross_lift_performance",
-    "stable_slope_tilt_athlete_state": "four_target_longitudinal_performance_state",
-    "schedule_exposure_heterogeneity": "heterogeneous_training_schedule_exposure_and_reporting",
+    "seasonal_capacity_fatigue": "latent_state_transition_dynamics",
+    "seasonal_load_velocity_and_performance": "latent_state_transition_dynamics",
+    "class_normalized_cross_lift_capacity_fatigue": "athlete_latent_state_dynamics",
+    "class_normalized_cross_lift_performance": "athlete_latent_state_dynamics",
+    "stable_slope_tilt_athlete_state": "longitudinal_athlete_state_dynamics",
+    "four_target_longitudinal_performance_state": "longitudinal_athlete_state_dynamics",
+    "schedule_exposure_heterogeneity": "athlete_state_transition_dynamics",
+    "heterogeneous_training_schedule_exposure_and_reporting": "athlete_state_transition_dynamics",
     "dose_history_capacity_dynamics": "training_dose_history_capacity_dynamics",
     "parsimonious_capacity_expression": "latent_capacity_transient_performance_expression_dynamics",
     "seasonal_capacity_fatigue_five_target_forecasting_sampling_design": (
@@ -163,7 +170,13 @@ SOURCE_COMPONENT_ALIASES: dict[str, str] = {
         "four_target_load_velocity_and_competition_performance_forecasting_sampling_design"
     ),
     "schedule_exposure_heterogeneity_forecasting_sampling_design": (
-        "training_schedule_exposure_heterogeneity_forecasting_sampling_design"
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity_sampling_design"
+    ),
+    "training_schedule_exposure_heterogeneity_forecasting_sampling_design": (
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity_sampling_design"
+    ),
+    "observed_origin_performance_change_forecasting_sampling_design": (
+        "observed_origin_referenced_capacity_change_sampling_design"
     ),
     "parsimonious_latent_capacity_change_forecasting_sampling_design": (
         "latent_capacity_change_with_transient_expression_forecasting_sampling_design"
@@ -178,4 +191,8 @@ SOURCE_COMPONENT_ALIASES: dict[str, str] = {
     "seasonal_five_performance_forecast": "seasonal_five_target_performance_forecast",
     "four_performance_targets": "four_load_velocity_and_competition_performance_targets",
     "seasonal_five_performance_outputs": "seasonal_five_target_performance_outputs",
+    "observed_origin_performance_change": "observed_origin_referenced_capacity_change",
+    "observed_origin_performance_change_forecast": (
+        "observed_origin_referenced_capacity_change_forecast"
+    ),
 }

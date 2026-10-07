@@ -277,10 +277,12 @@ HISTORICAL_SOURCES: dict[str, HistoricalProvenance] = {
         ),
         attached_audit_aliases=(),
     ),
-    "training_schedule_exposure_heterogeneity_forecasting": HistoricalProvenance(
+    "performance_forecasting_under_schedule_exposure_reporting_heterogeneity": HistoricalProvenance(
         specimen_id="pl_c22_schedule_exposure",
         historical_aliases=(
             "pl_c22_schedule_exposure",
+            "training_schedule_exposure_heterogeneity_forecasting",
+            "Training Schedule/Exposure Heterogeneity Forecasting",
             "schedule_exposure_heterogeneity_forecasting",
             "Schedule/Exposure Heterogeneity Four-Target Forecasting",
             "C22.4",
@@ -357,10 +359,12 @@ HISTORICAL_SOURCES: dict[str, HistoricalProvenance] = {
         ),
         attached_audit_aliases=(),
     ),
-    "observed_origin_performance_change_forecasting": HistoricalProvenance(
+    "observed_origin_referenced_capacity_change_forecasting": HistoricalProvenance(
         specimen_id="pl_response_v1_t0_public_2048",
         historical_aliases=(
             "pl_response_v1_t0_public_2048",
+            "observed_origin_performance_change_forecasting",
+            "Observed-Origin Performance-Change Forecasting",
             "World-V1",
             "powerlifting.big3.response.dose_memory.v1",
             "T0_CURRENT",

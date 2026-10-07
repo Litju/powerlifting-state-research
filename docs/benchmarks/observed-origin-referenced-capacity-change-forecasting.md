@@ -1,14 +1,14 @@
-# Observed-Origin Performance-Change Forecasting
+# Observed-Origin-Referenced Capacity-Change Forecasting
 
 ## Research question
 
-At the forecast origin, can a model using noisy performance observations through that origin and the participant-visible declared dose/intensity plan predict future modeled capacity minus the noisy observed-origin assessment for squat, bench, and deadlift at horizons 14, 28, and 56 days? The observed-origin target is not pure latent capacity change, a causal effect, or directly comparable with a latent-origin target.
+At the forecast origin, can a model using noisy performance observations through that origin and the participant-visible declared dose/intensity plan predict future modeled capacity relative to the noisy observed-origin assessment for squat, bench, and deadlift at horizons 14, 28, and 56 days? This is not a difference between two observed performance assessments, a causal effect, or the same estimand as latent-origin capacity change.
 
 This question is classified as **RETROSPECTIVE_TECHNICAL_CHARACTERIZATION**. It characterizes the recorded task where retrospective; it does not assert that the same wording was the original historical motivation.
 
 ## Scientific objective
 
-Characterize a plan-conditional observed-origin performance-change estimand in a synthetic dose-history world.
+Forecast future capacity relative to a noisy observed-origin assessment under a declared future plan in a synthetic dose-history world.
 
 ## Specimen and completeness
 
@@ -18,8 +18,8 @@ A reproducible historical specification is not the same as an independent public
 
 ## Task and information boundary
 
-- Task type: OBSERVED_ORIGIN_RESPONSE_FORECAST
-- Target ontology: OBSERVED_PERFORMANCE
+- Task type: OBSERVED_ORIGIN_REFERENCED_CAPACITY_CHANGE_FORECAST
+- Target ontology: OBSERVED_ORIGIN_REFERENCED_CAPACITY_CHANGE
 - Information setting: DECLARED_FUTURE_PLAN_VISIBLE
 - Historical prediction boundary: Origin 224; use observations through origin and complete declared future dose/intensity plan. Future realized outcomes are unavailable.
 
@@ -31,9 +31,9 @@ A reproducible historical specification is not the same as an independent public
 | POPULATION | unresolved direct identity | UNRESOLVED_DIRECT_ID |
 | INTERVENTION_REGIME | unresolved direct identity | UNRESOLVED_DIRECT_ID |
 | OBSERVATION_MODEL | performance_assessment_observation | DIRECT_HISTORICAL_IDENTITY |
-| DATASET_SPEC | observed_origin_performance_change_forecasting_sampling_design | DIRECT_HISTORICAL_IDENTITY |
-| TASK | observed_origin_performance_change_forecast | DIRECT_HISTORICAL_IDENTITY |
-| QOI | observed_origin_performance_change | DIRECT_HISTORICAL_IDENTITY |
+| DATASET_SPEC | observed_origin_referenced_capacity_change_sampling_design | DIRECT_HISTORICAL_IDENTITY |
+| TASK | observed_origin_referenced_capacity_change_forecast | DIRECT_HISTORICAL_IDENTITY |
+| QOI | observed_origin_referenced_capacity_change | DIRECT_HISTORICAL_IDENTITY |
 | REPRESENTATION | dose_history_and_assessment_inputs | DIRECT_HISTORICAL_IDENTITY |
 | EVALUATION | observed_origin_public_sre_evaluation | DIRECT_HISTORICAL_IDENTITY |
 
@@ -41,7 +41,7 @@ Repeated canonical references are declared once in the shared component modules.
 
 ## Supported interpretation
 
-- observed-origin target is future modeled capacity minus noisy observed-origin assessment.
+- The target is future modeled capacity relative to a noisy observed-origin assessment, not observed-to-observed performance change.
 - dose-history interface exposes future dose/intensity plan and measurements through origin.
 
 ## Claim limits
@@ -55,4 +55,4 @@ These records describe synthetic benchmark formulations. They do not establish r
 
 No historical dataset, checkpoint, or benchmark mechanics are bundled at bootstrap. Public data realizations, model weights, and results require their own identity, provenance, and rights records.
 
-The scientific declaration is available as powerlifting_state_research.benchmarks.observed_origin_performance_change_forecasting. The canonical alias and provenance record is kept in the centralized provenance module.
+The scientific declaration is available as powerlifting_state_research.benchmarks.observed_origin_referenced_capacity_change_forecasting. The historical alias and provenance record is kept in the centralized provenance module.

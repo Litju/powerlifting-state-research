@@ -5,7 +5,7 @@
       "completeness_status": "PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS",
       "component_references": [
         {
-          "canonical_key": "class_normalized_cross_lift_performance",
+          "canonical_key": "athlete_latent_state_dynamics",
           "component_class": "WORLD",
           "resolution": "DIRECT_HISTORICAL_IDENTITY"
         },
@@ -112,6 +112,7 @@
       },
       "historical_qualification_state": "NOT_QUALIFIED_OR_UNRESOLVED",
       "historical_specimen_status": "PARTIALLY_RECONSTRUCTED",
+      "identity_authority": "HISTORICAL_PROJECTION",
       "identity_mintable": false,
       "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
       "research": {
@@ -148,7 +149,7 @@
       "completeness_status": "PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS",
       "component_references": [
         {
-          "canonical_key": "four_target_longitudinal_performance_state",
+          "canonical_key": "longitudinal_athlete_state_dynamics",
           "component_class": "WORLD",
           "resolution": "DIRECT_HISTORICAL_IDENTITY"
         },
@@ -259,6 +260,7 @@
       },
       "historical_qualification_state": "NOT_QUALIFIED_OR_UNRESOLVED",
       "historical_specimen_status": "PARTIALLY_RECONSTRUCTED",
+      "identity_authority": "HISTORICAL_PROJECTION",
       "identity_mintable": false,
       "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
       "research": {
@@ -295,7 +297,7 @@
       "completeness_status": "PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS",
       "component_references": [
         {
-          "canonical_key": "class_normalized_cross_lift_performance",
+          "canonical_key": "athlete_latent_state_dynamics",
           "component_class": "WORLD",
           "resolution": "DIRECT_HISTORICAL_IDENTITY"
         },
@@ -404,6 +406,7 @@
       },
       "historical_qualification_state": "NOT_QUALIFIED_OR_UNRESOLVED",
       "historical_specimen_status": "PARTIALLY_RECONSTRUCTED",
+      "identity_authority": "HISTORICAL_PROJECTION",
       "identity_mintable": false,
       "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
       "research": {
@@ -559,6 +562,7 @@
       },
       "historical_qualification_state": "QUALIFIED_HISTORICAL",
       "historical_specimen_status": "REPRODUCIBLE_SPEC",
+      "identity_authority": "HISTORICAL_PROJECTION",
       "identity_mintable": true,
       "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
       "research": {
@@ -757,6 +761,7 @@
       },
       "historical_qualification_state": "NOT_QUALIFIED_OR_UNRESOLVED",
       "historical_specimen_status": "PARTIALLY_RECONSTRUCTED",
+      "identity_authority": "HISTORICAL_PROJECTION",
       "identity_mintable": false,
       "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
       "research": {
@@ -769,9 +774,9 @@
         "claim_escalations_prohibited": [
           "Individual causal treatment effect or responder classification.",
           "Human validity, biological parameter ID, broad OOD, hidden/final qualification.",
-          "Raw score ranking against observed-origin performance change or latent capacity change with transient performance expression."
+          "Raw score ranking against the observed-origin-referenced capacity target or latent capacity change with transient performance expression."
         ],
-        "historical_objective": "Replace observed-origin noisy observed-origin baseline with latent origin capacity, removing origin measurement error from target while retaining noisy measurement as input.",
+        "historical_objective": "Replace the observed-origin-referenced capacity target with latent-origin capacity, removing origin measurement error from target while retaining noisy measurement as input.",
         "historical_objective_evidence": "CONTEMPORANEOUS_OBJECTIVE",
         "information_setting": "DECLARED_FUTURE_PLAN_VISIBLE",
         "research_question_evidence_class": "CONTEMPORANEOUS_RESEARCH_QUESTION",
@@ -814,17 +819,17 @@
           "resolution": "DIRECT_HISTORICAL_IDENTITY"
         },
         {
-          "canonical_key": "observed_origin_performance_change_forecasting_sampling_design",
+          "canonical_key": "observed_origin_referenced_capacity_change_sampling_design",
           "component_class": "DATASET_SPEC",
           "resolution": "DIRECT_HISTORICAL_IDENTITY"
         },
         {
-          "canonical_key": "observed_origin_performance_change_forecast",
+          "canonical_key": "observed_origin_referenced_capacity_change_forecast",
           "component_class": "TASK",
           "resolution": "DIRECT_HISTORICAL_IDENTITY"
         },
         {
-          "canonical_key": "observed_origin_performance_change",
+          "canonical_key": "observed_origin_referenced_capacity_change",
           "component_class": "QOI",
           "resolution": "DIRECT_HISTORICAL_IDENTITY"
         },
@@ -840,7 +845,7 @@
         }
       ],
       "contract_schema_version": "1.0.0",
-      "display_name": "Observed-Origin Performance-Change Forecasting",
+      "display_name": "Observed-Origin-Referenced Capacity-Change Forecasting",
       "historical_provenance": {
         "attached_audit_aliases": [],
         "evidence_pointers": [
@@ -848,6 +853,8 @@
         ],
         "historical_aliases": [
           "pl_response_v1_t0_public_2048",
+          "observed_origin_performance_change_forecasting",
+          "Observed-Origin Performance-Change Forecasting",
           "World-V1",
           "powerlifting.big3.response.dose_memory.v1",
           "T0_CURRENT",
@@ -900,15 +907,16 @@
       },
       "historical_qualification_state": "NOT_QUALIFIED_OR_UNRESOLVED",
       "historical_specimen_status": "PARTIALLY_RECONSTRUCTED",
+      "identity_authority": "HISTORICAL_PROJECTION",
       "identity_mintable": false,
       "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
       "research": {
         "canonical_claim_scope": [
-          "observed-origin target is future modeled capacity minus noisy observed-origin assessment.",
+          "The target is future modeled capacity relative to a noisy observed-origin assessment, not observed-to-observed performance change.",
           "dose-history interface exposes future dose/intensity plan and measurements through origin."
         ],
-        "canonical_research_question": "At the forecast origin, can a model using noisy performance observations through that origin and the participant-visible declared dose/intensity plan predict future modeled capacity minus the noisy observed-origin assessment for squat, bench, and deadlift at horizons 14, 28, and 56 days? The observed-origin target is not pure latent capacity change, a causal effect, or directly comparable with a latent-origin target.",
-        "canonical_scientific_objective": "Characterize a plan-conditional observed-origin performance-change estimand in a synthetic dose-history world.",
+        "canonical_research_question": "At the forecast origin, can a model using noisy performance observations through that origin and the participant-visible declared dose/intensity plan predict future modeled capacity relative to the noisy observed-origin assessment for squat, bench, and deadlift at horizons 14, 28, and 56 days? This is not a difference between two observed performance assessments, a causal effect, or the same estimand as latent-origin capacity change.",
+        "canonical_scientific_objective": "Forecast future capacity relative to a noisy observed-origin assessment under a declared future plan in a synthetic dose-history world.",
         "claim_escalations_prohibited": [
           "Pure latent-capacity-change, causal effect, responder classification, real-athlete validity, biological parameter ID.",
           "Do not rank raw scores across the observed-origin target, latent-origin target, or different dynamical systems."
@@ -926,9 +934,9 @@
       },
       "semantic_digest": null,
       "semantic_identity_payload": null,
-      "slug": "observed_origin_performance_change_forecasting",
-      "target_ontology": "OBSERVED_PERFORMANCE",
-      "task_type": "OBSERVED_ORIGIN_RESPONSE_FORECAST",
+      "slug": "observed_origin_referenced_capacity_change_forecasting",
+      "target_ontology": "OBSERVED_ORIGIN_REFERENCED_CAPACITY_CHANGE",
+      "task_type": "OBSERVED_ORIGIN_REFERENCED_CAPACITY_CHANGE_FORECAST",
       "version": "1.0.0"
     },
     {
@@ -936,7 +944,158 @@
       "completeness_status": "PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS",
       "component_references": [
         {
-          "canonical_key": "seasonal_load_velocity_and_performance",
+          "canonical_key": "athlete_state_transition_dynamics",
+          "component_class": "WORLD",
+          "resolution": "DIRECT_HISTORICAL_IDENTITY"
+        },
+        {
+          "canonical_key": null,
+          "component_class": "POPULATION",
+          "resolution": "UNRESOLVED_DIRECT_ID"
+        },
+        {
+          "canonical_key": null,
+          "component_class": "INTERVENTION_REGIME",
+          "resolution": "UNRESOLVED_DIRECT_ID"
+        },
+        {
+          "canonical_key": "schedule_reporting_observation",
+          "component_class": "OBSERVATION_MODEL",
+          "resolution": "DIRECT_HISTORICAL_IDENTITY"
+        },
+        {
+          "canonical_key": "performance_forecasting_under_schedule_exposure_reporting_heterogeneity_sampling_design",
+          "component_class": "DATASET_SPEC",
+          "resolution": "DIRECT_HISTORICAL_IDENTITY"
+        },
+        {
+          "canonical_key": "four_target_load_velocity_and_competition_performance_forecast",
+          "component_class": "TASK",
+          "resolution": "DIRECT_HISTORICAL_IDENTITY"
+        },
+        {
+          "canonical_key": "four_load_velocity_and_competition_performance_targets",
+          "component_class": "QOI",
+          "resolution": "DIRECT_HISTORICAL_IDENTITY"
+        },
+        {
+          "canonical_key": "four_target_temporal_inputs",
+          "component_class": "REPRESENTATION",
+          "resolution": "DIRECT_HISTORICAL_IDENTITY"
+        },
+        {
+          "canonical_key": "four_target_weighted_evaluation",
+          "component_class": "EVALUATION",
+          "resolution": "DIRECT_HISTORICAL_IDENTITY"
+        }
+      ],
+      "contract_schema_version": "1.0.0",
+      "display_name": "Performance Forecasting Under Schedule, Exposure, and Reporting Heterogeneity",
+      "historical_provenance": {
+        "attached_audit_aliases": [],
+        "evidence_pointers": [
+          "Source-bound historical characterization; source artifacts are not redistributed."
+        ],
+        "historical_aliases": [
+          "pl_c22_schedule_exposure",
+          "training_schedule_exposure_heterogeneity_forecasting",
+          "Training Schedule/Exposure Heterogeneity Forecasting",
+          "schedule_exposure_heterogeneity_forecasting",
+          "Schedule/Exposure Heterogeneity Four-Target Forecasting",
+          "C22.4",
+          "C22-schedule-exposure-v4",
+          "local/c22.4-freeze",
+          "repair/c22.4-final-interface-and-pregpu-gate",
+          "Powerlifting synthetic four-output forecast — C22 schedule/exposure",
+          "C22 Schedule/Exposure",
+          "psr:benchmark-spec:pl-c22-schedule-exposure-historical-mapping@1.0.0~aac9e4d190d9"
+        ],
+        "historical_objective": "Add schedule/exposure and reporting heterogeneity over stable-slope/tilt formulation core while retaining the four-target 25-day contract; triggering need or expected gain is UNKNOWN.",
+        "historical_objective_evidence": "CONTEMPORANEOUS_OBJECTIVE",
+        "historical_parent_specimen_id": "pl_c21_stable_slope_tilt",
+        "parentage_status": "RECOVERED_LINEAGE; one C22.4 specimen only",
+        "source_component_changes": {
+          "changed_from_parent": [
+            "WORLD/system: schedule/exposure law over C21 core",
+            "OBSERVATION_MODEL: reporting biases/context",
+            "DATASET_SPEC/REALIZATION: regenerated sample/hashes"
+          ],
+          "held_constant_from_parent": [
+            "C21 latent-state core",
+            "TASK/QOI: four 25-day P1/P2/P4/P5 targets",
+            "REPRESENTATION and weighted EVALUATION"
+          ],
+          "primary_design_axis": "Add schedule/exposure/population heterogeneity and observation/reporting bias over C21 core; regenerated data, seed 3128."
+        },
+        "source_component_ids": {
+          "dataset_spec_id": "psr:dataset-spec:pl-c22-schedule-exposure-sampling-design@1.0.0~6fcc1c11df19",
+          "evaluation_id": "psr:evaluation:c21-c22-four-target-release-contract@1.0.0~a17c43781876",
+          "historical_benchmark_spec_id": "psr:benchmark-spec:pl-c22-schedule-exposure-historical-mapping@1.0.0~aac9e4d190d9",
+          "intervention_regime_id": null,
+          "intervention_regime_id_status": "UNRESOLVED_DIRECT_ID",
+          "observation_model_id": "psr:observation-model:c22-schedule-reporting-observation@1.0.0~c624f7e4e737",
+          "population_id": null,
+          "population_id_status": "UNRESOLVED_DIRECT_ID",
+          "qoi_id": "psr:qoi:four-target-p1-p2-p4-p5@1.0.0~1ded2f48e4a3",
+          "representation_id": "psr:representation:c21-c22-temporal-interface@1.0.0~ee6b1d7aace1",
+          "scientific_system_config_id": "psr:scientific-system-config:pl-c22-schedule-exposure-historical-system@1.0.0~24e13266e267",
+          "task_id": "psr:task:four-25-day-athlete-state-outputs@1.0.0~9a575a70b41e",
+          "world_id": "psr:world:c22-heterogeneous-schedule-exposure-world@1.0.0~55a292e3b1c6"
+        },
+        "source_prediction_setting": "Point-in-time completed histories for 25-day forecast; no declared future-plan input in recovered interface.",
+        "source_qualification_status": "NOT_EVALUATED; no schedule/exposure formulation-specific result or qualification receipt",
+        "source_research_question": "Within the schedule/exposure formulation synthetic schedule/exposure world, can models forecast P1/P2/P4/P5 over 25 days from completed histories as schedules and reports vary? No schedule/exposure formulation result establishes that added heterogeneity improves prediction.",
+        "source_research_question_evidence": "RETROSPECTIVE_TECHNICAL_CHARACTERIZATION",
+        "source_system_focus": "stable-slope/tilt formulation latent-state core with schedule/exposure formulation schedule/exposure/population and reporting-heterogeneity layer.",
+        "source_technical_label": "Four-Target Forecasting under Heterogeneous Schedule and Exposure",
+        "specimen_id": "pl_c22_schedule_exposure",
+        "unresolved_questions": [
+          "What need motivated schedule/exposure heterogeneity?",
+          "Which dose-history/v4 label was intended; were unresolved intermediate variants materialized?",
+          "Was schedule/exposure formulation independently evaluated or qualified?"
+        ]
+      },
+      "historical_qualification_state": "NOT_QUALIFIED_OR_UNRESOLVED",
+      "historical_specimen_status": "PARTIALLY_RECONSTRUCTED",
+      "identity_authority": "HISTORICAL_PROJECTION",
+      "identity_mintable": false,
+      "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
+      "research": {
+        "canonical_claim_scope": [
+          "The system varies training schedules, realized exposure, and reporting across athletes.",
+          "It has a separate dataset identity and shares the four-target, 25-day task definition."
+        ],
+        "canonical_research_question": "Within a synthetic system with heterogeneous training schedules, realized exposure, and reporting, can models forecast target-load velocity, load at a reference velocity, next-set velocity loss, and competition-day capacity over 25 days from completed histories? The available evidence does not establish that added heterogeneity improves prediction.",
+        "canonical_scientific_objective": "Forecast performance targets under schedule, exposure, and reporting heterogeneity; the benchmark does not forecast the heterogeneity itself.",
+        "claim_escalations_prohibited": [
+          "Qualification or performance cannot be inferred from a checkpoint trained for another scientific system.",
+          "Human, biological, intervention-effect, parameter-ID, or OOD claims.",
+          "Do not claim unresolved intermediate variants or treat a branch/version discrepancy as settled."
+        ],
+        "historical_objective": "Add variation in training schedules, realized exposure, and reporting while retaining the four-target 25-day task; the triggering need or expected gain is UNKNOWN.",
+        "historical_objective_evidence": "CONTEMPORANEOUS_OBJECTIVE",
+        "information_setting": "HISTORY_ONLY",
+        "research_question_evidence_class": "RETROSPECTIVE_TECHNICAL_CHARACTERIZATION",
+        "source_prediction_setting": "Point-in-time completed histories for 25-day forecast; no declared future-plan input in the recovered interface.",
+        "unresolved_questions": [
+          "What need motivated the added schedule, exposure, and reporting variation?",
+          "Were unresolved intermediate datasets or component variants materialized?",
+          "Was this historical specimen independently evaluated or qualified?"
+        ]
+      },
+      "semantic_digest": null,
+      "semantic_identity_payload": null,
+      "slug": "performance_forecasting_under_schedule_exposure_reporting_heterogeneity",
+      "target_ontology": "MULTI_OUTPUT_OTHER",
+      "task_type": "FOUR_TARGET_25_DAY_PERFORMANCE_FORECAST",
+      "version": "1.0.0"
+    },
+    {
+      "benchmark_id": null,
+      "completeness_status": "PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS",
+      "component_references": [
+        {
+          "canonical_key": "latent_state_transition_dynamics",
           "component_class": "WORLD",
           "resolution": "DIRECT_HISTORICAL_IDENTITY"
         },
@@ -1038,6 +1197,7 @@
       },
       "historical_qualification_state": "NOT_QUALIFIED_OR_UNRESOLVED",
       "historical_specimen_status": "PARTIALLY_RECONSTRUCTED",
+      "identity_authority": "HISTORICAL_PROJECTION",
       "identity_mintable": false,
       "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
       "research": {
@@ -1068,176 +1228,36 @@
       "target_ontology": "MULTI_OUTPUT_OTHER",
       "task_type": "MULTI_OUTPUT_SEASONAL_PERFORMANCE_FORECAST",
       "version": "1.0.0"
-    },
-    {
-      "benchmark_id": null,
-      "completeness_status": "PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS",
-      "component_references": [
-        {
-          "canonical_key": "heterogeneous_training_schedule_exposure_and_reporting",
-          "component_class": "WORLD",
-          "resolution": "DIRECT_HISTORICAL_IDENTITY"
-        },
-        {
-          "canonical_key": null,
-          "component_class": "POPULATION",
-          "resolution": "UNRESOLVED_DIRECT_ID"
-        },
-        {
-          "canonical_key": null,
-          "component_class": "INTERVENTION_REGIME",
-          "resolution": "UNRESOLVED_DIRECT_ID"
-        },
-        {
-          "canonical_key": "schedule_reporting_observation",
-          "component_class": "OBSERVATION_MODEL",
-          "resolution": "DIRECT_HISTORICAL_IDENTITY"
-        },
-        {
-          "canonical_key": "training_schedule_exposure_heterogeneity_forecasting_sampling_design",
-          "component_class": "DATASET_SPEC",
-          "resolution": "DIRECT_HISTORICAL_IDENTITY"
-        },
-        {
-          "canonical_key": "four_target_load_velocity_and_competition_performance_forecast",
-          "component_class": "TASK",
-          "resolution": "DIRECT_HISTORICAL_IDENTITY"
-        },
-        {
-          "canonical_key": "four_load_velocity_and_competition_performance_targets",
-          "component_class": "QOI",
-          "resolution": "DIRECT_HISTORICAL_IDENTITY"
-        },
-        {
-          "canonical_key": "four_target_temporal_inputs",
-          "component_class": "REPRESENTATION",
-          "resolution": "DIRECT_HISTORICAL_IDENTITY"
-        },
-        {
-          "canonical_key": "four_target_weighted_evaluation",
-          "component_class": "EVALUATION",
-          "resolution": "DIRECT_HISTORICAL_IDENTITY"
-        }
-      ],
-      "contract_schema_version": "1.0.0",
-      "display_name": "Training Schedule/Exposure Heterogeneity Forecasting",
-      "historical_provenance": {
-        "attached_audit_aliases": [],
-        "evidence_pointers": [
-          "Source-bound historical characterization; source artifacts are not redistributed."
-        ],
-        "historical_aliases": [
-          "pl_c22_schedule_exposure",
-          "schedule_exposure_heterogeneity_forecasting",
-          "Schedule/Exposure Heterogeneity Four-Target Forecasting",
-          "C22.4",
-          "C22-schedule-exposure-v4",
-          "local/c22.4-freeze",
-          "repair/c22.4-final-interface-and-pregpu-gate",
-          "Powerlifting synthetic four-output forecast — C22 schedule/exposure",
-          "C22 Schedule/Exposure",
-          "psr:benchmark-spec:pl-c22-schedule-exposure-historical-mapping@1.0.0~aac9e4d190d9"
-        ],
-        "historical_objective": "Add schedule/exposure and reporting heterogeneity over stable-slope/tilt formulation core while retaining the four-target 25-day contract; triggering need or expected gain is UNKNOWN.",
-        "historical_objective_evidence": "CONTEMPORANEOUS_OBJECTIVE",
-        "historical_parent_specimen_id": "pl_c21_stable_slope_tilt",
-        "parentage_status": "RECOVERED_LINEAGE; one C22.4 specimen only",
-        "source_component_changes": {
-          "changed_from_parent": [
-            "WORLD/system: schedule/exposure law over C21 core",
-            "OBSERVATION_MODEL: reporting biases/context",
-            "DATASET_SPEC/REALIZATION: regenerated sample/hashes"
-          ],
-          "held_constant_from_parent": [
-            "C21 latent-state core",
-            "TASK/QOI: four 25-day P1/P2/P4/P5 targets",
-            "REPRESENTATION and weighted EVALUATION"
-          ],
-          "primary_design_axis": "Add schedule/exposure/population heterogeneity and observation/reporting bias over C21 core; regenerated data, seed 3128."
-        },
-        "source_component_ids": {
-          "dataset_spec_id": "psr:dataset-spec:pl-c22-schedule-exposure-sampling-design@1.0.0~6fcc1c11df19",
-          "evaluation_id": "psr:evaluation:c21-c22-four-target-release-contract@1.0.0~a17c43781876",
-          "historical_benchmark_spec_id": "psr:benchmark-spec:pl-c22-schedule-exposure-historical-mapping@1.0.0~aac9e4d190d9",
-          "intervention_regime_id": null,
-          "intervention_regime_id_status": "UNRESOLVED_DIRECT_ID",
-          "observation_model_id": "psr:observation-model:c22-schedule-reporting-observation@1.0.0~c624f7e4e737",
-          "population_id": null,
-          "population_id_status": "UNRESOLVED_DIRECT_ID",
-          "qoi_id": "psr:qoi:four-target-p1-p2-p4-p5@1.0.0~1ded2f48e4a3",
-          "representation_id": "psr:representation:c21-c22-temporal-interface@1.0.0~ee6b1d7aace1",
-          "scientific_system_config_id": "psr:scientific-system-config:pl-c22-schedule-exposure-historical-system@1.0.0~24e13266e267",
-          "task_id": "psr:task:four-25-day-athlete-state-outputs@1.0.0~9a575a70b41e",
-          "world_id": "psr:world:c22-heterogeneous-schedule-exposure-world@1.0.0~55a292e3b1c6"
-        },
-        "source_prediction_setting": "Point-in-time completed histories for 25-day forecast; no declared future-plan input in recovered interface.",
-        "source_qualification_status": "NOT_EVALUATED; no schedule/exposure formulation-specific result or qualification receipt",
-        "source_research_question": "Within the schedule/exposure formulation synthetic schedule/exposure world, can models forecast P1/P2/P4/P5 over 25 days from completed histories as schedules and reports vary? No schedule/exposure formulation result establishes that added heterogeneity improves prediction.",
-        "source_research_question_evidence": "RETROSPECTIVE_TECHNICAL_CHARACTERIZATION",
-        "source_system_focus": "stable-slope/tilt formulation latent-state core with schedule/exposure formulation schedule/exposure/population and reporting-heterogeneity layer.",
-        "source_technical_label": "Four-Target Forecasting under Heterogeneous Schedule and Exposure",
-        "specimen_id": "pl_c22_schedule_exposure",
-        "unresolved_questions": [
-          "What need motivated schedule/exposure heterogeneity?",
-          "Which dose-history/v4 label was intended; were unresolved intermediate variants materialized?",
-          "Was schedule/exposure formulation independently evaluated or qualified?"
-        ]
-      },
-      "historical_qualification_state": "NOT_QUALIFIED_OR_UNRESOLVED",
-      "historical_specimen_status": "PARTIALLY_RECONSTRUCTED",
-      "identity_mintable": false,
-      "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
-      "research": {
-        "canonical_claim_scope": [
-          "The system varies training schedules, realized exposure, and reporting across athletes.",
-          "It has a separate dataset identity and shares the four-target, 25-day task definition."
-        ],
-        "canonical_research_question": "Within a synthetic system with heterogeneous training schedules, realized exposure, and reporting, can models forecast target-load velocity, load at a reference velocity, next-set velocity loss, and competition-day capacity over 25 days from completed histories? The available evidence does not establish that added heterogeneity improves prediction.",
-        "canonical_scientific_objective": "Characterize the same four targets when training schedule, realized exposure, and reporting vary in a synthetic system.",
-        "claim_escalations_prohibited": [
-          "Qualification or performance cannot be inferred from a checkpoint trained for another scientific system.",
-          "Human, biological, intervention-effect, parameter-ID, or OOD claims.",
-          "Do not claim unresolved intermediate variants or treat a branch/version discrepancy as settled."
-        ],
-        "historical_objective": "Add variation in training schedules, realized exposure, and reporting while retaining the four-target 25-day task; the triggering need or expected gain is UNKNOWN.",
-        "historical_objective_evidence": "CONTEMPORANEOUS_OBJECTIVE",
-        "information_setting": "HISTORY_ONLY",
-        "research_question_evidence_class": "RETROSPECTIVE_TECHNICAL_CHARACTERIZATION",
-        "source_prediction_setting": "Point-in-time completed histories for 25-day forecast; no declared future-plan input in the recovered interface.",
-        "unresolved_questions": [
-          "What need motivated the added schedule, exposure, and reporting variation?",
-          "Were unresolved intermediate datasets or component variants materialized?",
-          "Was this historical specimen independently evaluated or qualified?"
-        ]
-      },
-      "semantic_digest": null,
-      "semantic_identity_payload": null,
-      "slug": "training_schedule_exposure_heterogeneity_forecasting",
-      "target_ontology": "MULTI_OUTPUT_OTHER",
-      "task_type": "FOUR_TARGET_25_DAY_PERFORMANCE_FORECAST",
-      "version": "1.0.0"
     }
   ],
   "component_provenance": {
     "historical_aliases": {
-      "class_normalized_cross_lift_capacity_fatigue": "class_normalized_cross_lift_performance",
+      "class_normalized_cross_lift_capacity_fatigue": "athlete_latent_state_dynamics",
       "class_normalized_cross_lift_capacity_fatigue_forecasting_sampling_design": "class_normalized_cross_lift_five_target_performance_forecasting_sampling_design",
+      "class_normalized_cross_lift_performance": "athlete_latent_state_dynamics",
       "dose_history_capacity_dynamics": "training_dose_history_capacity_dynamics",
       "final_origin_seasonal_forecast": "held_out_final_origin_five_target_performance_forecast",
       "final_origin_target_domain_evaluation": "held_out_final_origin_five_target_performance_evaluation",
       "final_origin_target_domain_evaluation_sampling_design": "held_out_final_origin_five_target_performance_evaluation_sampling_design",
       "four_performance_target_forecast": "four_target_load_velocity_and_competition_performance_forecast",
       "four_performance_targets": "four_load_velocity_and_competition_performance_targets",
+      "four_target_longitudinal_performance_state": "longitudinal_athlete_state_dynamics",
+      "heterogeneous_training_schedule_exposure_and_reporting": "athlete_state_transition_dynamics",
+      "observed_origin_performance_change": "observed_origin_referenced_capacity_change",
+      "observed_origin_performance_change_forecast": "observed_origin_referenced_capacity_change_forecast",
+      "observed_origin_performance_change_forecasting_sampling_design": "observed_origin_referenced_capacity_change_sampling_design",
       "parsimonious_capacity_expression": "latent_capacity_transient_performance_expression_dynamics",
       "parsimonious_latent_capacity_change_forecasting_sampling_design": "latent_capacity_change_with_transient_expression_forecasting_sampling_design",
-      "schedule_exposure_heterogeneity": "heterogeneous_training_schedule_exposure_and_reporting",
-      "schedule_exposure_heterogeneity_forecasting_sampling_design": "training_schedule_exposure_heterogeneity_forecasting_sampling_design",
-      "seasonal_capacity_fatigue": "seasonal_load_velocity_and_performance",
+      "schedule_exposure_heterogeneity": "athlete_state_transition_dynamics",
+      "schedule_exposure_heterogeneity_forecasting_sampling_design": "performance_forecasting_under_schedule_exposure_reporting_heterogeneity_sampling_design",
+      "seasonal_capacity_fatigue": "latent_state_transition_dynamics",
       "seasonal_capacity_fatigue_five_target_forecasting_sampling_design": "seasonal_five_target_load_velocity_performance_forecasting_sampling_design",
       "seasonal_five_performance_forecast": "seasonal_five_target_performance_forecast",
       "seasonal_five_performance_outputs": "seasonal_five_target_performance_outputs",
-      "stable_slope_tilt_athlete_state": "four_target_longitudinal_performance_state",
-      "stable_slope_tilt_four_target_forecasting_sampling_design": "four_target_load_velocity_and_competition_performance_forecasting_sampling_design"
+      "seasonal_load_velocity_and_performance": "latent_state_transition_dynamics",
+      "stable_slope_tilt_athlete_state": "longitudinal_athlete_state_dynamics",
+      "stable_slope_tilt_four_target_forecasting_sampling_design": "four_target_load_velocity_and_competition_performance_forecasting_sampling_design",
+      "training_schedule_exposure_heterogeneity_forecasting_sampling_design": "performance_forecasting_under_schedule_exposure_reporting_heterogeneity_sampling_design"
     },
     "identity_mapping": {
       "psr:dataset-spec:pl-c21-stable-slope-tilt-sampling-design@1.0.0~30f3942a0a2b": [
@@ -1249,7 +1269,7 @@
       "psr:dataset-spec:pl-c22-schedule-exposure-sampling-design@1.0.0~6fcc1c11df19": [
         [
           "DATASET_SPEC",
-          "training_schedule_exposure_heterogeneity_forecasting_sampling_design"
+          "performance_forecasting_under_schedule_exposure_reporting_heterogeneity_sampling_design"
         ]
       ],
       "psr:dataset-spec:pl-legacy-capacity-early-sampling-design@1.0.0~200b45f1c717": [
@@ -1283,7 +1303,7 @@
         ],
         [
           "DATASET_SPEC",
-          "observed_origin_performance_change_forecasting_sampling_design"
+          "observed_origin_referenced_capacity_change_sampling_design"
         ]
       ],
       "psr:evaluation:c21-c22-four-target-release-contract@1.0.0~a17c43781876": [
@@ -1373,7 +1393,7 @@
       "psr:qoi:future-capacity-minus-noisy-origin-assessment@1.0.0~b7e407fe2b81": [
         [
           "QOI",
-          "observed_origin_performance_change"
+          "observed_origin_referenced_capacity_change"
         ]
       ],
       "psr:qoi:latent-capacity-change@1.0.0~675491124046": [
@@ -1445,31 +1465,31 @@
       "psr:task:v1-t0-observed-origin-performance-change@1.0.0~6fedfb6051bb": [
         [
           "TASK",
-          "observed_origin_performance_change_forecast"
+          "observed_origin_referenced_capacity_change_forecast"
         ]
       ],
       "psr:world:c21-athlete-state-stable-slope-tilt-world@1.0.0~8956f2327a14": [
         [
           "WORLD",
-          "four_target_longitudinal_performance_state"
+          "longitudinal_athlete_state_dynamics"
         ]
       ],
       "psr:world:c22-heterogeneous-schedule-exposure-world@1.0.0~55a292e3b1c6": [
         [
           "WORLD",
-          "heterogeneous_training_schedule_exposure_and_reporting"
+          "athlete_state_transition_dynamics"
         ]
       ],
       "psr:world:early-seasonal-capacity-load-velocity-world@1.0.0~168dadf66c15": [
         [
           "WORLD",
-          "seasonal_load_velocity_and_performance"
+          "latent_state_transition_dynamics"
         ]
       ],
       "psr:world:refined-class-normalized-seasonal-cross-lift-world@1.0.0~c7dcec83d1f8": [
         [
           "WORLD",
-          "class_normalized_cross_lift_performance"
+          "athlete_latent_state_dynamics"
         ]
       ],
       "psr:world:v1-dose-memory-response-world@1.0.0~11b6f0033502": [
@@ -1493,39 +1513,45 @@
   "worlds": [
     {
       "component_identity_id": "psr:world:refined-class-normalized-seasonal-cross-lift-world@1.0.0~c7dcec83d1f8",
-      "display_name": "Class-Normalized Cross-Lift Performance World",
+      "display_name": "Athlete Latent-State Dynamics",
       "historical_aliases": [
+        "class_normalized_cross_lift_performance",
+        "Class-Normalized Cross-Lift Performance World",
         "class_normalized_cross_lift_capacity_fatigue",
         "WORLD_LEGACY_REFINED_CROSS_LIFT.v2"
       ],
-      "scientific_summary": "Refined class-normalized synthetic cross-lift outputs with field observations.",
-      "slug": "class_normalized_cross_lift_performance"
+      "scientific_summary": "The historical specimen's specific latent-state transition law is not characterized.",
+      "slug": "athlete_latent_state_dynamics"
     },
     {
       "component_identity_id": "psr:world:c21-athlete-state-stable-slope-tilt-world@1.0.0~8956f2327a14",
-      "display_name": "Four-Target Longitudinal Performance-State World",
+      "display_name": "Longitudinal Athlete-State Dynamics",
       "historical_aliases": [
+        "four_target_longitudinal_performance_state",
+        "Four-Target Longitudinal Performance-State World",
         "stable_slope_tilt_athlete_state",
         "C21",
         "C21.2",
         "C21-athlete-state-stable-slope-tilt-seed3115",
         "WORLD_C21_ATHLETE_STATE_STABLE_SLOPE_TILT.v1"
       ],
-      "scientific_summary": "Longitudinal synthetic athlete-state trajectories evaluated on four performance targets.",
-      "slug": "four_target_longitudinal_performance_state"
+      "scientific_summary": "Longitudinal synthetic athlete-state trajectories; the specific transition law is not characterized.",
+      "slug": "longitudinal_athlete_state_dynamics"
     },
     {
       "component_identity_id": "psr:world:c22-heterogeneous-schedule-exposure-world@1.0.0~55a292e3b1c6",
-      "display_name": "Heterogeneous Training Schedule, Exposure, and Reporting World",
+      "display_name": "Athlete-State Transition Dynamics",
       "historical_aliases": [
+        "heterogeneous_training_schedule_exposure_and_reporting",
+        "Heterogeneous Training Schedule, Exposure, and Reporting World",
         "schedule_exposure_heterogeneity",
         "C22",
         "C22.4",
         "C22-schedule-exposure-v4",
         "WORLD_C22_HETEROGENEOUS_SCHEDULE_EXPOSURE.v1"
       ],
-      "scientific_summary": "Synthetic schedules, realized exposure, and reporting vary across athletes.",
-      "slug": "heterogeneous_training_schedule_exposure_and_reporting"
+      "scientific_summary": "The historical specimen's specific athlete-state transition law is not characterized.",
+      "slug": "athlete_state_transition_dynamics"
     },
     {
       "component_identity_id": "psr:world:world-v2-parsimonious-response-world@1.0.0~a1afbf2f5c1e",
@@ -1536,19 +1562,21 @@
         "WORLD_RESPONSE_PARSIMONIOUS.v2",
         "powerlifting.big3.response.parsimonious.v2"
       ],
-      "scientific_summary": "Separates chronic adaptation, latent capacity, transient performance expression, and records.",
+      "scientific_summary": "Separates chronic adaptation, latent capacity, and transient performance expression.",
       "slug": "latent_capacity_transient_performance_expression_dynamics"
     },
     {
       "component_identity_id": "psr:world:early-seasonal-capacity-load-velocity-world@1.0.0~168dadf66c15",
-      "display_name": "Seasonal Load–Velocity and Performance World",
+      "display_name": "Latent-State Transition Dynamics",
       "historical_aliases": [
+        "seasonal_load_velocity_and_performance",
+        "Seasonal Load–Velocity and Performance World",
         "seasonal_capacity_fatigue",
         "WORLD_LEGACY_EARLY_CAPACITY_FATIGUE.v1",
         "initial Powerlifting task"
       ],
-      "scientific_summary": "Early seasonal synthetic system with load-velocity and competition-performance outputs.",
-      "slug": "seasonal_load_velocity_and_performance"
+      "scientific_summary": "The historical specimen's specific latent-state transition law is not characterized.",
+      "slug": "latent_state_transition_dynamics"
     },
     {
       "component_identity_id": "psr:world:v1-dose-memory-response-world@1.0.0~11b6f0033502",
@@ -1559,7 +1587,7 @@
         "WORLD_RESPONSE_DOSE_MEMORY.v1",
         "powerlifting.big3.response.dose_memory.v1"
       ],
-      "scientific_summary": "Synthetic capacity dynamics depend on recorded training-dose history.",
+      "scientific_summary": "Synthetic capacity dynamics depend on training-dose history.",
       "slug": "training_dose_history_capacity_dynamics"
     }
   ]

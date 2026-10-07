@@ -21,7 +21,7 @@ RESEARCH = ResearchMetadata(
         "dose/intensity plan; future realized outcomes unavailable."
     ),
     historical_objective=(
-        "Replace observed-origin noisy observed-origin baseline with latent origin capacity, removing "
+        "Replace the observed-origin-referenced capacity target with latent-origin capacity, removing "
         "origin measurement error from target while retaining noisy measurement as input."
     ),
     historical_objective_evidence="CONTEMPORANEOUS_OBJECTIVE",
@@ -32,7 +32,7 @@ RESEARCH = ResearchMetadata(
     claim_escalations_prohibited=(
         "Individual causal treatment effect or responder classification.",
         "Human validity, biological parameter ID, broad OOD, hidden/final qualification.",
-        "Raw score ranking against observed-origin performance change or latent capacity change with "
+        "Raw score ranking against the observed-origin-referenced capacity target or latent capacity change with "
         "transient performance expression.",
     ),
     unresolved_questions=(

@@ -27,7 +27,7 @@ A reproducible historical specification is not the same as an independent public
 
 | Component | Canonical reference | Resolution |
 |---|---|---|
-| WORLD | seasonal_load_velocity_and_performance | DIRECT_HISTORICAL_IDENTITY |
+| WORLD | latent_state_transition_dynamics | DIRECT_HISTORICAL_IDENTITY |
 | POPULATION | unresolved direct identity | UNRESOLVED_DIRECT_ID |
 | INTERVENTION_REGIME | unresolved direct identity | UNRESOLVED_DIRECT_ID |
 | OBSERVATION_MODEL | seasonal_multi_channel_observation | DIRECT_HISTORICAL_IDENTITY |

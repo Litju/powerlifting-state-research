@@ -23,9 +23,9 @@ data/manifests/realizations/README.md,NEWLY_AUTHORED,CC-BY-4.0,data,Stable home 
 data/manifests/realizations/class_normalized_cross_lift_five_target_performance_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Future realization manifest/checksum home; no historical data bytes.
 data/manifests/realizations/held_out_final_origin_five_target_performance_evaluation/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Future realization manifest/checksum home; no historical data bytes.
 data/manifests/realizations/latent_origin_capacity_change_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Future realization manifest/checksum home; no historical data bytes.
-data/manifests/realizations/observed_origin_performance_change_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Future realization manifest/checksum home; no historical data bytes.
+data/manifests/realizations/observed_origin_referenced_capacity_change_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Future realization manifest/checksum home; no historical data bytes.
 data/manifests/realizations/latent_capacity_change_with_transient_expression_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Future realization manifest/checksum home; no historical data bytes.
-data/manifests/realizations/training_schedule_exposure_heterogeneity_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Future realization manifest/checksum home; no historical data bytes.
+data/manifests/realizations/performance_forecasting_under_schedule_exposure_reporting_heterogeneity/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Future realization manifest/checksum home; no historical data bytes.
 data/manifests/realizations/seasonal_five_target_load_velocity_performance_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Future realization manifest/checksum home; no historical data bytes.
 data/manifests/realizations/four_target_load_velocity_and_competition_performance_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Future realization manifest/checksum home; no historical data bytes.
 data/synthetic/README.md,NEWLY_AUTHORED,CC-BY-4.0,data,Newly authored public synthetic realizations only.
@@ -38,9 +38,9 @@ docs/benchmarks/comparability.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,publ
 docs/benchmarks/held-out-final-origin-five-target-performance-evaluation.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Research card for Held-Out Final-Origin Evaluation of Five Performance Targets.
 docs/benchmarks/index.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Eight-specimen public benchmark index and implementation statuses.
 docs/benchmarks/latent-origin-capacity-change-forecasting.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Research card for Latent-Origin Capacity-Change Forecasting.
-docs/benchmarks/observed-origin-performance-change-forecasting.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Research card for Observed-Origin Performance-Change Forecasting.
+docs/benchmarks/observed-origin-referenced-capacity-change-forecasting.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Research card for Observed-Origin-Referenced Capacity-Change Forecasting.
 docs/benchmarks/latent-capacity-change-with-transient-expression-forecasting.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Research card for Latent Capacity-Change Forecasting with Transient Performance Expression.
-docs/benchmarks/training-schedule-exposure-heterogeneity-forecasting.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Research card for Training Schedule/Exposure Heterogeneity Forecasting.
+docs/benchmarks/performance-forecasting-under-schedule-exposure-reporting-heterogeneity.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Research card for Performance Forecasting Under Schedule, Exposure, and Reporting Heterogeneity.
 docs/benchmarks/seasonal-five-target-load-velocity-performance-forecasting.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Research card for Seasonal Five-Target Load–Velocity and Performance Forecasting.
 docs/benchmarks/four-target-load-velocity-and-competition-performance-forecasting.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Research card for Four-Target Load–Velocity and Competition Performance Forecasting.
 docs/contracts/public-benchmark-contract.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Public BenchmarkSpec identity and information boundary.
@@ -70,9 +70,9 @@ results/audits/README.md,NEWLY_AUTHORED,CC-BY-4.0,results,Audit outputs by scien
 results/benchmarks/class_normalized_cross_lift_five_target_performance_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,benchmark-result-home,Future prediction/evaluation/result manifest home for this formulation.
 results/benchmarks/held_out_final_origin_five_target_performance_evaluation/README.md,NEWLY_AUTHORED,CC-BY-4.0,benchmark-result-home,Future prediction/evaluation/result manifest home for this formulation.
 results/benchmarks/latent_origin_capacity_change_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,benchmark-result-home,Future prediction/evaluation/result manifest home for this formulation.
-results/benchmarks/observed_origin_performance_change_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,benchmark-result-home,Future prediction/evaluation/result manifest home for this formulation.
+results/benchmarks/observed_origin_referenced_capacity_change_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,benchmark-result-home,Future prediction/evaluation/result manifest home for this formulation.
 results/benchmarks/latent_capacity_change_with_transient_expression_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,benchmark-result-home,Future prediction/evaluation/result manifest home for this formulation.
-results/benchmarks/training_schedule_exposure_heterogeneity_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,benchmark-result-home,Future prediction/evaluation/result manifest home for this formulation.
+results/benchmarks/performance_forecasting_under_schedule_exposure_reporting_heterogeneity/README.md,NEWLY_AUTHORED,CC-BY-4.0,benchmark-result-home,Future prediction/evaluation/result manifest home for this formulation.
 results/benchmarks/seasonal_five_target_load_velocity_performance_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,benchmark-result-home,Future prediction/evaluation/result manifest home for this formulation.
 results/benchmarks/four_target_load_velocity_and_competition_performance_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,benchmark-result-home,Future prediction/evaluation/result manifest home for this formulation.
 results/evaluations/README.md,NEWLY_AUTHORED,CC-BY-4.0,results,Evaluation results and comparison boundaries.
@@ -122,24 +122,24 @@ src/powerlifting_state_research/benchmarks/latent_origin_capacity_change_forecas
 src/powerlifting_state_research/benchmarks/latent_origin_capacity_change_forecasting/provenance.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,provenance,Thin pointer to the centralized alias/provenance mapping.
 src/powerlifting_state_research/benchmarks/latent_origin_capacity_change_forecasting/research.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,research-metadata,"Canonical question, input boundary, result status, and claim scope."
 src/powerlifting_state_research/benchmarks/latent_origin_capacity_change_forecasting/spec.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,benchmark-spec,Typed benchmark descriptor and shared component keys.
-src/powerlifting_state_research/benchmarks/observed_origin_performance_change_forecasting/README.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,research-card,Concise benchmark-specific research card.
-src/powerlifting_state_research/benchmarks/observed_origin_performance_change_forecasting/__init__.py,NEWLY_AUTHORED,MIT,benchmark-package,Importable scientific package exposing its typed spec.
-src/powerlifting_state_research/benchmarks/observed_origin_performance_change_forecasting/implementation.py,NEWLY_AUTHORED,MIT,implementation-home,PUBLIC_IMPLEMENTATION_PENDING marker; no mechanics.
-src/powerlifting_state_research/benchmarks/observed_origin_performance_change_forecasting/provenance.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,provenance,Thin pointer to the centralized alias/provenance mapping.
-src/powerlifting_state_research/benchmarks/observed_origin_performance_change_forecasting/research.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,research-metadata,"Canonical question, input boundary, result status, and claim scope."
-src/powerlifting_state_research/benchmarks/observed_origin_performance_change_forecasting/spec.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,benchmark-spec,Typed benchmark descriptor and shared component keys.
+src/powerlifting_state_research/benchmarks/observed_origin_referenced_capacity_change_forecasting/README.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,research-card,Concise benchmark-specific research card.
+src/powerlifting_state_research/benchmarks/observed_origin_referenced_capacity_change_forecasting/__init__.py,NEWLY_AUTHORED,MIT,benchmark-package,Importable scientific package exposing its typed spec.
+src/powerlifting_state_research/benchmarks/observed_origin_referenced_capacity_change_forecasting/implementation.py,NEWLY_AUTHORED,MIT,implementation-home,PUBLIC_IMPLEMENTATION_PENDING marker; no mechanics.
+src/powerlifting_state_research/benchmarks/observed_origin_referenced_capacity_change_forecasting/provenance.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,provenance,Thin pointer to the centralized alias/provenance mapping.
+src/powerlifting_state_research/benchmarks/observed_origin_referenced_capacity_change_forecasting/research.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,research-metadata,"Canonical question, input boundary, result status, and claim scope."
+src/powerlifting_state_research/benchmarks/observed_origin_referenced_capacity_change_forecasting/spec.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,benchmark-spec,Typed benchmark descriptor and shared component keys.
 src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/README.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,research-card,Concise benchmark-specific research card.
 src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/__init__.py,NEWLY_AUTHORED,MIT,benchmark-package,Importable scientific package exposing its typed spec.
 src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/implementation.py,NEWLY_AUTHORED,MIT,implementation-home,PUBLIC_IMPLEMENTATION_PENDING marker; no mechanics.
 src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/provenance.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,provenance,Thin pointer to the centralized alias/provenance mapping.
 src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/research.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,research-metadata,"Canonical question, input boundary, result status, and claim scope."
 src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/spec.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,benchmark-spec,Typed benchmark descriptor and shared component keys.
-src/powerlifting_state_research/benchmarks/training_schedule_exposure_heterogeneity_forecasting/README.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,research-card,Concise benchmark-specific research card.
-src/powerlifting_state_research/benchmarks/training_schedule_exposure_heterogeneity_forecasting/__init__.py,NEWLY_AUTHORED,MIT,benchmark-package,Importable scientific package exposing its typed spec.
-src/powerlifting_state_research/benchmarks/training_schedule_exposure_heterogeneity_forecasting/implementation.py,NEWLY_AUTHORED,MIT,implementation-home,PUBLIC_IMPLEMENTATION_PENDING marker; no mechanics.
-src/powerlifting_state_research/benchmarks/training_schedule_exposure_heterogeneity_forecasting/provenance.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,provenance,Thin pointer to the centralized alias/provenance mapping.
-src/powerlifting_state_research/benchmarks/training_schedule_exposure_heterogeneity_forecasting/research.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,research-metadata,"Canonical question, input boundary, result status, and claim scope."
-src/powerlifting_state_research/benchmarks/training_schedule_exposure_heterogeneity_forecasting/spec.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,benchmark-spec,Typed benchmark descriptor and shared component keys.
+src/powerlifting_state_research/benchmarks/performance_forecasting_under_schedule_exposure_reporting_heterogeneity/README.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,research-card,Concise benchmark-specific research card.
+src/powerlifting_state_research/benchmarks/performance_forecasting_under_schedule_exposure_reporting_heterogeneity/__init__.py,NEWLY_AUTHORED,MIT,benchmark-package,Importable scientific package exposing its typed spec.
+src/powerlifting_state_research/benchmarks/performance_forecasting_under_schedule_exposure_reporting_heterogeneity/implementation.py,NEWLY_AUTHORED,MIT,implementation-home,PUBLIC_IMPLEMENTATION_PENDING marker; no mechanics.
+src/powerlifting_state_research/benchmarks/performance_forecasting_under_schedule_exposure_reporting_heterogeneity/provenance.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,provenance,Thin pointer to the centralized alias/provenance mapping.
+src/powerlifting_state_research/benchmarks/performance_forecasting_under_schedule_exposure_reporting_heterogeneity/research.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,research-metadata,"Canonical question, input boundary, result status, and claim scope."
+src/powerlifting_state_research/benchmarks/performance_forecasting_under_schedule_exposure_reporting_heterogeneity/spec.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,benchmark-spec,Typed benchmark descriptor and shared component keys.
 src/powerlifting_state_research/benchmarks/seasonal_five_target_load_velocity_performance_forecasting/README.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,research-card,Concise benchmark-specific research card.
 src/powerlifting_state_research/benchmarks/seasonal_five_target_load_velocity_performance_forecasting/__init__.py,NEWLY_AUTHORED,MIT,benchmark-package,Importable scientific package exposing its typed spec.
 src/powerlifting_state_research/benchmarks/seasonal_five_target_load_velocity_performance_forecasting/implementation.py,NEWLY_AUTHORED,MIT,implementation-home,PUBLIC_IMPLEMENTATION_PENDING marker; no mechanics.
@@ -192,9 +192,9 @@ studies/target_sufficient_structural_reconstruction/README.md,NEWLY_AUTHORED,CC-
 tests/benchmarks/class_normalized_cross_lift_five_target_performance_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/benchmarks/held_out_final_origin_five_target_performance_evaluation/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/benchmarks/latent_origin_capacity_change_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
-tests/benchmarks/observed_origin_performance_change_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
+tests/benchmarks/observed_origin_referenced_capacity_change_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/benchmarks/latent_capacity_change_with_transient_expression_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
-tests/benchmarks/training_schedule_exposure_heterogeneity_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
+tests/benchmarks/performance_forecasting_under_schedule_exposure_reporting_heterogeneity/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/benchmarks/seasonal_five_target_load_velocity_performance_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/benchmarks/four_target_load_velocity_and_competition_performance_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/fixtures/README.md,NEWLY_AUTHORED,CC-BY-4.0,tests,Small repository-authored deterministic fixtures only.

@@ -9,7 +9,7 @@ from .serialization import require_scientific_id
 
 
 class EstimandKind(StrEnum):
-    OBSERVED_ORIGIN_PERFORMANCE_CHANGE = "OBSERVED_ORIGIN_PERFORMANCE_CHANGE"
+    OBSERVED_ORIGIN_REFERENCED_CAPACITY_CHANGE = "OBSERVED_ORIGIN_REFERENCED_CAPACITY_CHANGE"
     LATENT_CAPACITY_CHANGE = "LATENT_CAPACITY_CHANGE"
     OTHER = "OTHER"
 
@@ -32,12 +32,12 @@ class ComparisonProfile:
     support_match_required: bool = False
 
     def __post_init__(self) -> None:
-        require_scientific_id(self.world_id, "world ID")
+        require_scientific_id(self.world_id, "world ID", expected_class="world")
         require_scientific_id(self.evaluation_id, "evaluation ID", expected_class="evaluation")
         for qoi_id in self.qoi_ids:
-            require_scientific_id(qoi_id, "QOI ID")
+            require_scientific_id(qoi_id, "QOI ID", expected_class="qoi")
         for metric_id in self.metric_ids:
-            require_scientific_id(metric_id, "metric ID")
+            require_scientific_id(metric_id, "metric ID", expected_class="metric")
 
 
 @dataclass(frozen=True, slots=True)
@@ -84,7 +84,7 @@ def assess_comparability(
         left.estimand,
         right.estimand,
     } == {
-        EstimandKind.OBSERVED_ORIGIN_PERFORMANCE_CHANGE,
+        EstimandKind.OBSERVED_ORIGIN_REFERENCED_CAPACITY_CHANGE,
         EstimandKind.LATENT_CAPACITY_CHANGE,
     }
     direct = qoi_ok and output_ok and metric_evaluation_ok and support_ok and not origin_mismatch

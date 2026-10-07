@@ -26,9 +26,9 @@ dataset_spec_references: dict[str, ComponentReference] = {
         "latent_origin_capacity_change_forecasting_sampling_design",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
-    "observed_origin_performance_change_forecasting_sampling_design": ComponentReference(
+    "observed_origin_referenced_capacity_change_sampling_design": ComponentReference(
         ComponentClass.DATASET_SPEC,
-        "observed_origin_performance_change_forecasting_sampling_design",
+        "observed_origin_referenced_capacity_change_sampling_design",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
     (
@@ -38,9 +38,11 @@ dataset_spec_references: dict[str, ComponentReference] = {
         "latent_capacity_change_with_transient_expression_forecasting_sampling_design",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
-    "training_schedule_exposure_heterogeneity_forecasting_sampling_design": ComponentReference(
+    (
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity_sampling_design"
+    ): ComponentReference(
         ComponentClass.DATASET_SPEC,
-        "training_schedule_exposure_heterogeneity_forecasting_sampling_design",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity_sampling_design",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
     (
