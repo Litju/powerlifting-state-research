@@ -2,12 +2,18 @@
 
 from __future__ import annotations
 
+import math
 import re
 from dataclasses import dataclass
 from enum import StrEnum
 
 from ..artifacts.manifests import RightsMetadata
-from ..contracts.serialization import require_scientific_id, sha256_record
+from ..contracts.serialization import (
+    require_benchmark_digest_match,
+    require_dataset_realization_digest_match,
+    require_scientific_id,
+    sha256_record,
+)
 from ..models.references import (
     CheckpointReference,
     EnvironmentProvenance,
@@ -43,7 +49,7 @@ class MetricIdentity:
     def __post_init__(self) -> None:
         if any(not item.strip() for item in (self.metric_id, self.definition)):
             raise ValueError("metric identity and definition must be explicit")
-        require_scientific_id(self.metric_id, "metric ID")
+        require_scientific_id(self.metric_id, "metric ID", expected_class="metric")
 
 
 @dataclass(frozen=True, slots=True)
@@ -59,6 +65,17 @@ class AggregationRecord:
     def __post_init__(self) -> None:
         if not self.aggregation_id.strip() or not self.metric_id.strip() or not self.unit.strip():
             raise ValueError("aggregation identities and units must be explicit")
+        require_scientific_id(self.metric_id, "aggregation metric ID", expected_class="metric")
+        if not math.isfinite(self.value):
+            raise ValueError("aggregate values must be finite")
+        if any(not math.isfinite(weight) for weight in self.weights):
+            raise ValueError("aggregation weights must be finite")
+        if not self.target_order:
+            raise ValueError("aggregation target order must be non-empty")
+        if any(not target.strip() for target in self.target_order):
+            raise ValueError("aggregation target names must be non-empty")
+        if len(self.target_order) != len(set(self.target_order)):
+            raise ValueError("aggregation target names must be unique")
         if self.weights and len(self.weights) != len(self.target_order):
             raise ValueError("aggregation weights must align with the declared target order")
         if self.weights and (self.rationale is None or not self.rationale.strip()):
@@ -99,6 +116,8 @@ class UncertaintyRecord:
     def __post_init__(self) -> None:
         if not all(item.strip() for item in (self.target, self.method, self.resampling_unit)):
             raise ValueError("uncertainty records need target, method, and resampling unit")
+        if not all(math.isfinite(value) for value in (self.estimate, self.lower, self.upper)):
+            raise ValueError("uncertainty estimates and bounds must be finite")
         if self.lower > self.upper:
             raise ValueError("uncertainty lower bound cannot exceed the upper bound")
 
@@ -130,26 +149,21 @@ class PredictionArtifactReference:
             raise ValueError(
                 "prediction artifact references must identify their content and context"
             )
-        if not re.fullmatch(
-            r"psr:benchmark-spec:[a-z0-9][a-z0-9-]*@[0-9]+\.[0-9]+\.[0-9]+~[a-f0-9]{12}",
-            self.benchmark_id,
-        ):
-            raise ValueError("prediction artifact must reference a minted benchmark ID")
-        if not re.fullmatch(
-            r"psr:dataset-realization:[a-z0-9][a-z0-9-]*@sha256:[a-f0-9]{64}",
+        require_benchmark_digest_match(
+            self.benchmark_id, self.benchmark_spec_digest, "prediction artifact"
+        )
+        require_dataset_realization_digest_match(
             self.dataset_realization_id,
-        ):
-            raise ValueError("prediction artifact must reference a dataset realization ID")
+            self.dataset_realization_digest,
+            "prediction artifact",
+        )
         require_scientific_id(self.model_id, "model ID")
         if self.row_count < 0:
             raise ValueError("prediction artifact row count cannot be negative")
-        for value in (
-            self.benchmark_spec_digest,
-            self.dataset_realization_digest,
-            self.content_sha256,
-        ):
-            if not re.fullmatch(r"sha256:[a-f0-9]{64}", value):
-                raise ValueError("prediction artifact hashes must be full prefixed SHA-256 digests")
+        if not re.fullmatch(r"sha256:[a-f0-9]{64}", self.content_sha256):
+            raise ValueError(
+                "prediction artifact content hash must be a full prefixed SHA-256 digest"
+            )
 
     def identity_payload(self) -> dict[str, object]:
         return {
@@ -205,23 +219,15 @@ class EvaluationResult:
         )
         if any(not item.strip() for item in ids):
             raise ValueError("result must bind benchmark, data realization, and evaluation IDs")
-        if not re.fullmatch(
-            r"psr:benchmark-spec:[a-z0-9][a-z0-9-]*@[0-9]+\.[0-9]+\.[0-9]+~[a-f0-9]{12}",
-            self.benchmark_id,
-        ):
-            raise ValueError("evaluation result must reference a minted benchmark ID")
-        if not re.fullmatch(
-            r"psr:dataset-realization:[a-z0-9][a-z0-9-]*@sha256:[a-f0-9]{64}",
+        require_benchmark_digest_match(
+            self.benchmark_id, self.benchmark_spec_digest, "evaluation result"
+        )
+        require_dataset_realization_digest_match(
             self.dataset_realization_id,
-        ):
-            raise ValueError("evaluation result must reference a dataset realization ID")
-        require_scientific_id(self.evaluation_id, "evaluation ID")
-        for value, label in (
-            (self.benchmark_spec_digest, "benchmark_spec_digest"),
-            (self.dataset_realization_digest, "dataset_realization_digest"),
-        ):
-            if not re.fullmatch(r"sha256:[a-f0-9]{64}", value):
-                raise ValueError(f"{label} must be a full prefixed SHA-256 digest")
+            self.dataset_realization_digest,
+            "evaluation result",
+        )
+        require_scientific_id(self.evaluation_id, "evaluation ID", expected_class="evaluation")
         if (
             self.prediction_artifact.benchmark_id != self.benchmark_id
             or self.prediction_artifact.benchmark_spec_digest != self.benchmark_spec_digest
@@ -232,6 +238,17 @@ class EvaluationResult:
         ):
             raise ValueError("prediction artifact must bind the same benchmark, data, and model")
         expected = {item.metric for item in self.metric_identities}
+        metric_ids = [item.metric_id for item in self.metric_identities]
+        if len(metric_ids) != len(set(metric_ids)) or len(expected) != len(self.metric_identities):
+            raise ValueError("evaluation metric identities must be unique")
+        target_names = [item.target for item in self.targets]
+        if len(target_names) != len(set(target_names)):
+            raise ValueError("evaluation target records must be unique")
+        aggregation_ids = [item.aggregation_id for item in self.aggregations]
+        if len(aggregation_ids) != len(set(aggregation_ids)):
+            raise ValueError("evaluation aggregation identities must be unique")
+        if any(item.metric_id not in metric_ids for item in self.aggregations):
+            raise ValueError("aggregation metrics must reference declared metric identities")
         if any({metric.metric for metric in target.metrics} != expected for target in self.targets):
             raise ValueError("every target must report the declared metric identities")
 
