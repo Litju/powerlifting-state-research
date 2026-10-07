@@ -124,6 +124,13 @@
           ],
           "type": "string"
         },
+        "identity_authority": {
+          "enum": [
+            "HISTORICAL_PROJECTION",
+            "PUBLIC_NATIVE"
+          ],
+          "type": "string"
+        },
         "public_implementation_status": {
           "enum": [
             "PUBLIC_IMPLEMENTATION_PENDING",
@@ -168,6 +175,7 @@
         "historical_qualification_state",
         "completeness_status",
         "public_implementation_status",
+        "identity_authority",
         "target_ontology",
         "task_type",
         "component_references"
@@ -456,5 +464,6 @@
   "x-generator": {
     "name": "powerlifting-state-research-python",
     "version": "0.1.0"
-  }
+  },
+  "x-semantic-validation": "JSON Schema describes record structure only; semantic and cross-field invariants require the authoritative Python contract validator."
 }

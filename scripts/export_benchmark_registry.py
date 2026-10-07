@@ -4,9 +4,8 @@ from __future__ import annotations
 
 import json
 import sys
-from dataclasses import asdict, fields, is_dataclass
+from dataclasses import fields, is_dataclass
 from enum import Enum
-from importlib import import_module
 from pathlib import Path
 from types import UnionType
 from typing import Any, Literal, TypedDict, Union, get_args, get_origin, get_type_hints
@@ -16,7 +15,7 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from powerlifting_state_research.artifacts.manifests import ArtifactManifest  # noqa: E402
 from powerlifting_state_research.contracts.benchmark import BenchmarkSpec  # noqa: E402
-from powerlifting_state_research.registry import BENCHMARKS  # noqa: E402
+from powerlifting_state_research.exports import write_exports  # noqa: E402
 
 
 class DatasetFile(TypedDict):
@@ -138,30 +137,16 @@ def document_schema(title: str, body: dict[str, Any]) -> dict[str, Any]:
         "$schema": "https://json-schema.org/draft/2020-12/schema",
         "title": title,
         "$comment": (
-            "Bootstrap interchange schema generated from typed Python declarations; "
-            "no execution engine is implied."
+            "JSON Schema describes record structure only. Semantic and cross-field invariants "
+            "are enforced by the authoritative Python contract validator; no execution engine "
+            "is implied."
         ),
         **body,
     }
 
 
 def export() -> None:
-    registry = {
-        "distribution": "powerlifting-state-research",
-        "version": "0.1.0",
-        "benchmarks": [
-            {
-                "spec": asdict(benchmark),
-                "research": asdict(import_module(benchmark.python_namespace).RESEARCH),
-                "provenance": asdict(import_module(benchmark.python_namespace).PROVENANCE),
-            }
-            for benchmark in BENCHMARKS
-        ],
-    }
-    (ROOT / "artifacts/registries/benchmark-registry.json").write_text(
-        json.dumps(registry, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
-        encoding="utf-8",
-    )
+    write_exports()
     schemas = {
         "artifact-manifest.schema.json": (ArtifactManifest, "Public artifact rights manifest"),
         "benchmark-spec.schema.json": (BenchmarkSpec, "Public benchmark specification"),

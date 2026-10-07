@@ -145,6 +145,10 @@ def schema_document(model: type[Any]) -> dict[str, object]:
         "$ref": f"#/$defs/{model.__name__}",
         "$defs": definitions,
         "x-generator": GENERATOR,
+        "x-semantic-validation": (
+            "JSON Schema describes record structure only; semantic and cross-field invariants "
+            "require the authoritative Python contract validator."
+        ),
     }
 
 
