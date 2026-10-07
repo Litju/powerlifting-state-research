@@ -12,7 +12,9 @@ import tempfile
 from collections.abc import Iterator, Mapping
 from dataclasses import dataclass
 from pathlib import Path
+from typing import TypedDict, cast
 
+from ... import __version__
 from ...artifacts.manifests import RightsMetadata
 from ...contracts.datasets import (
     ArtifactHash,
@@ -73,14 +75,46 @@ from .spec import PUBLIC_NATIVE_DATASET_SPEC_ID
 
 PRODUCTION_ROWS = {"train": 12_288, "validation": 3_072}
 SCHEMA_IDENTITY = "latent-capacity-transient-participant-row-v2"
+GENERATOR_SOURCE_FILES = (
+    "benchmarks/latent_capacity_change_with_transient_expression_forecasting/dynamics.py",
+    "benchmarks/latent_capacity_change_with_transient_expression_forecasting/population.py",
+    "benchmarks/latent_capacity_change_with_transient_expression_forecasting/interventions.py",
+    "benchmarks/latent_capacity_change_with_transient_expression_forecasting/observations.py",
+    "benchmarks/latent_capacity_change_with_transient_expression_forecasting/dataset.py",
+    "contracts/serialization.py",
+)
+
+
+def generator_source_sha256(source_root: Path | None = None) -> str:
+    """Hash fixed UTF-8 sources using package-relative paths and CRLF-to-LF normalization.
+
+    The SHA-256 input starts with the version tag and NUL byte. Each ordered file then
+    contributes a 4-byte big-endian path length, UTF-8 POSIX path, 8-byte big-endian
+    normalized content length, and source bytes. No checkout metadata or root path is read.
+    """
+    source_root = Path(__file__).resolve().parents[2] if source_root is None else source_root
+    digest = hashlib.sha256(b"PSR_PUBLIC_GENERATOR_SOURCE_V1\0")
+    for relative_path in GENERATOR_SOURCE_FILES:
+        path_bytes = relative_path.encode("utf-8")
+        source_bytes = (source_root / relative_path).read_bytes().replace(b"\r\n", b"\n")
+        digest.update(len(path_bytes).to_bytes(4, "big"))
+        digest.update(path_bytes)
+        digest.update(len(source_bytes).to_bytes(8, "big"))
+        digest.update(source_bytes)
+    return f"sha256:{digest.hexdigest()}"
+
+
+GENERATOR_SOURCE_SHA256 = generator_source_sha256()
 GENERATOR_IDENTITY = (
     "powerlifting_state_research.benchmarks."
-    "latent_capacity_change_with_transient_expression_forecasting.dataset:iid-public-production"
+    "latent_capacity_change_with_transient_expression_forecasting.dataset:iid-public-production;"
+    f"package-version={__version__};generator-source-sha256="
+    f"{GENERATOR_SOURCE_SHA256.removeprefix('sha256:')}"
 )
 REALIZATION_ID = "latent-capacity-transient-iid-production"
 DATASET_SPEC_ID = PUBLIC_NATIVE_DATASET_SPEC_ID
 SOURCE_IDENTITY = (
-    "docs/benchmarks/iid-latent-capacity-change-with-transient-expression-forecasting.md"
+    "artifacts/dataset-cards/iid-latent-capacity-change-with-transient-expression-forecasting.md"
 )
 
 
@@ -121,20 +155,32 @@ class LiftInputs:
     history_schedule: tuple[HistorySegment, ...]
 
 
+class PublicLiftInputs(TypedDict):
+    squat: LiftInputs
+    bench_press: LiftInputs
+    deadlift: LiftInputs
+
+
+class PublicCapacityTargets(TypedDict):
+    squat_delta_capacity_kg: float
+    bench_press_delta_capacity_kg: float
+    deadlift_delta_capacity_kg: float
+
+
 @dataclass(frozen=True, slots=True)
 class ForecastInputs:
     entity_id: str
     origin_day: int
     horizon_days: int
     declared_future_plan: DeclaredFuturePlan
-    lifts: dict[str, LiftInputs]
+    lifts: PublicLiftInputs
 
 
 @dataclass(frozen=True, slots=True)
 class PublicForecastRow:
     row_id: str
     inputs: ForecastInputs
-    targets: dict[str, float]
+    targets: PublicCapacityTargets
 
 
 @dataclass(frozen=True, slots=True)
@@ -165,7 +211,7 @@ PUBLIC_GENERATION_CONFIGURATION: dict[str, object] = {
     },
     "population": {
         "coordinates": COORDINATE_ORDER,
-        "measure": "independent Uniform(0,1) coordinates",
+        "measure": "independent Uniform[0,1) coordinates",
         "sampling_algorithm": ("IID pseudorandom draws from random.Random(population_seed).random"),
         "sampling_order": "one complete coordinate vector per entity in increasing entity index",
         "baseline_scale_kg": BASELINE_SCALE_KG_RANGE,
@@ -295,8 +341,7 @@ def validate_public_row(row: PublicForecastRow) -> None:
     if set(row.inputs.lifts) != set(LIFTS):
         raise ValueError("row must contain all three lifts")
     expected_days = HISTORY_OBSERVATION_DAYS
-    for lift in LIFTS:
-        lift_inputs = row.inputs.lifts[lift]
+    for lift, lift_inputs in cast(dict[str, LiftInputs], row.inputs.lifts).items():
         if tuple(item.day for item in lift_inputs.history) != expected_days:
             raise ValueError(f"{lift} history must contain the 32 weekly observations")
         if not lift_inputs.history_schedule or lift_inputs.history_schedule[0].start_day != 0:
@@ -328,7 +373,7 @@ def validate_public_row(row: PublicForecastRow) -> None:
                 raise ValueError("learner-visible observation must be finite")
     expected_targets = {f"{lift}_delta_capacity_kg" for lift in LIFTS}
     if set(row.targets) != expected_targets or any(
-        not math.isfinite(value) for value in row.targets.values()
+        not math.isfinite(value) for value in cast(dict[str, float], row.targets).values()
     ):
         raise ValueError("row targets must contain finite latent-capacity changes for all lifts")
 
@@ -347,7 +392,7 @@ def iter_public_rows(
             for lift_index, lift in enumerate(LIFTS)
         }
         trajectories = simulate_athlete(athlete, sessions_by_lift)
-        lifts: dict[str, LiftInputs] = {}
+        lift_values: dict[str, LiftInputs] = {}
         for lift_index, lift in enumerate(LIFTS):
             segments = history_segments(templates[lift_index])
             history = sample_performance_history(
@@ -355,16 +400,21 @@ def iter_public_rows(
                 lift,
                 observation_rng,
             )
-            lifts[lift] = LiftInputs(history, segments)
+            lift_values[lift] = LiftInputs(history, segments)
         row = PublicForecastRow(
             row_id=athlete.entity_id,
-            inputs=ForecastInputs(athlete.entity_id, ORIGIN_DAY, horizon, plan, lifts),
-            targets={
-                f"{lift}_delta_capacity_kg": latent_capacity_change(
-                    trajectories[lift], ORIGIN_DAY, horizon
-                )
-                for lift in LIFTS
-            },
+            inputs=ForecastInputs(
+                athlete.entity_id, ORIGIN_DAY, horizon, plan, cast(PublicLiftInputs, lift_values)
+            ),
+            targets=cast(
+                PublicCapacityTargets,
+                {
+                    f"{lift}_delta_capacity_kg": latent_capacity_change(
+                        trajectories[lift], ORIGIN_DAY, horizon
+                    )
+                    for lift in LIFTS
+                },
+            ),
         )
         validate_public_row(row)
         yield split, row
@@ -494,7 +544,8 @@ def write_public_realization(
                 "Generated by the independently authored public-native IID benchmark. Its "
                 "sampling design is DatasetSpec-bearing and differs from the historical scrambled "
                 "Sobol design. Historical source and data bytes are not runtime inputs. Public "
-                "configuration SHA-256: "
+                "generator source SHA-256: "
+                f"{GENERATOR_SOURCE_SHA256.removeprefix('sha256:')}; configuration SHA-256: "
                 f"{PUBLIC_GENERATION_CONFIGURATION_SHA256.removeprefix('sha256:')}."
             ),
             rights=RightsMetadata(
