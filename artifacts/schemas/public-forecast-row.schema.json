@@ -1,0 +1,191 @@
+{
+  "$defs": {
+    "DeclaredFuturePlan": {
+      "additionalProperties": false,
+      "properties": {
+        "dose": {
+          "type": "number"
+        },
+        "end_day": {
+          "type": "integer"
+        },
+        "intensity": {
+          "type": "number"
+        },
+        "plan_id": {
+          "type": "string"
+        },
+        "start_day": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "plan_id",
+        "start_day",
+        "end_day",
+        "dose",
+        "intensity"
+      ],
+      "type": "object"
+    },
+    "ForecastInputs": {
+      "additionalProperties": false,
+      "properties": {
+        "declared_future_plan": {
+          "$ref": "#/$defs/DeclaredFuturePlan"
+        },
+        "entity_id": {
+          "type": "string"
+        },
+        "horizon_days": {
+          "type": "integer"
+        },
+        "lifts": {
+          "additionalProperties": false,
+          "properties": {
+            "bench_press": {
+              "$ref": "#/$defs/LiftInputs"
+            },
+            "deadlift": {
+              "$ref": "#/$defs/LiftInputs"
+            },
+            "squat": {
+              "$ref": "#/$defs/LiftInputs"
+            }
+          },
+          "required": [
+            "bench_press",
+            "deadlift",
+            "squat"
+          ],
+          "type": "object"
+        },
+        "origin_day": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "entity_id",
+        "origin_day",
+        "horizon_days",
+        "declared_future_plan",
+        "lifts"
+      ],
+      "type": "object"
+    },
+    "HistorySegment": {
+      "additionalProperties": false,
+      "properties": {
+        "dose": {
+          "type": "number"
+        },
+        "end_day": {
+          "type": "integer"
+        },
+        "intensity": {
+          "type": "number"
+        },
+        "start_day": {
+          "type": "integer"
+        }
+      },
+      "required": [
+        "start_day",
+        "end_day",
+        "dose",
+        "intensity"
+      ],
+      "type": "object"
+    },
+    "LiftInputs": {
+      "additionalProperties": false,
+      "properties": {
+        "history": {
+          "items": {
+            "$ref": "#/$defs/PerformanceObservation"
+          },
+          "type": "array"
+        },
+        "history_schedule": {
+          "items": {
+            "$ref": "#/$defs/HistorySegment"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "history",
+        "history_schedule"
+      ],
+      "type": "object"
+    },
+    "PerformanceObservation": {
+      "additionalProperties": false,
+      "properties": {
+        "assessment_kg": {
+          "type": "number"
+        },
+        "day": {
+          "type": "integer"
+        },
+        "prescribed_load_kg": {
+          "type": "number"
+        },
+        "velocity_mps": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "day",
+        "assessment_kg",
+        "prescribed_load_kg",
+        "velocity_mps"
+      ],
+      "type": "object"
+    },
+    "PublicForecastRow": {
+      "additionalProperties": false,
+      "properties": {
+        "inputs": {
+          "$ref": "#/$defs/ForecastInputs"
+        },
+        "row_id": {
+          "type": "string"
+        },
+        "targets": {
+          "additionalProperties": false,
+          "properties": {
+            "bench_press_delta_capacity_kg": {
+              "type": "number"
+            },
+            "deadlift_delta_capacity_kg": {
+              "type": "number"
+            },
+            "squat_delta_capacity_kg": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "bench_press_delta_capacity_kg",
+            "deadlift_delta_capacity_kg",
+            "squat_delta_capacity_kg"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "row_id",
+        "inputs",
+        "targets"
+      ],
+      "type": "object"
+    }
+  },
+  "$ref": "#/$defs/PublicForecastRow",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-generator": {
+    "name": "powerlifting-state-research-python",
+    "version": "0.1.0"
+  },
+  "x-semantic-validation": "JSON Schema describes record structure only; semantic and cross-field invariants require the authoritative Python contract validator."
+}

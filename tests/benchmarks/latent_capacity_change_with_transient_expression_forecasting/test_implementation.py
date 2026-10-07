@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import json
+import math
 import random
 from collections import Counter
 from dataclasses import asdict, replace
+from pathlib import Path
 
 import pytest
 
@@ -111,6 +113,88 @@ def test_history_templates_and_observation_noise_are_seeded() -> None:
     assert len(first) == 32 and first[-1].day == 223
 
 
+def test_population_coordinates_use_exact_unit_interval_support() -> None:
+    coordinate_count = benchmark.population.COORDINATE_COUNT
+    parameters_from_coordinates = benchmark.population.parameters_from_coordinates
+
+    assert parameters_from_coordinates([0.0] * coordinate_count)
+    assert parameters_from_coordinates([math.nextafter(1.0, 0.0)] * coordinate_count)
+    for invalid in (1.0, -1e-12, math.nan, math.inf, -math.inf):
+        coordinates = [0.5] * coordinate_count
+        coordinates[0] = invalid
+        with pytest.raises(ValueError, match=r"\[0, 1\)"):
+            parameters_from_coordinates(coordinates)
+
+
+def test_generator_source_digest_is_stable_and_scoped_to_public_code(tmp_path) -> None:
+    source_files = benchmark.dataset.GENERATOR_SOURCE_FILES
+    source_digest = benchmark.dataset.generator_source_sha256
+
+    for name in source_files:
+        path = tmp_path / name
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_bytes(b"public source\r\n")
+    first = source_digest(tmp_path)
+    assert first == source_digest(tmp_path)
+
+    for name in source_files:
+        (tmp_path / name).write_bytes(b"public source\n")
+    assert first == source_digest(tmp_path)
+
+    (tmp_path / "README.md").write_text("documentation is excluded\n", encoding="utf-8")
+    assert first == source_digest(tmp_path)
+
+    (tmp_path / source_files[0]).write_bytes(b"changed executable source\n")
+    assert first != source_digest(tmp_path)
+
+
+def test_generated_public_row_schema_freezes_the_python_record() -> None:
+    from powerlifting_state_research.exports import schema_document
+
+    schema = schema_document(benchmark.dataset.PublicForecastRow)
+    schema_path = (
+        Path(__file__).resolve().parents[3]
+        / "artifacts"
+        / "schemas"
+        / "public-forecast-row.schema.json"
+    )
+    assert json.loads(schema_path.read_text(encoding="utf-8")) == schema
+    definitions = schema["$defs"]
+    row_schema = definitions["PublicForecastRow"]
+    assert set(row_schema["properties"]) == {"row_id", "inputs", "targets"}
+    assert row_schema["additionalProperties"] is False
+    inputs_schema = definitions["ForecastInputs"]
+    assert set(inputs_schema["properties"]) == {
+        "entity_id",
+        "origin_day",
+        "horizon_days",
+        "declared_future_plan",
+        "lifts",
+    }
+    lifts_schema = inputs_schema["properties"]["lifts"]
+    targets_schema = row_schema["properties"]["targets"]
+    assert row_schema["properties"]["row_id"]["type"] == "string"
+    assert inputs_schema["properties"]["origin_day"]["type"] == "integer"
+    assert definitions["DeclaredFuturePlan"]["properties"]["dose"]["type"] == "number"
+    assert set(lifts_schema["properties"]) == set(LIFTS)
+    assert definitions["PerformanceObservation"]["properties"]["day"]["type"] == "integer"
+    assert definitions["PerformanceObservation"]["properties"]["velocity_mps"]["type"] == "number"
+    assert set(targets_schema["properties"]) == {f"{lift}_delta_capacity_kg" for lift in LIFTS}
+    assert all(schema["type"] == "number" for schema in targets_schema["properties"].values())
+    assert "authoritative Python contract validator" in schema["x-semantic-validation"]
+
+    _, row = next(iter_public_rows(GenerationConfig(train_rows=12, validation_rows=12)))
+    row_payload = asdict(row)
+    assert set(row_payload) == set(row_schema["properties"])
+    assert set(row_payload["inputs"]["lifts"]) == set(lifts_schema["required"])
+    assert set(row_payload["targets"]) == set(targets_schema["required"])
+    for lift in LIFTS:
+        assert all(
+            set(observation) == {"day", "assessment_kg", "prescribed_load_kg", "velocity_mps"}
+            for observation in row_payload["inputs"]["lifts"][lift]["history"]
+        )
+
+
 def test_participant_fields_and_row_temporal_boundary() -> None:
     config = GenerationConfig(train_rows=12, validation_rows=12)
     _, row = next(iter_public_rows(config))
@@ -148,6 +232,18 @@ def test_participant_fields_and_row_temporal_boundary() -> None:
     assert visible["declared_future_plan"]["end_day"] == 279
 
     squat = row.inputs.lifts["squat"]
+    invalid_segment = replace(squat.history_schedule[-1], end_day=224)
+    invalid_schedule = replace(
+        squat,
+        history_schedule=(*squat.history_schedule[:-1], invalid_segment),
+    )
+    invalid_inputs = replace(
+        row.inputs,
+        lifts={**row.inputs.lifts, "squat": invalid_schedule},
+    )
+    with pytest.raises(ValueError, match="history schedule must end on day 223"):
+        validate_public_row(replace(row, inputs=invalid_inputs))
+
     invalid_observation = replace(squat.history[-1], day=224)
     invalid_inputs = replace(
         row.inputs,
