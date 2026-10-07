@@ -1,0 +1,98 @@
+name: Public CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: public-ci-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  quality-integrity:
+    name: Quality / integrity
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: "0.12.2"
+          enable-cache: false
+      - run: uv sync --locked --all-groups --python 3.12
+      - run: uv run --locked ruff check .
+      - run: uv run --locked ruff format --check .
+      - run: uv run --locked mypy
+      - run: uv run --locked python -m powerlifting_state_research.exports --check
+      - run: uv run --locked python scripts/check_repository_integrity.py
+
+  compatibility:
+    name: Compatibility (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: "0.12.2"
+          enable-cache: false
+      - run: uv sync --locked --all-groups --python "${{ matrix.python-version }}"
+      - run: uv run --locked python -c "import powerlifting_state_research"
+      - run: uv run --locked pytest
+
+  package-smoke:
+    name: Package smoke
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: "0.12.2"
+          enable-cache: false
+      - run: uv sync --locked --all-groups --python 3.12
+      - name: Build source and wheel distributions
+        run: uv build --sdist --wheel --no-build-isolation --out-dir "$RUNNER_TEMP/psr-dist"
+      - name: Install the wheel in an isolated environment
+        run: |
+          python -m venv "$RUNNER_TEMP/psr-wheel"
+          uv pip install --no-deps --python "$RUNNER_TEMP/psr-wheel/bin/python" "$RUNNER_TEMP/psr-dist"/*.whl
+      - name: Import and verify the installed wheel
+        run: |
+          cd "$RUNNER_TEMP"
+          "$RUNNER_TEMP/psr-wheel/bin/python" -I - <<'PY'
+          import sys
+          from pathlib import Path
+
+          import powerlifting_state_research
+          from powerlifting_state_research.registry import BENCHMARKS, resolve_benchmark
+
+          assert Path(powerlifting_state_research.__file__).resolve().is_relative_to(
+              Path(sys.prefix).resolve()
+          ), powerlifting_state_research.__file__
+          assert len(BENCHMARKS) == 8
+          benchmark = resolve_benchmark(
+              "latent_capacity_change_with_transient_expression_forecasting"
+          )
+          assert benchmark.identity_mintable
+          assert benchmark.semantic_digest == (
+              "sha256:fbfbe59eb0a8e94b12b424c6d6837dfd455a6c5a55084bb2898b53f741cc6472"
+          )
+          print("PASS: installed wheel imports; 8 benchmarks; frozen digest matches")
+          PY
