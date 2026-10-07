@@ -564,7 +564,7 @@
       "historical_specimen_status": "REPRODUCIBLE_SPEC",
       "identity_authority": "HISTORICAL_PROJECTION",
       "identity_mintable": true,
-      "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
+      "public_implementation_status": "PUBLIC_IMPLEMENTED",
       "research": {
         "canonical_claim_scope": [
           "Qualified conditional synthetic prediction within the named latent-capacity and transient-expression system, support, and evaluation, subject to a missing readiness receipt.",

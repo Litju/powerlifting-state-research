@@ -12,6 +12,7 @@ htmlcov/
 
 # Generated or locally cached research artifacts need a reviewed manifest first.
 /data/synthetic/*.parquet
+/data/synthetic/latent_capacity_change_with_transient_expression_forecasting/public-v*/
 /data/external/*
 !/data/external/README.md
 /models/checkpoints/

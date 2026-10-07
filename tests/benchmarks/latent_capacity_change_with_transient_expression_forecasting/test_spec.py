@@ -15,7 +15,7 @@ def test_declaration_matches_frozen_record() -> None:
     assert spec.docs_path.endswith(
         "latent-capacity-change-with-transient-expression-forecasting.md"
     )
-    assert spec.public_implementation_status is ImplementationStatus.PUBLIC_IMPLEMENTATION_PENDING
+    assert spec.public_implementation_status is ImplementationStatus.PUBLIC_IMPLEMENTED
     assert spec.historical_specimen_status is HistoricalSpecimenStatus.REPRODUCIBLE_SPEC
     assert spec.completeness_status is CompletenessStatus.FULL_FROM_EXISTING_EVIDENCE
     assert spec.component_references

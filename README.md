@@ -2,9 +2,7 @@
 
 Open research on latent powerlifting capacity, performance expression, and forecast evaluation in synthetic dynamical systems.
 
-This repository starts with a public-safe research registry and typed package skeleton. It contains eight reconstructed historical benchmark specimens across six shared worlds. **No independent public benchmark mechanics are implemented at bootstrap.** Every specimen remains marked PUBLIC_IMPLEMENTATION_PENDING.
-
-The first independent public mechanics work is planned for latent capacity-change forecasting with transient performance expression in the next research phase. This repository does not implement that system at bootstrap.
+This repository contains eight reconstructed historical benchmark specimens across six shared worlds. The latent-capacity-change benchmark with transient performance expression now has an independently authored public mechanics and deterministic data generator. The other seven specimens remain registry records marked PUBLIC_IMPLEMENTATION_PENDING.
 
 ## Scientific object
 
@@ -19,7 +17,7 @@ See [scientific naming decisions](docs/provenance/scientific-naming-decisions.md
 | [Class-Normalized Cross-Lift Five-Target Performance Forecasting](docs/benchmarks/class-normalized-cross-lift-five-target-performance-forecasting.md) | class_normalized_cross_lift_five_target_performance_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
 | [Four-Target Load–Velocity and Competition Performance Forecasting](docs/benchmarks/four-target-load-velocity-and-competition-performance-forecasting.md) | four_target_load_velocity_and_competition_performance_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
 | [Held-Out Final-Origin Evaluation of Five Performance Targets](docs/benchmarks/held-out-final-origin-five-target-performance-evaluation.md) | held_out_final_origin_five_target_performance_evaluation | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
-| [Latent Capacity-Change Forecasting with Transient Performance Expression](docs/benchmarks/latent-capacity-change-with-transient-expression-forecasting.md) | latent_capacity_change_with_transient_expression_forecasting | REPRODUCIBLE_SPEC | FULL_FROM_EXISTING_EVIDENCE | PUBLIC_IMPLEMENTATION_PENDING |
+| [Latent Capacity-Change Forecasting with Transient Performance Expression](docs/benchmarks/latent-capacity-change-with-transient-expression-forecasting.md) | latent_capacity_change_with_transient_expression_forecasting | REPRODUCIBLE_SPEC | FULL_FROM_EXISTING_EVIDENCE | PUBLIC_IMPLEMENTED |
 | [Latent-Origin Capacity-Change Forecasting](docs/benchmarks/latent-origin-capacity-change-forecasting.md) | latent_origin_capacity_change_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
 | [Observed-Origin-Referenced Capacity-Change Forecasting](docs/benchmarks/observed-origin-referenced-capacity-change-forecasting.md) | observed_origin_referenced_capacity_change_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
 | [Seasonal Five-Target Load–Velocity and Performance Forecasting](docs/benchmarks/seasonal-five-target-load-velocity-performance-forecasting.md) | seasonal_five_target_load_velocity_performance_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
@@ -39,7 +37,7 @@ Results from a synthetic benchmark characterize prediction under that declared s
 - **models/** — model-family, training, comparator, and checkpoint-manifest homes; no historical weights.
 - **studies/** and **audits/** — distinct study and cross-benchmark analysis homes.
 - **results/** and **artifacts/** — identified generated outputs and publication bundles.
-- **tests/** — registry, component-reuse, provenance, and descriptor smoke checks.
+- **tests/** — registry, component-reuse, provenance, descriptor, and public-mechanics checks.
 
 ## Reproducibility
 
