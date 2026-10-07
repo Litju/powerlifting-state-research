@@ -19,7 +19,7 @@ from ...contracts.benchmark import (
 )
 from ...contracts.components import ComponentClass, ComponentReference, ComponentResolution
 
-IMPLEMENTATION_STATUS = ImplementationStatus.PUBLIC_IMPLEMENTATION_PENDING
+IMPLEMENTATION_STATUS = ImplementationStatus.PUBLIC_IMPLEMENTED
 
 SPEC = BenchmarkSpec(
     display_name=("Latent Capacity-Change Forecasting with Transient Performance Expression"),
