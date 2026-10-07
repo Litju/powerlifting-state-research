@@ -2,7 +2,7 @@
 
 Open research on latent powerlifting capacity, performance expression, and forecast evaluation in synthetic dynamical systems.
 
-This repository contains eight reconstructed historical benchmark specimens across six shared worlds. The latent-capacity-change benchmark with transient performance expression now has an independently authored public mechanics and deterministic data generator. The other seven specimens remain registry records marked PUBLIC_IMPLEMENTATION_PENDING.
+This repository contains eight reconstructed historical benchmark specimens across six shared worlds and one independently identified public-native variant. The public-native IID-sampled latent-capacity-change benchmark has independently authored mechanics and a deterministic data generator. Its historical projection remains PUBLIC_IMPLEMENTATION_PENDING because historical production used a different, scrambled-Sobol DatasetSpec.
 
 ## Scientific object
 
@@ -17,13 +17,15 @@ See [scientific naming decisions](docs/provenance/scientific-naming-decisions.md
 | [Class-Normalized Cross-Lift Five-Target Performance Forecasting](docs/benchmarks/class-normalized-cross-lift-five-target-performance-forecasting.md) | class_normalized_cross_lift_five_target_performance_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
 | [Four-Target Load–Velocity and Competition Performance Forecasting](docs/benchmarks/four-target-load-velocity-and-competition-performance-forecasting.md) | four_target_load_velocity_and_competition_performance_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
 | [Held-Out Final-Origin Evaluation of Five Performance Targets](docs/benchmarks/held-out-final-origin-five-target-performance-evaluation.md) | held_out_final_origin_five_target_performance_evaluation | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
-| [Latent Capacity-Change Forecasting with Transient Performance Expression](docs/benchmarks/latent-capacity-change-with-transient-expression-forecasting.md) | latent_capacity_change_with_transient_expression_forecasting | REPRODUCIBLE_SPEC | FULL_FROM_EXISTING_EVIDENCE | PUBLIC_IMPLEMENTED |
+| [Latent Capacity-Change Forecasting with Transient Performance Expression](docs/benchmarks/latent-capacity-change-with-transient-expression-forecasting.md) | latent_capacity_change_with_transient_expression_forecasting | REPRODUCIBLE_SPEC | FULL_FROM_EXISTING_EVIDENCE | PUBLIC_IMPLEMENTATION_PENDING |
 | [Latent-Origin Capacity-Change Forecasting](docs/benchmarks/latent-origin-capacity-change-forecasting.md) | latent_origin_capacity_change_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
 | [Observed-Origin-Referenced Capacity-Change Forecasting](docs/benchmarks/observed-origin-referenced-capacity-change-forecasting.md) | observed_origin_referenced_capacity_change_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
 | [Seasonal Five-Target Load–Velocity and Performance Forecasting](docs/benchmarks/seasonal-five-target-load-velocity-performance-forecasting.md) | seasonal_five_target_load_velocity_performance_forecasting | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
 | [Performance Forecasting Under Schedule, Exposure, and Reporting Heterogeneity](docs/benchmarks/performance-forecasting-under-schedule-exposure-reporting-heterogeneity.md) | performance_forecasting_under_schedule_exposure_reporting_heterogeneity | PARTIALLY_RECONSTRUCTED | PARTIAL_WITH_EXPLICIT_UNRESOLVED_FIELDS | PUBLIC_IMPLEMENTATION_PENDING |
 
 Historical aliases and frozen component identity strings are provenance or identity references. Public paths, module names, tests, and descriptions use the scientific formulations above.
+
+The executable [IID public-native benchmark](docs/benchmarks/iid-latent-capacity-change-with-transient-expression-forecasting.md) has its own BenchmarkSpec and semantic digest. It shares the world, task, QOI, representation, and evaluation with the historical projection; its population, intervention, observation, and IID DatasetSpec use direct public-native identities.
 
 ## What results can say
 

@@ -26,7 +26,7 @@ data/manifests/realizations/held_out_final_origin_five_target_performance_evalua
 data/manifests/realizations/latent_origin_capacity_change_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Future realization manifest/checksum home; no historical data bytes.
 data/manifests/realizations/observed_origin_referenced_capacity_change_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Future realization manifest/checksum home; no historical data bytes.
 data/manifests/realizations/latent_capacity_change_with_transient_expression_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Public realization manifest/checksum home; generated data bytes are not checked in.
-data/manifests/realizations/latent_capacity_change_with_transient_expression_forecasting/public-v4.json,GENERATED_PUBLIC_ARTIFACT,MIT,dataset-manifest,Manifest for the independently generated public train and validation realization.
+data/manifests/realizations/latent_capacity_change_with_transient_expression_forecasting/iid-production.json,GENERATED_PUBLIC_ARTIFACT,MIT,dataset-manifest,Manifest for the public-native IID train and validation realization.
 data/manifests/realizations/performance_forecasting_under_schedule_exposure_reporting_heterogeneity/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Future realization manifest/checksum home; no historical data bytes.
 data/manifests/realizations/seasonal_five_target_load_velocity_performance_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Future realization manifest/checksum home; no historical data bytes.
 data/manifests/realizations/four_target_load_velocity_and_competition_performance_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Future realization manifest/checksum home; no historical data bytes.
@@ -42,6 +42,7 @@ docs/benchmarks/index.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-docum
 docs/benchmarks/latent-origin-capacity-change-forecasting.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Research card for Latent-Origin Capacity-Change Forecasting.
 docs/benchmarks/observed-origin-referenced-capacity-change-forecasting.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Research card for Observed-Origin-Referenced Capacity-Change Forecasting.
 docs/benchmarks/latent-capacity-change-with-transient-expression-forecasting.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Research card for Latent Capacity-Change Forecasting with Transient Performance Expression.
+docs/benchmarks/iid-latent-capacity-change-with-transient-expression-forecasting.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Public-native IID benchmark and historical equivalence record.
 docs/benchmarks/performance-forecasting-under-schedule-exposure-reporting-heterogeneity.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Research card for Performance Forecasting Under Schedule, Exposure, and Reporting Heterogeneity.
 docs/benchmarks/seasonal-five-target-load-velocity-performance-forecasting.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Research card for Seasonal Five-Target Load–Velocity and Performance Forecasting.
 docs/benchmarks/four-target-load-velocity-and-competition-performance-forecasting.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Research card for Four-Target Load–Velocity and Competition Performance Forecasting.
@@ -99,6 +100,7 @@ schemas/prediction.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,schema-export,Gener
 scripts/README.md,NEWLY_AUTHORED,CC-BY-4.0,scripts,Small reproducibility/export tools; no general CLI at bootstrap.
 scripts/check_repository_integrity.py,NEWLY_AUTHORED,MIT,repository-integrity,Public-only registry; origin-ledger; and repository-safety checks.
 scripts/export_benchmark_registry.py,NEWLY_AUTHORED,MIT,registry-export,Exports the typed Python registry to its JSON destination.
+scripts/verify_public_iid_production.py,NEWLY_AUTHORED,MIT,release-verification,Regenerates and verifies the full public-native IID realization.
 src/powerlifting_state_research/__init__.py,NEWLY_AUTHORED,MIT,package,Typed package namespace/home; no benchmark mechanics at bootstrap.
 src/powerlifting_state_research/artifacts/__init__.py,NEWLY_AUTHORED,MIT,package,Typed package namespace/home; no benchmark mechanics at bootstrap.
 src/powerlifting_state_research/artifacts/hashes.py,NEWLY_AUTHORED,MIT,artifacts,Deterministic public artifact hashing.
@@ -204,6 +206,8 @@ tests/benchmarks/latent_origin_capacity_change_forecasting/test_spec.py,NEWLY_AU
 tests/benchmarks/observed_origin_referenced_capacity_change_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/benchmarks/latent_capacity_change_with_transient_expression_forecasting/test_implementation.py,NEWLY_AUTHORED,MIT,benchmark-tests,Mechanics; determinism; population; plan; observation; leakage; and row tests.
 tests/benchmarks/latent_capacity_change_with_transient_expression_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
+tests/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/test_full_production.py,NEWLY_AUTHORED,MIT,benchmark-tests,Opt-in full production repeatability and manifest check.
+tests/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Public-native identity and historical distinction regression.
 tests/benchmarks/performance_forecasting_under_schedule_exposure_reporting_heterogeneity/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/benchmarks/seasonal_five_target_load_velocity_performance_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/benchmarks/four_target_load_velocity_and_competition_performance_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.

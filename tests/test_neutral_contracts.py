@@ -72,6 +72,7 @@ from powerlifting_state_research.models.references import (
     RNGProvenance,
     TrainingProtocolReference,
 )
+from powerlifting_state_research.provenance import HISTORICAL_SOURCES
 from powerlifting_state_research.registry import (
     BENCHMARK_REGISTRY,
     BENCHMARKS,
@@ -154,7 +155,7 @@ def _changed_component_id(value: str) -> str:
 
 
 def test_registry_names_aliases_and_completeness_are_explicit() -> None:
-    assert len(BENCHMARKS) == len(BENCHMARK_REGISTRY) == 8
+    assert len(BENCHMARKS) == len(BENCHMARK_REGISTRY) == 9
     assert len(WORLD_DECLARATIONS) == 6
     assert len({world.slug for world in WORLD_DECLARATIONS}) == 6
     assert all(not name.startswith("benchmark_") for name in BENCHMARK_REGISTRY)
@@ -185,7 +186,7 @@ def test_registry_names_aliases_and_completeness_are_explicit() -> None:
         len(
             query_benchmarks(completeness_status=TRANSIENT_EXPRESSION_BENCHMARK.completeness_status)
         )
-        == 1
+        == 2
     )
     assert not any(
         name in " ".join((spec.slug, spec.python_namespace, spec.docs_path, spec.test_path))
@@ -198,24 +199,31 @@ def test_registry_names_aliases_and_completeness_are_explicit() -> None:
         )
     )
     assert all(
-        spec.identity_mintable is (spec is TRANSIENT_EXPRESSION_BENCHMARK) for spec in BENCHMARKS
-    )
-    assert all(
         spec.identity_authority is BenchmarkIdentityAuthority.HISTORICAL_PROJECTION
         for spec in BENCHMARKS
+        if spec.slug in HISTORICAL_SOURCES
     )
+    assert sum(spec.identity_mintable for spec in BENCHMARKS) == 2
 
 
 def test_scientific_paths_are_migrated_across_code_tests_docs_data_and_results() -> None:
     root = Path(__file__).resolve().parents[1]
     prohibited = ("stable_slope", "capacity_fatigue", "parsimonious", "final_origin_target_domain")
     for spec in BENCHMARKS:
+        if spec.slug not in HISTORICAL_SOURCES:
+            assert (root / spec.docs_path).is_file()
+            assert (root / spec.test_path).is_file()
+            continue
         module_path = Path("src") / Path(*spec.python_namespace.split("."))
         data_home = Path("data/manifests/realizations") / spec.slug
         result_home = Path("results/benchmarks") / spec.slug
         paths = (module_path, Path(spec.docs_path), Path(spec.test_path), data_home, result_home)
         assert all((root / path).exists() for path in paths)
         assert all(not any(token in path.as_posix() for token in prohibited) for path in paths)
+    native = resolve_benchmark("iid_latent_capacity_change_with_transient_expression_forecasting")
+    assert native.related_benchmark_slugs == (
+        "latent_capacity_change_with_transient_expression_forecasting",
+    )
     assert all(not any(token in world.slug for token in prohibited) for world in WORLD_DECLARATIONS)
 
 

@@ -115,6 +115,7 @@
       "identity_authority": "HISTORICAL_PROJECTION",
       "identity_mintable": false,
       "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
+      "related_benchmark_slugs": [],
       "research": {
         "canonical_claim_scope": [
           "Five source-defined synthetic outputs can be evaluated after scorer is fixed.",
@@ -263,6 +264,7 @@
       "identity_authority": "HISTORICAL_PROJECTION",
       "identity_mintable": false,
       "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
+      "related_benchmark_slugs": [],
       "research": {
         "canonical_claim_scope": [
           "Reconstructed synthetic four-output specimen with source-bound checkpoint/public scalar.",
@@ -409,6 +411,7 @@
       "identity_authority": "HISTORICAL_PROJECTION",
       "identity_mintable": false,
       "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
+      "related_benchmark_slugs": [],
       "research": {
         "canonical_claim_scope": [
           "Held-out public final-origin validation exists within refined synthetic world.",
@@ -436,6 +439,146 @@
       "slug": "held_out_final_origin_five_target_performance_evaluation",
       "target_ontology": "MULTI_OUTPUT_OTHER",
       "task_type": "HELD_OUT_FINAL_ORIGIN_FIVE_TARGET_FORECAST",
+      "version": "1.0.0"
+    },
+    {
+      "benchmark_id": "psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting@1.0.0~49b4994f7df4",
+      "completeness_status": "FULL_FROM_EXISTING_EVIDENCE",
+      "component_references": [
+        {
+          "canonical_key": "latent_capacity_transient_performance_expression_dynamics",
+          "component_class": "WORLD",
+          "resolution": "DIRECT_HISTORICAL_IDENTITY"
+        },
+        {
+          "canonical_key": "latent_capacity_transient_public_uniform_coordinates",
+          "component_class": "POPULATION",
+          "resolution": "DIRECT_PUBLIC_NATIVE_IDENTITY"
+        },
+        {
+          "canonical_key": "latent_capacity_transient_public_training_regime",
+          "component_class": "INTERVENTION_REGIME",
+          "resolution": "DIRECT_PUBLIC_NATIVE_IDENTITY"
+        },
+        {
+          "canonical_key": "latent_capacity_transient_public_performance_observation",
+          "component_class": "OBSERVATION_MODEL",
+          "resolution": "DIRECT_PUBLIC_NATIVE_IDENTITY"
+        },
+        {
+          "canonical_key": "iid_latent_capacity_change_with_transient_expression_forecasting_sampling_design",
+          "component_class": "DATASET_SPEC",
+          "resolution": "DIRECT_PUBLIC_NATIVE_IDENTITY"
+        },
+        {
+          "canonical_key": "latent_capacity_change_forecast",
+          "component_class": "TASK",
+          "resolution": "DIRECT_HISTORICAL_IDENTITY"
+        },
+        {
+          "canonical_key": "latent_capacity_change",
+          "component_class": "QOI",
+          "resolution": "DIRECT_HISTORICAL_IDENTITY"
+        },
+        {
+          "canonical_key": "weekly_performance_history_and_plan_inputs",
+          "component_class": "REPRESENTATION",
+          "resolution": "DIRECT_HISTORICAL_IDENTITY"
+        },
+        {
+          "canonical_key": "latent_capacity_change_canonical_sre_evaluation",
+          "component_class": "EVALUATION",
+          "resolution": "DIRECT_HISTORICAL_IDENTITY"
+        }
+      ],
+      "contract_schema_version": "1.0.0",
+      "display_name": "IID-Sampled Latent Capacity-Change Forecasting with Transient Performance Expression",
+      "historical_provenance": null,
+      "historical_qualification_state": "NOT_QUALIFIED_OR_UNRESOLVED",
+      "historical_specimen_status": "REPRODUCIBLE_SPEC",
+      "identity_authority": "PUBLIC_NATIVE",
+      "identity_mintable": true,
+      "public_implementation_status": "PUBLIC_IMPLEMENTED",
+      "related_benchmark_slugs": [
+        "latent_capacity_change_with_transient_expression_forecasting"
+      ],
+      "research": {
+        "canonical_claim_scope": [
+          "Qualified conditional synthetic prediction within the named latent-capacity and transient-expression system, support, and evaluation, subject to a missing readiness receipt.",
+          "Later audit studies support only their named findings and tested protocols."
+        ],
+        "canonical_research_question": "At day 224, given 32 weekly performance observations per lift through day 223, the declared future plan, and task-allowed context, can a model predict latent capacity change for three lifts at horizons 14, 28, and 56 days in a synthetic system that separates latent capacity from transient performance expression? This is conditional synthetic prediction, not human response, biological identification, intervention efficacy, or broad out-of-domain generalization.",
+        "canonical_scientific_objective": "Evaluate latent capacity-change forecasting in a synthetic system separating chronic adaptation, latent capacity, transient expression, and recorded observations.",
+        "claim_escalations_prohibited": [
+          "Real athlete/biological/coaching/digital twin, causal intervention effect, broad OOD.",
+          "Biological parameter/full-coordinate identification.",
+          "Bayes ceiling, exact hidden-model recovery, replayed sealed result, unsupported G4 load-bearing claim.",
+          "Treating audits/model branches as benchmarks."
+        ],
+        "historical_objective": "Replace under-supported target-bearing training-exposure formulations with a simpler empirically bounded synthetic world that preserves latent capacity-change target meaning and origin/horizons.",
+        "historical_objective_evidence": "CONTEMPORANEOUS_OBJECTIVE",
+        "information_setting": "DECLARED_FUTURE_PLAN_VISIBLE",
+        "research_question_evidence_class": "CONTEMPORANEOUS_RESEARCH_QUESTION",
+        "source_prediction_setting": "Cutoff day 224; 32 weekly observations/lift through day223 plus declared plan/context visible; latent coordinates, targets, future realized outcomes/observations hidden.",
+        "unresolved_questions": [
+          "Where is the expected model readiness receipt?",
+          "Do observation/data support geometry warrant future change after controlled evaluation?",
+          "Can claims beyond synthetic support be separately validated?"
+        ]
+      },
+      "semantic_digest": "sha256:49b4994f7df4443c6f8d80c968d456d611b5e7886c32659727e8c351dfed9de3",
+      "semantic_identity_payload": {
+        "claim_scope": [
+          "PREDICTIVE",
+          "SYNTHETIC_BENCHMARK"
+        ],
+        "dataset_spec_id": "psr:dataset-spec:latent-capacity-transient-iid-sampling-design@1.0.0~1d079eb645ed",
+        "declared_shift_relations": [],
+        "evaluation_id": "psr:evaluation:world-v2-canonical-sre-evaluation@1.0.0~2b606bcf527f",
+        "identity_payload_format": "PSR_BENCHMARK_SEMANTIC_IDENTITY_V1",
+        "intervention_regime_id": {
+          "id": "psr:intervention-regime:latent-capacity-transient-balanced-plan-history-regime@1.0.0~a1ca0adb3ef3",
+          "resolution": "DIRECT"
+        },
+        "observation_model_id": {
+          "id": "psr:observation-model:latent-capacity-transient-performance-observation@1.0.0~9147ed8f5372",
+          "resolution": "DIRECT"
+        },
+        "population_id": {
+          "id": "psr:population:latent-capacity-transient-uniform-coordinate-population@1.0.0~1aaf9be508dc",
+          "resolution": "DIRECT"
+        },
+        "prediction_information_boundary": {
+          "decision_cutoff": {
+            "event_index": "day",
+            "value": 224
+          },
+          "declared_future_plan_visible": true,
+          "evaluation_truth_forbidden": true,
+          "future_intervention_deviations_forbidden": true,
+          "future_plan_means_delivered_exposure": false,
+          "future_process_disturbances_forbidden": true,
+          "future_realized_observations_forbidden": true,
+          "future_realized_performance_forbidden": true,
+          "history_observation_last_day": 223,
+          "history_observed_through_cutoff": true,
+          "static_or_context_inputs": "only task-declared fields",
+          "target_derived_information_forbidden": true
+        },
+        "qoi_ids": [
+          "psr:qoi:latent-capacity-change@1.0.0~675491124046"
+        ],
+        "representation_id": "psr:representation:world-v2-participant-inputs-json-v2@1.0.0~2c2c7f0222c6",
+        "scientific_system_config_id": "psr:scientific-system-config:latent-capacity-transient-public-system@1.0.0~3f69cedc3778",
+        "task_id": "psr:task:latent-capacity-change@1.0.0~44fc77353e7a",
+        "world_id": {
+          "id": "psr:world:world-v2-parsimonious-response-world@1.0.0~a1afbf2f5c1e",
+          "resolution": "DIRECT"
+        }
+      },
+      "slug": "iid_latent_capacity_change_with_transient_expression_forecasting",
+      "target_ontology": "LATENT_CAPACITY_CHANGE",
+      "task_type": "LATENT_CAPACITY_CHANGE_FORECAST",
       "version": "1.0.0"
     },
     {
@@ -564,7 +707,10 @@
       "historical_specimen_status": "REPRODUCIBLE_SPEC",
       "identity_authority": "HISTORICAL_PROJECTION",
       "identity_mintable": true,
-      "public_implementation_status": "PUBLIC_IMPLEMENTED",
+      "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
+      "related_benchmark_slugs": [
+        "iid_latent_capacity_change_with_transient_expression_forecasting"
+      ],
       "research": {
         "canonical_claim_scope": [
           "Qualified conditional synthetic prediction within the named latent-capacity and transient-expression system, support, and evaluation, subject to a missing readiness receipt.",
@@ -764,6 +910,7 @@
       "identity_authority": "HISTORICAL_PROJECTION",
       "identity_mintable": false,
       "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
+      "related_benchmark_slugs": [],
       "research": {
         "canonical_claim_scope": [
           "Target migration isolates latent capacity-change QOI on same 2,048 dose-history inputs.",
@@ -910,6 +1057,7 @@
       "identity_authority": "HISTORICAL_PROJECTION",
       "identity_mintable": false,
       "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
+      "related_benchmark_slugs": [],
       "research": {
         "canonical_claim_scope": [
           "The target is future modeled capacity relative to a noisy observed-origin assessment, not observed-to-observed performance change.",
@@ -1060,6 +1208,7 @@
       "identity_authority": "HISTORICAL_PROJECTION",
       "identity_mintable": false,
       "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
+      "related_benchmark_slugs": [],
       "research": {
         "canonical_claim_scope": [
           "The system varies training schedules, realized exposure, and reporting across athletes.",
@@ -1200,6 +1349,7 @@
       "identity_authority": "HISTORICAL_PROJECTION",
       "identity_mintable": false,
       "public_implementation_status": "PUBLIC_IMPLEMENTATION_PENDING",
+      "related_benchmark_slugs": [],
       "research": {
         "canonical_claim_scope": [
           "Source-bound historical specimen and five synthetic target definitions.",

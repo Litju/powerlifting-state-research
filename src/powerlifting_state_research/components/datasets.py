@@ -38,6 +38,13 @@ dataset_spec_references: dict[str, ComponentReference] = {
         "latent_capacity_change_with_transient_expression_forecasting_sampling_design",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
+    "iid_latent_capacity_change_with_transient_expression_forecasting_sampling_design": (
+        ComponentReference(
+            ComponentClass.DATASET_SPEC,
+            "iid_latent_capacity_change_with_transient_expression_forecasting_sampling_design",
+            ComponentResolution.DIRECT_PUBLIC_NATIVE_IDENTITY,
+        )
+    ),
     (
         "performance_forecasting_under_schedule_exposure_reporting_heterogeneity_sampling_design"
     ): ComponentReference(

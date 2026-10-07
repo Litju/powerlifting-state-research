@@ -141,6 +141,12 @@
         "python_namespace": {
           "type": "string"
         },
+        "related_benchmark_slugs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
         "semantic_identity": {
           "oneOf": [
             {
@@ -261,6 +267,7 @@
         "resolution": {
           "enum": [
             "DIRECT_HISTORICAL_IDENTITY",
+            "DIRECT_PUBLIC_NATIVE_IDENTITY",
             "UNRESOLVED_DIRECT_ID",
             "COMMITTED_BY_SYSTEM_CONFIG"
           ],

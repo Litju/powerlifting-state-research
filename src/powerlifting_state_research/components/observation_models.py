@@ -29,6 +29,11 @@ observation_model_references: dict[str, ComponentReference] = {
         "performance_expression_observation",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
+    "latent_capacity_transient_public_performance_observation": ComponentReference(
+        ComponentClass.OBSERVATION_MODEL,
+        "latent_capacity_transient_public_performance_observation",
+        ComponentResolution.DIRECT_PUBLIC_NATIVE_IDENTITY,
+    ),
     "schedule_reporting_observation": ComponentReference(
         ComponentClass.OBSERVATION_MODEL,
         "schedule_reporting_observation",

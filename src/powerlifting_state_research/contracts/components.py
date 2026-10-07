@@ -21,7 +21,10 @@ class ComponentClass(StrEnum):
 
 
 class ComponentResolution(StrEnum):
+    """Whether a component reference resolves historically, publicly, or through a config."""
+
     DIRECT_HISTORICAL_IDENTITY = "DIRECT_HISTORICAL_IDENTITY"
+    DIRECT_PUBLIC_NATIVE_IDENTITY = "DIRECT_PUBLIC_NATIVE_IDENTITY"
     UNRESOLVED_DIRECT_ID = "UNRESOLVED_DIRECT_ID"
     COMMITTED_BY_SYSTEM_CONFIG = "COMMITTED_BY_SYSTEM_CONFIG"
 

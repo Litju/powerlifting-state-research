@@ -82,17 +82,23 @@ jobs:
 
           import powerlifting_state_research
           from powerlifting_state_research.registry import BENCHMARKS, resolve_benchmark
+          from powerlifting_state_research.contracts.benchmark import BenchmarkIdentityAuthority
 
           assert Path(powerlifting_state_research.__file__).resolve().is_relative_to(
               Path(sys.prefix).resolve()
           ), powerlifting_state_research.__file__
-          assert len(BENCHMARKS) == 8
-          benchmark = resolve_benchmark(
+          assert len(BENCHMARKS) == 9
+          historical = resolve_benchmark(
               "latent_capacity_change_with_transient_expression_forecasting"
           )
-          assert benchmark.identity_mintable
-          assert benchmark.semantic_digest == (
+          assert historical.identity_mintable
+          assert historical.semantic_digest == (
               "sha256:fbfbe59eb0a8e94b12b424c6d6837dfd455a6c5a55084bb2898b53f741cc6472"
           )
-          print("PASS: installed wheel imports; 8 benchmarks; frozen digest matches")
+          public = resolve_benchmark(
+              "iid_latent_capacity_change_with_transient_expression_forecasting"
+          )
+          assert public.identity_authority is BenchmarkIdentityAuthority.PUBLIC_NATIVE
+          assert public.semantic_digest != historical.semantic_digest
+          print("PASS: installed wheel imports; 9 records; historical digest and native identity match")
           PY

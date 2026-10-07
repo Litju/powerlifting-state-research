@@ -1,4 +1,4 @@
-"""Explicit, deterministic registry of the eight scientific benchmark records."""
+"""Explicit, deterministic registry of historical and public-native benchmark records."""
 
 from __future__ import annotations
 
@@ -10,6 +10,9 @@ from .benchmarks.four_target_load_velocity_and_competition_performance_forecasti
 )
 from .benchmarks.held_out_final_origin_five_target_performance_evaluation import (
     SPEC as HELD_OUT_FINAL_ORIGIN_FIVE_TARGET,
+)
+from .benchmarks.latent_capacity_change_with_transient_expression_forecasting import (
+    PUBLIC_NATIVE_SPEC as IID_LATENT_CAPACITY_CHANGE_WITH_TRANSIENT_EXPRESSION,
 )
 from .benchmarks.latent_capacity_change_with_transient_expression_forecasting import (
     SPEC as LATENT_CAPACITY_CHANGE_WITH_TRANSIENT_EXPRESSION,
@@ -38,6 +41,7 @@ BENCHMARKS: tuple[BenchmarkSpec, ...] = tuple(
             FOUR_TARGET_LOAD_VELOCITY_AND_COMPETITION_PERFORMANCE,
             HELD_OUT_FINAL_ORIGIN_FIVE_TARGET,
             LATENT_CAPACITY_CHANGE_WITH_TRANSIENT_EXPRESSION,
+            IID_LATENT_CAPACITY_CHANGE_WITH_TRANSIENT_EXPRESSION,
             LATENT_ORIGIN_CAPACITY_CHANGE,
             OBSERVED_ORIGIN_REFERENCED_CAPACITY_CHANGE,
             SEASONAL_FIVE_TARGET_LOAD_VELOCITY_PERFORMANCE,
@@ -64,7 +68,8 @@ def resolve_historical_alias(alias: str) -> tuple[BenchmarkSpec, ...]:
     matches = tuple(
         benchmark
         for benchmark in BENCHMARKS
-        if alias in HISTORICAL_SOURCES[benchmark.slug].historical_aliases
+        if benchmark.slug in HISTORICAL_SOURCES
+        and alias in HISTORICAL_SOURCES[benchmark.slug].historical_aliases
     )
     if not matches:
         raise KeyError(alias)

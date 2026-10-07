@@ -6,7 +6,7 @@
 |---|---|---|
 | Quality / integrity | 3.12 | Locked sync, Ruff check and format, strict mypy, generated-export drift, repository integrity and rights ledger |
 | Compatibility (Python 3.11/3.12/3.13) | 3.11, 3.12, 3.13 | Locked sync, package import, full pytest suite |
-| Package smoke | 3.12 | Build sdist and wheel, install wheel in an isolated environment, verify import, eight benchmark records, and frozen digest |
+| Package smoke | 3.12 | Build sdist and wheel, install wheel in an isolated environment, verify import, nine benchmark records, frozen historical digest, and distinct public-native identity |
 
 ## Local parity
 
