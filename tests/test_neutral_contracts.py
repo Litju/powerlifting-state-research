@@ -516,6 +516,54 @@ def test_prediction_contract_rejects_duplicate_scientific_and_row_identities() -
         replace(contract, outputs=(contract.outputs[0], contract.outputs[0])).validate()
 
 
+def test_typed_scientific_id_fields_reject_valid_ids_from_the_wrong_class() -> None:
+    contract = _prediction_contract((), allows_plan=False)
+    with pytest.raises(ValueError, match="class 'task'"):
+        replace(contract, task_id="psr:qoi:forecast@1.0.0~000000000000").validate()
+    with pytest.raises(ValueError, match="class 'qoi'"):
+        replace(contract, qoi_ids=("psr:task:forecast@1.0.0~000000000000",)).validate()
+    with pytest.raises(ValueError, match="class 'qoi'"):
+        OutputField("delta_capacity", "psr:task:forecast@1.0.0~000000000000", "kg")
+    with pytest.raises(ValueError, match="class 'model'"):
+        ModelReference("psr:task:forecast@1.0.0~000000000000")
+    with pytest.raises(ValueError, match="class 'training-protocol'"):
+        TrainingProtocolReference("psr:model:example@1.0.0~000000000000")
+    with pytest.raises(ValueError, match="class 'scientific-system-config'"):
+        ComponentIdentity(
+            IdentityResolution.COMMITTED_BY_SYSTEM_CONFIG,
+            system_config_id="psr:task:forecast@1.0.0~000000000000",
+        )
+    with pytest.raises(ValueError, match="class 'world'"):
+        replace(
+            WORLD_DECLARATIONS[0],
+            component_identity_id="psr:task:forecast@1.0.0~000000000000",
+        )
+
+    shift = ShiftDeclaration(
+        shift_id="psr:shift:noise@1.0.0~000000000000",
+        category=ShiftCategory.NOISE_SHIFT,
+        source_distribution_ref="source",
+        target_distribution_ref="target",
+        changed_axes=("noise",),
+        invariant_axes=("task",),
+        support_relation=SupportRelation.MATCHED,
+        support_overlap="full",
+        hypothesis="noise changes the observation distribution",
+        task_id="psr:task:forecast@1.0.0~000000000000",
+        qoi_ids=("psr:qoi:capacity-change@1.0.0~000000000000",),
+        evaluation_id="psr:evaluation:canonical@1.0.0~000000000000",
+        evidence_status="DECLARED",
+    )
+    for change in (
+        {"shift_id": "psr:task:noise@1.0.0~000000000000"},
+        {"task_id": "psr:qoi:forecast@1.0.0~000000000000"},
+        {"qoi_ids": ("psr:task:forecast@1.0.0~000000000000",)},
+        {"evaluation_id": "psr:metric:canonical@1.0.0~000000000000"},
+    ):
+        with pytest.raises(ValueError):
+            replace(shift, **change)
+
+
 def test_per_target_metrics_and_invalid_value_policies() -> None:
     result = canonical_target_metrics("squat", (1.0, 2.0, 3.0), (1.0, 2.0, 4.0), unit="kg")
     values = {metric.metric: metric for metric in result.metrics}
@@ -645,14 +693,15 @@ def test_shifts_and_historical_comparability_rules_are_executable() -> None:
     unmatched = assess_comparability(
         latent_origin,
         transient_expression,
-        common_evaluation_id="psr:evaluation:common@1.0.0~000000000000",
+        # Comparability checks syntax/class; existence and application are audited separately.
+        common_evaluation_id="psr:evaluation:unregistered-common@1.0.0~000000000000",
         support_alignment=SupportAlignment.UNMATCHED,
     )
     assert unmatched.support_match_required and not unmatched.direct_performance_comparable
     matched = assess_comparability(
         latent_origin,
         transient_expression,
-        common_evaluation_id="psr:evaluation:common@1.0.0~000000000000",
+        common_evaluation_id="psr:evaluation:unregistered-common@1.0.0~000000000000",
         support_alignment=SupportAlignment.STRATIFIED_MATCHED,
     )
     assert matched.direct_performance_comparable
@@ -731,6 +780,8 @@ def test_evaluation_result_binds_model_data_environment_and_metric_records() -> 
         rights=result_rights,
     )
     bad_digest = "sha256:" + "0" * 64
+    with pytest.raises(ValueError, match="class 'model'"):
+        replace(prediction, model_id="psr:task:forecast@1.0.0~000000000000")
     with pytest.raises(ValueError, match="digest prefix"):
         replace(prediction, benchmark_spec_digest=bad_digest)
     with pytest.raises(ValueError, match="digest prefix"):

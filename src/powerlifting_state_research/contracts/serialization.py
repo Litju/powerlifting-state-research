@@ -24,8 +24,10 @@ _DATASET_REALIZATION_ID = re.compile(
 def require_scientific_id(value: str, label: str, *, expected_class: str | None = None) -> None:
     """Validate the stable public ID form used by component references."""
     match = _SCIENTIFIC_ID.fullmatch(value)
-    if match is None or (expected_class is not None and match["class"] != expected_class):
+    if match is None:
         raise ValueError(f"{label} must be a complete versioned scientific ID")
+    if expected_class is not None and match["class"] != expected_class:
+        raise ValueError(f"{label} must use scientific ID class {expected_class!r}")
 
 
 def require_benchmark_digest_match(benchmark_id: str, digest: str, label: str) -> None:

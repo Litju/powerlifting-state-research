@@ -32,7 +32,7 @@ class ModelReference:
     model_id: str
 
     def __post_init__(self) -> None:
-        require_scientific_id(self.model_id, "model_id")
+        require_scientific_id(self.model_id, "model_id", expected_class="model")
 
 
 @dataclass(frozen=True, slots=True)
@@ -44,7 +44,11 @@ class TrainingProtocolReference:
         if (self.training_protocol_id is None) == (self.not_applicable_reason is None):
             raise ValueError("training protocol ID or a not-applicable reason is required")
         if self.training_protocol_id is not None:
-            require_scientific_id(self.training_protocol_id, "training_protocol_id")
+            require_scientific_id(
+                self.training_protocol_id,
+                "training_protocol_id",
+                expected_class="training-protocol",
+            )
         if self.not_applicable_reason is not None:
             _require_id(self.not_applicable_reason, "not_applicable_reason")
 
