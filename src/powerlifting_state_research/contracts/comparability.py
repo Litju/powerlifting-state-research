@@ -33,7 +33,7 @@ class ComparisonProfile:
 
     def __post_init__(self) -> None:
         require_scientific_id(self.world_id, "world ID")
-        require_scientific_id(self.evaluation_id, "evaluation ID")
+        require_scientific_id(self.evaluation_id, "evaluation ID", expected_class="evaluation")
         for qoi_id in self.qoi_ids:
             require_scientific_id(qoi_id, "QOI ID")
         for metric_id in self.metric_ids:
@@ -58,10 +58,14 @@ def assess_comparability(
     common_evaluation_id: str | None = None,
     support_alignment: SupportAlignment = SupportAlignment.NOT_ASSESSED,
 ) -> ComparabilityDecision:
+    if common_evaluation_id is not None:
+        require_scientific_id(
+            common_evaluation_id, "common evaluation ID", expected_class="evaluation"
+        )
     qoi_ok = set(left.qoi_ids) == set(right.qoi_ids)
     output_ok = set(left.output_fields) == set(right.output_fields)
     metrics_ok = set(left.metric_ids) == set(right.metric_ids)
-    eval_ok = left.evaluation_id == right.evaluation_id or bool(common_evaluation_id)
+    eval_ok = left.evaluation_id == right.evaluation_id or common_evaluation_id is not None
     metric_evaluation_ok = metrics_ok and eval_ok
     latent_pair = (
         left.estimand is EstimandKind.LATENT_CAPACITY_CHANGE

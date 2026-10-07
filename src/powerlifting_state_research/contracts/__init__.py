@@ -1,6 +1,7 @@
 """Typed scientific benchmark, data, prediction, and shift contracts."""
 
 from .benchmark import (
+    BenchmarkIdentityAuthority,
     BenchmarkSemanticIdentity,
     BenchmarkSpec,
     ClaimScope,
@@ -32,6 +33,7 @@ from .prediction import PredictionContract
 from .shifts import ShiftCategory, ShiftDeclaration, SupportRelation
 
 __all__ = [
+    "BenchmarkIdentityAuthority",
     "BenchmarkSemanticIdentity",
     "BenchmarkSpec",
     "ClaimScope",

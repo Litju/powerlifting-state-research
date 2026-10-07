@@ -58,6 +58,7 @@ def registry_document() -> dict[str, object]:
                 "historical_qualification_state": spec.historical_qualification_state,
                 "completeness_status": spec.completeness_status,
                 "public_implementation_status": spec.public_implementation_status,
+                "identity_authority": spec.identity_authority,
                 "target_ontology": spec.target_ontology,
                 "task_type": spec.task_type,
                 "component_references": spec.component_references,

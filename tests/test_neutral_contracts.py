@@ -13,8 +13,11 @@ from powerlifting_state_research.components.source_identity_provenance import (
     SOURCE_COMPONENT_ALIASES,
 )
 from powerlifting_state_research.contracts.benchmark import (
+    BenchmarkIdentityAuthority,
     ClaimScope,
+    ComponentIdentity,
     DecisionCutoff,
+    IdentityResolution,
 )
 from powerlifting_state_research.contracts.comparability import (
     ComparisonProfile,
@@ -185,6 +188,10 @@ def test_registry_names_aliases_and_completeness_are_explicit() -> None:
     assert all(
         spec.identity_mintable is (spec is TRANSIENT_EXPRESSION_BENCHMARK) for spec in BENCHMARKS
     )
+    assert all(
+        spec.identity_authority is BenchmarkIdentityAuthority.HISTORICAL_PROJECTION
+        for spec in BENCHMARKS
+    )
 
 
 def test_scientific_paths_are_migrated_across_code_tests_docs_data_and_results() -> None:
@@ -287,6 +294,36 @@ def test_frozen_v2_identity_and_all_semantic_axes_change_the_digest() -> None:
         replace(identity, claim_scope=(*identity.claim_scope, ClaimScope.MECHANISTIC_MODEL)),
     )
     assert all(item.digest != identity.digest for item in mutations)
+
+
+def test_identity_authority_scopes_historical_system_config_resolution() -> None:
+    spec = TRANSIENT_EXPRESSION_BENCHMARK
+    identity = spec.semantic_identity
+    assert identity is not None
+    assert identity.digest == (
+        "sha256:fbfbe59eb0a8e94b12b424c6d6837dfd455a6c5a55084bb2898b53f741cc6472"
+    )
+    with pytest.raises(ValueError, match="PUBLIC_NATIVE.*explicit direct"):
+        replace(spec, identity_authority=BenchmarkIdentityAuthority.PUBLIC_NATIVE)
+
+    direct_identity = replace(
+        identity,
+        population_id=ComponentIdentity(
+            IdentityResolution.DIRECT,
+            id="psr:population:public-native@1.0.0~000000000000",
+        ),
+        intervention_regime_id=ComponentIdentity(
+            IdentityResolution.DIRECT,
+            id="psr:intervention-regime:public-native@1.0.0~000000000000",
+        ),
+    )
+    historical_projection = replace(spec, semantic_identity=direct_identity)
+    public_native = replace(
+        historical_projection,
+        identity_authority=BenchmarkIdentityAuthority.PUBLIC_NATIVE,
+    )
+    assert public_native.identity_authority is BenchmarkIdentityAuthority.PUBLIC_NATIVE
+    assert public_native.semantic_digest == historical_projection.semantic_digest
 
 
 def test_names_paths_realizations_models_and_prose_do_not_change_benchmark_identity() -> None:
@@ -434,17 +471,31 @@ def test_shifts_and_historical_comparability_rules_are_executable() -> None:
     unmatched = assess_comparability(
         latent_origin,
         transient_expression,
-        common_evaluation_id="common-evaluation",
+        common_evaluation_id="psr:evaluation:common@1.0.0~000000000000",
         support_alignment=SupportAlignment.UNMATCHED,
     )
     assert unmatched.support_match_required and not unmatched.direct_performance_comparable
     matched = assess_comparability(
         latent_origin,
         transient_expression,
-        common_evaluation_id="common-evaluation",
+        common_evaluation_id="psr:evaluation:common@1.0.0~000000000000",
         support_alignment=SupportAlignment.STRATIFIED_MATCHED,
     )
     assert matched.direct_performance_comparable
+    with pytest.raises(ValueError, match="common evaluation ID"):
+        assess_comparability(
+            latent_origin,
+            transient_expression,
+            common_evaluation_id="common-evaluation",
+            support_alignment=SupportAlignment.STRATIFIED_MATCHED,
+        )
+    with pytest.raises(ValueError, match="common evaluation ID"):
+        assess_comparability(
+            latent_origin,
+            transient_expression,
+            common_evaluation_id="psr:metric:common@1.0.0~000000000000",
+            support_alignment=SupportAlignment.STRATIFIED_MATCHED,
+        )
 
 
 def test_evaluation_result_binds_model_data_environment_and_metric_records() -> None:

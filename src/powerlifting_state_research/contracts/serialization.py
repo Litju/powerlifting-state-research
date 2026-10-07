@@ -11,12 +11,15 @@ from dataclasses import fields, is_dataclass
 from enum import Enum
 from typing import Any
 
-_SCIENTIFIC_ID = re.compile(r"^psr:[a-z0-9-]+:[a-z0-9][a-z0-9-]*@[^~]+~[a-f0-9]{12}$")
+_SCIENTIFIC_ID = re.compile(
+    r"^psr:(?P<class>[a-z0-9-]+):[a-z0-9][a-z0-9-]*@[^~]+~[a-f0-9]{12}$"
+)
 
 
-def require_scientific_id(value: str, label: str) -> None:
+def require_scientific_id(value: str, label: str, *, expected_class: str | None = None) -> None:
     """Validate the stable public ID form used by component references."""
-    if not _SCIENTIFIC_ID.fullmatch(value):
+    match = _SCIENTIFIC_ID.fullmatch(value)
+    if match is None or (expected_class is not None and match["class"] != expected_class):
         raise ValueError(f"{label} must be a complete versioned scientific ID")
 
 

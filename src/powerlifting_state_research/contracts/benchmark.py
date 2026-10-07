@@ -39,6 +39,11 @@ class IdentityResolution(StrEnum):
     UNRESOLVED = "UNRESOLVED"
 
 
+class BenchmarkIdentityAuthority(StrEnum):
+    HISTORICAL_PROJECTION = "HISTORICAL_PROJECTION"
+    PUBLIC_NATIVE = "PUBLIC_NATIVE"
+
+
 class ClaimScope(StrEnum):
     IDENTIFIABILITY = "IDENTIFIABILITY"
     INTERVENTION_EFFECT = "INTERVENTION_EFFECT"
@@ -264,6 +269,7 @@ class BenchmarkSpec:
     historical_qualification_state: HistoricalQualificationState
     completeness_status: CompletenessStatus
     public_implementation_status: ImplementationStatus
+    identity_authority: BenchmarkIdentityAuthority
     target_ontology: str
     task_type: str
     component_references: tuple[ComponentReference, ...]
@@ -290,6 +296,20 @@ class BenchmarkSpec:
             )
         ):
             raise ValueError("benchmark name, paths, and task semantics must be explicit")
+        if self.identity_authority is BenchmarkIdentityAuthority.PUBLIC_NATIVE:
+            if self.semantic_identity is None or any(
+                component.resolution is not IdentityResolution.DIRECT
+                for component in (
+                    self.semantic_identity.world_id,
+                    self.semantic_identity.population_id,
+                    self.semantic_identity.intervention_regime_id,
+                    self.semantic_identity.observation_model_id,
+                )
+            ):
+                raise ValueError(
+                    "PUBLIC_NATIVE benchmarks need explicit direct WORLD, POPULATION, "
+                    "INTERVENTION_REGIME, and OBSERVATION_MODEL identities"
+                )
 
     @property
     def identity_mintable(self) -> bool:
