@@ -81,6 +81,9 @@ jobs:
           from pathlib import Path
 
           import powerlifting_state_research
+          from powerlifting_state_research.benchmarks.latent_capacity_change_with_transient_expression_forecasting.prediction import PREDICTION_CONTRACT
+          from powerlifting_state_research.evaluation.identity import METRIC_IDENTITIES
+          from powerlifting_state_research.evaluation.prediction import PREDICTION_SCHEMA_ID
           from powerlifting_state_research.registry import BENCHMARKS, resolve_benchmark
           from powerlifting_state_research.contracts.benchmark import BenchmarkIdentityAuthority
 
@@ -100,5 +103,36 @@ jobs:
           )
           assert public.identity_authority is BenchmarkIdentityAuthority.PUBLIC_NATIVE
           assert public.semantic_digest != historical.semantic_digest
-          print("PASS: installed wheel imports; 9 records; historical digest and native identity match")
+          assert public.benchmark_id == (
+              "psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting"
+              "@1.0.0~f99463d55ba0"
+          )
+          assert public.semantic_digest == (
+              "sha256:f99463d55ba0902595a1866032ba94b803ac97d9b4985a89e208293da9c7fed0"
+          )
+          assert public.semantic_identity is not None
+          assert public.semantic_identity.evaluation_id == (
+              "psr:evaluation:iid-latent-capacity-change-four-metric-validation"
+              "@1.0.0~cd4fe982e7b8"
+          )
+          assert public.semantic_identity.dataset_spec_id == (
+              "psr:dataset-spec:latent-capacity-transient-iid-sampling-design"
+              "@1.0.0~1d079eb645ed"
+          )
+          assert {item.metric_id for item in METRIC_IDENTITIES} == {
+              "psr:metric:rmse@1.0.0~0a9b0918a7aa",
+              "psr:metric:mae@1.0.0~7319598a8a18",
+              "psr:metric:r-squared@1.0.0~00bad728358d",
+              "psr:metric:sre-population-sd-ddof-0@1.0.0~f3341587fd14",
+          }
+          assert PREDICTION_CONTRACT.information_boundary.history_observation_last_day == 223
+          assert PREDICTION_SCHEMA_ID == (
+              "psr:prediction-schema:iid-latent-capacity-change-jsonl-row"
+              "@1.0.0~cad5c74acd66"
+          )
+          assert historical.semantic_identity is not None
+          assert historical.semantic_identity.evaluation_id == (
+              "psr:evaluation:world-v2-canonical-sre-evaluation@1.0.0~2b606bcf527f"
+          )
+          print("PASS: wheel imports; native evaluation identity and frozen historical digest match")
           PY

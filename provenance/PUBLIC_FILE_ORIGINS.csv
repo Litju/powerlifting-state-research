@@ -238,3 +238,11 @@ src/powerlifting_state_research/exports.py,NEWLY_AUTHORED,MIT,research-core,Dete
 tests/test_neutral_contracts.py,NEWLY_AUTHORED,MIT,research-core-tests,"Focused identity, firewall, metric, comparability, shift, and export checks."
 artifacts/schemas/prediction-artifact-reference.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,python-export,JSON Schema generated from the typed prediction artifact identity record.
 artifacts/schemas/public-forecast-row.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,python-export,JSON Schema generated from the authoritative Python PublicForecastRow type.
+artifacts/schemas/iid-latent-capacity-change-prediction-row.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,python-export,JSON Schema generated from the typed public-native PredictionRow.
+docs/benchmarks/iid-latent-capacity-change-public-native-evaluation.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,"Public-native evaluation identity, prediction contract, metric protocol, result identity, and evaluator workflow."
+src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/evaluate.py,NEWLY_AUTHORED,MIT,public-evaluator,"Strict validation binding, keyed prediction alignment, target-wise metrics, and EvaluationResult CLI."
+src/powerlifting_state_research/evaluation/identity.py,NEWLY_AUTHORED,MIT,component-identity,"Public-native RMSE, MAE, R-squared, SRE(ddof=0), and evaluation identities."
+src/powerlifting_state_research/evaluation/prediction.py,NEWLY_AUTHORED,MIT,prediction-artifact,"Typed strict prediction JSONL rows and deterministic serialization."
+tests/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/test_evaluation.py,NEWLY_AUTHORED,MIT,evaluation-tests,"Metric, alignment, firewall, binding, determinism, and small end-to-end evaluator tests."
+src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/alignment.py,NEWLY_AUTHORED,MIT,public-evaluator,"Keyed prediction alignment and canonical target-wise metric calculation."
+src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/prediction.py,NEWLY_AUTHORED,MIT,prediction-contract,"Concrete IID prediction-time boundary and target output contract."
