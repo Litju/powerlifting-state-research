@@ -1792,6 +1792,59 @@
         "zero_truth_population_sd": "UNDEFINED"
       }
     },
+    "prediction_contract": {
+      "cutoff_inclusive": true,
+      "decision_cutoff": {
+        "event_index": "day",
+        "timestamp": null,
+        "timezone": null,
+        "value": 224
+      },
+      "entity_identity_fields": [
+        "entity_id"
+      ],
+      "event_index": "day",
+      "history_observation_last_day": 223,
+      "inputs": [
+        {
+          "kind": "HISTORICAL_OBSERVATION",
+          "name": "history_through_day_223"
+        },
+        {
+          "kind": "DECLARED_FUTURE_PLAN",
+          "name": "declared_future_plan"
+        }
+      ],
+      "missing_prediction_policy": "REJECT",
+      "non_finite_output_policy": "REJECT",
+      "ordering_alignment_policy": "ALIGN_BY_DECLARED_KEYS",
+      "outputs": [
+        {
+          "name": "squat_delta_capacity_kg",
+          "qoi_id": "psr:qoi:latent-capacity-change@1.0.0~675491124046",
+          "unit": "kg"
+        },
+        {
+          "name": "bench_press_delta_capacity_kg",
+          "qoi_id": "psr:qoi:latent-capacity-change@1.0.0~675491124046",
+          "unit": "kg"
+        },
+        {
+          "name": "deadlift_delta_capacity_kg",
+          "qoi_id": "psr:qoi:latent-capacity-change@1.0.0~675491124046",
+          "unit": "kg"
+        }
+      ],
+      "qoi_ids": [
+        "psr:qoi:latent-capacity-change@1.0.0~675491124046"
+      ],
+      "row_identity_fields": [
+        "row_id"
+      ],
+      "task_allows_declared_future_plan": true,
+      "task_id": "psr:task:latent-capacity-change@1.0.0~44fc77353e7a"
+    },
+    "prediction_schema_identity": "psr:prediction-schema:iid-latent-capacity-change-jsonl-row@1.0.0~cad5c74acd66",
     "semantic_identity_payload": {
       "aggregation": "none; no universal scalar aggregate",
       "alignment": {

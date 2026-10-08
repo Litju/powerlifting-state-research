@@ -1,0 +1,35 @@
+{
+  "$defs": {
+    "PredictionRow": {
+      "additionalProperties": false,
+      "properties": {
+        "bench_press_delta_capacity_kg": {
+          "type": "number"
+        },
+        "deadlift_delta_capacity_kg": {
+          "type": "number"
+        },
+        "row_id": {
+          "type": "string"
+        },
+        "squat_delta_capacity_kg": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "row_id",
+        "squat_delta_capacity_kg",
+        "bench_press_delta_capacity_kg",
+        "deadlift_delta_capacity_kg"
+      ],
+      "type": "object"
+    }
+  },
+  "$ref": "#/$defs/PredictionRow",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-generator": {
+    "name": "powerlifting-state-research-python",
+    "version": "0.1.0"
+  },
+  "x-semantic-validation": "JSON Schema describes record structure only; semantic and cross-field invariants require the authoritative Python contract validator."
+}

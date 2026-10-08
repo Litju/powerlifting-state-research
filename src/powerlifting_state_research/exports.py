@@ -14,6 +14,9 @@ from typing import Any, Literal, Union, get_args, get_origin, get_type_hints
 
 from . import __version__
 from .artifacts.manifests import ArtifactManifest, RightsMetadata
+from .benchmarks.latent_capacity_change_with_transient_expression_forecasting.prediction import (
+    PREDICTION_CONTRACT,
+)
 from .components.source_identity_provenance import (
     SOURCE_COMPONENT_ALIASES,
     SOURCE_COMPONENT_IDENTITIES,
@@ -35,6 +38,7 @@ from .evaluation.identity import (
     METRIC_IDENTITIES,
     METRIC_SEMANTICS,
 )
+from .evaluation.prediction import PREDICTION_SCHEMA_ID, PredictionRow
 from .evaluation.protocols import EvaluationResult, PredictionArtifactReference
 from .provenance import HISTORICAL_SOURCES
 from .registry import BENCHMARKS
@@ -108,6 +112,8 @@ def registry_document() -> dict[str, object]:
             "semantic_identity_payload": EVALUATION_SEMANTICS,
             "metric_identities": METRIC_IDENTITIES,
             "metric_semantics": METRIC_SEMANTICS,
+            "prediction_contract": PREDICTION_CONTRACT,
+            "prediction_schema_identity": PREDICTION_SCHEMA_ID,
         },
         "benchmark_supersessions": (
             {
@@ -223,6 +229,7 @@ def generated_files() -> dict[Path, str]:
     schemas: tuple[tuple[str, type[Any]], ...] = (
         *SCHEMAS,
         ("public-forecast-row.schema.json", PublicForecastRow),
+        ("iid-latent-capacity-change-prediction-row.schema.json", PredictionRow),
     )
     files = {Path("registries/benchmark-registry.json"): _document(registry_document())}
     files.update(
