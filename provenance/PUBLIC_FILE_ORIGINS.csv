@@ -13,7 +13,7 @@ artifacts/checksums/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,"Checksums for 
 artifacts/dataset-cards/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Dataset-card exports linked to typed dataset definitions.
 artifacts/dataset-cards/iid-latent-capacity-change-with-transient-expression-forecasting.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-card,Definitive PUBLIC_NATIVE IID dataset contract and regeneration record.
 artifacts/model-cards/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Model-card index and artifact publication policy.
-artifacts/model-cards/public-native-temporal-capacity-change.md,NEWLY_AUTHORED,CC-BY-4.0,model-card,"Historical lineage metadata and clean-room PUBLIC_NATIVE model specification; no private source or weights."
+artifacts/model-cards/public-native-temporal-capacity-change.md,NEWLY_AUTHORED,CC-BY-4.0,model-card,"Historical lineage, reported-versus-recomputed local evidence summary, and clean-room PUBLIC_NATIVE model specification; no private source, data, or weights."
 artifacts/registries/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Generated registry exports; typed Python is authoritative.
 artifacts/registries/benchmark-registry.json,GENERATED_PUBLIC_ARTIFACT,MIT,registry-export,Public machine-readable registry export generated from typed Python.
 artifacts/release-bundles/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Versioned public release bundles from cleared sources.
@@ -66,7 +66,7 @@ models/checkpoint-manifests/README.md,NEWLY_AUTHORED,CC-BY-4.0,models,Checkpoint
 models/model-family-specs/README.md,NEWLY_AUTHORED,CC-BY-4.0,models,Typed model-family authority lives in the Python package.
 models/published/README.md,NEWLY_AUTHORED,CC-BY-4.0,models,Cleared published checkpoint metadata and download references.
 models/reference-implementations/README.md,NEWLY_AUTHORED,CC-BY-4.0,models,Lightweight public research comparators.
-models/training-protocols/README.md,NEWLY_AUTHORED,CC-BY-4.0,models,Training protocol artifacts and reproducibility rules.
+models/training-protocols/README.md,NEWLY_AUTHORED,CC-BY-4.0,models,Typed PUBLIC_NATIVE training authority and artifact identities.
 provenance/PUBLIC_FILE_ORIGINS.csv,GENERATED_PUBLIC_ARTIFACT,MIT,origin-ledger,One permitted provenance class and rights state per initial public file.
 provenance/README.md,NEWLY_AUTHORED,CC-BY-4.0,provenance,Public file-origin and historical-source provenance policy.
 pyproject.toml,NEWLY_AUTHORED,MIT,packaging,"Distribution metadata, build backend, Python baseline, runtime model dependencies, and dev tools."
@@ -249,3 +249,11 @@ src/powerlifting_state_research/evaluation/prediction.py,NEWLY_AUTHORED,MIT,pred
 tests/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/test_evaluation.py,NEWLY_AUTHORED,MIT,evaluation-tests,"Metric, alignment, firewall, binding, determinism, and small end-to-end evaluator tests."
 src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/alignment.py,NEWLY_AUTHORED,MIT,public-evaluator,"Keyed prediction alignment and canonical target-wise metric calculation."
 src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/prediction.py,NEWLY_AUTHORED,MIT,prediction-contract,"Concrete IID prediction-time boundary and target output contract."
+artifacts/training-protocols/public-native-temporal-expert.json,GENERATED_PUBLIC_ARTIFACT,MIT,training-protocol,Machine-readable manifest generated from the typed frozen PUBLIC_NATIVE training protocol.
+notebooks/public-native-temporal-expert-colab.ipynb,NEWLY_AUTHORED,MIT,colab-driver,Output-free Colab GPU execution driver bound to an exact CODE_SHA.
+scripts/build_res274_colab_notebook.py,NEWLY_AUTHORED,MIT,notebook-build,Build/check the RES-274 Colab notebook from its 16-cell execution source.
+scripts/export_public_native_training_protocol.py,NEWLY_AUTHORED,MIT,training-protocol-export,Export/check the manifest for the typed PUBLIC_NATIVE training authority.
+scripts/validate_res274_colab_notebook.py,NEWLY_AUTHORED,MIT,notebook-validation,Check notebook structure; commands; cell state; and public-safe contents.
+src/powerlifting_state_research/models/train_temporal_expert.py,NEWLY_AUTHORED,MIT,training-runner,Frozen PUBLIC_NATIVE training; checkpoint sealing; evaluation; receipts; and bundle verification.
+tests/models/test_training_protocol.py,NEWLY_AUTHORED,MIT,model-tests,Training protocol identity and deterministic support-preserving split checks.
+tests/test_res274_colab_notebook.py,NEWLY_AUTHORED,MIT,tests,Notebook generation and structural safety test.
