@@ -23,6 +23,6 @@ Seven historical specimens are partially reconstructed. The latent-capacity and 
 |---|---|---|---|---|
 | [IID-Sampled Latent Capacity-Change Forecasting with Transient Performance Expression](iid-latent-capacity-change-with-transient-expression-forecasting.md) | iid_latent_capacity_change_with_transient_expression_forecasting | PUBLIC_NATIVE | IID pseudorandom Uniform(0,1) | PUBLIC_IMPLEMENTED |
 
-The public-native variant shares WORLD mechanics, task, QOI, representation, and evaluation with the historical projection. It has direct public-native population, intervention, observation, and DatasetSpec identities. Its sampling design differs from historical scrambled Sobol, so its semantic digest is distinct. The other seven historical records remain PUBLIC_IMPLEMENTATION_PENDING.
+The public-native variant shares WORLD mechanics, task, QOI, and representation with the historical projection. It has direct public-native population, intervention, observation, DatasetSpec, and four-metric evaluation identities. Its sampling design differs from historical scrambled Sobol, so its semantic digest is distinct. The other seven historical records remain PUBLIC_IMPLEMENTATION_PENDING.
 
 Each row links to a public research card. Historical aliases are available only in the centralized provenance metadata.

@@ -6,7 +6,7 @@ Evaluate latent capacity-change forecasting in a synthetic system separating chr
 
 **Historical projection:** REPRODUCIBLE_SPEC, QUALIFIED_HISTORICAL, FULL_FROM_EXISTING_EVIDENCE. Its historical DatasetSpec is PUBLIC_IMPLEMENTATION_PENDING.
 
-**Public-native IID variant:** PUBLIC_NATIVE and PUBLIC_IMPLEMENTED. It shares the specified world, task, QOI, representation, and evaluation, and has direct public-native population, intervention, observation, and IID DatasetSpec identities.
+**Public-native IID variant:** PUBLIC_NATIVE and PUBLIC_IMPLEMENTED. It shares the specified world, task, QOI, and representation, and has direct public-native population, intervention, observation, IID DatasetSpec, and four-metric evaluation identities.
 
 The historical typed declaration is `SPEC`; the executable IID declaration is `PUBLIC_NATIVE_SPEC`. Mechanics and generation are in this package, and historical aliases are centralized in the package provenance registry. The implementation is independently authored; historical evidence is not a runtime input.
 

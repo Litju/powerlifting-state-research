@@ -44,8 +44,9 @@ RESEARCH = ResearchMetadata(
         "Targets describe synthetic latent capacity change and do not estimate causal effects.",
     ),
     related_benchmark_relationship=(
-        "Shares specified world mechanics, task, QOI, representation, and evaluation with the "
-        "separate historical projection. Population sampling, DatasetSpec, BenchmarkSpec, and "
-        "realization identity remain public-native and distinct."
+        "Shares specified world mechanics, task, QOI, and representation with the separate "
+        "historical projection. This public-native benchmark has a distinct four-metric "
+        "evaluation; its population sampling, DatasetSpec, BenchmarkSpec, and realization "
+        "identity remain public-native and distinct."
     ),
 )

@@ -67,6 +67,15 @@ SOURCE_COMPONENT_IDENTITIES: dict[str, tuple[tuple[str, str], ...]] = {
     "psr:evaluation:world-v2-canonical-sre-evaluation@1.0.0~2b606bcf527f": (
         ("EVALUATION", "latent_capacity_change_canonical_sre_evaluation"),
     ),
+    "psr:evaluation:iid-latent-capacity-change-four-metric-validation@1.0.0~cd4fe982e7b8": (
+        ("EVALUATION", "iid_latent_capacity_change_four_metric_validation"),
+    ),
+    "psr:metric:rmse@1.0.0~0a9b0918a7aa": (("METRIC", "iid_public_rmse"),),
+    "psr:metric:mae@1.0.0~7319598a8a18": (("METRIC", "iid_public_mae"),),
+    "psr:metric:r-squared@1.0.0~00bad728358d": (("METRIC", "iid_public_r_squared"),),
+    "psr:metric:sre-population-sd-ddof-0@1.0.0~f3341587fd14": (
+        ("METRIC", "iid_public_sre_ddof_0"),
+    ),
     "psr:observation-model:c21-field-velocity-rpe-rir-readiness@1.0.0~bab5eaa0e137": (
         ("OBSERVATION_MODEL", "athlete_state_training_observation"),
     ),
