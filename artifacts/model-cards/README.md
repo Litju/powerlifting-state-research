@@ -8,4 +8,8 @@ Model-card exports linked to typed model definitions.
 
 A card describes model identity, intended synthetic task, training provenance, evaluation evidence, limitations, and per-checkpoint rights.
 
-No historical private material is included. Unknown rights or untraceable inputs block publication of an artifact.
+## Current cards
+
+- [Public-Native Temporal Capacity-Change Model](public-native-temporal-capacity-change.md)
+
+Cards may record approved historical identity and hash metadata. They do not redistribute private source, data, weights, checkpoints, or archives. Unknown rights or untraceable inputs block publication of an artifact.

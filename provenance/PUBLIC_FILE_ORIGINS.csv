@@ -12,7 +12,8 @@ artifacts/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Durable public artifacts 
 artifacts/checksums/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,"Checksums for data, models, results, and bundles."
 artifacts/dataset-cards/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Dataset-card exports linked to typed dataset definitions.
 artifacts/dataset-cards/iid-latent-capacity-change-with-transient-expression-forecasting.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-card,Definitive PUBLIC_NATIVE IID dataset contract and regeneration record.
-artifacts/model-cards/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Model-card exports linked to typed model definitions.
+artifacts/model-cards/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Model-card index and artifact publication policy.
+artifacts/model-cards/public-native-temporal-capacity-change.md,NEWLY_AUTHORED,CC-BY-4.0,model-card,"Historical lineage metadata and clean-room PUBLIC_NATIVE model specification; no private source or weights."
 artifacts/registries/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Generated registry exports; typed Python is authoritative.
 artifacts/registries/benchmark-registry.json,GENERATED_PUBLIC_ARTIFACT,MIT,registry-export,Public machine-readable registry export generated from typed Python.
 artifacts/release-bundles/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Versioned public release bundles from cleared sources.
@@ -68,7 +69,7 @@ models/reference-implementations/README.md,NEWLY_AUTHORED,CC-BY-4.0,models,Light
 models/training-protocols/README.md,NEWLY_AUTHORED,CC-BY-4.0,models,Training protocol artifacts and reproducibility rules.
 provenance/PUBLIC_FILE_ORIGINS.csv,GENERATED_PUBLIC_ARTIFACT,MIT,origin-ledger,One permitted provenance class and rights state per initial public file.
 provenance/README.md,NEWLY_AUTHORED,CC-BY-4.0,provenance,Public file-origin and historical-source provenance policy.
-pyproject.toml,NEWLY_AUTHORED,MIT,packaging,"Distribution metadata, build backend, Python baseline, and dev tools."
+pyproject.toml,NEWLY_AUTHORED,MIT,packaging,"Distribution metadata, build backend, Python baseline, runtime model dependencies, and dev tools."
 results/README.md,NEWLY_AUTHORED,CC-BY-4.0,results,Output status and generated/committed policy.
 results/audits/README.md,NEWLY_AUTHORED,CC-BY-4.0,results,Audit outputs by scientific axis.
 results/benchmarks/class_normalized_cross_lift_five_target_performance_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,benchmark-result-home,Future prediction/evaluation/result manifest home for this formulation.
@@ -187,9 +188,10 @@ src/powerlifting_state_research/evaluation/protocols.py,NEWLY_AUTHORED,MIT,packa
 src/powerlifting_state_research/interventions/__init__.py,NEWLY_AUTHORED,MIT,package,Typed package namespace/home; no benchmark mechanics at bootstrap.
 src/powerlifting_state_research/interventions/designs.py,NEWLY_AUTHORED,MIT,interventions,Typed controlled contrasts with changed/held-fixed axes.
 src/powerlifting_state_research/models/__init__.py,NEWLY_AUTHORED,MIT,package,Typed package namespace/home; no benchmark mechanics at bootstrap.
-src/powerlifting_state_research/models/families.py,NEWLY_AUTHORED,MIT,models,Typed model-family/reference-comparator specs.
+src/powerlifting_state_research/models/families.py,NEWLY_AUTHORED,MIT,models,Public model-family identity declarations.
 src/powerlifting_state_research/models/references.py,NEWLY_AUTHORED,MIT,models,Lightweight public reference-comparator implementation home.
 src/powerlifting_state_research/models/training.py,NEWLY_AUTHORED,MIT,models,Typed training configuration/protocol home.
+src/powerlifting_state_research/models/temporal_expert.py,NEWLY_AUTHORED,MIT,model-implementation,"Clean-room PUBLIC_NATIVE temporal model, typed input, preprocessing, normalization, and inference."
 src/powerlifting_state_research/provenance/__init__.py,NEWLY_AUTHORED,MIT,package,Typed package namespace/home; no benchmark mechanics at bootstrap.
 src/powerlifting_state_research/provenance/historical_sources.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,provenance,"Central historical aliases, parentage, and evidence pointers."
 src/powerlifting_state_research/py.typed,NEWLY_AUTHORED,MIT,package,Marks the distribution as typed.
@@ -214,11 +216,12 @@ tests/benchmarks/performance_forecasting_under_schedule_exposure_reporting_heter
 tests/benchmarks/seasonal_five_target_load_velocity_performance_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/benchmarks/four_target_load_velocity_and_competition_performance_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/fixtures/README.md,NEWLY_AUTHORED,CC-BY-4.0,tests,Small repository-authored deterministic fixtures only.
+tests/models/test_temporal_expert.py,NEWLY_AUTHORED,MIT,model-tests,Public model input firewall; preprocessing; inference; identity; and ensemble checks.
 tests/test_component_homes.py,NEWLY_AUTHORED,MIT,tests,Required shared scientific module homes.
 tests/test_public_file_origins.py,NEWLY_AUTHORED,MIT,tests,Origin/rights ledger coverage.
 tests/test_registry.py,NEWLY_AUTHORED,MIT,tests,"Eight package imports, public names, and registry count smoke test."
 tests/test_shared_component_reuse.py,NEWLY_AUTHORED,MIT,tests,Shared-world reuse and distinct target semantics.
-uv.lock,GENERATED_PUBLIC_ARTIFACT,MIT,packaging,Development lock generated from pyproject.toml.
+uv.lock,GENERATED_PUBLIC_ARTIFACT,MIT,packaging,Locked runtime and development dependencies generated from pyproject.toml.
 artifacts/schemas/artifact-manifest.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,python-export,JSON Schema generated from the Python artifact manifest record.
 artifacts/schemas/benchmark-semantic-identity.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,python-export,JSON Schema generated from the Python benchmark identity record.
 artifacts/schemas/benchmark-spec.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,python-export,JSON Schema generated from the Python benchmark registry records.
