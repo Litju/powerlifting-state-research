@@ -67,6 +67,7 @@ from .training import (
 )
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
+REQUIRED_DRIVE_RES274_ROOT = Path("/content/drive/MyDrive/powerlifting-state-research/res274")
 PROTOCOL_MANIFEST_PATH = (
     REPOSITORY_ROOT / "artifacts/training-protocols/public-native-temporal-expert.json"
 )
@@ -804,6 +805,11 @@ def _train_qualified(
     output_root = output_root.resolve()
     if output_root == REPOSITORY_ROOT or REPOSITORY_ROOT in output_root.parents:
         raise TrainingError("training artifacts must remain outside the source checkout")
+    if (
+        not qualified.smoke_only
+        and output_root.parent != (REQUIRED_DRIVE_RES274_ROOT / "runs").resolve()
+    ):
+        raise TrainingError("PUBLIC_NATIVE production artifacts must be written directly to Drive")
     if any(
         (output_root / relative).exists()
         for relative in (
@@ -1401,6 +1407,15 @@ def _build_inventory(output_root: Path) -> dict[str, object]:
 def _bundle(output_root: Path, bundle_path: Path, *, code_sha: str) -> tuple[str, str]:
     if not (output_root / "ensemble/ensemble-manifest.json").is_file():
         raise TrainingError("cannot bundle before seed and ensemble evaluation")
+    drive_root = REQUIRED_DRIVE_RES274_ROOT.resolve()
+    if output_root.resolve().parent != (drive_root / "runs").resolve():
+        raise TrainingError("RUN_OUTPUT must be directly beneath the required Drive runs directory")
+    if bundle_path.resolve().parent != (drive_root / "bundles").resolve():
+        raise TrainingError(
+            "BUNDLE_PATH must be directly beneath the required Drive bundles directory"
+        )
+    if bundle_path.exists():
+        raise TrainingError("bundle path already exists; run IDs are never overwritten")
     if bundle_path.resolve().is_relative_to(output_root.resolve()):
         raise TrainingError("bundle must be outside the run artifact directory")
     expected = _expected_files() - {"receipts/final-sha256.json", "receipts/final-receipt.json"}
@@ -1595,16 +1610,42 @@ def _verify_training_history(path: Path, seed: int, protocol: Any) -> dict[str, 
     return history
 
 
+def _verify_drive_paths(
+    drive_res274_root: Path,
+    output_root: Path,
+    bundle_path: Path,
+) -> None:
+    expected_root = REQUIRED_DRIVE_RES274_ROOT.resolve()
+    drive_root = drive_res274_root.resolve()
+    runs_root = (drive_root / "runs").resolve()
+    bundles_root = (drive_root / "bundles").resolve()
+    output = output_root.resolve()
+    bundle = bundle_path.resolve()
+    source = REPOSITORY_ROOT.resolve()
+    if drive_root != expected_root:
+        raise TrainingError("Gate-B Drive root differs from the required project-owned path")
+    if output.parent != runs_root or not output.is_dir():
+        raise TrainingError("RUN_OUTPUT must exist directly beneath the Drive runs directory")
+    if bundle.parent != bundles_root or not bundle.is_file():
+        raise TrainingError("BUNDLE_PATH must exist directly beneath the Drive bundles directory")
+    if source != Path("/content/psr-src").resolve() or source.is_relative_to(drive_root):
+        raise TrainingError(
+            "source checkout must be /content/psr-src outside the Drive artifact root"
+        )
+
+
 def verify_run(
     dataset_root: Path,
     output_root: Path,
     bundle_path: Path,
+    drive_res274_root: Path,
     *,
     code_sha: str,
 ) -> None:
     """Verify the sealed run, canonical evaluation artifacts, bundle, and safe layout."""
     _require_committed_protocol()
     _git_identity(code_sha)
+    _verify_drive_paths(drive_res274_root, output_root, bundle_path)
     expected = _expected_files()
     actual = _run_files(output_root)
     if actual != expected:
@@ -2226,6 +2267,7 @@ def main(argv: list[str] | None = None) -> int:
     verify.add_argument("--dataset-root", type=Path, required=True)
     verify.add_argument("--output-root", type=Path, required=True)
     verify.add_argument("--bundle-path", type=Path, required=True)
+    verify.add_argument("--drive-res274-root", type=Path, required=True)
     verify.add_argument("--code-sha", required=True)
     commands.add_parser("smoke", help="run the temporary CPU smoke pipeline")
     args = parser.parse_args(argv)
@@ -2285,6 +2327,7 @@ def main(argv: list[str] | None = None) -> int:
                 args.dataset_root.resolve(),
                 args.output_root.resolve(),
                 args.bundle_path.resolve(),
+                args.drive_res274_root.resolve(),
                 code_sha=args.code_sha,
             )
             return 0

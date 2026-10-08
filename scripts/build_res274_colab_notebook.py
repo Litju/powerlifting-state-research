@@ -19,61 +19,70 @@ import re
 import shutil
 import subprocess
 import sys
+import tempfile
+import uuid
 from datetime import UTC, datetime
 from pathlib import Path
 
 # Set CODE_SHA to the merged Gate-A commit before running this notebook.
 CODE_SHA = ""
-USE_GOOGLE_DRIVE = True
-DRIVE_OUTPUT_ROOT = ""
 if os.environ.get("CUBLAS_WORKSPACE_CONFIG") not in (None, ":4096:8"):
     raise RuntimeError("CUBLAS_WORKSPACE_CONFIG must be :4096:8 before CUDA initialization")
 os.environ["CUBLAS_WORKSPACE_CONFIG"] = ":4096:8"
-RUN_ID = datetime.now(UTC).strftime("%Y%m%dT%H%M%SZ")
+RUN_ID = f"{datetime.now(UTC).strftime('%Y%m%dT%H%M%SZ')}-{uuid.uuid4().hex[:8]}"
 print("CODE_SHA is required; training uses only this exact detached commit.")
 """,
-    r"""# RES274_CELL: 02_OPTIONAL_DRIVE
-if USE_GOOGLE_DRIVE:
-    from google.colab import drive
+    r"""# RES274_CELL: 02_MANDATORY_DRIVE
+from google.colab import drive
 
-    drive.mount("/content/drive")
-    DRIVE_BASE = Path("/content/drive/MyDrive")
-    configured_root = (
-        DRIVE_OUTPUT_ROOT.strip()
-        or input(
-            "Drive output root under MyDrive (recommended: powerlifting-state-research/res274): "
-        ).strip()
-    )
-    candidate = Path(configured_root).expanduser()
-    if candidate.is_absolute():
-        RUN_BASE = candidate.resolve()
-    else:
-        relative_root = candidate
-        if relative_root.parts and relative_root.parts[0] == "MyDrive":
-            relative_root = Path(*relative_root.parts[1:])
-        if ".." in relative_root.parts:
-            raise ValueError("Drive output root cannot traverse above MyDrive")
-        RUN_BASE = (DRIVE_BASE / relative_root).resolve()
-    if not RUN_BASE.is_relative_to(DRIVE_BASE.resolve()):
-        raise ValueError("Drive output root must be inside the mounted MyDrive")
-else:
-    DRIVE_BASE = None
-    RUN_BASE = Path("/content/powerlifting-state-research/res274")
+DRIVE_MOUNT = Path("/content/drive")
+drive.mount("/content/drive")
+MY_DRIVE = DRIVE_MOUNT / "MyDrive"
+if not MY_DRIVE.is_dir():
+    raise RuntimeError("Google Drive MyDrive mount is unavailable")
 
-REPO_DIR = Path("/content/powerlifting-state-research")
+DRIVE_PROJECT_ROOT = MY_DRIVE / "powerlifting-state-research"
+RES274_DRIVE_ROOT = DRIVE_PROJECT_ROOT / "res274"
+RUNS_ROOT = RES274_DRIVE_ROOT / "runs"
+BUNDLES_ROOT = RES274_DRIVE_ROOT / "bundles"
+RUNS_ROOT.mkdir(parents=True, exist_ok=True)
+BUNDLES_ROOT.mkdir(parents=True, exist_ok=True)
+
 DATASET_ROOT = Path("/content") / f"res274-iid-dataset-{RUN_ID}"
-RUN_OUTPUT = RUN_BASE / RUN_ID
-BUNDLE_PATH = RUN_BASE / f"res274-{RUN_ID}.zip"
+RUN_OUTPUT = RUNS_ROOT / RUN_ID
+BUNDLE_PATH = BUNDLES_ROOT / f"res274-{RUN_ID}.zip"
 if RUN_OUTPUT.exists() or BUNDLE_PATH.exists():
-    raise FileExistsError("the configured run ID already exists")
-RUN_OUTPUT.mkdir(parents=True)
+    raise FileExistsError("the generated RUN_ID already exists; do not resume or overwrite")
+
+drive_probe_payload = f"RES274_DRIVE_PROBE:{RUN_ID}".encode()
+drive_probe = None
+try:
+    with tempfile.NamedTemporaryFile(
+        dir=RES274_DRIVE_ROOT, prefix=".res274-drive-probe-", delete=False
+    ) as drive_probe_file:
+        drive_probe = Path(drive_probe_file.name)
+        drive_probe_file.write(drive_probe_payload)
+        drive_probe_file.flush()
+    if drive_probe.read_bytes() != drive_probe_payload:
+        raise OSError("Google Drive write/read persistence probe differed")
+finally:
+    if drive_probe is not None:
+        drive_probe.unlink(missing_ok=True)
+
+print(f"DRIVE_PROJECT_ROOT={DRIVE_PROJECT_ROOT}")
+print(f"RES274_DRIVE_ROOT={RES274_DRIVE_ROOT}")
 print(f"RUN_OUTPUT={RUN_OUTPUT}")
+print(f"BUNDLE_PATH={BUNDLE_PATH}")
+print("DRIVE_PERSISTENCE=READY")
 """,
     r"""# RES274_CELL: 03_CLONE_EXACT_SOURCE
+REPO_DIR = Path("/content/psr-src")
 if not CODE_SHA or not re.fullmatch(r"[0-9a-fA-F]{40}", CODE_SHA):
     raise ValueError("Set CODE_SHA to the full 40-character merged Gate-A commit SHA")
 if REPO_DIR.exists():
     raise FileExistsError(f"source checkout already exists: {REPO_DIR}")
+if REPO_DIR.resolve().is_relative_to(RES274_DRIVE_ROOT.resolve()):
+    raise RuntimeError("source checkout must remain outside the Drive artifact root")
 subprocess.run(
     [
         "git",
@@ -138,6 +147,10 @@ print("CUDA_TRAINING_ENVIRONMENT=READY")
 """,
     r"""# RES274_CELL: 05_RUNTIME_RECEIPT
 RUNTIME_RECEIPT_PATH = RUN_OUTPUT / "runtime/runtime-receipt.json"
+if RUN_OUTPUT.exists() or BUNDLE_PATH.exists():
+    raise FileExistsError("the generated RUN_ID already exists; do not resume or overwrite")
+# Keep the runtime receipt on Drive before training begins.
+RUN_OUTPUT.mkdir(parents=True, exist_ok=False)
 RUNTIME_RECEIPT_PATH.parent.mkdir(parents=True, exist_ok=True)
 runtime_program = (
     "import hashlib,importlib.metadata as im,json,platform,subprocess,sys,torch; "
@@ -365,12 +378,18 @@ required_directories = (
 missing = [name for name in required_directories if not (RUN_OUTPUT / name).is_dir()]
 if missing:
     raise RuntimeError(f"run artifact persistence is incomplete: {missing}")
-if USE_GOOGLE_DRIVE and not RUN_OUTPUT.is_relative_to(DRIVE_BASE.resolve()):
-    raise RuntimeError("run output is not under the configured Google Drive root")
+if not RUN_OUTPUT.resolve().is_relative_to(RUNS_ROOT.resolve()):
+    raise RuntimeError("run output is not under the mandatory Drive runs root")
+if not BUNDLE_PATH.resolve().is_relative_to(BUNDLES_ROOT.resolve()):
+    raise RuntimeError("bundle output is not under the mandatory Drive bundles root")
+if REPO_DIR.resolve().is_relative_to(RES274_DRIVE_ROOT.resolve()):
+    raise RuntimeError("source checkout must remain outside the Drive artifact root")
 print(f"ARTIFACT_PERSISTENCE_ROOT={RUN_OUTPUT}")
-print("Run artifacts are written directly to the configured durable root.")
+print("Run artifacts are written directly to Google Drive.")
 """,
     r"""# RES274_CELL: 15_COMPRESSED_BUNDLE
+if BUNDLE_PATH.exists():
+    raise FileExistsError("bundle path already exists; run IDs are never overwritten")
 subprocess.run(
     [
         str(VENV_PYTHON),
@@ -387,12 +406,17 @@ subprocess.run(
     cwd=REPO_DIR,
     check=True,
 )
-if not USE_GOOGLE_DRIVE:
-    from google.colab import files
-
-    files.download(str(BUNDLE_PATH))
 """,
     r"""# RES274_CELL: 16_FINAL_VERIFIER
+if not RUN_OUTPUT.resolve().is_relative_to(RUNS_ROOT.resolve()):
+    raise RuntimeError("RUN_OUTPUT is outside the Drive runs directory")
+if not BUNDLE_PATH.resolve().is_relative_to(BUNDLES_ROOT.resolve()):
+    raise RuntimeError("BUNDLE_PATH is outside the Drive bundles directory")
+source_is_outside_drive = REPO_DIR.resolve().is_relative_to(RES274_DRIVE_ROOT.resolve()) is False
+if not source_is_outside_drive:
+    raise RuntimeError("source checkout overlaps the Drive artifact root")
+if not RUN_OUTPUT.is_dir() or not BUNDLE_PATH.is_file():
+    raise FileNotFoundError("Drive run artifacts or bundle are missing")
 subprocess.run(
     [
         str(VENV_PYTHON),
@@ -405,6 +429,8 @@ subprocess.run(
         str(RUN_OUTPUT),
         "--bundle-path",
         str(BUNDLE_PATH),
+        "--drive-res274-root",
+        str(RES274_DRIVE_ROOT),
         "--code-sha",
         CODE_SHA,
     ],
