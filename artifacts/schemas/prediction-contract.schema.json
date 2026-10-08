@@ -104,6 +104,14 @@
         "event_index": {
           "type": "string"
         },
+        "history_observation_last_day": {
+          "oneOf": [
+            {
+              "type": "integer"
+            },
+            {}
+          ]
+        },
         "inputs": {
           "items": {
             "$ref": "#/$defs/InputField"

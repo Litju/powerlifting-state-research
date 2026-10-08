@@ -73,6 +73,7 @@ class PredictionContract:
     missing_prediction_policy: MissingPredictionPolicy
     non_finite_output_policy: NonFiniteOutputPolicy
     ordering_alignment_policy: OrderingAlignmentPolicy
+    history_observation_last_day: int | None = None
 
     def validation_errors(self) -> tuple[str, ...]:
         errors: list[str] = []
@@ -86,6 +87,19 @@ class PredictionContract:
             errors.append(str(error))
         if self.event_index != self.decision_cutoff.event_index:
             errors.append("decision cutoff and input event index must use the same time coordinate")
+        if self.history_observation_last_day is not None:
+            cutoff_value = self.decision_cutoff.value
+            if (
+                not isinstance(self.history_observation_last_day, int)
+                or isinstance(self.history_observation_last_day, bool)
+                or self.history_observation_last_day < 0
+                or (
+                    isinstance(cutoff_value, int)
+                    and not isinstance(cutoff_value, bool)
+                    and self.history_observation_last_day > cutoff_value
+                )
+            ):
+                errors.append("history observations must end at or before the decision cutoff")
         if not self.entity_identity_fields or not self.row_identity_fields:
             errors.append("entity and row identity fields are required")
         if len(self.qoi_ids) != len(set(self.qoi_ids)):
@@ -126,7 +140,7 @@ class PredictionContract:
         return PredictionInformationBoundary(
             decision_cutoff=self.decision_cutoff,
             cutoff_inclusive=self.cutoff_inclusive,
-            history_observation_last_day=None,
+            history_observation_last_day=self.history_observation_last_day,
             static_or_context_inputs="task-declared fields",
             declared_future_plan_visible=has_plan,
         )

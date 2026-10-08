@@ -10,14 +10,14 @@ This benchmark is **not** real-athlete validation, causal intervention-efficacy 
 
 | Field | Identity |
 |---|---|
-| PUBLIC_NATIVE BenchmarkSpec | `psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting@1.0.0~49b4994f7df4` |
-| BenchmarkSpec digest | `sha256:49b4994f7df4443c6f8d80c968d456d611b5e7886c32659727e8c351dfed9de3` |
+| PUBLIC_NATIVE BenchmarkSpec | `psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting@1.0.0~f99463d55ba0` |
+| BenchmarkSpec digest | `sha256:f99463d55ba0902595a1866032ba94b803ac97d9b4985a89e208293da9c7fed0` |
 | DatasetSpec | `psr:dataset-spec:latent-capacity-transient-iid-sampling-design@1.0.0~1d079eb645ed` |
 | WORLD | `psr:world:world-v2-parsimonious-response-world@1.0.0~a1afbf2f5c1e` |
 | TASK | `psr:task:latent-capacity-change@1.0.0~44fc77353e7a` |
 | QOI | `psr:qoi:latent-capacity-change@1.0.0~675491124046` |
 
-The separate historical projection is `latent_capacity_change_with_transient_expression_forecasting`, with BenchmarkSpec digest `sha256:fbfbe59eb0a8e94b12b424c6d6837dfd455a6c5a55084bb2898b53f741cc6472`. It remains `HISTORICAL_PROJECTION`; this benchmark is `PUBLIC_NATIVE` and explicitly non-historical. The two records share specified world mechanics, task, QOI, representation, and evaluation. Their population sampling designs and DatasetSpecs differ.
+The separate historical projection is `latent_capacity_change_with_transient_expression_forecasting`, with BenchmarkSpec digest `sha256:fbfbe59eb0a8e94b12b424c6d6837dfd455a6c5a55084bb2898b53f741cc6472`. It remains `HISTORICAL_PROJECTION`; this benchmark is `PUBLIC_NATIVE` and explicitly non-historical. The two records share specified world mechanics, task, QOI, and representation. Their evaluation identities, population sampling designs, and DatasetSpecs differ.
 
 ## Population
 

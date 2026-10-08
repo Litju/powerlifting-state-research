@@ -1,4 +1,13 @@
 {
+  "benchmark_supersessions": [
+    {
+      "previous_benchmark_id": "psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting@1.0.0~49b4994f7df4",
+      "previous_benchmark_spec_digest": "sha256:49b4994f7df4443c6f8d80c968d456d611b5e7886c32659727e8c351dfed9de3",
+      "reason": "PUBLIC_NATIVE evaluation identity now binds target-wise RMSE, MAE, R², and SRE(ddof=0).",
+      "superseding_benchmark_id": "psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting@1.0.0~f99463d55ba0",
+      "superseding_benchmark_spec_digest": "sha256:f99463d55ba0902595a1866032ba94b803ac97d9b4985a89e208293da9c7fed0"
+    }
+  ],
   "benchmarks": [
     {
       "benchmark_id": null,
@@ -451,7 +460,7 @@
       "version": "1.0.0"
     },
     {
-      "benchmark_id": "psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting@1.0.0~49b4994f7df4",
+      "benchmark_id": "psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting@1.0.0~f99463d55ba0",
       "completeness_status": "FULL_FROM_EXISTING_EVIDENCE",
       "component_references": [
         {
@@ -495,9 +504,29 @@
           "resolution": "DIRECT_HISTORICAL_IDENTITY"
         },
         {
-          "canonical_key": "latent_capacity_change_canonical_sre_evaluation",
+          "canonical_key": "iid_latent_capacity_change_four_metric_validation",
           "component_class": "EVALUATION",
-          "resolution": "DIRECT_HISTORICAL_IDENTITY"
+          "resolution": "DIRECT_PUBLIC_NATIVE_IDENTITY"
+        },
+        {
+          "canonical_key": "iid_public_rmse",
+          "component_class": "METRIC",
+          "resolution": "DIRECT_PUBLIC_NATIVE_IDENTITY"
+        },
+        {
+          "canonical_key": "iid_public_mae",
+          "component_class": "METRIC",
+          "resolution": "DIRECT_PUBLIC_NATIVE_IDENTITY"
+        },
+        {
+          "canonical_key": "iid_public_r_squared",
+          "component_class": "METRIC",
+          "resolution": "DIRECT_PUBLIC_NATIVE_IDENTITY"
+        },
+        {
+          "canonical_key": "iid_public_sre_ddof_0",
+          "component_class": "METRIC",
+          "resolution": "DIRECT_PUBLIC_NATIVE_IDENTITY"
         }
       ],
       "contract_schema_version": "1.0.0",
@@ -530,12 +559,12 @@
           "IID finite-sample geometry and same-law validation do not establish real-athlete external validity or broad OOD performance.",
           "Targets describe synthetic latent capacity change and do not estimate causal effects."
         ],
-        "related_benchmark_relationship": "Shares specified world mechanics, task, QOI, representation, and evaluation with the separate historical projection. Population sampling, DatasetSpec, BenchmarkSpec, and realization identity remain public-native and distinct.",
+        "related_benchmark_relationship": "Shares specified world mechanics, task, QOI, and representation with the separate historical projection. This public-native benchmark has a distinct four-metric evaluation; its population sampling, DatasetSpec, BenchmarkSpec, and realization identity remain public-native and distinct.",
         "research_question_evidence_class": "INDEPENDENT_PUBLIC_NATIVE_OBJECTIVE",
         "source_prediction_setting": "At origin day 224, expose history through day 223 and the declared future plan; hide future realized outcomes, observations, intervention deviations, latent coordinates, and target fields from participants.",
         "unresolved_questions": []
       },
-      "semantic_digest": "sha256:49b4994f7df4443c6f8d80c968d456d611b5e7886c32659727e8c351dfed9de3",
+      "semantic_digest": "sha256:f99463d55ba0902595a1866032ba94b803ac97d9b4985a89e208293da9c7fed0",
       "semantic_identity_payload": {
         "claim_scope": [
           "PREDICTIVE",
@@ -543,7 +572,7 @@
         ],
         "dataset_spec_id": "psr:dataset-spec:latent-capacity-transient-iid-sampling-design@1.0.0~1d079eb645ed",
         "declared_shift_relations": [],
-        "evaluation_id": "psr:evaluation:world-v2-canonical-sre-evaluation@1.0.0~2b606bcf527f",
+        "evaluation_id": "psr:evaluation:iid-latent-capacity-change-four-metric-validation@1.0.0~cd4fe982e7b8",
         "identity_payload_format": "PSR_BENCHMARK_SEMANTIC_IDENTITY_V1",
         "intervention_regime_id": {
           "id": "psr:intervention-regime:latent-capacity-transient-balanced-plan-history-regime@1.0.0~a1ca0adb3ef3",
@@ -1486,6 +1515,12 @@
           "four_target_weighted_evaluation"
         ]
       ],
+      "psr:evaluation:iid-latent-capacity-change-four-metric-validation@1.0.0~cd4fe982e7b8": [
+        [
+          "EVALUATION",
+          "iid_latent_capacity_change_four_metric_validation"
+        ]
+      ],
       "psr:evaluation:legacy-prediction-physical-consistency-blend@1.0.0~a67b640c37ae": [
         [
           "EVALUATION",
@@ -1520,6 +1555,30 @@
         [
           "EVALUATION",
           "latent_capacity_change_canonical_sre_evaluation"
+        ]
+      ],
+      "psr:metric:mae@1.0.0~7319598a8a18": [
+        [
+          "METRIC",
+          "iid_public_mae"
+        ]
+      ],
+      "psr:metric:r-squared@1.0.0~00bad728358d": [
+        [
+          "METRIC",
+          "iid_public_r_squared"
+        ]
+      ],
+      "psr:metric:rmse@1.0.0~0a9b0918a7aa": [
+        [
+          "METRIC",
+          "iid_public_rmse"
+        ]
+      ],
+      "psr:metric:sre-population-sd-ddof-0@1.0.0~f3341587fd14": [
+        [
+          "METRIC",
+          "iid_public_sre_ddof_0"
         ]
       ],
       "psr:observation-model:c21-field-velocity-rpe-rir-readiness@1.0.0~bab5eaa0e137": [
@@ -1683,6 +1742,145 @@
   "generator": {
     "name": "powerlifting-state-research-python",
     "version": "0.1.0"
+  },
+  "public_native_evaluation": {
+    "evaluation_id": "psr:evaluation:iid-latent-capacity-change-four-metric-validation@1.0.0~cd4fe982e7b8",
+    "metric_identities": [
+      {
+        "definition": "sqrt(mean((prediction - truth)^2)); target unit (kg).",
+        "evidence_status": "CANONICAL_RESEARCH",
+        "metric": "RMSE",
+        "metric_id": "psr:metric:rmse@1.0.0~0a9b0918a7aa"
+      },
+      {
+        "definition": "mean(abs(prediction - truth)); target unit (kg).",
+        "evidence_status": "CANONICAL_RESEARCH",
+        "metric": "MAE",
+        "metric_id": "psr:metric:mae@1.0.0~7319598a8a18"
+      },
+      {
+        "definition": "1 - SSE/SST; dimensionless; undefined for constant truth.",
+        "evidence_status": "CANONICAL_RESEARCH",
+        "metric": "R²",
+        "metric_id": "psr:metric:r-squared@1.0.0~00bad728358d"
+      },
+      {
+        "definition": "RMSE / sqrt(mean((truth - mean(truth))^2)); population SD (ddof=0); dimensionless.",
+        "evidence_status": "CANONICAL_RESEARCH",
+        "metric": "SRE(ddof=0)",
+        "metric_id": "psr:metric:sre-population-sd-ddof-0@1.0.0~f3341587fd14"
+      }
+    ],
+    "metric_semantics": {
+      "psr:metric:mae@1.0.0~7319598a8a18": {
+        "formula": "mean(abs(prediction - truth))",
+        "unit": "kg"
+      },
+      "psr:metric:r-squared@1.0.0~00bad728358d": {
+        "constant_truth": "UNDEFINED",
+        "formula": "1 - SSE/SST",
+        "unit": "1"
+      },
+      "psr:metric:rmse@1.0.0~0a9b0918a7aa": {
+        "formula": "sqrt(mean((prediction - truth)^2))",
+        "unit": "kg"
+      },
+      "psr:metric:sre-population-sd-ddof-0@1.0.0~f3341587fd14": {
+        "formula": "RMSE / sqrt(mean((truth - mean(truth))^2))",
+        "standard_deviation_ddof": 0,
+        "unit": "1",
+        "zero_truth_population_sd": "UNDEFINED"
+      }
+    },
+    "prediction_contract": {
+      "cutoff_inclusive": true,
+      "decision_cutoff": {
+        "event_index": "day",
+        "timestamp": null,
+        "timezone": null,
+        "value": 224
+      },
+      "entity_identity_fields": [
+        "entity_id"
+      ],
+      "event_index": "day",
+      "history_observation_last_day": 223,
+      "inputs": [
+        {
+          "kind": "HISTORICAL_OBSERVATION",
+          "name": "history_through_day_223"
+        },
+        {
+          "kind": "DECLARED_FUTURE_PLAN",
+          "name": "declared_future_plan"
+        }
+      ],
+      "missing_prediction_policy": "REJECT",
+      "non_finite_output_policy": "REJECT",
+      "ordering_alignment_policy": "ALIGN_BY_DECLARED_KEYS",
+      "outputs": [
+        {
+          "name": "squat_delta_capacity_kg",
+          "qoi_id": "psr:qoi:latent-capacity-change@1.0.0~675491124046",
+          "unit": "kg"
+        },
+        {
+          "name": "bench_press_delta_capacity_kg",
+          "qoi_id": "psr:qoi:latent-capacity-change@1.0.0~675491124046",
+          "unit": "kg"
+        },
+        {
+          "name": "deadlift_delta_capacity_kg",
+          "qoi_id": "psr:qoi:latent-capacity-change@1.0.0~675491124046",
+          "unit": "kg"
+        }
+      ],
+      "qoi_ids": [
+        "psr:qoi:latent-capacity-change@1.0.0~675491124046"
+      ],
+      "row_identity_fields": [
+        "row_id"
+      ],
+      "task_allows_declared_future_plan": true,
+      "task_id": "psr:task:latent-capacity-change@1.0.0~44fc77353e7a"
+    },
+    "prediction_schema_identity": "psr:prediction-schema:iid-latent-capacity-change-jsonl-row@1.0.0~cad5c74acd66",
+    "semantic_identity_payload": {
+      "aggregation": "none; no universal scalar aggregate",
+      "alignment": {
+        "keys": [
+          "row_id"
+        ],
+        "policy": "ALIGN_BY_DECLARED_KEYS"
+      },
+      "metric_ids": [
+        "psr:metric:rmse@1.0.0~0a9b0918a7aa",
+        "psr:metric:mae@1.0.0~7319598a8a18",
+        "psr:metric:r-squared@1.0.0~00bad728358d",
+        "psr:metric:sre-population-sd-ddof-0@1.0.0~f3341587fd14"
+      ],
+      "missing_prediction": "REJECT",
+      "non_finite_prediction": "REJECT",
+      "qoi_ids": [
+        "psr:qoi:latent-capacity-change@1.0.0~675491124046"
+      ],
+      "reporting": "target-wise",
+      "stratification": "none; optional diagnostics are non-canonical",
+      "targets": [
+        "squat_delta_capacity_kg",
+        "bench_press_delta_capacity_kg",
+        "deadlift_delta_capacity_kg"
+      ],
+      "task_id": "psr:task:latent-capacity-change@1.0.0~44fc77353e7a",
+      "uncertainty": "none",
+      "validation": {
+        "coverage": "complete split; no row drops or imputation",
+        "dataset_spec_id": "psr:dataset-spec:latent-capacity-transient-iid-sampling-design@1.0.0~1d079eb645ed",
+        "purpose": "same-law held-out validation",
+        "row_count": 3072,
+        "split_id": "validation"
+      }
+    }
   },
   "worlds": [
     {

@@ -21,6 +21,7 @@ from ...contracts.benchmark import (
 )
 from ...contracts.components import ComponentClass, ComponentReference, ComponentResolution
 from ...contracts.serialization import sha256_record
+from ...evaluation.identity import EVALUATION_ID
 from .interventions import (
     DOSE_INTENSITY_PAIRS,
     HISTORY_TEMPLATES,
@@ -187,8 +188,17 @@ _NATIVE_REFS: tuple[ComponentReference, ...] = (
         "weekly_performance_history_and_plan_inputs"
     ],
     COMPONENT_REGISTRIES[ComponentClass.EVALUATION][
-        "latent_capacity_change_canonical_sre_evaluation"
+        "iid_latent_capacity_change_four_metric_validation"
     ],
+    *tuple(
+        COMPONENT_REGISTRIES[ComponentClass.METRIC][key]
+        for key in (
+            "iid_public_rmse",
+            "iid_public_mae",
+            "iid_public_r_squared",
+            "iid_public_sre_ddof_0",
+        )
+    ),
 )
 
 SPEC = BenchmarkSpec(
@@ -326,7 +336,7 @@ PUBLIC_NATIVE_SPEC = BenchmarkSpec(
         representation_id=(
             "psr:representation:world-v2-participant-inputs-json-v2@1.0.0~2c2c7f0222c6"
         ),
-        evaluation_id="psr:evaluation:world-v2-canonical-sre-evaluation@1.0.0~2b606bcf527f",
+        evaluation_id=EVALUATION_ID,
         declared_shift_relations=(),
         claim_scope=(ClaimScope.PREDICTIVE, ClaimScope.SYNTHETIC_BENCHMARK),
     ),

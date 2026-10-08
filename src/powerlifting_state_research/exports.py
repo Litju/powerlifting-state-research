@@ -14,6 +14,9 @@ from typing import Any, Literal, Union, get_args, get_origin, get_type_hints
 
 from . import __version__
 from .artifacts.manifests import ArtifactManifest, RightsMetadata
+from .benchmarks.latent_capacity_change_with_transient_expression_forecasting.prediction import (
+    PREDICTION_CONTRACT,
+)
 from .components.source_identity_provenance import (
     SOURCE_COMPONENT_ALIASES,
     SOURCE_COMPONENT_IDENTITIES,
@@ -29,6 +32,13 @@ from .contracts.datasets import DatasetRealizationManifest
 from .contracts.prediction import PredictionContract
 from .contracts.serialization import canonical_json
 from .contracts.shifts import ShiftDeclaration
+from .evaluation.identity import (
+    EVALUATION_ID,
+    EVALUATION_SEMANTICS,
+    METRIC_IDENTITIES,
+    METRIC_SEMANTICS,
+)
+from .evaluation.prediction import PREDICTION_SCHEMA_ID, PredictionRow
 from .evaluation.protocols import EvaluationResult, PredictionArtifactReference
 from .provenance import HISTORICAL_SOURCES
 from .registry import BENCHMARKS
@@ -84,6 +94,11 @@ def registry_document() -> dict[str, object]:
         }
         for world in WORLD_DECLARATIONS
     ]
+    public_native = next(
+        spec
+        for spec in BENCHMARKS
+        if spec.identity_authority is BenchmarkIdentityAuthority.PUBLIC_NATIVE
+    )
     return {
         "generator": GENERATOR,
         "benchmarks": benchmarks,
@@ -92,6 +107,31 @@ def registry_document() -> dict[str, object]:
             "historical_aliases": SOURCE_COMPONENT_ALIASES,
             "identity_mapping": SOURCE_COMPONENT_IDENTITIES,
         },
+        "public_native_evaluation": {
+            "evaluation_id": EVALUATION_ID,
+            "semantic_identity_payload": EVALUATION_SEMANTICS,
+            "metric_identities": METRIC_IDENTITIES,
+            "metric_semantics": METRIC_SEMANTICS,
+            "prediction_contract": PREDICTION_CONTRACT,
+            "prediction_schema_identity": PREDICTION_SCHEMA_ID,
+        },
+        "benchmark_supersessions": (
+            {
+                "previous_benchmark_id": (
+                    "psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-"
+                    "forecasting@1.0.0~49b4994f7df4"
+                ),
+                "previous_benchmark_spec_digest": (
+                    "sha256:49b4994f7df4443c6f8d80c968d456d611b5e7886c32659727e8c351dfed9de3"
+                ),
+                "superseding_benchmark_id": public_native.benchmark_id,
+                "superseding_benchmark_spec_digest": public_native.semantic_digest,
+                "reason": (
+                    "PUBLIC_NATIVE evaluation identity now binds target-wise RMSE, MAE, "
+                    "R², and SRE(ddof=0)."
+                ),
+            },
+        ),
     }
 
 
@@ -189,6 +229,7 @@ def generated_files() -> dict[Path, str]:
     schemas: tuple[tuple[str, type[Any]], ...] = (
         *SCHEMAS,
         ("public-forecast-row.schema.json", PublicForecastRow),
+        ("iid-latent-capacity-change-prediction-row.schema.json", PredictionRow),
     )
     files = {Path("registries/benchmark-registry.json"): _document(registry_document())}
     files.update(

@@ -13,5 +13,5 @@ def test_all_frozen_component_namespaces_are_importable() -> None:
         "latent_capacity_transient_public_training_regime"
         in (COMPONENT_REGISTRIES[ComponentClass.INTERVENTION_REGIME])
     )
-    assert COMPONENT_REGISTRIES[ComponentClass.METRIC] == {}
+    assert len(COMPONENT_REGISTRIES[ComponentClass.METRIC]) == 4
     assert COMPONENT_REGISTRIES[ComponentClass.SHIFT] == {}

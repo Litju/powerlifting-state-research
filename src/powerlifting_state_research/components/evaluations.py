@@ -29,6 +29,11 @@ evaluation_references: dict[str, ComponentReference] = {
         "latent_capacity_change_canonical_sre_evaluation",
         ComponentResolution.DIRECT_HISTORICAL_IDENTITY,
     ),
+    "iid_latent_capacity_change_four_metric_validation": ComponentReference(
+        ComponentClass.EVALUATION,
+        "iid_latent_capacity_change_four_metric_validation",
+        ComponentResolution.DIRECT_PUBLIC_NATIVE_IDENTITY,
+    ),
     "latent_capacity_change_diagnostic_evaluation": ComponentReference(
         ComponentClass.EVALUATION,
         "latent_capacity_change_diagnostic_evaluation",

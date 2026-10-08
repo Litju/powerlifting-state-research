@@ -14,6 +14,7 @@ from powerlifting_state_research.contracts.benchmark import (
     IdentityResolution,
     ImplementationStatus,
 )
+from powerlifting_state_research.contracts.components import ComponentClass
 from powerlifting_state_research.registry import resolve_benchmark
 
 
@@ -40,7 +41,7 @@ def test_iid_variant_has_distinct_public_native_identity() -> None:
     assert public.historical_specimen_status is HistoricalSpecimenStatus.NOT_HISTORICAL
     assert public.historical_qualification_state is HistoricalQualificationState.NOT_APPLICABLE
     assert public.semantic_digest == (
-        "sha256:49b4994f7df4443c6f8d80c968d456d611b5e7886c32659727e8c351dfed9de3"
+        "sha256:f99463d55ba0902595a1866032ba94b803ac97d9b4985a89e208293da9c7fed0"
     )
     assert public.related_benchmark_slugs == (historical.slug,)
     assert public_identity.world_id.resolution is IdentityResolution.DIRECT
@@ -50,6 +51,22 @@ def test_iid_variant_has_distinct_public_native_identity() -> None:
     assert public_identity.world_id == historical_identity.world_id
     assert public_identity.dataset_spec_id != historical_identity.dataset_spec_id
     assert public.semantic_digest != historical.semantic_digest
+    assert historical_identity.evaluation_id == (
+        "psr:evaluation:world-v2-canonical-sre-evaluation@1.0.0~2b606bcf527f"
+    )
+    assert public_identity.evaluation_id == (
+        "psr:evaluation:iid-latent-capacity-change-four-metric-validation@1.0.0~cd4fe982e7b8"
+    )
+    assert {
+        reference.canonical_key
+        for reference in public.component_references
+        if reference.component_class is ComponentClass.METRIC
+    } == {
+        "iid_public_rmse",
+        "iid_public_mae",
+        "iid_public_r_squared",
+        "iid_public_sre_ddof_0",
+    }
 
 
 def test_historical_states_cannot_be_applied_to_the_wrong_authority() -> None:
@@ -90,6 +107,15 @@ def test_exports_select_authority_specific_research_metadata() -> None:
     assert "scrambled Sobol" in public_research.dataset_spec_difference
     assert public_research.limitations
     assert public_research.related_benchmark_relationship is not None
+
+    supersession = registry_document()["benchmark_supersessions"][0]
+    assert supersession["previous_benchmark_spec_digest"] == (
+        "sha256:49b4994f7df4443c6f8d80c968d456d611b5e7886c32659727e8c351dfed9de3"
+    )
+    assert (
+        supersession["superseding_benchmark_spec_digest"]
+        == iid_benchmark.PUBLIC_NATIVE_SPEC.semantic_digest
+    )
 
 
 def test_dataset_card_matches_canonical_machine_readable_identity() -> None:

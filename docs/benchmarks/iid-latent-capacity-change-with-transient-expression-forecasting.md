@@ -2,14 +2,16 @@
 
 ## Identity and relation to the historical projection
 
-This is the independently executable public-native benchmark variant. It shares the specified world, task, QOI, representation, and evaluation with the historical projection, and uses newly minted direct public-native population, intervention, observation, and dataset identities.
+This is the independently executable public-native benchmark variant. It shares the specified world, task, QOI, and representation with the historical projection, and uses newly minted direct public-native population, intervention, observation, dataset, and evaluation identities.
+
+Its canonical four-metric protocol and prediction workflow are documented in the [PUBLIC_NATIVE evaluation card](iid-latent-capacity-change-public-native-evaluation.md).
 
 The definitive data, participant-visible row, generation, rights, and limitations contract is the [IID public-native dataset card](../../artifacts/dataset-cards/iid-latent-capacity-change-with-transient-expression-forecasting.md). This benchmark page retains the historical comparison record.
 
 | Record | Identity authority | Benchmark ID | Semantic digest | Public implementation |
 |---|---|---|---|---|
 | [Historical projection](latent-capacity-change-with-transient-expression-forecasting.md) | HISTORICAL_PROJECTION | `psr:benchmark-spec:latent-capacity-change-with-transient-expression-forecasting@1.0.0~fbfbe59eb0a8` | `sha256:fbfbe59eb0a8e94b12b424c6d6837dfd455a6c5a55084bb2898b53f741cc6472` | PUBLIC_IMPLEMENTATION_PENDING for this exact DatasetSpec |
-| IID public-native variant | PUBLIC_NATIVE | `psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting@1.0.0~49b4994f7df4` | `sha256:49b4994f7df4443c6f8d80c968d456d611b5e7886c32659727e8c351dfed9de3` | PUBLIC_IMPLEMENTED |
+| IID public-native variant | PUBLIC_NATIVE | `psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting@1.0.0~f99463d55ba0` | `sha256:f99463d55ba0902595a1866032ba94b803ac97d9b4985a89e208293da9c7fed0` | PUBLIC_IMPLEMENTED |
 
 The historical benchmark digest remains frozen. The public-native digest differs because the sampling algorithm is part of DATASET_SPEC under the RES-267 taxonomy. Historical production used scrambled Sobol sampling; this public variant uses IID pseudorandom Uniform(0,1) coordinates. Its equal coordinate support does not make the two sampling designs identical. The historical Sobol scramble, seed, skip/index convention, and coordinate ordering are not sufficiently specified to implement Path A without guessing, so this is Path B.
 
@@ -22,8 +24,9 @@ The public-native semantic identity uses these direct component IDs:
 | INTERVENTION_REGIME | `psr:intervention-regime:latent-capacity-transient-balanced-plan-history-regime@1.0.0~a1ca0adb3ef3` |
 | OBSERVATION_MODEL | `psr:observation-model:latent-capacity-transient-performance-observation@1.0.0~9147ed8f5372` |
 | DATASET_SPEC | `psr:dataset-spec:latent-capacity-transient-iid-sampling-design@1.0.0~1d079eb645ed` |
+| EVALUATION | `psr:evaluation:iid-latent-capacity-change-four-metric-validation@1.0.0~cd4fe982e7b8` |
 
-Task, QOI, representation, and evaluation reuse the historical projection’s direct identities. The world identity is also shared because its specified mechanics are unchanged. The native component IDs are derived from canonical public semantic payloads; the public DatasetSpec separates sampling algorithm/order from coordinate support and transforms.
+Task, QOI, and representation reuse the historical projection’s direct identities. The historical evaluation ID denotes a canonical SRE protocol and does not establish RMSE, MAE, and R² semantics; the new public-native evaluation binds all four target-wise metrics. The world identity is shared because its specified mechanics are unchanged. The native component IDs are derived from canonical public semantic payloads; the public DatasetSpec separates sampling algorithm/order from coordinate support and transforms.
 
 ## Public IID sampling and RNG ownership
 
