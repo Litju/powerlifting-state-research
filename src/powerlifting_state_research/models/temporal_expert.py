@@ -16,10 +16,8 @@ from ..benchmarks.latent_capacity_change_with_transient_expression_forecasting i
     interventions,
     observations,
     prediction,
-    spec,
 )
 from ..contracts.serialization import sha256_record
-from ..evaluation.identity import TARGETS
 from ..evaluation.prediction import PredictionRow
 
 DOSE_INTENSITY_PAIRS = interventions.DOSE_INTENSITY_PAIRS
@@ -29,7 +27,6 @@ PLAN_END_DAY = interventions.PLAN_END_DAY
 PLAN_IDS = interventions.PLAN_IDS
 PLAN_START_DAY = interventions.PLAN_START_DAY
 PREDICTION_CONTRACT = prediction.PREDICTION_CONTRACT
-PUBLIC_NATIVE_SPEC = spec.PUBLIC_NATIVE_SPEC
 
 LIFT_KEYS = ("squat", "bench_press", "deadlift")
 HISTORY_STEPS = len(HISTORY_OBSERVATION_DAYS)
@@ -57,7 +54,21 @@ FILM_SCALE = 0.25
 MODEL_SPEC_SEMANTICS: dict[str, object] = {
     "architecture_family": "shared_lift_temporal_gru_plan_conditioned_cross_lift_fusion",
     "architecture_version": "1.0.0",
-    "benchmark_spec_id": PUBLIC_NATIVE_SPEC.benchmark_id,
+    "task_id": PREDICTION_CONTRACT.task_id,
+    "qoi_ids": PREDICTION_CONTRACT.qoi_ids,
+    "prediction_contract": {
+        "inputs": tuple((field.name, field.kind.value) for field in PREDICTION_CONTRACT.inputs),
+        "decision_cutoff": (
+            PREDICTION_CONTRACT.decision_cutoff.event_index,
+            PREDICTION_CONTRACT.decision_cutoff.value,
+        ),
+        "cutoff_inclusive": PREDICTION_CONTRACT.cutoff_inclusive,
+        "history_observation_last_day": PREDICTION_CONTRACT.history_observation_last_day,
+        "task_allows_declared_future_plan": PREDICTION_CONTRACT.task_allows_declared_future_plan,
+        "outputs": tuple(
+            (field.name, field.qoi_id, field.unit) for field in PREDICTION_CONTRACT.outputs
+        ),
+    },
     "input_representation": {
         "participant_components": (
             "history observations through day 223",
@@ -112,7 +123,7 @@ MODEL_SPEC_SEMANTICS: dict[str, object] = {
     },
     "output_head": (224, 128, 64, 3),
     "output_activations": ("GELU", "GELU", "identity"),
-    "output_order": TARGETS,
+    "output_order": tuple(field.name for field in PREDICTION_CONTRACT.outputs),
     "output_semantics": "latent capacity change in kg; one joint three-output head",
     "network_output_space": "standardized_train_targets_z",
     "preprocessing": {
@@ -137,21 +148,24 @@ MODEL_SPEC_SEMANTICS: dict[str, object] = {
         "statistics_are_model_weights": False,
     },
     "dropout_probability": "0.10",
-    "prediction_contract_outputs": PREDICTION_CONTRACT.outputs,
 }
-_MODEL_DIGEST = sha256_record(
-    {
-        "format": "PSR_PUBLIC_NATIVE_COMPONENT_ID_V1",
-        "component_class": "model",
-        "slug": "public-native-lift-shared-temporal-gru-capacity-change",
-        "version": "1.0.0",
-        "semantics": MODEL_SPEC_SEMANTICS,
-    },
-    reject_floats=True,
-)
-MODEL_SPEC_ID = (
-    f"psr:model:public-native-lift-shared-temporal-gru-capacity-change@1.0.0~{_MODEL_DIGEST[7:19]}"
-)
+
+
+def model_spec_id(semantics: Mapping[str, object]) -> str:
+    digest = sha256_record(
+        {
+            "format": "PSR_PUBLIC_NATIVE_COMPONENT_ID_V1",
+            "component_class": "model",
+            "slug": "public-native-lift-shared-temporal-gru-capacity-change",
+            "version": "1.0.0",
+            "semantics": semantics,
+        },
+        reject_floats=True,
+    )
+    return f"psr:model:public-native-lift-shared-temporal-gru-capacity-change@1.0.0~{digest[7:19]}"
+
+
+MODEL_SPEC_ID = model_spec_id(MODEL_SPEC_SEMANTICS)
 
 
 def _finite(value: object, label: str) -> float:

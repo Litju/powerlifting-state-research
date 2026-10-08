@@ -9,9 +9,11 @@
 | Historical fitted instance, seed 383002 | `psr:fitted-instance:historical-temporal-capacity-change-seed-383002@sha256:6169d437ff152ecb75c5d3d9f2bc7b84d522d059e191faf10798bba8c81899a5` |
 | Historical fitted instance, seed 383003 | `psr:fitted-instance:historical-temporal-capacity-change-seed-383003@sha256:7d2994106ae0ee33a44973f8550836ac099fdbf59c253d533da4f3c0424ad0c0` |
 | Historical ensemble | `psr:ensemble:historical-three-seed-temporal-capacity-expert-mean@1.0.0~79afba062509` |
-| Clean-room PUBLIC_NATIVE model specification | `psr:model:public-native-lift-shared-temporal-gru-capacity-change@1.0.0~47f177b3d989` |
+| Clean-room PUBLIC_NATIVE model specification | `psr:model:public-native-lift-shared-temporal-gru-capacity-change@1.0.0~34d23123138f` |
 
 The three historical fitted-instance IDs are RES-272 metadata handles bound to the preserved checkpoint hashes. Their checkpoint IDs are `CHECKPOINT:sha256:<same hash>`. The model family, fitted instances, checkpoints, ensemble, and PUBLIC_NATIVE model specification are separate objects.
+
+The prior clean-room model ID `psr:model:public-native-lift-shared-temporal-gru-capacity-change@1.0.0~47f177b3d989` is superseded. Its semantic payload incorrectly included the complete PUBLIC_NATIVE BenchmarkSpec identity; this was corrected before any production PUBLIC_NATIVE fitted instance, checkpoint, or training result existed. MODEL identity binds direct task/QOI and model-facing input/output semantics and is independent of BenchmarkSpec, EVALUATION, and DatasetRealization.
 
 ## Historical reconstruction
 
@@ -112,7 +114,7 @@ Each checkpoint SHA-256 was recomputed directly from its preserved file and matc
 
 ## Clean-room PUBLIC_NATIVE specification
 
-`MODEL_SPEC_ID` is computed from `MODEL_SPEC_SEMANTICS` in `src/powerlifting_state_research/models/temporal_expert.py`. It binds the PUBLIC_NATIVE benchmark, participant-input representation, lift and observation order, channels, temporal topology, dimensions, plan/horizon encoding, preprocessing rules, and output semantics. It does not bind fitted statistics, weights, seed, hardware, or result metrics.
+`MODEL_SPEC_ID` is computed from `MODEL_SPEC_SEMANTICS` in `src/powerlifting_state_research/models/temporal_expert.py`. It binds the task and QOI IDs, prediction-time input/output contract, participant-input representation, lift and observation order, channels, temporal topology, dimensions, plan/horizon encoding, preprocessing rules, and output semantics. It is independent of BenchmarkSpec, EVALUATION, and DatasetRealization. It does not bind fitted statistics, weights, seed, hardware, or result metrics.
 
 `TemporalModelInput.from_forecast_inputs(row_id, inputs)` copies only origin, horizon, declared plan, and the ordered per-lift observation histories/schedules. `row_id` is retained only to construct the prediction artifact. Entity identifiers and target fields are not fields on `TemporalModelInput` or `TemporalModelBatch`.
 
