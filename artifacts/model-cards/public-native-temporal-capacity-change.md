@@ -147,3 +147,57 @@ The locked runtime uses PyTorch 2.9.1 with its CPU wheel for public CI and NumPy
 - RES-274 will train PUBLIC_NATIVE weights from scratch.
 - Public runtime has no historical checkpoint path or private adapter dependency. The one-off local equivalence adapter used for RES-272 was not committed.
 - No historical checkpoint was evaluated on the PUBLIC_NATIVE IID benchmark.
+
+## RES-274 Gate A historical evidence replay
+
+This local-only reconstruction used the preserved historical checkpoint files, training/data manifests, original inference implementation, the 3,072-row historical validation truth, and the preserved ensemble prediction array. The checkpoint bytes, source bytes, normalization values, validation rows, and prediction arrays remain private and are not part of this repository.
+
+| Historical binding | Verified identity |
+| --- | --- |
+| M1 historical BenchmarkSpec mapping | `psr:benchmark-spec:pl-response-v2-parsimonious-production-historical-mapping@1.0.0~548604c18ac7` |
+| Current historical projection BenchmarkSpec | `psr:benchmark-spec:latent-capacity-change-with-transient-expression-forecasting@1.0.0~fbfbe59eb0a8` |
+| Historical DatasetSpec | `psr:dataset-spec:pl-response-v2-parsimonious-production-sampling-design@1.0.0~7098655518cd` |
+| Historical DatasetRealization | `psr:dataset-realization:pl-response-v2-parsimonious-production@sha256:1c986ed3dc23ab6202a7840e7e569099ec3d9eeef7ccf4643c4d07d9e0af56d5` |
+| Historical EVALUATION | `psr:evaluation:world-v2-canonical-sre-evaluation@1.0.0~2b606bcf527f` (`EVAL_SRE_DDOF0_EQUAL_LIFT_MEAN_V2`) |
+| Historical train Parquet SHA-256 | `8d5dff0b1c51030669ab5e6e8a54e42de2998d7cbecd3a185756df3d3f203b20` |
+| Historical validation Parquet SHA-256 | `a23603a874673904a6338f79de780d2fba3d26caee5849198c363a31afc9c536` |
+
+The three checkpoint files were hashed directly and match the identities above. The frozen original inference source files also match all eight source hashes in the preserved execution protocol. For each checkpoint, the input and target normalization arrays match the preserved normalization record exactly; normalization was fitted on historical TRAIN only. The recorded preprocessing remains the historical six observation-derived channels standardized per lift, four fixed schedule/age channels, and target-wise train-standardized output.
+
+### HISTORICAL_REPORTED
+
+The preserved final manifest reports ensemble aggregate SRE `0.38269148458554314`. It also records these per-seed results and prediction hashes:
+
+| Seed | Selected epoch | Reported aggregate SRE | Recorded prediction SHA-256 |
+| --- | ---: | ---: | --- |
+| 383001 | 36 | 0.38905997037453116 | `fd9809235009e5bbd2bc3ccc8a3cef2631ddf506b57a6d062026d851cf179da1` |
+| 383002 | 39 | 0.39165193195993514 | `ea59ab47647642bde35ed9b8e2ef613a47da2318c883ff04ecd26756de6106ec` |
+| 383003 | 38 | 0.38408848994213046 | `6e11d7441e5d03aa837a7eaab6834799c2ef39d795e25c5f2437f9b6f5bda809` |
+
+The individual seed prediction files did not survive in the preserved copy, so those hashes could not be checked against their original bytes. Each seed was replayed locally from its preserved checkpoint on the same historical validation rows. The CPU replay mean-target SREs were `0.389059918725785`, `0.391655430836215`, and `0.384091694067965`; differences from the reported values were `-5.16e-8`, `+3.50e-6`, and `+3.20e-6`. This replay is not byte-identical evidence for the original recorded GPU/BF16 predictions.
+
+The following `RECOMPUTED_CANONICAL` metrics are from those CPU checkpoint replays, not from surviving per-seed prediction bytes:
+
+| Seed | Target | RMSE (kg) | MAE (kg) | R² | SRE (`ddof=0`) |
+| --- | --- | ---: | ---: | ---: | ---: |
+| 383001 | Squat | 2.9588125077 | 1.8668266188 | 0.8384681366 | 0.4019102678 |
+| 383001 | Bench | 1.9288516710 | 1.2015760827 | 0.8631842971 | 0.3698860674 |
+| 383001 | Deadlift | 3.5668154853 | 2.2745875634 | 0.8436719504 | 0.3953834210 |
+| 383002 | Squat | 2.9623534106 | 1.8893058679 | 0.8380812849 | 0.4023912463 |
+| 383002 | Bench | 1.9714665359 | 1.2215561057 | 0.8570720707 | 0.3780581031 |
+| 383002 | Deadlift | 3.5589988528 | 2.2879186901 | 0.8443563817 | 0.3945169430 |
+| 383003 | Squat | 2.9006113271 | 1.8572810523 | 0.8447604453 | 0.3940045110 |
+| 383003 | Bench | 1.9121338774 | 1.2002500861 | 0.8655456447 | 0.3666801812 |
+| 383003 | Deadlift | 3.5325979611 | 2.2894070143 | 0.8466569665 | 0.3915903900 |
+
+### RECOMPUTED_CANONICAL
+
+Canonical target-wise RMSE, MAE, R², and SRE (`ddof=0`) were recomputed from the preserved original three-seed ensemble prediction array and the same historical target truth. Its SHA-256 `5caf4d31d0c54dd198e1f7d0b277adfc6eb88f81385fb8091b2df8b1f58b6854` matches the preserved final manifest.
+
+| Target | RMSE (kg) | MAE (kg) | R² | SRE (`ddof=0`) |
+| --- | ---: | ---: | ---: | ---: |
+| Squat | 2.8982321850 | 1.8475730713 | 0.8450150023 | 0.3936813403 |
+| Bench | 1.9072639643 | 1.1893457368 | 0.8662296420 | 0.3657463028 |
+| Deadlift | 3.5060434500 | 2.2558997246 | 0.8489536586 | 0.3886468081 |
+
+The canonical arithmetic mean of these three target SREs is `0.382691483706746`, `8.79e-10` below `HISTORICAL_REPORTED`. The reported value is retained unchanged. A separate arithmetic mean of the three CPU-replayed checkpoint predictions had SRE `0.382692798577011` and differed from the preserved original ensemble predictions by at most `0.00692378575` kg per target element; the recorded GPU/BF16 runtime is a plausible source of this replay difference. No historical metric or checkpoint was tuned to remove it.
