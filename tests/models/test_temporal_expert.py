@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+from copy import deepcopy
 from dataclasses import fields, replace
 from pathlib import Path
 
@@ -21,6 +22,7 @@ from powerlifting_state_research.models.temporal_expert import (
     TemporalModelBatch,
     TemporalModelInput,
     load_weights,
+    model_spec_id,
     parameter_count,
     predict,
     predict_three_seed_ensemble,
@@ -180,6 +182,9 @@ def test_model_spec_identity_is_weight_independent_and_weights_round_trip(tmp_pa
     save_weights(other_path, _constant_model((0.3, 0.5, 0.7)))
     other_digest = hashlib.sha256(other_path.read_bytes()).hexdigest()
     assert other_digest != checkpoint_digest
+    other_payload = torch.load(other_path, map_location="cpu", weights_only=True)
+    assert other_payload["model_spec_id"] == checkpoint_payload["model_spec_id"] == MODEL_SPEC_ID
+    assert model_spec_id(MODEL_SPEC_SEMANTICS) == MODEL_SPEC_ID
     assert ModelReference(MODEL_SPEC_ID).model_id == reference.model_id
     mismatch_path = tmp_path / "mismatched-spec.pt"
     torch.save(
@@ -195,6 +200,78 @@ def test_model_spec_identity_is_weight_independent_and_weights_round_trip(tmp_pa
     restored = load_weights(path, LiftSharedTemporalExpert())
     assert predict(restored, (_input(),), _stats()) == predict(original, (_input(),), _stats())
     assert restored.model_spec_id == reference.model_id
+
+
+def test_model_identity_binds_direct_task_qoi_and_prediction_contract() -> None:
+    contract = MODEL_SPEC_SEMANTICS["prediction_contract"]
+    assert MODEL_SPEC_SEMANTICS["task_id"] == PREDICTION_CONTRACT.task_id
+    assert MODEL_SPEC_SEMANTICS["qoi_ids"] == PREDICTION_CONTRACT.qoi_ids
+    assert contract["inputs"] == tuple(
+        (field.name, field.kind.value) for field in PREDICTION_CONTRACT.inputs
+    )
+    assert contract["outputs"] == tuple(
+        (field.name, field.qoi_id, field.unit) for field in PREDICTION_CONTRACT.outputs
+    )
+    lowered = str(MODEL_SPEC_SEMANTICS).lower()
+    assert all(value not in lowered for value in ("benchmark", "evaluation", "metric"))
+
+
+def test_model_identity_is_independent_of_evaluation_only_benchmark_change() -> None:
+    original_benchmark = {
+        "benchmark_spec_id": "benchmark-before-evaluation-change",
+        "evaluation_id": "evaluation-before-change",
+        "model_semantics": deepcopy(MODEL_SPEC_SEMANTICS),
+    }
+    changed_benchmark = {
+        **original_benchmark,
+        "benchmark_spec_id": "benchmark-after-evaluation-change",
+        "evaluation_id": "evaluation-after-change",
+        "model_semantics": deepcopy(MODEL_SPEC_SEMANTICS),
+    }
+
+    assert original_benchmark["benchmark_spec_id"] != changed_benchmark["benchmark_spec_id"]
+    assert original_benchmark["evaluation_id"] != changed_benchmark["evaluation_id"]
+    assert model_spec_id(original_benchmark["model_semantics"]) == MODEL_SPEC_ID
+    assert model_spec_id(changed_benchmark["model_semantics"]) == MODEL_SPEC_ID
+
+
+def test_training_seed_does_not_participate_in_model_identity() -> None:
+    first_run = {"training_seed": 383001, "model_semantics": deepcopy(MODEL_SPEC_SEMANTICS)}
+    second_run = {"training_seed": 383002, "model_semantics": deepcopy(MODEL_SPEC_SEMANTICS)}
+
+    assert first_run["training_seed"] != second_run["training_seed"]
+    assert (
+        model_spec_id(first_run["model_semantics"])
+        == model_spec_id(second_run["model_semantics"])
+        == MODEL_SPEC_ID
+    )
+
+
+def test_model_identity_changes_with_model_defining_semantics() -> None:
+    variants: list[dict[str, object]] = []
+
+    hidden_size = deepcopy(MODEL_SPEC_SEMANTICS)
+    hidden_size["temporal_architecture"]["temporal_encoder"] = (
+        "GRU(input=72, hidden=65, layers=2, batch_first=true)"
+    )
+    variants.append(hidden_size)
+
+    history_channel = deepcopy(MODEL_SPEC_SEMANTICS)
+    history_channel["input_representation"]["history_channels"] = (
+        *history_channel["input_representation"]["history_channels"],
+        "extra_channel",
+    )
+    variants.append(history_channel)
+
+    output_order = deepcopy(MODEL_SPEC_SEMANTICS)
+    output_order["output_order"] = tuple(reversed(output_order["output_order"]))
+    variants.append(output_order)
+
+    input_representation = deepcopy(MODEL_SPEC_SEMANTICS)
+    input_representation["input_representation"]["sequence_order"] = "newest_to_oldest"
+    variants.append(input_representation)
+
+    assert all(model_spec_id(semantics) != MODEL_SPEC_ID for semantics in variants)
 
 
 def test_three_seed_ensemble_means_standardized_outputs_before_inverse_transform() -> None:
