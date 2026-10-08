@@ -84,6 +84,9 @@ ENSEMBLE_SCHEMA = "PSR_ENSEMBLE_MANIFEST_V1"
 INVENTORY_SCHEMA = "PSR_SHA256_INVENTORY_V1"
 FINAL_RECEIPT_SCHEMA = "PSR_FINAL_RUN_RECEIPT_V1"
 EXPECTED_SEEDS = (383001, 383002, 383003)
+EXISTING_GATE_B_RUN_ID = "20261008T071545Z-827f338c"
+EXISTING_GATE_B_ARTIFACT_CODE_SHA = "6039f3a8ee685fe4254ab607b57df28ca38220f6"
+EXISTING_GATE_B_BUNDLE_SHA256 = "fa31764220dbca936275b07965e7b4b4adb146251fc38db063dc5e88de8eaec4"
 EXPECTED_DATASET_MANIFEST = (
     REPOSITORY_ROOT
     / "data/manifests/realizations/latent_capacity_change_with_transient_expression_forecasting/"
@@ -1499,6 +1502,13 @@ def _verify_split_manifest(split: Mapping[str, Any], protocol: Any) -> None:
         raise TrainingError("internal selection split identity/hash verification failed")
 
 
+def _verify_normalization_stats(expected_split: InternalSplit, stats: NormalizationStats) -> None:
+    fit_inputs, fit_targets = _inputs_and_targets(expected_split.fit_rows)
+    expected_stats = NormalizationStats.fit_train(fit_inputs, fit_targets)
+    if expected_stats != stats:
+        raise TrainingError("normalization statistics were not fitted on the frozen fit rows")
+
+
 def _verify_result(
     result_path: Path,
     prediction_path: Path,
@@ -1532,7 +1542,10 @@ def _verify_result(
         seeds=seeds,
     )
     actual = _read_json(result_path)
-    if actual.get("result_id") != expected_result.result_id:
+    if (
+        actual.get("format") != "PSR_EVALUATION_RESULT_V1"
+        or actual.get("result_id") != expected_result.result_id
+    ):
         raise TrainingError(f"EvaluationResult identity mismatch: {result_path.name}")
     if canonical_json_bytes(actual.get("result")) != canonical_json_bytes(expected_result):
         raise TrainingError(f"EvaluationResult content mismatch: {result_path.name}")
@@ -1634,17 +1647,17 @@ def _verify_drive_paths(
         )
 
 
-def verify_run(
+def _verify_run_contents(
     dataset_root: Path,
     output_root: Path,
     bundle_path: Path,
     drive_res274_root: Path,
     *,
-    code_sha: str,
-) -> None:
-    """Verify the sealed run, canonical evaluation artifacts, bundle, and safe layout."""
+    artifact_code_sha: str,
+    expected_bundle_sha256: str | None = None,
+) -> str:
+    """Verify immutable run contents using the artifact-producing source identity."""
     _require_committed_protocol()
-    _git_identity(code_sha)
     _verify_drive_paths(drive_res274_root, output_root, bundle_path)
     expected = _expected_files()
     actual = _run_files(output_root)
@@ -1680,6 +1693,7 @@ def verify_run(
     if (
         stats_payload.get("stats_digest") != stats_digest
         or stats_payload.get("fit_only") is not True
+        or stats_payload.get("fit_row_count") != len(expected_split.fit_rows)
         or stats_payload.get("selection_used_for_fit") is not False
         or stats_payload.get("fit_row_ids_sha256") != split.get("fit_row_ids_sha256")
     ):
@@ -1690,17 +1704,21 @@ def verify_run(
     )
     if stats_payload.get("normalization_stats_id") != expected_norm_id:
         raise TrainingError("normalization stats identity mismatch")
-    fit_ids = set(cast(list[str], split["fit_row_ids"]))
-    fit_rows = tuple(row for row in qualified.train_rows if row.row_id in fit_ids)
-    fit_inputs, fit_targets = _inputs_and_targets(fit_rows)
-    if NormalizationStats.fit_train(fit_inputs, fit_targets) != stats:
-        raise TrainingError("normalization statistics were not fitted on the frozen fit rows")
+    _verify_normalization_stats(expected_split, stats)
 
     seal, checkpoint_records = _load_seal(output_root)
     if tuple(seal["declared_seeds"]) != EXPECTED_SEEDS:
         raise TrainingError("run must contain exactly the frozen three seeds")
     order = _read_json(output_root / "receipts/validation-evaluation.json")
-    if order.get("seed_checkpoints_sealed_before_scoring") is not True:
+    seal_sha256 = _file_sha256(output_root / "receipts/checkpoint-seal.json")
+    if (
+        order.get("format") != EVALUATION_ORDER_SCHEMA
+        or order.get("seed_checkpoints_sealed_before_scoring") is not True
+        or order.get("canonical_validation_scored") is not True
+        or order.get("checkpoint_seal_sha256") != seal_sha256
+        or order.get("checkpoint_sealed_at_utc") != seal.get("sealed_at_utc")
+        or order.get("validation_sha256") != qualified.validation_sha256
+    ):
         raise TrainingError("canonical validation was not gated behind checkpoint sealing")
     if datetime.fromisoformat(
         str(order["started_at_utc"]).replace("Z", "+00:00")
@@ -1708,15 +1726,18 @@ def verify_run(
         raise TrainingError("validation scoring started before checkpoint sealing")
     runtime_path = output_root / "runtime/runtime-receipt.json"
     runtime = _read_json(runtime_path)
-    _require_runtime_receipt(runtime_path, code_sha)
+    _require_runtime_receipt(runtime_path, artifact_code_sha)
     runtime_sha = hashlib.sha256(canonical_json_bytes(runtime) + b"\n").hexdigest()
     training_run = _read_json(output_root / "receipts/training-run.json")
     if (
-        training_run.get("training_protocol_id") != TRAINING_PROTOCOL_ID
+        training_run.get("model_id") != MODEL_SPEC_ID
+        or training_run.get("training_protocol_id") != TRAINING_PROTOCOL_ID
+        or training_run.get("dataset_spec_id") != PROTOCOL.dataset_spec_id
         or tuple(training_run.get("declared_seeds", ())) != EXPECTED_SEEDS
         or training_run.get("validation_isolation", {}).get("canonical_validation_scored")
         is not False
         or training_run.get("dataset_realization_id") != qualified.manifest.identity_id
+        or training_run.get("dataset_realization_digest") != qualified.manifest.realization_digest
         or training_run.get("train_sha256") != qualified.train_sha256
         or training_run.get("validation_sha256") != qualified.validation_sha256
         or training_run.get("train_row_count") != qualified.train_row_count
@@ -1743,16 +1764,18 @@ def verify_run(
         )
         or training_run.get("runtime_receipt_sha256")
         != hashlib.sha256(canonical_json_bytes(runtime) + b"\n").hexdigest()
-        or training_run.get("source", {}).get("code_sha") != code_sha
+        or training_run.get("source", {}).get("code_sha") != artifact_code_sha
         or training_run.get("source", {}).get("git_tree_status") != "clean"
     ):
         raise TrainingError("training-run identity/hash verification failed")
 
+    seed_fitted_instance_ids: list[str] = []
     for seed in EXPECTED_SEEDS:
         checkpoint_manifest = checkpoint_records[seed]
         fitted = _verify_fitted_instance(
             output_root / f"seed-{seed}/fitted-instance.json", seed, PROTOCOL
         )
+        seed_fitted_instance_ids.append(str(fitted["fitted_instance_id"]))
         history = _verify_training_history(
             output_root / f"seed-{seed}/training-history.json", seed, PROTOCOL
         )
@@ -1766,6 +1789,9 @@ def verify_run(
             or fitted.get("checkpoint_sha256") != checkpoint_bytes_sha
             or fitted.get("normalization_stats_id") != expected_norm_id
             or fitted.get("internal_selection_split_id") != split["internal_selection_split_id"]
+            or checkpoint_manifest.get("canonical_validation_used") is not False
+            or checkpoint_manifest.get("selection_only") is not True
+            or checkpoint_manifest.get("checkpoint_finalized") is not True
             or history.get("best_epoch") != checkpoint_manifest.get("best_internal_selection_epoch")
             or history.get("best_selection_loss")
             != checkpoint_manifest.get("best_internal_selection_loss")
@@ -1789,6 +1815,31 @@ def verify_run(
             checkpoint_sha256=checkpoint_bytes_sha,
             seeds=(seed,),
         )
+    seed_evaluation = _read_json(output_root / "receipts/seed-evaluation-run.json")
+    seed_evaluation_results = tuple(
+        {
+            "seed": seed,
+            "prediction_sha256": _file_sha256(output_root / f"seed-{seed}/predictions.jsonl"),
+            "result_id": _read_json(output_root / f"seed-{seed}/evaluation-result.json").get(
+                "result_id"
+            ),
+            "result_sha256": _file_sha256(output_root / f"seed-{seed}/evaluation-result.json"),
+        }
+        for seed in EXPECTED_SEEDS
+    )
+    if (
+        seed_evaluation.get("format") != "PSR_SEED_EVALUATION_RUN_V1"
+        or seed_evaluation.get("training_protocol_id") != TRAINING_PROTOCOL_ID
+        or seed_evaluation.get("dataset_realization_id") != qualified.manifest.identity_id
+        or seed_evaluation.get("validation_sha256") != qualified.validation_sha256
+        or seed_evaluation.get("checkpoint_seal_sha256") != seal_sha256
+        or seed_evaluation.get("canonical_evaluator") != "RES-271 evaluate.evaluate_files"
+        or seed_evaluation.get("source", {}).get("code_sha") != artifact_code_sha
+        or seed_evaluation.get("source", {}).get("git_tree_status") != "clean"
+        or canonical_json_bytes(seed_evaluation.get("seed_results"))
+        != canonical_json_bytes(seed_evaluation_results)
+    ):
+        raise TrainingError("seed-evaluation receipt identity or artifact bindings are invalid")
     ensemble = _read_json(output_root / "ensemble/ensemble-manifest.json")
     ensemble_fitted = cast(dict[str, Any], ensemble["fitted_instance"])
     ensemble_identity = {
@@ -1822,6 +1873,14 @@ def verify_run(
         f"@sha256:{fitted_digest.removeprefix('sha256:')}"
         or ensemble.get("prediction_sha256")
         != _file_sha256(output_root / "ensemble/predictions.jsonl")
+        or ensemble.get("model_id") != MODEL_SPEC_ID
+        or ensemble.get("training_protocol_id") != TRAINING_PROTOCOL_ID
+        or ensemble.get("dataset_realization_id") != qualified.manifest.identity_id
+        or ensemble.get("rule")
+        != "equal arithmetic mean in standardized target space; inverse transform once"
+        or ensemble.get("evaluation_result_sha256")
+        != _file_sha256(output_root / "ensemble/evaluation-result.json")
+        or tuple(ensemble.get("member_fitted_instance_ids", ())) != tuple(seed_fitted_instance_ids)
     ):
         raise TrainingError("ensemble/fitted-instance identity verification failed")
     _verify_result(
@@ -1839,9 +1898,20 @@ def verify_run(
         checkpoint_sha256=None,
         seeds=EXPECTED_SEEDS,
     )
+    ensemble_evaluation = _read_json(output_root / "receipts/ensemble-evaluation-run.json")
     if (
         tuple(ensemble.get("seed_order", ())) != EXPECTED_SEEDS
         or len(ensemble.get("member_fitted_instance_ids", ())) != 3
+        or ensemble_evaluation.get("format") != "PSR_ENSEMBLE_EVALUATION_RUN_V1"
+        or ensemble_evaluation.get("training_protocol_id") != TRAINING_PROTOCOL_ID
+        or ensemble_evaluation.get("dataset_realization_id") != qualified.manifest.identity_id
+        or ensemble_evaluation.get("validation_sha256") != qualified.validation_sha256
+        or ensemble_evaluation.get("checkpoint_seal_sha256") != seal_sha256
+        or ensemble_evaluation.get("ensemble_id") != ensemble.get("ensemble_id")
+        or ensemble_evaluation.get("prediction_sha256") != ensemble.get("prediction_sha256")
+        or ensemble_evaluation.get("result_id") != ensemble.get("evaluation_result_id")
+        or ensemble_evaluation.get("source", {}).get("code_sha") != artifact_code_sha
+        or ensemble_evaluation.get("source", {}).get("git_tree_status") != "clean"
     ):
         raise TrainingError("ensemble does not contain exactly the three frozen seed fits")
     if ensemble_fitted.get("member_fitted_instance_ids") != ensemble.get(
@@ -1866,9 +1936,14 @@ def verify_run(
     if (
         receipt.get("format") != FINAL_RECEIPT_SCHEMA
         or receipt.get("status") != "ARTIFACTS_COMPLETE_PENDING_FINAL_VERIFICATION"
-        or receipt.get("code_sha") != code_sha
+        or receipt.get("code_sha") != artifact_code_sha
+        or receipt.get("model_id") != MODEL_SPEC_ID
         or receipt.get("training_protocol_id") != TRAINING_PROTOCOL_ID
+        or receipt.get("dataset_realization_id") != qualified.manifest.identity_id
         or tuple(receipt.get("declared_seeds", ())) != EXPECTED_SEEDS
+        or receipt.get("checkpoint_seal_sha256") != seal_sha256
+        or receipt.get("validation_evaluation_started_at_utc") != order.get("started_at_utc")
+        or receipt.get("bundle_excludes_historical_private_artifacts") is not True
         or receipt.get("sha256_inventory_sha256") != hashlib.sha256(inventory_bytes).hexdigest()
         or receipt.get("receipt_digest") != receipt_digest
         or receipt.get("run_receipt_id")
@@ -1891,18 +1966,101 @@ def verify_run(
                 marker in content for marker in (b"/home/", b"/Users/", b"/mnt/", b"C:\\Users\\")
             ):
                 raise TrainingError("private absolute path found in run artifacts")
-    for member in zipfile.ZipFile(bundle_path).namelist():
-        if member.startswith("/") or ".." in Path(member).parts:
-            raise TrainingError("bundle contains a non-relative or unsafe member path")
     with zipfile.ZipFile(bundle_path) as archive:
-        names = set(archive.namelist())
+        members = archive.namelist()
+        if len(members) != len(set(members)):
+            raise TrainingError("bundle contains duplicate member paths")
+        for member in members:
+            if member.startswith("/") or ".." in Path(member).parts:
+                raise TrainingError("bundle contains a non-relative or unsafe member path")
+        names = set(members)
         if names != actual:
             raise TrainingError("bundle contents differ from verified run artifacts")
         for name in sorted(names):
             if archive.read(name) != (output_root / name).read_bytes():
                 raise TrainingError(f"bundle file differs from run artifact: {name}")
-    print(f"BUNDLE_SHA256={_file_sha256(bundle_path)}")
+    bundle_sha256 = _file_sha256(bundle_path)
+    if expected_bundle_sha256 is not None and bundle_sha256 != expected_bundle_sha256:
+        raise TrainingError("bundle SHA-256 differs from the preserved Gate-B evidence")
+    return bundle_sha256
+
+
+def verify_run(
+    dataset_root: Path,
+    output_root: Path,
+    bundle_path: Path,
+    drive_res274_root: Path,
+    *,
+    code_sha: str,
+) -> None:
+    """Verify a run produced by the current clean source checkout."""
+    _git_identity(code_sha)
+    bundle_sha256 = _verify_run_contents(
+        dataset_root,
+        output_root,
+        bundle_path,
+        drive_res274_root,
+        artifact_code_sha=code_sha,
+    )
+    print(f"BUNDLE_SHA256={bundle_sha256}")
     print("RES274_COLAB_RUN=PASS")
+
+
+def verify_existing_run(
+    dataset_root: Path,
+    output_root: Path,
+    bundle_path: Path,
+    drive_res274_root: Path,
+    *,
+    artifact_code_sha: str,
+    verifier_code_sha: str,
+) -> Path:
+    """Read-only verify the preserved Gate-B run and write its receipt outside the run."""
+    if artifact_code_sha != EXISTING_GATE_B_ARTIFACT_CODE_SHA:
+        raise TrainingError("artifact CODE_SHA differs from the preserved Gate-B authority")
+    if (
+        output_root.name != EXISTING_GATE_B_RUN_ID
+        or bundle_path.name != f"res274-{EXISTING_GATE_B_RUN_ID}.zip"
+    ):
+        raise TrainingError("existing-run paths do not identify the preserved Gate-B evidence")
+    verifier_identity = _git_identity(verifier_code_sha)
+    bundle_sha256 = _verify_run_contents(
+        dataset_root,
+        output_root,
+        bundle_path,
+        drive_res274_root,
+        artifact_code_sha=artifact_code_sha,
+        expected_bundle_sha256=EXISTING_GATE_B_BUNDLE_SHA256,
+    )
+    receipt_path = (
+        drive_res274_root / "verifications" / EXISTING_GATE_B_RUN_ID / f"{verifier_code_sha}.json"
+    )
+    if (
+        receipt_path.resolve().is_relative_to(output_root.resolve())
+        or receipt_path.resolve() == bundle_path.resolve()
+    ):
+        raise TrainingError("verification receipt must be outside the immutable run and bundle")
+    receipt = {
+        "format": "PSR_EXISTING_RUN_VERIFICATION_V1",
+        "run_id": EXISTING_GATE_B_RUN_ID,
+        "artifact_code_sha": artifact_code_sha,
+        "verifier_code_sha": verifier_identity["code_sha"],
+        "bundle_sha256": bundle_sha256,
+        "model_id": MODEL_SPEC_ID,
+        "training_protocol_id": TRAINING_PROTOCOL_ID,
+        "dataset_realization_id": PROTOCOL.dataset_realization_id,
+        "dataset_realization_digest": PROTOCOL.dataset_realization_digest,
+        "evaluation_id": PROTOCOL.evaluation_id,
+        "verified_at_utc": _now(),
+        "status": "PASS",
+    }
+    _write_json(receipt_path, receipt)
+    print(f"ARTIFACT_CODE_SHA={artifact_code_sha}")
+    print(f"VERIFIER_CODE_SHA={verifier_identity['code_sha']}")
+    print(f"BUNDLE_SHA256={bundle_sha256}")
+    print(f"VERIFICATION_RECEIPT={receipt_path}")
+    print("RES274_EXISTING_RUN=PASS")
+    return receipt_path
 
 
 def _training_summary(qualified: QualifiedDataset) -> dict[str, object]:
@@ -2269,6 +2427,15 @@ def main(argv: list[str] | None = None) -> int:
     verify.add_argument("--bundle-path", type=Path, required=True)
     verify.add_argument("--drive-res274-root", type=Path, required=True)
     verify.add_argument("--code-sha", required=True)
+    verify_existing = commands.add_parser(
+        "verify-existing", help="read-only verify the preserved pre-repair Gate-B run"
+    )
+    verify_existing.add_argument("--dataset-root", type=Path, required=True)
+    verify_existing.add_argument("--output-root", type=Path, required=True)
+    verify_existing.add_argument("--bundle-path", type=Path, required=True)
+    verify_existing.add_argument("--drive-res274-root", type=Path, required=True)
+    verify_existing.add_argument("--artifact-code-sha", required=True)
+    verify_existing.add_argument("--verifier-code-sha", required=True)
     commands.add_parser("smoke", help="run the temporary CPU smoke pipeline")
     args = parser.parse_args(argv)
     try:
@@ -2329,6 +2496,16 @@ def main(argv: list[str] | None = None) -> int:
                 args.bundle_path.resolve(),
                 args.drive_res274_root.resolve(),
                 code_sha=args.code_sha,
+            )
+            return 0
+        if args.command == "verify-existing":
+            verify_existing_run(
+                args.dataset_root.resolve(),
+                args.output_root.resolve(),
+                args.bundle_path.resolve(),
+                args.drive_res274_root.resolve(),
+                artifact_code_sha=args.artifact_code_sha,
+                verifier_code_sha=args.verifier_code_sha,
             )
             return 0
     except (TrainingError, OSError, ValueError, KeyError, TypeError) as error:
