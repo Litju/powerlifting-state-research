@@ -1,0 +1,235 @@
+{
+  "checkpoint_distribution_state": "PUBLIC_SAFE_BYTES_VERIFIED_RELEASE_ASSET_PENDING",
+  "checkpoints": [
+    {
+      "canonical_validation_used_for_selection": false,
+      "checkpoint_id": "psr:checkpoint:public-native-temporal-expert-seed-383001@sha256:f8889305226cbac69874a2a983809e2b12adfdbfb8dd6446dbce932ac02904bb",
+      "checkpoint_manifest": {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383001.checkpoint-manifest.json",
+        "sha256": "f52c67a520f19ac475154d23707d18bdcb875e6bdec13846396c9ccbb05e56a6",
+        "source_member": "seed-383001/checkpoint-manifest.json",
+        "source_sha256": "f52c67a520f19ac475154d23707d18bdcb875e6bdec13846396c9ccbb05e56a6"
+      },
+      "checkpoint_sha256": "f8889305226cbac69874a2a983809e2b12adfdbfb8dd6446dbce932ac02904bb",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383001.evaluation-result.json",
+        "result_id": "psr:evaluation-result@sha256:39615cfdbe3e54cb2f0f69b567eee8f1bad49b12eb5d772753ba58553b3303f1",
+        "sha256": "50d9377522cc05795eccb9572fe58ed4363f60535789d13a78399830d6cb292d",
+        "source_member": "seed-383001/evaluation-result.json",
+        "source_sha256": "50d9377522cc05795eccb9572fe58ed4363f60535789d13a78399830d6cb292d"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-temporal-expert-seed-383001@sha256:8097eb52fabd88d36992b2af5e363baab3b5e2333d5701798430b20882ce31b9",
+      "fitted_instance_manifest": {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383001.fitted-instance.json",
+        "sha256": "6da523c6bb608bac653b44b4ab6343afb55dca46f766d913fadb6e3386960c87",
+        "source_member": "seed-383001/fitted-instance.json",
+        "source_sha256": "6da523c6bb608bac653b44b4ab6343afb55dca46f766d913fadb6e3386960c87"
+      },
+      "prediction": {
+        "artifact_id": "prediction-jsonl-eb1bf322ba17",
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383001.predictions.jsonl",
+        "sha256": "eb1bf322ba1783d0c70f59d13016421736fd6447c2f6827079f713d31332f50c",
+        "source_member": "seed-383001/predictions.jsonl",
+        "source_sha256": "eb1bf322ba1783d0c70f59d13016421736fd6447c2f6827079f713d31332f50c"
+      },
+      "seed": 383001,
+      "selected_epoch": 54,
+      "selection_standardized_mse": 0.15088153822037306
+    },
+    {
+      "canonical_validation_used_for_selection": false,
+      "checkpoint_id": "psr:checkpoint:public-native-temporal-expert-seed-383002@sha256:eb6c858e20e3a0cba5a542db605494359df83c15fac54b068ed938866d1398c4",
+      "checkpoint_manifest": {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383002.checkpoint-manifest.json",
+        "sha256": "50499e1753349bad6eb35881ac16d5ae97aa749345fbea9c73f69e408908ac50",
+        "source_member": "seed-383002/checkpoint-manifest.json",
+        "source_sha256": "50499e1753349bad6eb35881ac16d5ae97aa749345fbea9c73f69e408908ac50"
+      },
+      "checkpoint_sha256": "eb6c858e20e3a0cba5a542db605494359df83c15fac54b068ed938866d1398c4",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383002.evaluation-result.json",
+        "result_id": "psr:evaluation-result@sha256:cb614f4c68075544a0521e9a5cc393ba2761e5a47e714818c2fe31175e3dc4b6",
+        "sha256": "ba2cdd57bfd521ce9cf3d845cd7b5a1a876bb10d84dc7dc6d24c435beffc4fe4",
+        "source_member": "seed-383002/evaluation-result.json",
+        "source_sha256": "ba2cdd57bfd521ce9cf3d845cd7b5a1a876bb10d84dc7dc6d24c435beffc4fe4"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-temporal-expert-seed-383002@sha256:7f4caedb37631f4aab38fa7cc1156b9625a5e71825b31b05b1385e4790c5763b",
+      "fitted_instance_manifest": {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383002.fitted-instance.json",
+        "sha256": "22955c9b8cc70d83bb37ffa240277b3949323ae3f402855a89f179e0edd70a4b",
+        "source_member": "seed-383002/fitted-instance.json",
+        "source_sha256": "22955c9b8cc70d83bb37ffa240277b3949323ae3f402855a89f179e0edd70a4b"
+      },
+      "prediction": {
+        "artifact_id": "prediction-jsonl-2373889b2664",
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383002.predictions.jsonl",
+        "sha256": "2373889b26646731eafc88907fada38aaf2982d0cfb464b7cfb4f728fb854e89",
+        "source_member": "seed-383002/predictions.jsonl",
+        "source_sha256": "2373889b26646731eafc88907fada38aaf2982d0cfb464b7cfb4f728fb854e89"
+      },
+      "seed": 383002,
+      "selected_epoch": 44,
+      "selection_standardized_mse": 0.14870723135963548
+    },
+    {
+      "canonical_validation_used_for_selection": false,
+      "checkpoint_id": "psr:checkpoint:public-native-temporal-expert-seed-383003@sha256:c8f6bb329ee6b9e37155d95515e071b98d0aacf720f163bbe060804a0ecdef18",
+      "checkpoint_manifest": {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383003.checkpoint-manifest.json",
+        "sha256": "6571c8d4db624dda66c84476dce65af1155eea37caadd83bb3aa2cc616f87a79",
+        "source_member": "seed-383003/checkpoint-manifest.json",
+        "source_sha256": "6571c8d4db624dda66c84476dce65af1155eea37caadd83bb3aa2cc616f87a79"
+      },
+      "checkpoint_sha256": "c8f6bb329ee6b9e37155d95515e071b98d0aacf720f163bbe060804a0ecdef18",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383003.evaluation-result.json",
+        "result_id": "psr:evaluation-result@sha256:ea4519bc80bcb8b83b3a257937b6d95452e6e9cf901b62585c4326680b7dad1c",
+        "sha256": "bc8de2622e05f1a130cdec78f263c789e07d0125b38958d17d95ff7019f9e8aa",
+        "source_member": "seed-383003/evaluation-result.json",
+        "source_sha256": "bc8de2622e05f1a130cdec78f263c789e07d0125b38958d17d95ff7019f9e8aa"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-temporal-expert-seed-383003@sha256:e77b5b66e868fcb9345717d913d5bd6bcc17237c0d27ae46bf9cf994b5e5d59f",
+      "fitted_instance_manifest": {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383003.fitted-instance.json",
+        "sha256": "8b5306e462aedd7639a3fb696abf61f353be60f845068954aefacc31908ad554",
+        "source_member": "seed-383003/fitted-instance.json",
+        "source_sha256": "8b5306e462aedd7639a3fb696abf61f353be60f845068954aefacc31908ad554"
+      },
+      "prediction": {
+        "artifact_id": "prediction-jsonl-472fe8e81648",
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383003.predictions.jsonl",
+        "sha256": "472fe8e81648672af3d93e17caaabe433026ab0d1725e384c370eb35f6d45944",
+        "source_member": "seed-383003/predictions.jsonl",
+        "source_sha256": "472fe8e81648672af3d93e17caaabe433026ab0d1725e384c370eb35f6d45944"
+      },
+      "seed": 383003,
+      "selected_epoch": 68,
+      "selection_standardized_mse": 0.1491499231254783
+    }
+  ],
+  "ensemble": {
+    "ensemble_id": "psr:ensemble:public-native-temporal-expert-three-seed-standardized-mean@sha256:9903ff129182dee5b85146affef6cb44de1e586063977f6f439d693ab5686fb7",
+    "ensemble_manifest": {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/ensemble-manifest.json",
+      "sha256": "9281eedeecafe893fbad32fc60a11e79527be345d60de7aaf371c2d4250d3413",
+      "source_member": "ensemble/ensemble-manifest.json",
+      "source_sha256": "9281eedeecafe893fbad32fc60a11e79527be345d60de7aaf371c2d4250d3413"
+    },
+    "evaluation_result": {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/ensemble.evaluation-result.json",
+      "result_id": "psr:evaluation-result@sha256:84ccca3c7c53322e1271d07e2578257f8dfcebe14517a1b736898aacc6e93778",
+      "sha256": "03609a9897981331f8862e4fcc07739c79a769f23177006926196fca2946e69d",
+      "source_member": "ensemble/evaluation-result.json",
+      "source_sha256": "03609a9897981331f8862e4fcc07739c79a769f23177006926196fca2946e69d"
+    },
+    "fitted_instance_id": "psr:fitted-instance:public-native-temporal-expert-three-seed-ensemble@sha256:ff4e475ffeef1c03976c92c5868e75d0afd72672cb2848f0250e707dbd4c7fad",
+    "prediction": {
+      "artifact_id": "prediction-jsonl-f6fb260feac8",
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/ensemble.predictions.jsonl",
+      "sha256": "f6fb260feac851845f584bcd96a290ec046234f78a7596221aba5453aecc006d",
+      "source_member": "ensemble/predictions.jsonl",
+      "source_sha256": "f6fb260feac851845f584bcd96a290ec046234f78a7596221aba5453aecc006d"
+    },
+    "rule": "equal arithmetic mean in standardized target space; inverse transform once",
+    "seed_order": [
+      383001,
+      383002,
+      383003
+    ]
+  },
+  "evidence_class": "PUBLIC_NATIVE_IID_FITTED_EVIDENCE",
+  "format": "PSR_PUBLIC_NATIVE_INGESTED_RUN_V1",
+  "internal_selection": {
+    "entity_disjoint": true,
+    "fit_row_count": 9984,
+    "normalization_fit_row_count": 9984,
+    "normalization_stats_id": "psr:normalization-stats:public-native-temporal-expert@sha256:a8ad5b193e2d0e78ebdc341e550bed5be4b8352bfb72d3328a12add247c6f320",
+    "selection_row_count": 2304,
+    "selection_source": "TRAIN-internal selection subset only",
+    "selection_used_for_normalization": false,
+    "split_id": "psr:internal-selection-split:public-native-temporal-expert@sha256:9cccd9014e03d9f497f41dd91686307f2315ec19fe8c9b43bab908ac3e8f0b25",
+    "support_preserved": true
+  },
+  "run_id": "20261008T071545Z-827f338c",
+  "runtime_fingerprint": {
+    "code_sha": "6039f3a8ee685fe4254ab607b57df28ca38220f6",
+    "cudnn_version": 91002,
+    "dependency_fingerprint": "sha256:5ba86f3fd56ba2e0db6f3fa502e93215b367fbb388525ed8346eb42873cd84be",
+    "determinism_controls": {
+      "cross_gpu_bitwise_guarantee": false,
+      "declared_training_seeds": [
+        383001,
+        383002,
+        383003
+      ],
+      "initial_configuration": {
+        "cross_gpu_bitwise_guarantee": false,
+        "cublas_workspace_config": ":4096:8",
+        "cuda_matmul_allow_tf32": false,
+        "cudnn_benchmark": false,
+        "cudnn_deterministic": true,
+        "float32_matmul_precision": "highest",
+        "numpy_seed": 383001,
+        "python_seed": 383001,
+        "seed": 383001,
+        "torch_cpu_seed": 383001,
+        "torch_cuda_seeds": 383001,
+        "torch_deterministic_algorithms": true
+      }
+    },
+    "format": "PSR_RUNTIME_RECEIPT_V1",
+    "git_tree_status": "clean",
+    "gpu_memory_bytes": 101974081536,
+    "gpu_name": "NVIDIA RTX PRO 6000 Blackwell Server Edition",
+    "nvidia_driver": "580.82.07",
+    "package_version": "0.1.0",
+    "platform": "Linux-6.6.122+-x86_64-with-glibc2.39",
+    "python": "3.12.3",
+    "torch_build": "5811a8d7da873dd699ff6687092c225caffcf1bb",
+    "torch_cuda_version": "12.8",
+    "torch_version": "2.9.1+cu128"
+  },
+  "scientific_identity": {
+    "benchmark_spec_digest": "sha256:f99463d55ba0902595a1866032ba94b803ac97d9b4985a89e208293da9c7fed0",
+    "benchmark_spec_id": "psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting@1.0.0~f99463d55ba0",
+    "dataset_realization_digest": "sha256:2659bad8979e5a00829a50580c14bfbc90579c4520c46c8159dec8c34f1c8cad",
+    "dataset_realization_id": "psr:dataset-realization:latent-capacity-transient-iid-production@sha256:2659bad8979e5a00829a50580c14bfbc90579c4520c46c8159dec8c34f1c8cad",
+    "dataset_spec_id": "psr:dataset-spec:latent-capacity-transient-iid-sampling-design@1.0.0~1d079eb645ed",
+    "evaluation_id": "psr:evaluation:iid-latent-capacity-change-four-metric-validation@1.0.0~cd4fe982e7b8",
+    "model_id": "psr:model:public-native-lift-shared-temporal-gru-capacity-change@1.0.0~34d23123138f",
+    "training_protocol_id": "psr:training-protocol:public-native-temporal-expert@1.0.0~dc47230f3465"
+  },
+  "seeds": [
+    383001,
+    383002,
+    383003
+  ],
+  "source": {
+    "artifact_code_sha": "6039f3a8ee685fe4254ab607b57df28ca38220f6",
+    "bundle_sha256": "fa31764220dbca936275b07965e7b4b4adb146251fc38db063dc5e88de8eaec4",
+    "source_inventory_path": "results/manifests/public-native-temporal-expert-source-inventory.json",
+    "source_inventory_sha256": "416a7cfb2f0a7bef3a6865a3649f49859f1108db1f98aafc09529f447855e616",
+    "verification_receipt_path": "results/manifests/public-native-temporal-expert-verification-receipt.json",
+    "verification_receipt_sha256": "fd11790ea0f4b461f38d6cb96f6fb925ec9917128b53a54e0a6f053197771273",
+    "verification_status": "PASS",
+    "verifier_code_sha": "33e8dcecf49747314c182feb596dadb4527fbddd"
+  },
+  "validation_isolation": {
+    "all_seed_checkpoints_sealed": true,
+    "canonical_validation_scored_before_sealing": false,
+    "canonical_validation_sha256": "0d7bd0c9291e7af5627ec18e2b82025aa1f5f3d46de07d502f7df90eace24b9a",
+    "canonical_validation_used_for_selection": [
+      false,
+      false,
+      false
+    ],
+    "checkpoint_seal_digest": "sha256:1db26314c3ccf953d8569a9e005ceb22386881bd76db9237ec9e291c73ce0eb1",
+    "checkpoint_seal_id": "psr:checkpoint-seal@sha256:1db26314c3ccf953d8569a9e005ceb22386881bd76db9237ec9e291c73ce0eb1",
+    "checkpoint_seal_sha256": "0a048604cadff71b3ed109a1731b12d003fede1bda94518794346c8afb24368b",
+    "checkpoints_sealed_at_utc": "2026-10-08T07:18:42.700526Z",
+    "seed_checkpoints_sealed_before_scoring": true,
+    "training_receipt_sha256": "4f2709e484b2e385ecc11154891967c96387510ad1e1bce244d116b94f85935c",
+    "validation_order_receipt_sha256": "fdbb40e7669c2c22a1db90e4c17852258c06a5172d372c61160e9dbaa409a9f6",
+    "validation_started_at_utc": "2026-10-08T07:18:44.057961Z"
+  }
+}

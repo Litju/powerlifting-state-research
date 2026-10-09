@@ -1,0 +1,175 @@
+{
+  "checkpoint_metadata": [
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383001.checkpoint-manifest.json",
+      "sha256": "f52c67a520f19ac475154d23707d18bdcb875e6bdec13846396c9ccbb05e56a6",
+      "source_member": "seed-383001/checkpoint-manifest.json",
+      "source_sha256": "f52c67a520f19ac475154d23707d18bdcb875e6bdec13846396c9ccbb05e56a6"
+    },
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383001.fitted-instance.json",
+      "sha256": "6da523c6bb608bac653b44b4ab6343afb55dca46f766d913fadb6e3386960c87",
+      "source_member": "seed-383001/fitted-instance.json",
+      "source_sha256": "6da523c6bb608bac653b44b4ab6343afb55dca46f766d913fadb6e3386960c87"
+    },
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383002.checkpoint-manifest.json",
+      "sha256": "50499e1753349bad6eb35881ac16d5ae97aa749345fbea9c73f69e408908ac50",
+      "source_member": "seed-383002/checkpoint-manifest.json",
+      "source_sha256": "50499e1753349bad6eb35881ac16d5ae97aa749345fbea9c73f69e408908ac50"
+    },
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383002.fitted-instance.json",
+      "sha256": "22955c9b8cc70d83bb37ffa240277b3949323ae3f402855a89f179e0edd70a4b",
+      "source_member": "seed-383002/fitted-instance.json",
+      "source_sha256": "22955c9b8cc70d83bb37ffa240277b3949323ae3f402855a89f179e0edd70a4b"
+    },
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383003.checkpoint-manifest.json",
+      "sha256": "6571c8d4db624dda66c84476dce65af1155eea37caadd83bb3aa2cc616f87a79",
+      "source_member": "seed-383003/checkpoint-manifest.json",
+      "source_sha256": "6571c8d4db624dda66c84476dce65af1155eea37caadd83bb3aa2cc616f87a79"
+    },
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383003.fitted-instance.json",
+      "sha256": "8b5306e462aedd7639a3fb696abf61f353be60f845068954aefacc31908ad554",
+      "source_member": "seed-383003/fitted-instance.json",
+      "source_sha256": "8b5306e462aedd7639a3fb696abf61f353be60f845068954aefacc31908ad554"
+    },
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/ensemble-manifest.json",
+      "sha256": "9281eedeecafe893fbad32fc60a11e79527be345d60de7aaf371c2d4250d3413",
+      "source_member": "ensemble/ensemble-manifest.json",
+      "source_sha256": "9281eedeecafe893fbad32fc60a11e79527be345d60de7aaf371c2d4250d3413"
+    }
+  ],
+  "checkpoint_publication_index": {
+    "path": "models/checkpoint-manifests/public-native-temporal-expert/checkpoint-publication.json",
+    "sha256": "9f4a05f2fc647bc38af904641ebbf0c047b1b9fcf36ed17c0a789221d3537d4d"
+  },
+  "copied_artifacts": [
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383001.checkpoint-manifest.json",
+      "sha256": "f52c67a520f19ac475154d23707d18bdcb875e6bdec13846396c9ccbb05e56a6",
+      "source_member": "seed-383001/checkpoint-manifest.json",
+      "source_sha256": "f52c67a520f19ac475154d23707d18bdcb875e6bdec13846396c9ccbb05e56a6"
+    },
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383001.fitted-instance.json",
+      "sha256": "6da523c6bb608bac653b44b4ab6343afb55dca46f766d913fadb6e3386960c87",
+      "source_member": "seed-383001/fitted-instance.json",
+      "source_sha256": "6da523c6bb608bac653b44b4ab6343afb55dca46f766d913fadb6e3386960c87"
+    },
+    {
+      "artifact_id": "prediction-jsonl-eb1bf322ba17",
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383001.predictions.jsonl",
+      "result_id": null,
+      "sha256": "eb1bf322ba1783d0c70f59d13016421736fd6447c2f6827079f713d31332f50c",
+      "source_member": "seed-383001/predictions.jsonl",
+      "source_sha256": "eb1bf322ba1783d0c70f59d13016421736fd6447c2f6827079f713d31332f50c"
+    },
+    {
+      "artifact_id": null,
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383001.evaluation-result.json",
+      "result_id": "psr:evaluation-result@sha256:39615cfdbe3e54cb2f0f69b567eee8f1bad49b12eb5d772753ba58553b3303f1",
+      "sha256": "50d9377522cc05795eccb9572fe58ed4363f60535789d13a78399830d6cb292d",
+      "source_member": "seed-383001/evaluation-result.json",
+      "source_sha256": "50d9377522cc05795eccb9572fe58ed4363f60535789d13a78399830d6cb292d"
+    },
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383002.checkpoint-manifest.json",
+      "sha256": "50499e1753349bad6eb35881ac16d5ae97aa749345fbea9c73f69e408908ac50",
+      "source_member": "seed-383002/checkpoint-manifest.json",
+      "source_sha256": "50499e1753349bad6eb35881ac16d5ae97aa749345fbea9c73f69e408908ac50"
+    },
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383002.fitted-instance.json",
+      "sha256": "22955c9b8cc70d83bb37ffa240277b3949323ae3f402855a89f179e0edd70a4b",
+      "source_member": "seed-383002/fitted-instance.json",
+      "source_sha256": "22955c9b8cc70d83bb37ffa240277b3949323ae3f402855a89f179e0edd70a4b"
+    },
+    {
+      "artifact_id": "prediction-jsonl-2373889b2664",
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383002.predictions.jsonl",
+      "result_id": null,
+      "sha256": "2373889b26646731eafc88907fada38aaf2982d0cfb464b7cfb4f728fb854e89",
+      "source_member": "seed-383002/predictions.jsonl",
+      "source_sha256": "2373889b26646731eafc88907fada38aaf2982d0cfb464b7cfb4f728fb854e89"
+    },
+    {
+      "artifact_id": null,
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383002.evaluation-result.json",
+      "result_id": "psr:evaluation-result@sha256:cb614f4c68075544a0521e9a5cc393ba2761e5a47e714818c2fe31175e3dc4b6",
+      "sha256": "ba2cdd57bfd521ce9cf3d845cd7b5a1a876bb10d84dc7dc6d24c435beffc4fe4",
+      "source_member": "seed-383002/evaluation-result.json",
+      "source_sha256": "ba2cdd57bfd521ce9cf3d845cd7b5a1a876bb10d84dc7dc6d24c435beffc4fe4"
+    },
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383003.checkpoint-manifest.json",
+      "sha256": "6571c8d4db624dda66c84476dce65af1155eea37caadd83bb3aa2cc616f87a79",
+      "source_member": "seed-383003/checkpoint-manifest.json",
+      "source_sha256": "6571c8d4db624dda66c84476dce65af1155eea37caadd83bb3aa2cc616f87a79"
+    },
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383003.fitted-instance.json",
+      "sha256": "8b5306e462aedd7639a3fb696abf61f353be60f845068954aefacc31908ad554",
+      "source_member": "seed-383003/fitted-instance.json",
+      "source_sha256": "8b5306e462aedd7639a3fb696abf61f353be60f845068954aefacc31908ad554"
+    },
+    {
+      "artifact_id": "prediction-jsonl-472fe8e81648",
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383003.predictions.jsonl",
+      "result_id": null,
+      "sha256": "472fe8e81648672af3d93e17caaabe433026ab0d1725e384c370eb35f6d45944",
+      "source_member": "seed-383003/predictions.jsonl",
+      "source_sha256": "472fe8e81648672af3d93e17caaabe433026ab0d1725e384c370eb35f6d45944"
+    },
+    {
+      "artifact_id": null,
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383003.evaluation-result.json",
+      "result_id": "psr:evaluation-result@sha256:ea4519bc80bcb8b83b3a257937b6d95452e6e9cf901b62585c4326680b7dad1c",
+      "sha256": "bc8de2622e05f1a130cdec78f263c789e07d0125b38958d17d95ff7019f9e8aa",
+      "source_member": "seed-383003/evaluation-result.json",
+      "source_sha256": "bc8de2622e05f1a130cdec78f263c789e07d0125b38958d17d95ff7019f9e8aa"
+    },
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/ensemble-manifest.json",
+      "sha256": "9281eedeecafe893fbad32fc60a11e79527be345d60de7aaf371c2d4250d3413",
+      "source_member": "ensemble/ensemble-manifest.json",
+      "source_sha256": "9281eedeecafe893fbad32fc60a11e79527be345d60de7aaf371c2d4250d3413"
+    },
+    {
+      "artifact_id": "prediction-jsonl-f6fb260feac8",
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/ensemble.predictions.jsonl",
+      "result_id": null,
+      "sha256": "f6fb260feac851845f584bcd96a290ec046234f78a7596221aba5453aecc006d",
+      "source_member": "ensemble/predictions.jsonl",
+      "source_sha256": "f6fb260feac851845f584bcd96a290ec046234f78a7596221aba5453aecc006d"
+    },
+    {
+      "artifact_id": null,
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/ensemble.evaluation-result.json",
+      "result_id": "psr:evaluation-result@sha256:84ccca3c7c53322e1271d07e2578257f8dfcebe14517a1b736898aacc6e93778",
+      "sha256": "03609a9897981331f8862e4fcc07739c79a769f23177006926196fca2946e69d",
+      "source_member": "ensemble/evaluation-result.json",
+      "source_sha256": "03609a9897981331f8862e4fcc07739c79a769f23177006926196fca2946e69d"
+    }
+  ],
+  "format": "PSR_INGESTED_PUBLIC_NATIVE_EVIDENCE_CHECKSUMS_V1",
+  "run_manifest": {
+    "path": "results/manifests/public-native-temporal-expert.json",
+    "sha256": "ff939961f54a431563de90de7d47e1a8f63ae90778eb176793b18bac7edbf168"
+  },
+  "source_archive_member_count": 33,
+  "source_bundle_sha256": "fa31764220dbca936275b07965e7b4b4adb146251fc38db063dc5e88de8eaec4",
+  "source_inventory": {
+    "path": "results/manifests/public-native-temporal-expert-source-inventory.json",
+    "sha256": "416a7cfb2f0a7bef3a6865a3649f49859f1108db1f98aafc09529f447855e616"
+  },
+  "source_inventory_entry_count": 31,
+  "verification_receipt": {
+    "path": "results/manifests/public-native-temporal-expert-verification-receipt.json",
+    "sha256": "fd11790ea0f4b461f38d6cb96f6fb925ec9917128b53a54e0a6f053197771273",
+    "status": "PASS"
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "checkpoint_distribution_state": "PUBLIC_SAFE_BYTES_VERIFIED_RELEASE_ASSET_PENDING",
+  "checkpoints": [
+    {
+      "canonical_validation_used_for_selection": false,
+      "checkpoint_id": "psr:checkpoint:public-native-temporal-expert-seed-383001@sha256:f8889305226cbac69874a2a983809e2b12adfdbfb8dd6446dbce932ac02904bb",
+      "checkpoint_manifest": {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383001.checkpoint-manifest.json",
+        "sha256": "f52c67a520f19ac475154d23707d18bdcb875e6bdec13846396c9ccbb05e56a6",
+        "source_member": "seed-383001/checkpoint-manifest.json",
+        "source_sha256": "f52c67a520f19ac475154d23707d18bdcb875e6bdec13846396c9ccbb05e56a6"
+      },
+      "checkpoint_sha256": "f8889305226cbac69874a2a983809e2b12adfdbfb8dd6446dbce932ac02904bb",
+      "fitted_instance_id": "psr:fitted-instance:public-native-temporal-expert-seed-383001@sha256:8097eb52fabd88d36992b2af5e363baab3b5e2333d5701798430b20882ce31b9",
+      "fitted_instance_manifest": {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383001.fitted-instance.json",
+        "sha256": "6da523c6bb608bac653b44b4ab6343afb55dca46f766d913fadb6e3386960c87",
+        "source_member": "seed-383001/fitted-instance.json",
+        "source_sha256": "6da523c6bb608bac653b44b4ab6343afb55dca46f766d913fadb6e3386960c87"
+      },
+      "seed": 383001,
+      "selected_epoch": 54,
+      "selection_standardized_mse": 0.15088153822037306
+    },
+    {
+      "canonical_validation_used_for_selection": false,
+      "checkpoint_id": "psr:checkpoint:public-native-temporal-expert-seed-383002@sha256:eb6c858e20e3a0cba5a542db605494359df83c15fac54b068ed938866d1398c4",
+      "checkpoint_manifest": {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383002.checkpoint-manifest.json",
+        "sha256": "50499e1753349bad6eb35881ac16d5ae97aa749345fbea9c73f69e408908ac50",
+        "source_member": "seed-383002/checkpoint-manifest.json",
+        "source_sha256": "50499e1753349bad6eb35881ac16d5ae97aa749345fbea9c73f69e408908ac50"
+      },
+      "checkpoint_sha256": "eb6c858e20e3a0cba5a542db605494359df83c15fac54b068ed938866d1398c4",
+      "fitted_instance_id": "psr:fitted-instance:public-native-temporal-expert-seed-383002@sha256:7f4caedb37631f4aab38fa7cc1156b9625a5e71825b31b05b1385e4790c5763b",
+      "fitted_instance_manifest": {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383002.fitted-instance.json",
+        "sha256": "22955c9b8cc70d83bb37ffa240277b3949323ae3f402855a89f179e0edd70a4b",
+        "source_member": "seed-383002/fitted-instance.json",
+        "source_sha256": "22955c9b8cc70d83bb37ffa240277b3949323ae3f402855a89f179e0edd70a4b"
+      },
+      "seed": 383002,
+      "selected_epoch": 44,
+      "selection_standardized_mse": 0.14870723135963548
+    },
+    {
+      "canonical_validation_used_for_selection": false,
+      "checkpoint_id": "psr:checkpoint:public-native-temporal-expert-seed-383003@sha256:c8f6bb329ee6b9e37155d95515e071b98d0aacf720f163bbe060804a0ecdef18",
+      "checkpoint_manifest": {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383003.checkpoint-manifest.json",
+        "sha256": "6571c8d4db624dda66c84476dce65af1155eea37caadd83bb3aa2cc616f87a79",
+        "source_member": "seed-383003/checkpoint-manifest.json",
+        "source_sha256": "6571c8d4db624dda66c84476dce65af1155eea37caadd83bb3aa2cc616f87a79"
+      },
+      "checkpoint_sha256": "c8f6bb329ee6b9e37155d95515e071b98d0aacf720f163bbe060804a0ecdef18",
+      "fitted_instance_id": "psr:fitted-instance:public-native-temporal-expert-seed-383003@sha256:e77b5b66e868fcb9345717d913d5bd6bcc17237c0d27ae46bf9cf994b5e5d59f",
+      "fitted_instance_manifest": {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383003.fitted-instance.json",
+        "sha256": "8b5306e462aedd7639a3fb696abf61f353be60f845068954aefacc31908ad554",
+        "source_member": "seed-383003/fitted-instance.json",
+        "source_sha256": "8b5306e462aedd7639a3fb696abf61f353be60f845068954aefacc31908ad554"
+      },
+      "seed": 383003,
+      "selected_epoch": 68,
+      "selection_standardized_mse": 0.1491499231254783
+    }
+  ],
+  "dataset_realization_id": "psr:dataset-realization:latent-capacity-transient-iid-production@sha256:2659bad8979e5a00829a50580c14bfbc90579c4520c46c8159dec8c34f1c8cad",
+  "ensemble_fitted_instance_id": "psr:fitted-instance:public-native-temporal-expert-three-seed-ensemble@sha256:ff4e475ffeef1c03976c92c5868e75d0afd72672cb2848f0250e707dbd4c7fad",
+  "ensemble_id": "psr:ensemble:public-native-temporal-expert-three-seed-standardized-mean@sha256:9903ff129182dee5b85146affef6cb44de1e586063977f6f439d693ab5686fb7",
+  "format": "PSR_PUBLIC_CHECKPOINT_PUBLICATION_V1",
+  "model_id": "psr:model:public-native-lift-shared-temporal-gru-capacity-change@1.0.0~34d23123138f",
+  "publication_policy": "New PUBLIC_NATIVE bytes are verified; release-byte publication is deferred to M7/M8 packaging.",
+  "source_bundle_sha256": "fa31764220dbca936275b07965e7b4b4adb146251fc38db063dc5e88de8eaec4",
+  "training_protocol_id": "psr:training-protocol:public-native-temporal-expert@1.0.0~dc47230f3465",
+  "verification_status": "PASS"
+}
