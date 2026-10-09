@@ -34,7 +34,11 @@ def test_res281_tables_replay_deterministically_and_preserve_all_states() -> Non
 
     axis_rows = _csv(ANALYSIS / "version-by-axis-evidence.csv")
     assert len(axis_rows) == 90
-    native = next(row for row in axis_rows if row["benchmark_version"].startswith("iid_"))
+    native = next(
+        row
+        for row in axis_rows
+        if row["benchmark_version"].startswith("iid_") and row["axis_slug"] == "reproducibility"
+    )
     assert json.loads(native["res281_direct_axis_states"]) == {"reproducibility": "PASS"}
     historical_provenance = [
         row

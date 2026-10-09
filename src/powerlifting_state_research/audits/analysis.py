@@ -498,10 +498,10 @@ def build_analysis_documents(root: Path, bundle: Path) -> dict[str, bytes]:
         "",
         "## Evidence-backed findings",
         "",
+        f"Public-native version: `{native_version}`.",
         textwrap.fill(
-            f"For `{native_version}`, "
-            f"{sum(item.status in _EXECUTED for item in native_results)} "
-            "non-coverage diagnostics executed. The fresh full-production replay passed "
+            f"{sum(item.status in _EXECUTED for item in native_results)} non-coverage "
+            "diagnostics executed. The fresh full-production replay passed "
             "twice: train and validation bytes matched across generations, and both "
             "manifests matched the frozen IID manifest byte for byte."
         ),
