@@ -744,7 +744,7 @@ def verify_res275_comparator_package(root: Path = ROOT) -> list[str]:
         and tuple(protocol.get("seeds", ())) == seeds,
         "RES-275 protocol no longer binds the frozen RES-271 identities and seeds",
     )
-    validation_isolation = protocol.get("validation_isolation", {})
+    validation_isolation = dict(protocol.get("validation_isolation", []))
     check(
         validation_isolation.get("training_loader")
         == "opens and validates canonical train.jsonl only"
