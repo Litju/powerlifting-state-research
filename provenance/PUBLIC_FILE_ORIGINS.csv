@@ -100,7 +100,7 @@ schemas/dataset-realization.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,schema-exp
 schemas/evaluation-result.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,schema-export,Generated evaluation-result schema.
 schemas/prediction.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,schema-export,Generated prediction interchange schema.
 scripts/README.md,NEWLY_AUTHORED,CC-BY-4.0,scripts,Small reproducibility/export tools; no general CLI at bootstrap.
-scripts/check_repository_integrity.py,NEWLY_AUTHORED,MIT,repository-integrity,Public-only registry; origin-ledger; and repository-safety checks.
+scripts/check_repository_integrity.py,NEWLY_AUTHORED,MIT,repository-integrity,"Public registry, rights ledger, generated exports, safety, and ingested Gate-C evidence validation."
 scripts/export_benchmark_registry.py,NEWLY_AUTHORED,MIT,registry-export,Exports the typed Python registry to its JSON destination.
 scripts/verify_public_iid_production.py,NEWLY_AUTHORED,MIT,release-verification,Regenerates and verifies the full public-native IID realization.
 src/powerlifting_state_research/__init__.py,NEWLY_AUTHORED,MIT,package,Typed package namespace/home; no benchmark mechanics at bootstrap.
@@ -278,3 +278,4 @@ results/manifests/public-native-temporal-expert-source-inventory.json,GENERATED_
 results/manifests/public-native-temporal-expert-verification-receipt.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Exact PASS receipt copied from the independent Gate-B verifier.
 results/manifests/public-native-temporal-expert.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,"Public-safe manifest binding Gate-C scientific identities, runtime, validation isolation, and results."
 results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/README.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,"Discovery index for the verified PUBLIC_NATIVE IID predictions, EvaluationResults, manifests, and checkpoint metadata."
+tests/test_gate_c_ingested_evidence.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Drive-independent repository-integrity regression for RES-274 Gate-C ingested evidence.
