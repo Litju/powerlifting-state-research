@@ -55,15 +55,16 @@ from .specifications import (
 )
 
 ROOT = Path(__file__).resolve().parents[3]
-DEFAULT_OUTPUT = Path("results/audits/res278")
+DEFAULT_OUTPUT = Path("results/audits/res281")
 RESULT_FORMAT = "PSR_AUDIT_EXECUTIONS_V1"
 _NATIVE_ATTACK_SEEDS = {
-    "participant_input_leakage": 278_101,
-    "target_identity_contamination": 278_102,
-    "temporal_history_disruption": 278_103,
-    "training_plan_counterfactual_sensitivity": 278_104,
-    "observation_noise_perturbation": 278_105,
+    "participant_input_leakage": 281_101,
+    "target_identity_contamination": 281_102,
+    "temporal_history_disruption": 281_103,
+    "training_plan_counterfactual_sensitivity": 281_104,
+    "observation_noise_perturbation": 281_105,
 }
+_RUN_NAMESPACE = "res281"
 AUDIT_ROW_COUNT = 96
 MODEL_SEEDS = (383_001, 383_002, 383_003)
 _SHA256 = "sha256:"
@@ -76,7 +77,7 @@ _PUBLIC_RIGHTS = RightsMetadata(
 _RESULT_RIGHTS = RightsMetadata(
     "MIT",
     "Powerlifting State Research contributors",
-    "RES-278 audit execution metadata under the repository license.",
+    "RES-281 audit execution metadata under the repository license.",
 )
 _ATTACKS = {item.reference: item for item in ATTACK_SPECS}
 _AXES = {item.slug: item for item in VALIDITY_AXES}
@@ -217,6 +218,13 @@ class AuditExecutionRecord:
         no_hidden_claim = (
             attack.slug == "hidden_test_fairness" and self.benchmark_version == _NATIVE_VERSION
         )
+        historical_metadata_review = (
+            attack.slug == "reconstruction_provenance_gaps"
+            and self.status is AuditStatus.INCONCLUSIVE
+            and self.configuration.get("metadata_only") is True
+            and self.configuration.get("historical_rows_opened") is False
+            and self.configuration.get("private_artifacts_imported") is False
+        )
         if self.status is AuditStatus.NOT_APPLICABLE:
             if expected_version and not no_hidden_claim:
                 raise ValueError(
@@ -227,11 +235,20 @@ class AuditExecutionRecord:
         if (
             self.status in _EXECUTED
             and benchmark.identity_authority is BenchmarkIdentityAuthority.HISTORICAL_PROJECTION
-            and attack.slug != "audit_coverage_accounting"
+            and attack.slug not in {"audit_coverage_accounting", "reconstruction_provenance_gaps"}
         ):
             raise ValueError(
                 "historical attack execution is blocked without a "
                 "version-specific rights-cleared adapter"
+            )
+        if (
+            self.status in _EXECUTED
+            and benchmark.identity_authority is BenchmarkIdentityAuthority.HISTORICAL_PROJECTION
+            and attack.slug == "reconstruction_provenance_gaps"
+            and not historical_metadata_review
+        ):
+            raise ValueError(
+                "historical provenance execution must be metadata-only and inconclusive"
             )
 
         identity = benchmark.semantic_identity
@@ -1045,7 +1062,7 @@ def _run_id(
             "audit_realization_digest": audit_realization_digest,
         }
     )
-    return f"res278-{attack_slug}-{digest[7:19]}"
+    return f"{_RUN_NAMESPACE}-{attack_slug}-{digest[7:19]}"
 
 
 def _record(
@@ -1234,7 +1251,7 @@ def _write_audit_realization(
     source_commit: str,
     extra_seeds: tuple[tuple[str, int], ...] = (),
 ) -> tuple[DatasetRealizationManifest, str, tuple[EvidenceArtifactReference, ...]]:
-    realization_id = f"res278-{attack_slug.replace('_', '-')}-seed-{seed}"
+    realization_id = f"{_RUN_NAMESPACE}-{attack_slug.replace('_', '-')}-seed-{seed}"
     folder = staging / "realizations" / realization_id
     folder.mkdir(parents=True)
     final_folder = (output_rel / "realizations" / realization_id).as_posix()
@@ -1595,7 +1612,7 @@ def _native_intervention_record(
 ) -> AuditExecutionRecord:
     import numpy as np
 
-    realization_id = f"res278-{attack_slug.replace('_', '-')}-seed-{seed}"
+    realization_id = f"{_RUN_NAMESPACE}-{attack_slug.replace('_', '-')}-seed-{seed}"
     config, baseline, profiles = _audit_rows(seed, realization_id)
     intervention = _ATTACKS[f"{attack_slug}@1.0.0"].permitted_interventions[0]
     model_inputs = m4.artifact_refs
@@ -2070,6 +2087,65 @@ def _m4_integrity_record(
     )
 
 
+def _historical_provenance_record(
+    root: Path, benchmark_version: str, source_commit: str
+) -> AuditExecutionRecord:
+    """Audit only public historical identity/provenance metadata; never open private rows."""
+    benchmark = _BENCHMARKS[benchmark_version]
+    historical = HISTORICAL_SOURCES[benchmark.slug]
+    source_ids = historical.source_component_ids
+    unresolved = tuple(
+        key for key, value in source_ids.items() if key.endswith("_id") and value is None
+    )
+    refs = tuple(
+        evidence_artifact(root, path)
+        for path in (
+            benchmark.docs_path,
+            "artifacts/registries/benchmark-registry.json",
+            "artifacts/registries/attack-contract-registry.json",
+            "src/powerlifting_state_research/provenance/historical_sources.py",
+        )
+    )
+    return _record(
+        benchmark_version=benchmark_version,
+        attack_slug="reconstruction_provenance_gaps",
+        status=AuditStatus.INCONCLUSIVE,
+        reason=(
+            "Public historical provenance metadata was audited. Unresolved identity links "
+            "and unavailable original realization/model/evaluation artifacts prevent a full "
+            "reconstruction decision."
+        ),
+        input_artifacts=refs,
+        diagnostics={
+            "public_metadata_artifact_count": len(refs),
+            "historical_source_component_count": len(source_ids),
+            "unresolved_direct_identity_count": len(unresolved),
+            "benchmark_identity_mintable": int(benchmark.identity_mintable),
+            "historical_row_realization_available": 0,
+            "matching_model_evaluation_artifacts_available": 0,
+        },
+        source_commit=source_commit,
+        seed=0,
+        intervention=_ATTACKS["reconstruction_provenance_gaps@1.0.0"].permitted_interventions[0],
+        decision_criteria=(
+            "Trace the registered public provenance links and verify each available identity, "
+            "hash, and rights record. Partial sources or missing inputs prevent a complete "
+            "reconstruction decision under the frozen AuditSpec.",
+        ),
+        limitations=(
+            "This is a metadata-only historical audit; no participant rows, private data, or "
+            "checkpoints were read or reconstructed.",
+            "An inconclusive provenance result is not evidence that historical data or models "
+            "were valid or reproducible.",
+        ),
+        extra_configuration={
+            "metadata_only": True,
+            "historical_rows_opened": False,
+            "private_artifacts_imported": False,
+        },
+    )
+
+
 def build_audit_records(
     root: Path = ROOT,
     *,
@@ -2122,6 +2198,9 @@ def build_audit_records(
                 )
                 continue
             if version != _NATIVE_VERSION:
+                if attack.slug == "reconstruction_provenance_gaps":
+                    records.append(_historical_provenance_record(root, version, commit))
+                    continue
                 records.append(
                     _nonexecuted_record(
                         root,
