@@ -220,7 +220,18 @@ def check_ledger(tracked: set[str]) -> int:
             fail(f"invalid origin or license classification: {path}")
         if any(not (row.get(field) or "").strip() for field in ("owner", "purpose")):
             fail(f"origin ledger row lacks required rights scope: {path}")
-        expected = "CC-BY-4.0" if path.endswith(".md") or path == "LICENSE-DOCS" else "MIT"
+        parts = Path(path).parts
+        audit_realization = (
+            origin == "GENERATED_PUBLIC_ARTIFACT"
+            and parts[:2] == ("results", "audits")
+            and len(parts) > 4
+            and parts[3] == "realizations"
+        )
+        expected = (
+            "CC-BY-4.0"
+            if path.endswith(".md") or path == "LICENSE-DOCS" or audit_realization
+            else "MIT"
+        )
         if license_scope != expected:
             fail(f"origin ledger license does not match file scope: {path}")
     return len(rows)
