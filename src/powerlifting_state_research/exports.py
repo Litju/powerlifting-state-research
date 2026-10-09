@@ -14,6 +14,17 @@ from typing import Any, Literal, Union, get_args, get_origin, get_type_hints
 
 from . import __version__
 from .artifacts.manifests import ArtifactManifest, RightsMetadata
+from .audits import (
+    ATTACK_SPECS,
+    VALIDITY_AXES,
+    VERSION_VALIDITY_PROFILES,
+    AttackSpec,
+    AuditResult,
+    AuditSpec,
+    ValidityAxis,
+    VersionValidityProfile,
+)
+from .audits.specifications import CONTRACT_VERSION
 from .benchmarks.latent_capacity_change_with_transient_expression_forecasting.prediction import (
     PREDICTION_CONTRACT,
 )
@@ -218,6 +229,11 @@ SCHEMAS: tuple[tuple[str, type[Any]], ...] = (
     ("artifact-manifest.schema.json", ArtifactManifest),
     ("rights-metadata.schema.json", RightsMetadata),
     ("component-identity.schema.json", ComponentIdentity),
+    ("audit-spec.schema.json", AuditSpec),
+    ("validity-axis.schema.json", ValidityAxis),
+    ("attack-spec.schema.json", AttackSpec),
+    ("audit-result.schema.json", AuditResult),
+    ("version-validity-profile.schema.json", VersionValidityProfile),
 )
 
 
@@ -231,7 +247,30 @@ def generated_files() -> dict[Path, str]:
         ("public-forecast-row.schema.json", PublicForecastRow),
         ("iid-latent-capacity-change-prediction-row.schema.json", PredictionRow),
     )
-    files = {Path("registries/benchmark-registry.json"): _document(registry_document())}
+    files = {
+        Path("registries/benchmark-registry.json"): _document(registry_document()),
+        Path("registries/validity-axis-registry.json"): _document(
+            {
+                "format": "PSR_VALIDITY_AXIS_REGISTRY_V1",
+                "contract_version": CONTRACT_VERSION,
+                "axes": VALIDITY_AXES,
+            }
+        ),
+        Path("registries/attack-contract-registry.json"): _document(
+            {
+                "format": "PSR_ATTACK_CONTRACT_REGISTRY_V1",
+                "contract_version": CONTRACT_VERSION,
+                "attacks": ATTACK_SPECS,
+            }
+        ),
+        Path("registries/version-validity-profiles.json"): _document(
+            {
+                "format": "PSR_VERSION_VALIDITY_PROFILES_V1",
+                "profile_version": CONTRACT_VERSION,
+                "profiles": VERSION_VALIDITY_PROFILES,
+            }
+        ),
+    }
     files.update(
         {
             Path("schemas") / filename: _document(schema_document(model))

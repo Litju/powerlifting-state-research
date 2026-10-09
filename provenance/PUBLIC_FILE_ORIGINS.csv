@@ -16,11 +16,14 @@ artifacts/model-cards/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Model-card in
 artifacts/model-cards/historical-model-evidence-lineage.md,NEWLY_AUTHORED,CC-BY-4.0,model-evidence,Historical family support; prohibited unsupported claims; and non-comparability boundaries from surviving public evidence.
 artifacts/model-cards/public-native-comparator-suite.md,NEWLY_AUTHORED,CC-BY-4.0,model-card,RES-275 public-native comparator model profiles; per-target accuracy; complexity; compute; and limitations.
 artifacts/model-cards/public-native-temporal-capacity-change.md,NEWLY_AUTHORED,CC-BY-4.0,model-card,Historical Sobol reconstruction and separately identified PUBLIC_NATIVE IID fitted evidence with exact metrics.
-artifacts/registries/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,"Generated registry exports; typed Python is authoritative, including the RES-275 comparator export."
+artifacts/registries/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,"Generated benchmark, comparator, and RES-277 audit registry exports; typed Python is authoritative."
 artifacts/registries/benchmark-registry.json,GENERATED_PUBLIC_ARTIFACT,MIT,registry-export,Public machine-readable registry export generated from typed Python.
+artifacts/registries/attack-contract-registry.json,GENERATED_PUBLIC_ARTIFACT,MIT,registry-export,RES-277 versioned validity attack contracts generated from typed Python.
+artifacts/registries/validity-axis-registry.json,GENERATED_PUBLIC_ARTIFACT,MIT,registry-export,RES-277 versioned audit axes and protocols generated from typed Python.
+artifacts/registries/version-validity-profiles.json,GENERATED_PUBLIC_ARTIFACT,MIT,registry-export,RES-277 current per-version audit evidence states; no audit measurements.
 artifacts/release-bundles/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Versioned public release bundles from cleared sources.
-audits/README.md,NEWLY_AUTHORED,CC-BY-4.0,audits,Cross-benchmark audit scope and evidence separation.
-audits/cross-benchmark/README.md,NEWLY_AUTHORED,CC-BY-4.0,audits,Common M5 audit suite across the eight specimens.
+audits/README.md,NEWLY_AUTHORED,CC-BY-4.0,audits,RES-277 audit contracts and separation from RES-278 execution.
+audits/cross-benchmark/README.md,NEWLY_AUTHORED,CC-BY-4.0,audits,RES-277 versioned audit home and RES-278 execution boundary across nine benchmark versions.
 data/README.md,NEWLY_AUTHORED,CC-BY-4.0,data,Data topology and tracked/generated/downloadable policy.
 data/external/README.md,NEWLY_AUTHORED,CC-BY-4.0,data,External/empirical data manifests and per-artifact rights.
 data/manifests/README.md,NEWLY_AUTHORED,CC-BY-4.0,data,Dataset realization manifests and checksums.
@@ -35,9 +38,9 @@ data/manifests/realizations/performance_forecasting_under_schedule_exposure_repo
 data/manifests/realizations/seasonal_five_target_load_velocity_performance_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Future realization manifest/checksum home; no historical data bytes.
 data/manifests/realizations/four_target_load_velocity_and_competition_performance_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-manifest-home,Future realization manifest/checksum home; no historical data bytes.
 data/synthetic/README.md,NEWLY_AUTHORED,CC-BY-4.0,data,Newly authored public synthetic realizations only.
-docs/README.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Documentation map.
+docs/README.md,NEWLY_AUTHORED,CC-BY-4.0,public-documentation,Documentation map and RES-277 no-new-results boundary.
 docs/artifacts/index.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,"Prediction/evaluation results, tables, figures, manifests, and release artifacts."
-docs/audits/index.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Cross-benchmark audit axes and evidence rules.
+docs/audits/index.md,NEWLY_AUTHORED,CC-BY-4.0,public-documentation,RES-277 validity methodology; attack applicability; state rules; examples; and RES-278 handoff.
 docs/benchmarks/claim-boundaries.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Supported synthetic claims and prohibited escalations.
 docs/benchmarks/class-normalized-cross-lift-five-target-performance-forecasting.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Research card for Class-Normalized Cross-Lift Five-Target Performance Forecasting.
 docs/benchmarks/comparability.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Observed-origin versus latent-origin estimands and matched-comparison rules.
@@ -56,7 +59,7 @@ docs/data/index.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentati
 docs/models/reference-models.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Reference models and comparator conventions.
 docs/public-private-firewall.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,Public-safe origins and private archive boundary.
 docs/reproducibility.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,"Data, model, environment, result, and artifact reproduction."
-docs/roadmap.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,M3–M9 responsibilities and repository homes.
+docs/roadmap.md,NEWLY_AUTHORED,CC-BY-4.0,public-documentation,M3–M9 responsibilities and RES-277/RES-278 boundary.
 docs/science/component-taxonomy.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,"Reusable world, population, intervention, observation, QOI, task, representation, dataset, evaluation, metric, and shift definitions."
 docs/science/system-model.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,"Latent capacity, capacity change, transient performance expression, intervention, observation, and forecasting."
 docs/studies/index.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,public-documentation,"Retrospective and later studies, separate from benchmark identity."
@@ -73,7 +76,7 @@ provenance/PUBLIC_FILE_ORIGINS.csv,GENERATED_PUBLIC_ARTIFACT,MIT,origin-ledger,O
 provenance/README.md,NEWLY_AUTHORED,CC-BY-4.0,provenance,Public file-origin and historical-source provenance policy.
 pyproject.toml,NEWLY_AUTHORED,MIT,packaging,"Distribution metadata, build backend, Python baseline, runtime model dependencies, and dev tools."
 results/README.md,NEWLY_AUTHORED,CC-BY-4.0,results,"Output status and generated/committed policy, including RES-275 target-wise comparator results."
-results/audits/README.md,NEWLY_AUTHORED,CC-BY-4.0,results,Audit outputs by scientific axis.
+results/audits/README.md,NEWLY_AUTHORED,CC-BY-4.0,results,Executed audit-result policy and RES-277 no-run disclosure.
 results/benchmarks/class_normalized_cross_lift_five_target_performance_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,benchmark-result-home,Future prediction/evaluation/result manifest home for this formulation.
 results/benchmarks/held_out_final_origin_five_target_performance_evaluation/README.md,NEWLY_AUTHORED,CC-BY-4.0,benchmark-result-home,Future prediction/evaluation/result manifest home for this formulation.
 results/benchmarks/latent_origin_capacity_change_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,benchmark-result-home,Future prediction/evaluation/result manifest home for this formulation.
@@ -95,7 +98,12 @@ results/studies/public_surrogate_reconstruction/README.md,NEWLY_AUTHORED,CC-BY-4
 results/studies/synthetic_pretraining_transfer/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-result-home,Distinct result/manifest home for this retrospective study.
 results/studies/target_sufficient_structural_reconstruction/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-result-home,Distinct result/manifest home for this retrospective study.
 results/tables/README.md,NEWLY_AUTHORED,CC-BY-4.0,results,Tables derived from identified result inputs.
-schemas/README.md,NEWLY_AUTHORED,CC-BY-4.0,schema-policy,JSON Schemas are generated interchange exports from typed Python.
+schemas/README.md,NEWLY_AUTHORED,CC-BY-4.0,schema-policy,JSON Schemas for benchmark, evaluation, and RES-277 audit interchange generated from typed Python.
+artifacts/schemas/audit-result.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,python-export,RES-277 execution/non-execution result structure generated from the typed AuditResult.
+artifacts/schemas/audit-spec.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,python-export,RES-277 axis audit protocol structure generated from the typed AuditSpec.
+artifacts/schemas/attack-spec.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,python-export,RES-277 versioned attack contract structure generated from the typed AttackSpec.
+artifacts/schemas/validity-axis.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,python-export,RES-277 validity axis structure generated from the typed ValidityAxis.
+artifacts/schemas/version-validity-profile.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,python-export,RES-277 versioned profile structure generated from the typed VersionValidityProfile.
 schemas/artifact-manifest.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,schema-export,Generated artifact/provenance manifest schema.
 schemas/benchmark-spec.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,schema-export,Generated benchmark-spec interchange schema.
 schemas/dataset-realization.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,schema-export,Generated dataset-realization manifest schema.
@@ -109,9 +117,10 @@ src/powerlifting_state_research/__init__.py,NEWLY_AUTHORED,MIT,package,Typed pac
 src/powerlifting_state_research/artifacts/__init__.py,NEWLY_AUTHORED,MIT,package,Typed package namespace/home; no benchmark mechanics at bootstrap.
 src/powerlifting_state_research/artifacts/hashes.py,NEWLY_AUTHORED,MIT,artifacts,Deterministic public artifact hashing.
 src/powerlifting_state_research/artifacts/manifests.py,NEWLY_AUTHORED,MIT,artifacts,Artifact-manifest and export helpers.
-src/powerlifting_state_research/audits/__init__.py,NEWLY_AUTHORED,MIT,package,Typed package namespace/home; no benchmark mechanics at bootstrap.
+src/powerlifting_state_research/audits/__init__.py,NEWLY_AUTHORED,MIT,audits,Public typed exports for validity axes; attack contracts; results; and profiles.
+src/powerlifting_state_research/audits/profiles.py,NEWLY_AUTHORED,MIT,audits,Version-scoped evidence states using existing public-safe artifacts and explicit historical gaps.
 src/powerlifting_state_research/audits/runner.py,NEWLY_AUTHORED,MIT,audits,Common audit harness home for M5.
-src/powerlifting_state_research/audits/specifications.py,NEWLY_AUTHORED,MIT,audits,Typed cross-benchmark audit-axis and attack declarations.
+src/powerlifting_state_research/audits/specifications.py,NEWLY_AUTHORED,MIT,audits,"Typed RES-277 AuditSpec, ValidityAxis, AttackSpec, AuditResult, and VersionValidityProfile contracts."
 src/powerlifting_state_research/benchmarks/__init__.py,NEWLY_AUTHORED,MIT,package,Typed package namespace/home; no benchmark mechanics at bootstrap.
 src/powerlifting_state_research/benchmarks/class_normalized_cross_lift_five_target_performance_forecasting/README.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,research-card,Concise benchmark-specific research card.
 src/powerlifting_state_research/benchmarks/class_normalized_cross_lift_five_target_performance_forecasting/__init__.py,NEWLY_AUTHORED,MIT,benchmark-package,Importable scientific package exposing its typed spec.
@@ -217,6 +226,7 @@ tests/benchmarks/iid_latent_capacity_change_with_transient_expression_forecastin
 tests/benchmarks/performance_forecasting_under_schedule_exposure_reporting_heterogeneity/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/benchmarks/seasonal_five_target_load_velocity_performance_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/benchmarks/four_target_load_velocity_and_competition_performance_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
+tests/audits/test_contracts.py,NEWLY_AUTHORED,MIT,audit-tests,RES-277 axis/attack applicability; profile identities; status; and provenance contract checks.
 tests/fixtures/README.md,NEWLY_AUTHORED,CC-BY-4.0,tests,Small repository-authored deterministic fixtures only.
 tests/models/test_temporal_expert.py,NEWLY_AUTHORED,MIT,model-tests,Public model input firewall; preprocessing; inference; identity; and ensemble checks.
 tests/test_component_homes.py,NEWLY_AUTHORED,MIT,tests,Required shared scientific module homes.
@@ -239,7 +249,7 @@ src/powerlifting_state_research/contracts/datasets.py,NEWLY_AUTHORED,MIT,researc
 src/powerlifting_state_research/contracts/prediction.py,NEWLY_AUTHORED,MIT,research-core,Prediction contract and causal information-boundary validation.
 src/powerlifting_state_research/contracts/serialization.py,NEWLY_AUTHORED,MIT,research-core,Canonical JSON serialization for identities and content hashes.
 src/powerlifting_state_research/contracts/shifts.py,NEWLY_AUTHORED,MIT,research-core,Typed source-to-target shift declarations.
-src/powerlifting_state_research/exports.py,NEWLY_AUTHORED,MIT,research-core,Deterministic JSON registry and schema exporter with drift check.
+src/powerlifting_state_research/exports.py,NEWLY_AUTHORED,MIT,research-core,"Deterministic benchmark and RES-277 audit registry/schema exporter with drift check."
 tests/test_neutral_contracts.py,NEWLY_AUTHORED,MIT,research-core-tests,"Focused identity, firewall, metric, comparability, shift, and export checks."
 artifacts/schemas/prediction-artifact-reference.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,python-export,JSON Schema generated from the typed prediction artifact identity record.
 artifacts/schemas/public-forecast-row.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,python-export,JSON Schema generated from the authoritative Python PublicForecastRow type.

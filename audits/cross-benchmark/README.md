@@ -1,13 +1,13 @@
-# Cross Benchmark audit
+# Cross-benchmark audit
 
 ## Question
 
-Common M5 audit suite across the eight specimens.
+Versioned validity contracts for the eight historical benchmark records and one public-native version. See [the RES-277 methodology](../../docs/audits/index.md) and the generated registries under `artifacts/registries/`.
 
 ## Evidence record
 
-An audit report should state the threat or measurement question, selected benchmark and artifact identities, method, evidence, uncertainty, and claim boundary. Record any changed and held-fixed axes so results can be compared.
+An executed audit report must bind to one benchmark version and its existing identity, then state the method, evidence, uncertainty, and claim boundary. Record changed and held-fixed quantities within that version's native semantics.
 
 ## Bootstrap boundary
 
-This directory defines the audit home only. No audit implementation or result is included at bootstrap.
+RES-277 defines contracts and current evidence states only. RES-278 owns the execution harness; no attack was run here.

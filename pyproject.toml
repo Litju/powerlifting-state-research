@@ -71,6 +71,8 @@ select = ["E", "F", "I", "UP", "B"]
 [tool.ruff.lint.per-file-ignores]
 "src/powerlifting_state_research/provenance/historical_sources.py" = ["E501"]
 "src/powerlifting_state_research/benchmarks/*/research.py" = ["E501"]
+"src/powerlifting_state_research/audits/specifications.py" = ["E501"]
+"src/powerlifting_state_research/audits/profiles.py" = ["E501"]
 
 [tool.mypy]
 python_version = "3.12"
