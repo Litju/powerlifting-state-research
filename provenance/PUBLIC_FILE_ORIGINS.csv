@@ -191,7 +191,7 @@ src/powerlifting_state_research/interventions/designs.py,NEWLY_AUTHORED,MIT,inte
 src/powerlifting_state_research/models/__init__.py,NEWLY_AUTHORED,MIT,package,Typed package namespace/home; no benchmark mechanics at bootstrap.
 src/powerlifting_state_research/models/families.py,NEWLY_AUTHORED,MIT,models,Public model-family identity declarations.
 src/powerlifting_state_research/models/references.py,NEWLY_AUTHORED,MIT,models,Lightweight public reference-comparator implementation home.
-src/powerlifting_state_research/models/training.py,NEWLY_AUTHORED,MIT,models,Typed training configuration/protocol home.
+src/powerlifting_state_research/models/training.py,NEWLY_AUTHORED,MIT,models,Typed training configuration and frozen RES-274/RES-275 protocol authority.
 src/powerlifting_state_research/models/temporal_expert.py,NEWLY_AUTHORED,MIT,model-implementation,"Clean-room PUBLIC_NATIVE temporal model, typed input, preprocessing, normalization, and inference."
 src/powerlifting_state_research/provenance/__init__.py,NEWLY_AUTHORED,MIT,package,Typed package namespace/home; no benchmark mechanics at bootstrap.
 src/powerlifting_state_research/provenance/historical_sources.py,PUBLIC_PROJECTION_OF_FROZEN_SPEC,MIT,provenance,"Central historical aliases, parentage, and evidence pointers."
@@ -256,7 +256,7 @@ scripts/build_res274_colab_notebook.py,NEWLY_AUTHORED,MIT,notebook-build,Build/c
 scripts/export_public_native_training_protocol.py,NEWLY_AUTHORED,MIT,training-protocol-export,Export/check the manifest for the typed PUBLIC_NATIVE training authority.
 scripts/validate_res274_colab_notebook.py,NEWLY_AUTHORED,MIT,notebook-validation,Check notebook structure; commands; cell state; and public-safe contents.
 src/powerlifting_state_research/models/train_temporal_expert.py,NEWLY_AUTHORED,MIT,training-runner,Frozen PUBLIC_NATIVE training; checkpoint sealing; evaluation; receipts; and bundle verification.
-tests/models/test_training_protocol.py,NEWLY_AUTHORED,MIT,model-tests,Training protocol identity and deterministic support-preserving split checks.
+tests/models/test_training_protocol.py,NEWLY_AUTHORED,MIT,model-tests,RES-274 training protocol identity and deterministic support-preserving split checks.
 tests/test_res274_colab_notebook.py,NEWLY_AUTHORED,MIT,tests,Notebook generation and structural safety test.
 models/checkpoint-manifests/public-native-temporal-expert/checkpoint-publication.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Verified public-safe checkpoint and fitted-instance metadata; no weight bytes are tracked.
 models/checkpoint-manifests/public-native-temporal-expert/ensemble-manifest.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Verified public-safe checkpoint and fitted-instance metadata; no weight bytes are tracked.
@@ -280,3 +280,6 @@ results/manifests/public-native-temporal-expert-verification-receipt.json,GENERA
 results/manifests/public-native-temporal-expert.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,"Public-safe manifest binding Gate-C scientific identities, runtime, validation isolation, and results."
 results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/README.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,"Discovery index for the verified PUBLIC_NATIVE IID predictions, EvaluationResults, manifests, and checkpoint metadata."
 tests/test_gate_c_ingested_evidence.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Drive-independent repository-integrity regression for RES-274 Gate-C ingested evidence.
+artifacts/training-protocols/public-native-comparator-suite.json,GENERATED_PUBLIC_ARTIFACT,MIT,training-protocol,Versioned RES-275 training and evaluation protocol exported from typed Python authority before comparator fitting.
+scripts/export_standardized_comparator_protocol.py,NEWLY_AUTHORED,MIT,training-protocol-export,Export/check the typed RES-275 comparator protocol manifest.
+tests/models/test_res275_comparator_protocol.py,NEWLY_AUTHORED,MIT,model-tests,Frozen RES-275 protocol identity and generated-manifest checks.

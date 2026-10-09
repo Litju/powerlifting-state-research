@@ -11,7 +11,8 @@ from ..benchmarks.latent_capacity_change_with_transient_expression_forecasting i
     spec,
 )
 from ..contracts.serialization import sha256_record
-from ..evaluation.identity import EVALUATION_ID
+from ..evaluation.identity import EVALUATION_ID, METRIC_IDENTITIES
+from ..evaluation.prediction import PREDICTION_SCHEMA_ID
 from .references import TrainingProtocolReference
 from .temporal_expert import MODEL_SPEC_ID
 
@@ -207,6 +208,272 @@ PUBLIC_NATIVE_TEMPORAL_EXPERT_PROTOCOL = TemporalExpertTrainingProtocol(
         "determinism_controls",
     ),
 )
+
+
+@dataclass(frozen=True, slots=True)
+class StandardizedComparatorProtocol:
+    format: str
+    benchmark_id: str
+    benchmark_digest: str
+    dataset_spec_id: str
+    dataset_realization_id: str
+    dataset_realization_digest: str
+    train_sha256: str
+    validation_sha256: str
+    train_row_count: int
+    validation_row_count: int
+    evaluation_id: str
+    metric_ids: tuple[str, ...]
+    prediction_schema_id: str
+    participant_visible_input: tuple[str, ...]
+    feature_representation: tuple[tuple[str, object], ...]
+    training_partition: tuple[tuple[str, object], ...]
+    selection_rule: tuple[tuple[str, object], ...]
+    tuning_budget: tuple[tuple[str, object], ...]
+    seeds: tuple[int, int, int]
+    determinism: tuple[tuple[str, object], ...]
+    model_selection: tuple[tuple[str, object], ...]
+    comparator_methods: tuple[tuple[str, tuple[tuple[str, object], ...]], ...]
+    parameter_and_compute_reporting: tuple[tuple[str, object], ...]
+    identity_rules: tuple[tuple[str, object], ...]
+    validation_isolation: tuple[tuple[str, object], ...]
+    reused_immutable_result: tuple[tuple[str, object], ...]
+    rights: tuple[tuple[str, object], ...]
+
+    def identity_payload(self) -> dict[str, object]:
+        return asdict(self)
+
+    @property
+    def digest(self) -> str:
+        return sha256_record(self.identity_payload())
+
+    @property
+    def training_protocol_id(self) -> str:
+        return f"psr:training-protocol:public-native-comparator-suite@1.0.0~{self.digest[7:19]}"
+
+
+PUBLIC_NATIVE_COMPARATOR_PROTOCOL = StandardizedComparatorProtocol(
+    format="PSR_STANDARDIZED_COMPARATOR_PROTOCOL_V1",
+    benchmark_id=evaluate.CANONICAL_BENCHMARK_ID,
+    benchmark_digest=evaluate.CANONICAL_BENCHMARK_DIGEST,
+    dataset_spec_id=spec.PUBLIC_NATIVE_DATASET_SPEC_ID,
+    dataset_realization_id=evaluate.CANONICAL_VALIDATION.realization_id,
+    dataset_realization_digest=evaluate.CANONICAL_VALIDATION.realization_digest,
+    train_sha256="914dc51fcf9a0dca30224a8093431e97fe29272bf830160bf46a78396026d550",
+    validation_sha256=evaluate.CANONICAL_VALIDATION.validation_sha256,
+    train_row_count=12_288,
+    validation_row_count=evaluate.CANONICAL_VALIDATION.validation_rows,
+    evaluation_id=EVALUATION_ID,
+    metric_ids=tuple(item.metric_id for item in METRIC_IDENTITIES),
+    prediction_schema_id=PREDICTION_SCHEMA_ID,
+    participant_visible_input=(
+        "origin_day",
+        "horizon_days",
+        "declared_future_plan",
+        "three ordered lift histories through day 223",
+        "history schedule through day 223",
+    ),
+    feature_representation=(
+        ("source", "M3 TemporalModelInput; only participant-visible fields"),
+        ("lift_order", ("squat", "bench_press", "deadlift")),
+        (
+            "observation_channels",
+            (
+                "assessment_kg",
+                "prescribed_load_kg",
+                "velocity_mps",
+                "relative_prescribed_load",
+                "assessment_delta_kg",
+                "velocity_delta_mps",
+            ),
+        ),
+        (
+            "channel_normalization",
+            "per lift/channel; fitting rows only; population ddof=0; floor 1e-6",
+        ),
+        (
+            "history_summaries_per_channel",
+            ("first", "last", "mean", "population_sd", "linear_slope"),
+        ),
+        ("schedule_channels", ("dose/1.2", "intensity", "dose*intensity/1.2")),
+        ("schedule_summaries_per_channel", ("mean", "mean_last_four", "last")),
+        ("plan_features", "M3 six numeric plan/timing fields plus four-category one-hot"),
+        ("feature_count", 127),
+        ("forbidden", ("IDs", "targets", "latent coordinates", "future realized information")),
+    ),
+    training_partition=(
+        ("training_source", "canonical train split only"),
+        ("fit_row_count", 9_984),
+        ("selection_row_count", 2_304),
+        (
+            "split_id",
+            "psr:internal-selection-split:public-native-temporal-expert@sha256:9cccd9014e03d9f497f41dd91686307f2315ec19fe8c9b43bab908ac3e8f0b25",
+        ),
+        ("split_digest", "sha256:9cccd9014e03d9f497f41dd91686307f2315ec19fe8c9b43bab908ac3e8f0b25"),
+        (
+            "split_rule",
+            "RES-274 plan × horizon × three-lift schedule-template hash-ranked 80/20 split",
+        ),
+        ("entity_disjoint", True),
+        ("support_preserved", True),
+        ("normalization", "fitting rows only; selection rows excluded"),
+    ),
+    selection_rule=(
+        ("metric", "equal-target mean squared error in fit-standardized target space"),
+        (
+            "selection_rows_use",
+            "only declared stopping/model-selection rules; never gradient fitting or normalization",
+        ),
+        (
+            "tree_stopping",
+            "best selection loss; earliest tie; 8-round patience; min improvement 1e-4; "
+            "max 40 rounds",
+        ),
+        (
+            "neural_stopping",
+            "best selection loss; earliest tie; 10-epoch patience; min improvement 1e-4; "
+            "max 60 epochs",
+        ),
+        ("fixed_methods", "no selection-based fitting or hyperparameter choice"),
+    ),
+    tuning_budget=(
+        ("configurations_per_method", 1),
+        ("hyperparameter_tournament", False),
+        ("canonical_validation_tuning", False),
+        ("validation_feature_engineering", False),
+        ("validation_protocol_revision", False),
+    ),
+    seeds=(383_001, 383_002, 383_003),
+    determinism=(
+        ("python_numpy_torch_seeds", "the per-fit declared seed"),
+        ("torch_deterministic_algorithms", True),
+        ("dataloader_workers", 0),
+        ("feature_order_and_ties", "declared order; earliest feature/threshold on exact ties"),
+        (
+            "deterministic_methods",
+            "same fitted-state bytes across run seeds are expected and reported",
+        ),
+        ("cross_hardware_bitwise_guarantee", False),
+    ),
+    model_selection=(
+        ("training_loss", "equal-target MSE in fitting-row standardized target space"),
+        ("output", "three latent capacity changes in kg; squat, bench press, deadlift order"),
+        (
+            "validation",
+            "RES-271 complete 3,072-row canonical validation; report all four target-wise metrics",
+        ),
+        ("universal_scalar", False),
+    ),
+    comparator_methods=(
+        (
+            "context_mean",
+            (("groups", "declared plan × horizon"), ("fit_rule", "fit-row target mean")),
+        ),
+        ("ridge", (("alpha", 1.0), ("solver", "closed-form multi-output ridge with intercept"))),
+        (
+            "histogram_boosted_stumps",
+            (
+                ("algorithm", "squared-error gradient boosting of depth-one regression trees"),
+                ("quantile_thresholds_per_feature", 15),
+                ("learning_rate", 0.05),
+                ("maximum_rounds", 40),
+            ),
+        ),
+        (
+            "mechanistic_midpoint",
+            (
+                (
+                    "rule",
+                    "published adaptation/suppression recurrence with midpoint population "
+                    "parameters",
+                ),
+                ("fit_parameters", False),
+            ),
+        ),
+        (
+            "compact_neural",
+            (
+                ("architecture", "127 → 32 ReLU → 3"),
+                ("optimizer", "AdamW"),
+                ("learning_rate", 0.003),
+                ("weight_decay", 0.0001),
+                ("batch_size", 256),
+                ("maximum_epochs", 60),
+            ),
+        ),
+        (
+            "mechanistic_ridge_residual",
+            (("base", "mechanistic_midpoint"), ("residual_model", "ridge"), ("alpha", 1.0)),
+        ),
+    ),
+    parameter_and_compute_reporting=(
+        (
+            "parameter_count",
+            "count fitted scalar parameters; separately list fixed mechanistic constants",
+        ),
+        ("compute", "measured fit and prediction wall seconds per seed"),
+        ("hardware", "CPU model when available; platform and Python/NumPy/PyTorch versions"),
+        ("validation_compute", "measured separately from fitting"),
+    ),
+    identity_rules=(
+        ("new_model_classification", "NEW_STANDARDIZED_COMPARATOR"),
+        ("model_id", "hash model semantics and fixed comparator configuration"),
+        (
+            "fitted_instance_id",
+            "hash canonical fitted-state artifact, fit/selection split, seed, and training "
+            "protocol",
+        ),
+        ("prediction_artifact", "RES-271 canonical JSONL schema and byte SHA-256"),
+        (
+            "evaluation_result",
+            "RES-271 deterministic EvaluationResult digest with model, fitted instance, "
+            "protocol, environment, RNG, and rights",
+        ),
+        ("checkpoint", "none; final selected fitted state is stored as a fitted-instance artifact"),
+    ),
+    validation_isolation=(
+        ("training_loader", "opens and validates canonical train.jsonl only"),
+        ("validation_access", "after all fit state and training receipts are sealed"),
+        ("validation_purpose", "one canonical RES-271 evaluation; no tuning or revisions"),
+    ),
+    reused_immutable_result=(
+        (
+            "model_id",
+            "psr:model:public-native-lift-shared-temporal-gru-capacity-change@1.0.0~34d23123138f",
+        ),
+        (
+            "training_protocol_id",
+            "psr:training-protocol:public-native-temporal-expert@1.0.0~dc47230f3465",
+        ),
+        (
+            "policy",
+            "reuse sealed RES-274 seed predictions/results; do not retrain, regenerate, "
+            "rescore, or relabel",
+        ),
+    ),
+    rights=(
+        ("new_model_artifacts", "repository-generated JSON; project-authored MIT"),
+        ("new_predictions_and_results", "repository-generated; project-authored MIT"),
+        ("RES-274 expert predictions", "retain original rights and immutable bytes"),
+        (
+            "historical_private_evidence",
+            "metadata summaries only; no private source, data, or weights copied",
+        ),
+    ),
+)
+
+COMPARATOR_TRAINING_PROTOCOL_DIGEST = PUBLIC_NATIVE_COMPARATOR_PROTOCOL.digest
+COMPARATOR_TRAINING_PROTOCOL_ID = PUBLIC_NATIVE_COMPARATOR_PROTOCOL.training_protocol_id
+
+
+def comparator_training_protocol_manifest() -> dict[str, object]:
+    return {
+        "format": PUBLIC_NATIVE_COMPARATOR_PROTOCOL.format,
+        "training_protocol_id": COMPARATOR_TRAINING_PROTOCOL_ID,
+        "protocol_digest": COMPARATOR_TRAINING_PROTOCOL_DIGEST,
+        "protocol": PUBLIC_NATIVE_COMPARATOR_PROTOCOL.identity_payload(),
+    }
+
 
 TRAINING_PROTOCOL_ID = PUBLIC_NATIVE_TEMPORAL_EXPERT_PROTOCOL.training_protocol_id
 TRAINING_PROTOCOL_DIGEST = PUBLIC_NATIVE_TEMPORAL_EXPERT_PROTOCOL.digest
