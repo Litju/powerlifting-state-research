@@ -426,6 +426,10 @@ PUBLIC_NATIVE_COMPARATOR_PROTOCOL = StandardizedComparatorProtocol(
             "count fitted scalar parameters; separately list fixed mechanistic constants",
         ),
         ("compute", "measured fit and prediction wall seconds per seed"),
+        (
+            "shared_preprocessing",
+            "measure fitting-row normalization and 127-feature construction once per run",
+        ),
         ("hardware", "CPU model when available; platform and Python/NumPy/PyTorch versions"),
         ("validation_compute", "measured separately from fitting"),
     ),
