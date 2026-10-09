@@ -11,6 +11,7 @@ from powerlifting_state_research.audits.runner import (
     _BENCHMARKS,
     AuditExecutionRecord,
     EvidenceArtifactReference,
+    _historical_provenance_record,
     _nonexecuted_record,
     _record,
     _safe_output,
@@ -136,6 +137,35 @@ def test_historical_attack_cannot_transition_to_executed_without_adapter() -> No
             seed=1,
             intervention=_ATTACKS["participant_input_leakage@1.0.0"].permitted_interventions[0],
             decision_criteria=("The claim passed.",),
+        )
+
+
+def test_historical_provenance_can_run_as_a_metadata_only_audit() -> None:
+    record = _historical_provenance_record(ROOT, HISTORICAL, "a" * 40)
+    assert record.status is AuditStatus.INCONCLUSIVE
+    assert record.run_id is not None and record.run_id.startswith("res281-")
+    assert record.configuration["metadata_only"] is True
+    assert record.configuration["historical_rows_opened"] is False
+    assert record.diagnostics["historical_row_realization_available"] == 0
+    assert record.diagnostics["matching_model_evaluation_artifacts_available"] == 0
+    assert record.audit_realization_id is not None
+
+
+def test_historical_provenance_cannot_claim_a_pass() -> None:
+    with pytest.raises(ValueError, match="metadata-only and inconclusive"):
+        _record(
+            benchmark_version=HISTORICAL,
+            attack_slug="reconstruction_provenance_gaps",
+            status=AuditStatus.PASS,
+            reason="An inadmissible historical provenance pass.",
+            input_artifacts=(SOURCE,),
+            diagnostics={"all_links_verified": 1},
+            source_commit="a" * 40,
+            seed=0,
+            intervention=_ATTACKS["reconstruction_provenance_gaps@1.0.0"].permitted_interventions[
+                0
+            ],
+            decision_criteria=("Every required link must be verified.",),
         )
 
 
