@@ -1,0 +1,709 @@
+{
+  "attacks": [
+    {
+      "admissibility_conditions": [
+        "Use only the named benchmark version's native task, information boundary, target, and support.",
+        "Pre-register transformations, comparison margins, and held-fixed quantities before inspecting outcomes.",
+        "A validity attack tests a claim or failure mode; it is not a replacement performance benchmark."
+      ],
+      "applicable_benchmark_versions": [
+        "class_normalized_cross_lift_five_target_performance_forecasting@1.0.0",
+        "four_target_load_velocity_and_competition_performance_forecasting@1.0.0",
+        "held_out_final_origin_five_target_performance_evaluation@1.0.0",
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity@1.0.0",
+        "seasonal_five_target_load_velocity_performance_forecasting@1.0.0"
+      ],
+      "axis_slug": "leakage_shortcut_susceptibility",
+      "estimand": "Change in predictions or canonical target-wise error when non-scientific participant/row keys are removed or permuted with all permitted inputs fixed.",
+      "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+      "expected_outputs": [
+        "Key-feature reads, invariance failures, and target-wise paired metric deltas."
+      ],
+      "inputs": [
+        "Public-safe input rows, preprocessing, model, and split manifest."
+      ],
+      "interpretation_boundaries": [
+        "A key permutation can be out of support; report it as a stress diagnostic, not ordinary test performance."
+      ],
+      "limitations": [
+        "A null or small effect under one attack does not establish general validity or safety."
+      ],
+      "methodology": [
+        "Trace every input feature to the permitted record.",
+        "Compare paired predictions before/after key-only interventions."
+      ],
+      "missing_evidence_handling": "If a required adapter, artifact, or permission is absent, distinguish NOT_APPLICABLE by semantics from UNSUPPORTED_BY_EVIDENCE; do not synthesize historical inputs.",
+      "permitted_interventions": [
+        "Remove or permute copied identity/key fields while preserving row alignment outside model features."
+      ],
+      "quantitative_diagnostics": [
+        "Forbidden feature read count; exact prediction invariance; paired RMSE/MAE/R²/SRE change and uncertainty."
+      ],
+      "required_evidence": [
+        "Input schema and feature lineage.",
+        "Split/group keys.",
+        "Sealed fitted preprocessing and model."
+      ],
+      "slug": "participant_input_leakage",
+      "study_kind": "VALIDITY_ATTACK",
+      "target_failure_mode": "Participant IDs, row order, split artifacts, or key encodings reveal target, group, or evaluation membership.",
+      "version": "1.0.0",
+      "world_task_semantics": [
+        "Any task with participant-visible rows and a declared input boundary."
+      ]
+    },
+    {
+      "admissibility_conditions": [
+        "Use only the named benchmark version's native task, information boundary, target, and support.",
+        "Pre-register transformations, comparison margins, and held-fixed quantities before inspecting outcomes.",
+        "A validity attack tests a claim or failure mode; it is not a replacement performance benchmark."
+      ],
+      "applicable_benchmark_versions": [
+        "class_normalized_cross_lift_five_target_performance_forecasting@1.0.0",
+        "four_target_load_velocity_and_competition_performance_forecasting@1.0.0",
+        "held_out_final_origin_five_target_performance_evaluation@1.0.0",
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity@1.0.0",
+        "seasonal_five_target_load_velocity_performance_forecasting@1.0.0"
+      ],
+      "axis_slug": "leakage_shortcut_susceptibility",
+      "estimand": "Rate of forbidden target-derived fields, target/identity overlap across splits, and output response to changes in copied target/key canaries.",
+      "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+      "expected_outputs": [
+        "Target-field reads, duplicate/overlap counts, canary invariance, and affected records."
+      ],
+      "inputs": [
+        "Public-safe schemas, split metadata, source/dataflow, and sealed model artifacts."
+      ],
+      "interpretation_boundaries": [
+        "Identity overlap is a failure only when it violates the declared split grain; repeated lawful context is not automatically contamination."
+      ],
+      "limitations": [
+        "A null or small effect under one attack does not establish general validity or safety."
+      ],
+      "methodology": [
+        "Walk target and identity dataflow from source rows through preprocessing and selection.",
+        "Check split overlap at the declared independent-unit grain.",
+        "Verify predictions are invariant to forbidden canaries."
+      ],
+      "missing_evidence_handling": "If a required adapter, artifact, or permission is absent, distinguish NOT_APPLICABLE by semantics from UNSUPPORTED_BY_EVIDENCE; do not synthesize historical inputs.",
+      "permitted_interventions": [
+        "Inject canary values only into disposable copied records; permute/replace forbidden IDs without changing lawful inputs."
+      ],
+      "quantitative_diagnostics": [
+        "Forbidden-field read count; overlap count/rate; prediction changes under forbidden canary."
+      ],
+      "required_evidence": [
+        "Target/input schemas.",
+        "Split grain and identity manifest.",
+        "Feature/preprocessing lineage and fit seal."
+      ],
+      "slug": "target_identity_contamination",
+      "study_kind": "VALIDITY_ATTACK",
+      "target_failure_mode": "Targets, evaluation truth, entity identity, or future labels enter features, preprocessing, model selection, or a supposedly independent split.",
+      "version": "1.0.0",
+      "world_task_semantics": [
+        "Any task with target fields, row/entity identity, split membership, or future/evaluation records."
+      ]
+    },
+    {
+      "admissibility_conditions": [
+        "Use only the named benchmark version's native task, information boundary, target, and support.",
+        "Pre-register transformations, comparison margins, and held-fixed quantities before inspecting outcomes.",
+        "A validity attack tests a claim or failure mode; it is not a replacement performance benchmark."
+      ],
+      "applicable_benchmark_versions": [
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0"
+      ],
+      "axis_slug": "leakage_shortcut_susceptibility",
+      "estimand": "Paired target-wise prediction/error change when a pre-identified non-scientific or suspect feature is ablated or conditionally perturbed.",
+      "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+      "expected_outputs": [
+        "Per-feature reliance diagnostics and target-wise paired score deltas."
+      ],
+      "inputs": [
+        "Public feature builder, fitted comparator, validation inputs, predictions, and evaluation records."
+      ],
+      "interpretation_boundaries": [
+        "Ablation dependence alone does not establish that a feature is invalid; its scientific and support status must be reviewed."
+      ],
+      "limitations": [
+        "A null or small effect under one attack does not establish general validity or safety."
+      ],
+      "methodology": [
+        "Name the suspect feature before scoring.",
+        "Measure paired effects on the same evaluation rows and label out-of-support interventions."
+      ],
+      "missing_evidence_handling": "If a required adapter, artifact, or permission is absent, distinguish NOT_APPLICABLE by semantics from UNSUPPORTED_BY_EVIDENCE; do not synthesize historical inputs.",
+      "permitted_interventions": [
+        "Ablate or conditionally permute one pre-identified feature in copied rows; keep lawful fields, fitted state, and targets fixed."
+      ],
+      "quantitative_diagnostics": [
+        "Paired RMSE/MAE/R²/SRE deltas, prediction correlation, and uncertainty by declared target."
+      ],
+      "required_evidence": [
+        "Feature matrix definition and feature provenance.",
+        "Fitted preprocessing/model.",
+        "Canonical predictions and metrics."
+      ],
+      "slug": "shortcut_feature_dependence",
+      "study_kind": "VALIDITY_ATTACK",
+      "target_failure_mode": "A model relies on an accidental proxy or encoding whose predictive value does not match the stated benchmark information claim.",
+      "version": "1.0.0",
+      "world_task_semantics": [
+        "Public-native version with sealed comparator inputs and feature definitions."
+      ]
+    },
+    {
+      "admissibility_conditions": [
+        "Use only the named benchmark version's native task, information boundary, target, and support.",
+        "Pre-register transformations, comparison margins, and held-fixed quantities before inspecting outcomes.",
+        "A validity attack tests a claim or failure mode; it is not a replacement performance benchmark."
+      ],
+      "applicable_benchmark_versions": [
+        "class_normalized_cross_lift_five_target_performance_forecasting@1.0.0",
+        "four_target_load_velocity_and_competition_performance_forecasting@1.0.0",
+        "held_out_final_origin_five_target_performance_evaluation@1.0.0",
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity@1.0.0",
+        "seasonal_five_target_load_velocity_performance_forecasting@1.0.0"
+      ],
+      "axis_slug": "leakage_shortcut_susceptibility",
+      "estimand": "Prediction and error sensitivity to declared chronology, history truncation, and chronology-preserving cadence perturbations.",
+      "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+      "expected_outputs": [
+        "Forbidden future reads, cutoff violations, cadence-specific predictions, and target-wise error changes."
+      ],
+      "inputs": [
+        "Public history rows, timestamps, cutoff contract, and sealed model."
+      ],
+      "interpretation_boundaries": [
+        "A disruption outside the intended observation process tests stress tolerance, not normal benchmark validity."
+      ],
+      "limitations": [
+        "A null or small effect under one attack does not establish general validity or safety."
+      ],
+      "methodology": [
+        "Check cutoff adherence, then compare registered history disruptions at fixed target, plan, and row identity."
+      ],
+      "missing_evidence_handling": "If a required adapter, artifact, or permission is absent, distinguish NOT_APPLICABLE by semantics from UNSUPPORTED_BY_EVIDENCE; do not synthesize historical inputs.",
+      "permitted_interventions": [
+        "Truncate at the legal cutoff; mask predeclared observations; optionally shuffle timestamps relative to values in copied diagnostic rows."
+      ],
+      "quantitative_diagnostics": [
+        "Future-read count; paired metric deltas by retained-history fraction/cadence; uncertainty."
+      ],
+      "required_evidence": [
+        "Observation timestamps/order, decision cutoff, missingness/cadence rules, and fitted model."
+      ],
+      "slug": "temporal_history_disruption",
+      "study_kind": "VALIDITY_ATTACK",
+      "target_failure_mode": "A model exploits chronology/order artifacts, an invalid cutoff, or undocumented dependence on specific history positions.",
+      "version": "1.0.0",
+      "world_task_semantics": [
+        "Forecast task with ordered observations and a documented decision cutoff."
+      ]
+    },
+    {
+      "admissibility_conditions": [
+        "Use only the named benchmark version's native task, information boundary, target, and support.",
+        "Pre-register transformations, comparison margins, and held-fixed quantities before inspecting outcomes.",
+        "A validity attack tests a claim or failure mode; it is not a replacement performance benchmark."
+      ],
+      "applicable_benchmark_versions": [
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0"
+      ],
+      "axis_slug": "out_of_distribution_robustness",
+      "estimand": "Change in declared target and model prediction under an admissible alternative future plan conditional on the same history and horizon.",
+      "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+      "expected_outputs": [
+        "Plan-conditioned target and prediction response, errors, and support checks."
+      ],
+      "inputs": [
+        "Native plan and world adapters, public-safe histories, fitted model, and regenerated paired targets."
+      ],
+      "interpretation_boundaries": [
+        "The estimand is conditional on the declared synthetic world; it is not the causal effect of training for real athletes."
+      ],
+      "limitations": [
+        "A null or small effect under one attack does not establish general validity or safety."
+      ],
+      "methodology": [
+        "Pair rows on fixed history/horizon, vary plan, regenerate target, and compare plan-response directions/magnitudes."
+      ],
+      "missing_evidence_handling": "If a required adapter, artifact, or permission is absent, distinguish NOT_APPLICABLE by semantics from UNSUPPORTED_BY_EVIDENCE; do not synthesize historical inputs.",
+      "permitted_interventions": [
+        "Swap only to an alternative plan inside the same version's declared support; regenerate the corresponding target under its native world."
+      ],
+      "quantitative_diagnostics": [
+        "Within-support paired target/prediction deltas by plan/horizon; directional agreement and uncertainty."
+      ],
+      "required_evidence": [
+        "Plan visibility and support, history cutoff, horizon, generator/world adapter, paired target construction, and model."
+      ],
+      "slug": "training_plan_counterfactual_sensitivity",
+      "study_kind": "VALIDITY_ATTACK",
+      "target_failure_mode": "A model ignores, misreads, or spuriously extrapolates the declared future plan that is visible at forecast time.",
+      "version": "1.0.0",
+      "world_task_semantics": [
+        "Forecast task whose native contract explicitly exposes a declared future training plan."
+      ]
+    },
+    {
+      "admissibility_conditions": [
+        "Use only the named benchmark version's native task, information boundary, target, and support.",
+        "Pre-register transformations, comparison margins, and held-fixed quantities before inspecting outcomes.",
+        "A validity attack tests a claim or failure mode; it is not a replacement performance benchmark."
+      ],
+      "applicable_benchmark_versions": [
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0"
+      ],
+      "axis_slug": "out_of_distribution_robustness",
+      "estimand": "Prediction/error response to fresh or perturbed observations generated under the same versioned observation law with latent target held fixed.",
+      "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+      "expected_outputs": [
+        "Noise draw identities, prediction dispersion, target-wise metric changes, and calibration/residual changes if defined."
+      ],
+      "inputs": [
+        "Public observation/world implementation, input history, fixed target, and fitted model."
+      ],
+      "interpretation_boundaries": [
+        "Noise robustness is specific to the declared observation law and does not validate real measurement noise."
+      ],
+      "limitations": [
+        "A null or small effect under one attack does not establish general validity or safety."
+      ],
+      "methodology": [
+        "Use paired noise draws from the same law; report in-law variation separately from out-of-law stress."
+      ],
+      "missing_evidence_handling": "If a required adapter, artifact, or permission is absent, distinguish NOT_APPLICABLE by semantics from UNSUPPORTED_BY_EVIDENCE; do not synthesize historical inputs.",
+      "permitted_interventions": [
+        "Regenerate observation noise under the same observation law while fixing latent trajectory, plan, horizon, and target."
+      ],
+      "quantitative_diagnostics": [
+        "Paired error/prediction variance over declared noise replicates and target-wise deltas with uncertainty."
+      ],
+      "required_evidence": [
+        "Observation model, random stream allocation, fixed latent/target identity, and model."
+      ],
+      "slug": "observation_noise_perturbation",
+      "study_kind": "VALIDITY_ATTACK",
+      "target_failure_mode": "Predictions are brittle to admissible observation noise or exploit a particular noise realization rather than the declared signal.",
+      "version": "1.0.0",
+      "world_task_semantics": [
+        "World version with a public observation model and generator adapter that can hold latent trajectories and targets fixed."
+      ]
+    },
+    {
+      "admissibility_conditions": [
+        "Use only the named benchmark version's native task, information boundary, target, and support.",
+        "Pre-register transformations, comparison margins, and held-fixed quantities before inspecting outcomes.",
+        "A validity attack tests a claim or failure mode; it is not a replacement performance benchmark."
+      ],
+      "applicable_benchmark_versions": [
+        "class_normalized_cross_lift_five_target_performance_forecasting@1.0.0",
+        "four_target_load_velocity_and_competition_performance_forecasting@1.0.0",
+        "held_out_final_origin_five_target_performance_evaluation@1.0.0",
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity@1.0.0",
+        "seasonal_five_target_load_velocity_performance_forecasting@1.0.0"
+      ],
+      "axis_slug": "out_of_distribution_robustness",
+      "estimand": "Prediction/error change under predeclared observation thinning or missingness patterns while target and legal information cutoff remain fixed.",
+      "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+      "expected_outputs": [
+        "Availability counts, prediction/error changes by history density, and unsupported mask cases."
+      ],
+      "inputs": [
+        "Public history, mask generator, preprocessing, model, and held-out targets."
+      ],
+      "interpretation_boundaries": [
+        "Synthetic deletion patterns do not establish robustness to real-world informative missingness."
+      ],
+      "limitations": [
+        "A null or small effect under one attack does not establish general validity or safety."
+      ],
+      "methodology": [
+        "Evaluate each declared mask/cadence separately; distinguish in-support missingness from synthetic stress."
+      ],
+      "missing_evidence_handling": "If a required adapter, artifact, or permission is absent, distinguish NOT_APPLICABLE by semantics from UNSUPPORTED_BY_EVIDENCE; do not synthesize historical inputs.",
+      "permitted_interventions": [
+        "Thin or mask only history observations according to a preregistered cadence/pattern; do not alter targets or expose future records."
+      ],
+      "quantitative_diagnostics": [
+        "Retained-observation fraction; missingness-stratified target-wise metric changes and uncertainty."
+      ],
+      "required_evidence": [
+        "Observation cadence, missingness semantics, cutoff, model preprocessing, and target rows."
+      ],
+      "slug": "sparse_missing_history_sensitivity",
+      "study_kind": "VALIDITY_ATTACK",
+      "target_failure_mode": "Performance depends on dense or complete histories beyond what the benchmark's claimed deployment setting supports.",
+      "version": "1.0.0",
+      "world_task_semantics": [
+        "Task with longitudinal history and either declared cadence/missingness support or a clearly labeled stress extension."
+      ]
+    },
+    {
+      "admissibility_conditions": [
+        "Use only the named benchmark version's native task, information boundary, target, and support.",
+        "Pre-register transformations, comparison margins, and held-fixed quantities before inspecting outcomes.",
+        "A validity attack tests a claim or failure mode; it is not a replacement performance benchmark."
+      ],
+      "applicable_benchmark_versions": [
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0"
+      ],
+      "axis_slug": "out_of_distribution_robustness",
+      "estimand": "Target-wise performance and prediction changes under a predeclared distribution shift relative to the same benchmark version's reference distribution.",
+      "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+      "expected_outputs": [
+        "Per-shift support relation, stratum metrics, degradation, and uncertainty."
+      ],
+      "inputs": [
+        "Public generator, frozen model, declared shift manifest, and shifted held-out realization."
+      ],
+      "interpretation_boundaries": [
+        "A shift result cannot be compared to a different dataset sampling design as if sampling design alone were an intervention."
+      ],
+      "limitations": [
+        "A null or small effect under one attack does not establish general validity or safety."
+      ],
+      "methodology": [
+        "Separate in-support and extrapolative regimes; freeze model before scoring shifted rows; report every shift independently."
+      ],
+      "missing_evidence_handling": "If a required adapter, artifact, or permission is absent, distinguish NOT_APPLICABLE by semantics from UNSUPPORTED_BY_EVIDENCE; do not synthesize historical inputs.",
+      "permitted_interventions": [
+        "Apply one supported population/plan/history/observation transform at a time in a copied or newly generated audit realization."
+      ],
+      "quantitative_diagnostics": [
+        "Target-wise metric delta and relative degradation by declared shift; paired intervals where pairing is valid."
+      ],
+      "required_evidence": [
+        "Native generator and support, shift declaration, train/reference/shifted split identities, and model outputs."
+      ],
+      "slug": "distributional_shift_sensitivity",
+      "study_kind": "VALIDITY_ATTACK",
+      "target_failure_mode": "A result is generalized beyond the support it actually covers, or a named shift causes material degradation that is hidden by aggregate reporting.",
+      "version": "1.0.0",
+      "world_task_semantics": [
+        "Version with a public-safe generator and a predeclared shift operator tied to its native world/task semantics."
+      ]
+    },
+    {
+      "admissibility_conditions": [
+        "Use only the named benchmark version's native task, information boundary, target, and support.",
+        "Pre-register transformations, comparison margins, and held-fixed quantities before inspecting outcomes.",
+        "A validity attack tests a claim or failure mode; it is not a replacement performance benchmark."
+      ],
+      "applicable_benchmark_versions": [
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0"
+      ],
+      "axis_slug": "seed_stability",
+      "estimand": "Variation in target-wise outcomes attributable separately to predeclared fit/initialization seeds and predeclared parameter settings on fixed data/splits.",
+      "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+      "expected_outputs": [
+        "Seed/setting-level metric distribution, fitted-state variability, and any conclusion reversals."
+      ],
+      "inputs": [
+        "Frozen training protocol, per-seed predictions/results, and fit seals."
+      ],
+      "interpretation_boundaries": [
+        "A fixed deterministic method's repeated identical fit does not estimate data-generation or split uncertainty."
+      ],
+      "limitations": [
+        "A null or small effect under one attack does not establish general validity or safety."
+      ],
+      "methodology": [
+        "Partition data-generation, split, initialization, and optimization seed effects.",
+        "Report every registered setting; do not select a winner on canonical validation."
+      ],
+      "missing_evidence_handling": "If a required adapter, artifact, or permission is absent, distinguish NOT_APPLICABLE by semantics from UNSUPPORTED_BY_EVIDENCE; do not synthesize historical inputs.",
+      "permitted_interventions": [
+        "Repeat only predeclared fit seeds or bounded parameter settings; never change split, targets, or final evaluation during selection."
+      ],
+      "quantitative_diagnostics": [
+        "Per-target range/SD/interval and pairwise outcome/rank reversals across declared seeds/settings."
+      ],
+      "required_evidence": [
+        "Seed allocation, hyperparameter/parameter protocol, fitted states, predictions, and evaluation identity."
+      ],
+      "slug": "parameter_seed_sensitivity",
+      "study_kind": "VALIDITY_ATTACK",
+      "target_failure_mode": "A reported model conclusion depends on a favorable seed or unreported parameter choice.",
+      "version": "1.0.0",
+      "world_task_semantics": [
+        "Version with public per-seed fit protocols, predictions, and fitted-state identities."
+      ]
+    },
+    {
+      "admissibility_conditions": [
+        "Use only the named benchmark version's native task, information boundary, target, and support.",
+        "Pre-register transformations, comparison margins, and held-fixed quantities before inspecting outcomes.",
+        "A validity attack tests a claim or failure mode; it is not a replacement performance benchmark."
+      ],
+      "applicable_benchmark_versions": [
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0"
+      ],
+      "axis_slug": "simple_model_frontier",
+      "estimand": "Whether any predeclared simple/reference model Pareto-dominates the claimed learned or historical method on matched target-wise metrics.",
+      "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+      "expected_outputs": [
+        "Dominance graph/frontier, target-wise metric deltas, and limitations."
+      ],
+      "inputs": [
+        "Public comparator registry, per-seed result table, result artifacts, and model cards."
+      ],
+      "interpretation_boundaries": [
+        "Existing M4 results are an input example, not a RES-277 verdict; their finite method set does not prove a universal frontier."
+      ],
+      "limitations": [
+        "A null or small effect under one attack does not establish general validity or safety."
+      ],
+      "methodology": [
+        "Construct target-wise Pareto relations using metric direction and predeclared practical margins; retain crossing trade-offs."
+      ],
+      "missing_evidence_handling": "If a required adapter, artifact, or permission is absent, distinguish NOT_APPLICABLE by semantics from UNSUPPORTED_BY_EVIDENCE; do not synthesize historical inputs.",
+      "permitted_interventions": [
+        "Use existing prediction/evaluation artifacts only; do not refit or rescore in RES-277."
+      ],
+      "quantitative_diagnostics": [
+        "Pareto dominance by target and metric; paired uncertainty/margin when available."
+      ],
+      "required_evidence": [
+        "Same rows, targets, support, information boundary, canonical metric identities, and model provenance."
+      ],
+      "slug": "baseline_domination",
+      "study_kind": "VALIDITY_ATTACK",
+      "target_failure_mode": "A complex-method claim is presented without a strong simple/reference comparator or is dominated under the declared evaluation.",
+      "version": "1.0.0",
+      "world_task_semantics": [
+        "Version with matched public prediction artifacts from learned and simple/mechanistic/reference methods."
+      ]
+    },
+    {
+      "admissibility_conditions": [
+        "Use only the named benchmark version's native task, information boundary, target, and support.",
+        "Pre-register transformations, comparison margins, and held-fixed quantities before inspecting outcomes.",
+        "A validity attack tests a claim or failure mode; it is not a replacement performance benchmark."
+      ],
+      "applicable_benchmark_versions": [
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0"
+      ],
+      "axis_slug": "seed_stability",
+      "estimand": "Probability or frequency that a model-pair or model ordering reverses under declared participant-level resampling, seed variation, or admissible within-version perturbation.",
+      "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+      "expected_outputs": [
+        "Pairwise differences, ranking uncertainty/reversal rates, and unresolved ties."
+      ],
+      "inputs": [
+        "Public per-row predictions/results, split-group identities, and model/seed registry."
+      ],
+      "interpretation_boundaries": [
+        "Ranks summarize a finite method set and metric choice; no single overall winner is inferred across unmatched targets."
+      ],
+      "limitations": [
+        "A null or small effect under one attack does not establish general validity or safety."
+      ],
+      "methodology": [
+        "Compute paired model differences and rank reversals within version; apply a comparability gate before any cross-version analysis."
+      ],
+      "missing_evidence_handling": "If a required adapter, artifact, or permission is absent, distinguish NOT_APPLICABLE by semantics from UNSUPPORTED_BY_EVIDENCE; do not synthesize historical inputs.",
+      "permitted_interventions": [
+        "Resample only declared independent units or use existing seeds; no cross-version score pooling."
+      ],
+      "quantitative_diagnostics": [
+        "Participant-cluster bootstrap intervals, per-seed rank reversals, and target-wise pairwise deltas."
+      ],
+      "required_evidence": [
+        "Aligned per-row predictions, group IDs, per-seed outputs, canonical metrics, and comparability decision."
+      ],
+      "slug": "model_ranking_instability",
+      "study_kind": "VALIDITY_ATTACK",
+      "target_failure_mode": "A reported model superiority/ranking is unstable to sampling uncertainty or is an artifact of an unmatched comparison.",
+      "version": "1.0.0",
+      "world_task_semantics": [
+        "At least two models evaluated on the same version, rows, metric definitions, and independent-unit structure."
+      ]
+    },
+    {
+      "admissibility_conditions": [
+        "Use only the named benchmark version's native task, information boundary, target, and support.",
+        "Pre-register transformations, comparison margins, and held-fixed quantities before inspecting outcomes.",
+        "A validity attack tests a claim or failure mode; it is not a replacement performance benchmark."
+      ],
+      "applicable_benchmark_versions": [
+        "class_normalized_cross_lift_five_target_performance_forecasting@1.0.0",
+        "four_target_load_velocity_and_competition_performance_forecasting@1.0.0",
+        "held_out_final_origin_five_target_performance_evaluation@1.0.0",
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity@1.0.0",
+        "seasonal_five_target_load_velocity_performance_forecasting@1.0.0"
+      ],
+      "axis_slug": "reconstructability",
+      "estimand": "Fraction and type of required identity, source, data, model, evaluation, and artifact-provenance links that can be reconstructed and verified.",
+      "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+      "expected_outputs": [
+        "Verified/missing provenance links, mismatches, and unsupported claims."
+      ],
+      "inputs": [
+        "Public registry/docs/manifests and rights-cleared artifacts; no private historical data or checkpoints."
+      ],
+      "interpretation_boundaries": [
+        "Completeness is not truth; provenance cannot repair absent historical source data or prove a scientific mechanism."
+      ],
+      "limitations": [
+        "A null or small effect under one attack does not establish general validity or safety."
+      ],
+      "methodology": [
+        "Walk each required provenance edge, verify identities and hashes, and list unverified/missing edges by claim."
+      ],
+      "missing_evidence_handling": "If a required adapter, artifact, or permission is absent, distinguish NOT_APPLICABLE by semantics from UNSUPPORTED_BY_EVIDENCE; do not synthesize historical inputs.",
+      "permitted_interventions": [
+        "Read public manifests and hashes; reconstruct only rights-cleared public artifacts and explicitly permitted projections."
+      ],
+      "quantitative_diagnostics": [
+        "Required-link completion count/rate by artifact class; hash/identity mismatch count."
+      ],
+      "required_evidence": [
+        "Benchmark registry, source provenance, data/model/evaluation references, rights metadata, and public artifact hashes."
+      ],
+      "slug": "reconstruction_provenance_gaps",
+      "study_kind": "VALIDITY_ATTACK",
+      "target_failure_mode": "A benchmark or audit claim cannot be reproduced because a required source, transformation, identity, permission, or artifact link is absent or inconsistent.",
+      "version": "1.0.0",
+      "world_task_semantics": [
+        "Any versioned benchmark claim or public result artifact."
+      ]
+    },
+    {
+      "admissibility_conditions": [
+        "Use only the named benchmark version's native task, information boundary, target, and support.",
+        "Pre-register transformations, comparison margins, and held-fixed quantities before inspecting outcomes.",
+        "A validity attack tests a claim or failure mode; it is not a replacement performance benchmark."
+      ],
+      "applicable_benchmark_versions": [
+        "class_normalized_cross_lift_five_target_performance_forecasting@1.0.0",
+        "four_target_load_velocity_and_competition_performance_forecasting@1.0.0",
+        "held_out_final_origin_five_target_performance_evaluation@1.0.0",
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity@1.0.0",
+        "seasonal_five_target_load_velocity_performance_forecasting@1.0.0"
+      ],
+      "axis_slug": "hidden_test_fairness",
+      "estimand": "Conformance of any claimed hidden evaluation split and access protocol to its predeclared identity, independence, group, and coverage rules.",
+      "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+      "expected_outputs": [
+        "Applicability state, split/access violations, and group/score coverage diagnostics."
+      ],
+      "inputs": [
+        "Split/access manifests, public test protocol, and model selection/provenance records."
+      ],
+      "interpretation_boundaries": [
+        "Fairness here concerns evaluation procedure and stated test population, not social fairness or unobserved athlete subgroups."
+      ],
+      "limitations": [
+        "A null or small effect under one attack does not establish general validity or safety."
+      ],
+      "methodology": [
+        "If absent by design, report NOT_APPLICABLE; if claimed but proof is unavailable, report UNSUPPORTED_BY_EVIDENCE.",
+        "Otherwise verify identity immutability, permitted access chronology, group separation, and score completeness."
+      ],
+      "missing_evidence_handling": "If a required adapter, artifact, or permission is absent, distinguish NOT_APPLICABLE by semantics from UNSUPPORTED_BY_EVIDENCE; do not synthesize historical inputs.",
+      "permitted_interventions": [
+        "Inspect public split/access manifests and seals; never inspect or release hidden labels to perform the audit."
+      ],
+      "quantitative_diagnostics": [
+        "Entity overlap counts, missing/duplicate score coverage, and access-before-seal violation count."
+      ],
+      "required_evidence": [
+        "Explicit hidden-test claim, split identity, access policy/logs, model seal, score-coverage records, and declared test population."
+      ],
+      "slug": "hidden_test_fairness",
+      "study_kind": "VALIDITY_ATTACK",
+      "target_failure_mode": "A nominally hidden test is leaked, mutable, selectively scored, or mismatched to its stated evaluation population.",
+      "version": "1.0.0",
+      "world_task_semantics": [
+        "Only versions explicitly claiming hidden or access-controlled evaluation; first test whether such a split exists."
+      ]
+    },
+    {
+      "admissibility_conditions": [
+        "Use only the named benchmark version's native task, information boundary, target, and support.",
+        "Pre-register transformations, comparison margins, and held-fixed quantities before inspecting outcomes.",
+        "A validity attack tests a claim or failure mode; it is not a replacement performance benchmark."
+      ],
+      "applicable_benchmark_versions": [
+        "class_normalized_cross_lift_five_target_performance_forecasting@1.0.0",
+        "four_target_load_velocity_and_competition_performance_forecasting@1.0.0",
+        "held_out_final_origin_five_target_performance_evaluation@1.0.0",
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity@1.0.0",
+        "seasonal_five_target_load_velocity_performance_forecasting@1.0.0"
+      ],
+      "axis_slug": "audit_coverage",
+      "estimand": "Counts of applicable attacks with admissible completed evidence, explicit non-run status, unsupported inputs, and semantic non-applicability for one version.",
+      "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+      "expected_outputs": [
+        "Attack coverage ledger, status counts, and uncovered contracts."
+      ],
+      "inputs": [
+        "Axis/attack registries and VersionValidityProfile entries."
+      ],
+      "interpretation_boundaries": [
+        "A complete paperwork ledger does not imply empirical execution or benchmark validity."
+      ],
+      "limitations": [
+        "A null or small effect under one attack does not establish general validity or safety."
+      ],
+      "methodology": [
+        "Reconcile each registered attack to exactly one state; report status counts by axis and version.",
+        "Never aggregate validity states into a scalar."
+      ],
+      "missing_evidence_handling": "If a required adapter, artifact, or permission is absent, distinguish NOT_APPLICABLE by semantics from UNSUPPORTED_BY_EVIDENCE; do not synthesize historical inputs.",
+      "permitted_interventions": [
+        "Count registered applicable contracts and explicit status records; retain reasons and provenance for every count."
+      ],
+      "quantitative_diagnostics": [
+        "Applicable/run/unsupported/not-run/not-applicable counts; coverage fraction as process metadata only."
+      ],
+      "required_evidence": [
+        "Versioned registries, applicability predicates, result statuses, evidence refs, and missing-evidence declarations."
+      ],
+      "slug": "audit_coverage_accounting",
+      "study_kind": "VALIDITY_ATTACK",
+      "target_failure_mode": "Audit coverage is overstated by omitting difficult attacks, conflating missing evidence with a pass, or using an unstable denominator.",
+      "version": "1.0.0",
+      "world_task_semantics": [
+        "Versioned validity-axis and attack registries plus one profile per benchmark version."
+      ]
+    }
+  ],
+  "contract_version": "1.0.0",
+  "format": "PSR_ATTACK_CONTRACT_REGISTRY_V1"
+}

@@ -1,0 +1,131 @@
+{
+  "$defs": {
+    "AuditResult": {
+      "additionalProperties": false,
+      "properties": {
+        "attack_spec_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "axis_slug": {
+          "type": "string"
+        },
+        "axis_spec_version": {
+          "type": "string"
+        },
+        "benchmark_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "benchmark_version": {
+          "type": "string"
+        },
+        "diagnostics": {
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {}
+            ]
+          },
+          "type": "object"
+        },
+        "evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "missing_evidence": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "result_artifact_sha256": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "run_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "semantic_digest": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "source_commit": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "INCONCLUSIVE",
+            "NOT_APPLICABLE",
+            "NOT_RUN",
+            "UNSUPPORTED_BY_EVIDENCE"
+          ],
+          "type": "string"
+        },
+        "status_reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "benchmark_version",
+        "axis_slug",
+        "axis_spec_version",
+        "status",
+        "status_reason"
+      ],
+      "type": "object"
+    }
+  },
+  "$ref": "#/$defs/AuditResult",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-generator": {
+    "name": "powerlifting-state-research-python",
+    "version": "0.1.0"
+  },
+  "x-semantic-validation": "JSON Schema describes record structure only; semantic and cross-field invariants require the authoritative Python contract validator."
+}

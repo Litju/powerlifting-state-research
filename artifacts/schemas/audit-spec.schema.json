@@ -1,0 +1,109 @@
+{
+  "$defs": {
+    "AuditSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "admissibility_conditions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "expected_output_schema": {
+          "enum": [
+            "PSR_AUDIT_RESULT_V1"
+          ]
+        },
+        "fail_criteria": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "inconclusive_criteria": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "inputs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "interpretation_boundaries": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "methodology": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "missing_evidence_handling": {
+          "type": "string"
+        },
+        "outputs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "pass_criteria": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "quantitative_diagnostics": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "required_evidence": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "required_evidence",
+        "admissibility_conditions",
+        "methodology",
+        "inputs",
+        "outputs",
+        "quantitative_diagnostics",
+        "pass_criteria",
+        "fail_criteria",
+        "inconclusive_criteria",
+        "interpretation_boundaries",
+        "limitations",
+        "missing_evidence_handling"
+      ],
+      "type": "object"
+    }
+  },
+  "$ref": "#/$defs/AuditSpec",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-generator": {
+    "name": "powerlifting-state-research-python",
+    "version": "0.1.0"
+  },
+  "x-semantic-validation": "JSON Schema describes record structure only; semantic and cross-field invariants require the authoritative Python contract validator."
+}

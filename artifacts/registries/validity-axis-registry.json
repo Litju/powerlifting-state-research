@@ -1,0 +1,613 @@
+{
+  "axes": [
+    {
+      "applicable_benchmark_versions": [
+        "class_normalized_cross_lift_five_target_performance_forecasting@1.0.0",
+        "four_target_load_velocity_and_competition_performance_forecasting@1.0.0",
+        "held_out_final_origin_five_target_performance_evaluation@1.0.0",
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity@1.0.0",
+        "seasonal_five_target_load_velocity_performance_forecasting@1.0.0"
+      ],
+      "attack_spec_refs": [],
+      "audit_spec": {
+        "admissibility_conditions": [
+          "Use each benchmark's native DatasetSpec and task semantics.",
+          "External-athlete claims require independently sourced and rights-cleared external evidence."
+        ],
+        "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+        "fail_criteria": [
+          "An admissible trace contradicts a declared in-scope construct or target meaning."
+        ],
+        "inconclusive_criteria": [
+          "Source descriptions are partial, competing, or do not resolve a construct-to-code claim."
+        ],
+        "inputs": [
+          "Benchmark version and semantic references.",
+          "Public generator, task and observation definitions, and any external domain evidence."
+        ],
+        "interpretation_boundaries": [
+          "A synthetic powerlifting world is not evidence of real-athlete validity, causal effects, or physiology."
+        ],
+        "limitations": [
+          "Domain correspondence depends on the declared world and external evidence; fidelity is not a scalar."
+        ],
+        "methodology": [
+          "Trace each stated construct through generation, participant-visible fields, target creation, and evaluation.",
+          "Compare implementation behavior only with the same version's declaration and support."
+        ],
+        "missing_evidence_handling": "List each missing source, measurement, or external evidence item; never infer real-athlete validity from synthetic performance.",
+        "outputs": [
+          "Construct-to-code/data mapping.",
+          "Supported claims, contradictions, and unresolved assumptions."
+        ],
+        "pass_criteria": [
+          "Every in-scope claim has an admissible trace and no material contradiction is found."
+        ],
+        "quantitative_diagnostics": [
+          "Coverage of declared constructs and target/input mappings, when the mapping is enumerable."
+        ],
+        "required_evidence": [
+          "Versioned task, target, world, population, observation, intervention, and dataset declarations.",
+          "Source-to-code trace for every public implementation claim."
+        ],
+        "version": "1.0.0"
+      },
+      "intended_claim": "The benchmark is faithful to its explicitly bounded synthetic or public-native domain claims.",
+      "scientific_question": "Do the declared target, observation process, population, and interventions represent the stated benchmark domain?",
+      "slug": "domain_faithfulness",
+      "version": "1.0.0"
+    },
+    {
+      "applicable_benchmark_versions": [
+        "class_normalized_cross_lift_five_target_performance_forecasting@1.0.0",
+        "four_target_load_velocity_and_competition_performance_forecasting@1.0.0",
+        "held_out_final_origin_five_target_performance_evaluation@1.0.0",
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity@1.0.0",
+        "seasonal_five_target_load_velocity_performance_forecasting@1.0.0"
+      ],
+      "attack_spec_refs": [],
+      "audit_spec": {
+        "admissibility_conditions": [
+          "Regenerate only the selected version and its own declared sampling design.",
+          "Compare the same realization and evaluation identity."
+        ],
+        "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+        "fail_criteria": [
+          "A repeatable mismatch violates a frozen identity or declared deterministic output."
+        ],
+        "inconclusive_criteria": [
+          "Environment drift, incomplete output, or unexplained variation prevents a decision."
+        ],
+        "inputs": [
+          "Versioned source and dependency lock.",
+          "Declared seeds and realization inputs.",
+          "Expected public manifest and regenerated artifacts."
+        ],
+        "interpretation_boundaries": [
+          "Reproducibility is scoped to declared artifacts and environments, not scientific truth."
+        ],
+        "limitations": [
+          "Serialization equality is not required unless declared; historical scrambled-Sobol and public-native IID realizations are distinct."
+        ],
+        "methodology": [
+          "Repeat the declared generation and evaluation-input export in a clean recorded environment.",
+          "Check semantic identities, row/key coverage, split identity, and exact hashes where byte identity is promised."
+        ],
+        "missing_evidence_handling": "Mark a version UNSUPPORTED_BY_EVIDENCE when required source, realization, seed, or provenance inputs are unavailable; do not substitute a related version.",
+        "outputs": [
+          "Reproduction receipt, identity comparisons, hash differences, and environment record."
+        ],
+        "pass_criteria": [
+          "All required outputs match their declared identity and the reproduction receipt is complete."
+        ],
+        "quantitative_diagnostics": [
+          "Exact artifact/hash agreement where promised; identity-level agreement for explicitly serialization-different outputs."
+        ],
+        "required_evidence": [
+          "Canonical benchmark, DatasetSpec, realization, evaluation, generator/source, seeds, environment, and artifact hashes."
+        ],
+        "version": "1.0.0"
+      },
+      "intended_claim": "The declared dataset and evaluation artifacts can be regenerated or independently verified within the stated environment and version.",
+      "scientific_question": "Can the exact benchmark version and its eligible audit inputs be regenerated with identity-preserving provenance?",
+      "slug": "reproducibility",
+      "version": "1.0.0"
+    },
+    {
+      "applicable_benchmark_versions": [
+        "class_normalized_cross_lift_five_target_performance_forecasting@1.0.0",
+        "four_target_load_velocity_and_competition_performance_forecasting@1.0.0",
+        "held_out_final_origin_five_target_performance_evaluation@1.0.0",
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity@1.0.0",
+        "seasonal_five_target_load_velocity_performance_forecasting@1.0.0"
+      ],
+      "attack_spec_refs": [
+        "participant_input_leakage@1.0.0",
+        "target_identity_contamination@1.0.0",
+        "shortcut_feature_dependence@1.0.0",
+        "temporal_history_disruption@1.0.0"
+      ],
+      "audit_spec": {
+        "admissibility_conditions": [
+          "Use copies of public-safe data and fitted artifacts.",
+          "Do not open held-out truth for tuning or rewrite a frozen benchmark identity."
+        ],
+        "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+        "fail_criteria": [
+          "Any prohibited target/future access or an admissible material shortcut dependence contradicts the claim."
+        ],
+        "inconclusive_criteria": [
+          "Missing feature lineage, inaccessible preprocessing, or uncertain group identity blocks attribution."
+        ],
+        "inputs": [
+          "Permitted participant-visible inputs, targets for final scoring only, split metadata, and a sealed fitted model."
+        ],
+        "interpretation_boundaries": [
+          "A score change after ablation identifies dependence under that intervention, not the causal effect of the feature in athletes."
+        ],
+        "limitations": [
+          "Ablation may create out-of-support inputs; label such results separately and do not interpret them as ordinary test performance."
+        ],
+        "methodology": [
+          "Inspect schemas and feature lineage for forbidden target/future fields.",
+          "Test key and suspicious-feature invariance/ablation on paired rows.",
+          "Check split overlap at the declared entity/group grain."
+        ],
+        "missing_evidence_handling": "Without row-level inputs, split keys, and the sealed model path, report UNSUPPORTED_BY_EVIDENCE; never infer leakage absence from a schema alone.",
+        "outputs": [
+          "Forbidden-field reads, split overlap, invariance/ablation effects, and target-wise paired score changes."
+        ],
+        "pass_criteria": [
+          "No prohibited information crosses the declared boundary and all required invariance checks meet pre-registered tolerances."
+        ],
+        "quantitative_diagnostics": [
+          "Overlap counts, exact invariance violations, and target-wise paired metric deltas with uncertainty."
+        ],
+        "required_evidence": [
+          "Versioned input/output schema, prediction-time cutoff, split/group identities, and fitted preprocessing/model artifacts."
+        ],
+        "version": "1.0.0"
+      },
+      "intended_claim": "Participant-visible information respects the versioned prediction boundary and any residual shortcut dependence is disclosed.",
+      "scientific_question": "Can prohibited targets, identity fields, future information, or non-scientific shortcuts influence model inputs or predictions?",
+      "slug": "leakage_shortcut_susceptibility",
+      "version": "1.0.0"
+    },
+    {
+      "applicable_benchmark_versions": [
+        "class_normalized_cross_lift_five_target_performance_forecasting@1.0.0",
+        "four_target_load_velocity_and_competition_performance_forecasting@1.0.0",
+        "held_out_final_origin_five_target_performance_evaluation@1.0.0",
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity@1.0.0",
+        "seasonal_five_target_load_velocity_performance_forecasting@1.0.0"
+      ],
+      "attack_spec_refs": [
+        "reconstruction_provenance_gaps@1.0.0"
+      ],
+      "audit_spec": {
+        "admissibility_conditions": [
+          "Separate reconstruction from participant-public inputs from structural access to a generator or hidden state.",
+          "Compare only on matched inputs, targets, support, and output units."
+        ],
+        "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+        "fail_criteria": [
+          "A reproducible mismatch exceeds the declared tolerance or a required provenance link is false."
+        ],
+        "inconclusive_criteria": [
+          "Partial sources, missing inputs, or no justified tolerance prevent a decision."
+        ],
+        "inputs": [
+          "Source declarations, public input artifacts, reconstruction code, and canonical comparison outputs."
+        ],
+        "interpretation_boundaries": [
+          "Reconstructing a target from its inputs does not identify latent states or validate causal/physiological mechanisms."
+        ],
+        "limitations": [
+          "A sufficiently expressive reconstruction may exploit target-sufficient shortcuts; structural and public-input reconstruction remain distinct."
+        ],
+        "methodology": [
+          "Rebuild the smallest declared target/world behavior from its admissible inputs.",
+          "Compare exact outputs for deterministic identities, or pre-specified tolerances for numerical implementations.",
+          "Record provenance and every unavailable dependency."
+        ],
+        "missing_evidence_handling": "Name each missing source, data artifact, or rights-cleared dependency; do not reconstruct historical private data or checkpoints into Git.",
+        "outputs": [
+          "Reconstruction method, paired output differences, provenance chain, and unresolved dependencies."
+        ],
+        "pass_criteria": [
+          "The specified reconstruction level is supported by complete provenance and meets its predeclared comparison rule."
+        ],
+        "quantitative_diagnostics": [
+          "Exact-match rate or target-wise absolute/relative error under a predeclared tolerance."
+        ],
+        "required_evidence": [
+          "Complete source/dependency lineage, public input schema, target definition, realization reference, and reconstruction implementation/output."
+        ],
+        "version": "1.0.0"
+      },
+      "intended_claim": "A reconstruction claim is reproducible at its declared information level and its remaining unidentifiable components are explicit.",
+      "scientific_question": "Can the declared target, public-facing behavior, or specified world output be reconstructed from the evidence actually available to participants?",
+      "slug": "reconstructability",
+      "version": "1.0.0"
+    },
+    {
+      "applicable_benchmark_versions": [
+        "class_normalized_cross_lift_five_target_performance_forecasting@1.0.0",
+        "four_target_load_velocity_and_competition_performance_forecasting@1.0.0",
+        "held_out_final_origin_five_target_performance_evaluation@1.0.0",
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity@1.0.0",
+        "seasonal_five_target_load_velocity_performance_forecasting@1.0.0"
+      ],
+      "attack_spec_refs": [
+        "baseline_domination@1.0.0"
+      ],
+      "audit_spec": {
+        "admissibility_conditions": [
+          "Compare only models evaluated on the same version, rows, target definitions, information boundary, and metric implementation.",
+          "Pre-register reference classes and practical margins."
+        ],
+        "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+        "fail_criteria": [
+          "A predeclared simple reference dominates the claimed method on all decision-relevant metrics/targets beyond the declared margin."
+        ],
+        "inconclusive_criteria": [
+          "Targets or metrics cross, uncertainty spans the margin, or baseline coverage is incomplete."
+        ],
+        "inputs": [
+          "Existing public-safe predictions/results and their frozen model/protocol registries."
+        ],
+        "interpretation_boundaries": [
+          "A finite comparator set is not a universal optimum; benchmark validity does not depend on a preferred model winning."
+        ],
+        "limitations": [
+          "No cross-version raw-score ranking without a positive comparability determination."
+        ],
+        "methodology": [
+          "Construct a target-wise metric frontier from predeclared constant, context, linear, mechanistic, and other justified simple references.",
+          "Report paired uncertainty and Pareto dominance; retain incomparable trade-offs."
+        ],
+        "missing_evidence_handling": "If matched predictions, metrics, or a model's public provenance are absent, report UNSUPPORTED_BY_EVIDENCE rather than estimating them.",
+        "outputs": [
+          "Per-target frontier table, dominant models, metric trade-offs, and uncertainty."
+        ],
+        "pass_criteria": [
+          "The declared reference set is complete for its claim and no simple reference materially dominates the claimed frontier under preregistered margins."
+        ],
+        "quantitative_diagnostics": [
+          "Paired target-wise RMSE/MAE/R²/SRE where canonically defined; Pareto dominance and paired intervals."
+        ],
+        "required_evidence": [
+          "Matched target-wise predictions, common split and evaluation identity, model/input declarations, and fitted-state provenance."
+        ],
+        "version": "1.0.0"
+      },
+      "intended_claim": "The reported prediction claim is interpreted relative to declared strong non-ML/reference baselines and target-wise trade-offs.",
+      "scientific_question": "Has the benchmark been compared with a credible frontier of simple, mechanistic, and reference predictors on the same evaluation surface?",
+      "slug": "simple_model_frontier",
+      "version": "1.0.0"
+    },
+    {
+      "applicable_benchmark_versions": [
+        "class_normalized_cross_lift_five_target_performance_forecasting@1.0.0",
+        "four_target_load_velocity_and_competition_performance_forecasting@1.0.0",
+        "held_out_final_origin_five_target_performance_evaluation@1.0.0",
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity@1.0.0",
+        "seasonal_five_target_load_velocity_performance_forecasting@1.0.0"
+      ],
+      "attack_spec_refs": [],
+      "audit_spec": {
+        "admissibility_conditions": [
+          "Do not infer contribution from model size, architecture, or in-sample fit.",
+          "Pre-register equivalence/practical margins and comparison targets."
+        ],
+        "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+        "fail_criteria": [
+          "A simple/reference method is equivalent within a justified margin or dominates the learned method on all claimed outcomes."
+        ],
+        "inconclusive_criteria": [
+          "No practical margin, insufficient independent runs, or conflicting target-wise effects leaves contribution unresolved."
+        ],
+        "inputs": [
+          "Existing evaluation artifacts, fit seals, model specifications, and per-seed results."
+        ],
+        "interpretation_boundaries": [
+          "Predictive contribution does not show causal identification, real-athlete validity, or physiological realism."
+        ],
+        "limitations": [
+          "One benchmark, split, and model family cannot establish a general benefit of machine learning."
+        ],
+        "methodology": [
+          "Use paired target-wise differences against the strongest admissible simple/reference method.",
+          "Use ablation or controlled fit comparisons only when fit protocol and inputs remain matched."
+        ],
+        "missing_evidence_handling": "Do not train or rescore to fill gaps in RES-277; use existing public-safe evidence or report the unsupported requirement.",
+        "outputs": [
+          "Incremental target-wise contribution, uncertainty, selected targets, and limitations."
+        ],
+        "pass_criteria": [
+          "A predeclared learned contribution exceeds the practical margin on the declared targets with uncertainty support and no protocol leakage."
+        ],
+        "quantitative_diagnostics": [
+          "Paired metric deltas, confidence intervals, seed-level replication, and Pareto non-dominance."
+        ],
+        "required_evidence": [
+          "Sealed learned and reference predictions, matched training/evaluation protocol, target-wise metrics, and model provenance."
+        ],
+        "version": "1.0.0"
+      },
+      "intended_claim": "Any claimed learned-method contribution is incremental to matched baselines under the declared finite benchmark support.",
+      "scientific_question": "Does the learned component add a predeclared, reproducible prediction contribution beyond strong simpler alternatives?",
+      "slug": "ml_load_bearing_contribution",
+      "version": "1.0.0"
+    },
+    {
+      "applicable_benchmark_versions": [
+        "class_normalized_cross_lift_five_target_performance_forecasting@1.0.0",
+        "four_target_load_velocity_and_competition_performance_forecasting@1.0.0",
+        "held_out_final_origin_five_target_performance_evaluation@1.0.0",
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity@1.0.0",
+        "seasonal_five_target_load_velocity_performance_forecasting@1.0.0"
+      ],
+      "attack_spec_refs": [
+        "training_plan_counterfactual_sensitivity@1.0.0",
+        "observation_noise_perturbation@1.0.0",
+        "sparse_missing_history_sensitivity@1.0.0",
+        "distributional_shift_sensitivity@1.0.0"
+      ],
+      "audit_spec": {
+        "admissibility_conditions": [
+          "Pre-register shift operator, direction, magnitude, and in/out-of-support status.",
+          "Preserve task, target, and information boundary unless the attack explicitly changes one."
+        ],
+        "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+        "fail_criteria": [
+          "A declared in-scope shift reproducibly exceeds its predeclared degradation bound."
+        ],
+        "inconclusive_criteria": [
+          "Shift support is missing, a counterfactual is invalid, or uncertainty crosses the bound."
+        ],
+        "inputs": [
+          "Frozen model, public generator/data adapter, declared shift semantics, and matched scoring inputs."
+        ],
+        "interpretation_boundaries": [
+          "Robustness to named synthetic perturbations is not broad OOD or real-world robustness."
+        ],
+        "limitations": [
+          "Do not compare historical scrambled-Sobol and public-native IID scores as a shift contrast."
+        ],
+        "methodology": [
+          "Evaluate each shift separately on held-out shifted rows or valid paired counterfactuals.",
+          "Report response curves/strata and uncertainty; never fold shifts into a single validity score."
+        ],
+        "missing_evidence_handling": "For versions without a justified shift operator and executable adapter, classify the attack UNSUPPORTED_BY_EVIDENCE or NOT_APPLICABLE by semantics.",
+        "outputs": [
+          "Shift-specific target-wise performance changes, support notes, and failure cases."
+        ],
+        "pass_criteria": [
+          "All named in-scope shifts meet their predeclared practical criteria with supported uncertainty."
+        ],
+        "quantitative_diagnostics": [
+          "Target-wise RMSE/MAE/R²/SRE deltas, calibration/residual changes when defined, and per-shift uncertainty."
+        ],
+        "required_evidence": [
+          "Version-specific support, train/evaluation identities, shift declaration or public generator intervention, and target-wise predictions."
+        ],
+        "version": "1.0.0"
+      },
+      "intended_claim": "Robustness is characterized for named, admissible shifts and does not imply performance on unspecified domains.",
+      "scientific_question": "How do predictions and claims change under predeclared shifts from the version's training/evaluation distribution?",
+      "slug": "out_of_distribution_robustness",
+      "version": "1.0.0"
+    },
+    {
+      "applicable_benchmark_versions": [
+        "class_normalized_cross_lift_five_target_performance_forecasting@1.0.0",
+        "four_target_load_velocity_and_competition_performance_forecasting@1.0.0",
+        "held_out_final_origin_five_target_performance_evaluation@1.0.0",
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity@1.0.0",
+        "seasonal_five_target_load_velocity_performance_forecasting@1.0.0"
+      ],
+      "attack_spec_refs": [
+        "parameter_seed_sensitivity@1.0.0",
+        "model_ranking_instability@1.0.0"
+      ],
+      "audit_spec": {
+        "admissibility_conditions": [
+          "Separate data, split, initialization, and optimization seeds.",
+          "Hold protocol and canonical evaluation fixed for each sensitivity contrast."
+        ],
+        "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+        "fail_criteria": [
+          "A conclusion changes beyond its declared stability criterion across admissible seeds."
+        ],
+        "inconclusive_criteria": [
+          "Too few independent seeds, confounded seed streams, or overlapping uncertainty prevents a decision."
+        ],
+        "inputs": [
+          "Per-seed manifests, fitted-state identity, prediction hashes, and evaluation rows."
+        ],
+        "interpretation_boundaries": [
+          "A small number of seeds cannot establish stability outside the sampled protocol."
+        ],
+        "limitations": [
+          "Deterministic models may have zero fit-seed variance while data/split uncertainty remains unmeasured."
+        ],
+        "methodology": [
+          "Summarize seed-level metrics and rank reversals; repeat only predeclared independent seeds.",
+          "Do not tune on the final evaluation while increasing repetitions."
+        ],
+        "missing_evidence_handling": "If per-seed artifacts or seed allocation are unavailable, report UNSUPPORTED_BY_EVIDENCE; never treat one seed as evidence of stability.",
+        "outputs": [
+          "Seed-level spread and any conclusion changes under seed variation."
+        ],
+        "pass_criteria": [
+          "All predeclared conclusions remain within a justified tolerance across the required seed design."
+        ],
+        "quantitative_diagnostics": [
+          "Per-target SD/range or interval, intraclass/rank stability where justified, and rank reversals."
+        ],
+        "required_evidence": [
+          "Per-seed dataset/split identities, fit protocol, predictions, canonical results, and deterministic settings."
+        ],
+        "version": "1.0.0"
+      },
+      "intended_claim": "Reported conclusions describe between-seed variation rather than a favorable single run.",
+      "scientific_question": "Are conclusions stable across declared data-generation, split, fit, and model initialization seeds?",
+      "slug": "seed_stability",
+      "version": "1.0.0"
+    },
+    {
+      "applicable_benchmark_versions": [
+        "class_normalized_cross_lift_five_target_performance_forecasting@1.0.0",
+        "four_target_load_velocity_and_competition_performance_forecasting@1.0.0",
+        "held_out_final_origin_five_target_performance_evaluation@1.0.0",
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity@1.0.0",
+        "seasonal_five_target_load_velocity_performance_forecasting@1.0.0"
+      ],
+      "attack_spec_refs": [
+        "hidden_test_fairness@1.0.0"
+      ],
+      "audit_spec": {
+        "admissibility_conditions": [
+          "First establish that a hidden/access-controlled split exists.",
+          "Use no hidden labels to tune or create audit attacks."
+        ],
+        "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+        "fail_criteria": [
+          "An admissible access or split violation compromises the hidden-test claim."
+        ],
+        "inconclusive_criteria": [
+          "Hidden-set existence, membership, or access history cannot be established."
+        ],
+        "inputs": [
+          "Public split declaration, immutable test identity, access/provenance records, and model-selection seal."
+        ],
+        "interpretation_boundaries": [
+          "Fair hidden-test procedure does not establish external validity or fairness across real-athlete groups not represented."
+        ],
+        "limitations": [
+          "A fully public validation set is NOT_APPLICABLE to a hidden-test claim; it is still subject to leakage and split-integrity audits."
+        ],
+        "methodology": [
+          "Verify split immutability, group/support balance, pre-test model sealing, permitted access, and complete scoring coverage."
+        ],
+        "missing_evidence_handling": "Use NOT_APPLICABLE only when the version has no hidden-test claim by design; unknown split/access evidence is UNSUPPORTED_BY_EVIDENCE.",
+        "outputs": [
+          "Applicability decision, split/access checks, uncovered groups, and protocol deviations."
+        ],
+        "pass_criteria": [
+          "A declared hidden evaluation is identity-stable, access-controlled, representative of its stated target population, and scored after model sealing."
+        ],
+        "quantitative_diagnostics": [
+          "Entity overlap, missing/duplicate score coverage, declared support balance, and access chronology."
+        ],
+        "required_evidence": [
+          "Explicit hidden-test claim, split identity/construction, participant access logs or equivalent controls, and matching evaluation protocol."
+        ],
+        "version": "1.0.0"
+      },
+      "intended_claim": "A hidden-test claim is supported only when test identity, split construction, access, and model-selection boundaries are independently auditable.",
+      "scientific_question": "Where a hidden or access-controlled evaluation set is claimed, does its identity and access policy support a fair, non-leaking evaluation?",
+      "slug": "hidden_test_fairness",
+      "version": "1.0.0"
+    },
+    {
+      "applicable_benchmark_versions": [
+        "class_normalized_cross_lift_five_target_performance_forecasting@1.0.0",
+        "four_target_load_velocity_and_competition_performance_forecasting@1.0.0",
+        "held_out_final_origin_five_target_performance_evaluation@1.0.0",
+        "iid_latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_capacity_change_with_transient_expression_forecasting@1.0.0",
+        "latent_origin_capacity_change_forecasting@1.0.0",
+        "observed_origin_referenced_capacity_change_forecasting@1.0.0",
+        "performance_forecasting_under_schedule_exposure_reporting_heterogeneity@1.0.0",
+        "seasonal_five_target_load_velocity_performance_forecasting@1.0.0"
+      ],
+      "attack_spec_refs": [
+        "audit_coverage_accounting@1.0.0"
+      ],
+      "audit_spec": {
+        "admissibility_conditions": [
+          "Determine the denominator from versioned attack applicability, not from attacks that happened to run.",
+          "Keep NOT_APPLICABLE, NOT_RUN, and UNSUPPORTED_BY_EVIDENCE distinct."
+        ],
+        "expected_output_schema": "PSR_AUDIT_RESULT_V1",
+        "fail_criteria": [
+          "A required attack is silently omitted, misclassified, or reports unsupported evidence as a pass."
+        ],
+        "inconclusive_criteria": [
+          "The applicable denominator or status evidence cannot be reconstructed."
+        ],
+        "inputs": [
+          "Attack contract registry and version-validity profile."
+        ],
+        "interpretation_boundaries": [
+          "Coverage describes the audit process, not the benchmark's predictive or scientific validity."
+        ],
+        "limitations": [
+          "A complete registry is not complete empirical coverage; NOT_RUN and UNSUPPORTED remain unresolved."
+        ],
+        "methodology": [
+          "Reconcile each applicable attack to one status and evidence/limitation record.",
+          "Publish counts by status and missing-evidence category; do not weight or sum axis outcomes."
+        ],
+        "missing_evidence_handling": "Count states by versioned applicability and keep missing items visible; never emit an overall validity score.",
+        "outputs": [
+          "Per-axis attack coverage ledger and status counts."
+        ],
+        "pass_criteria": [
+          "Every applicable attack has a valid status, required provenance, and visible evidence gap or run artifact."
+        ],
+        "quantitative_diagnostics": [
+          "Applicable/run/unsupported/not-run/not-applicable counts and completion fraction, shown only as audit coverage."
+        ],
+        "required_evidence": [
+          "Version-specific applicable attack registry, per-attack status, result/provenance references, and reasons for every exception."
+        ],
+        "version": "1.0.0"
+      },
+      "intended_claim": "Coverage gaps, unsupported attacks, and unrun work are visible without collapsing them into a validity score.",
+      "scientific_question": "Were all applicable registered validity attacks attempted or assigned an explicit state with evidence and limitations?",
+      "slug": "audit_coverage",
+      "version": "1.0.0"
+    }
+  ],
+  "contract_version": "1.0.0",
+  "format": "PSR_VALIDITY_AXIS_REGISTRY_V1"
+}

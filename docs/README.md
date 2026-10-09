@@ -6,4 +6,4 @@
 - [Data](data/index.md), [models](models/reference-models.md), [audits](audits/index.md), [studies](studies/index.md), and [artifacts](artifacts/index.md)
 - [Reproducibility](reproducibility.md), [public/private firewall](public-private-firewall.md), [roadmap](roadmap.md), and [contribution guidance](contributing.md)
 
-All documentation describes the initial public research specification. It does not report regenerated historical results.
+Documentation describes the public research specification and explicitly linked public evidence. RES-277 adds audit contracts and evidence-state profiles; it reports no new historical or audit results.

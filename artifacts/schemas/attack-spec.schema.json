@@ -1,0 +1,130 @@
+{
+  "$defs": {
+    "AttackSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "admissibility_conditions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "applicable_benchmark_versions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "axis_slug": {
+          "type": "string"
+        },
+        "estimand": {
+          "type": "string"
+        },
+        "expected_output_schema": {
+          "enum": [
+            "PSR_AUDIT_RESULT_V1"
+          ]
+        },
+        "expected_outputs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "inputs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "interpretation_boundaries": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "methodology": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "missing_evidence_handling": {
+          "type": "string"
+        },
+        "permitted_interventions": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "quantitative_diagnostics": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "required_evidence": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "slug": {
+          "type": "string"
+        },
+        "study_kind": {
+          "enum": [
+            "VALIDITY_ATTACK"
+          ]
+        },
+        "target_failure_mode": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "world_task_semantics": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "slug",
+        "version",
+        "axis_slug",
+        "estimand",
+        "target_failure_mode",
+        "applicable_benchmark_versions",
+        "world_task_semantics",
+        "permitted_interventions",
+        "required_evidence",
+        "admissibility_conditions",
+        "methodology",
+        "inputs",
+        "expected_outputs",
+        "quantitative_diagnostics",
+        "interpretation_boundaries",
+        "limitations",
+        "missing_evidence_handling"
+      ],
+      "type": "object"
+    }
+  },
+  "$ref": "#/$defs/AttackSpec",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-generator": {
+    "name": "powerlifting-state-research-python",
+    "version": "0.1.0"
+  },
+  "x-semantic-validation": "JSON Schema describes record structure only; semantic and cross-field invariants require the authoritative Python contract validator."
+}
