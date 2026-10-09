@@ -58,12 +58,13 @@ ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_OUTPUT = Path("results/audits/res278")
 RESULT_FORMAT = "PSR_AUDIT_EXECUTIONS_V1"
 _NATIVE_ATTACK_SEEDS = {
-    "participant_input_leakage": 278_101,
-    "target_identity_contamination": 278_102,
-    "temporal_history_disruption": 278_103,
-    "training_plan_counterfactual_sensitivity": 278_104,
-    "observation_noise_perturbation": 278_105,
+    "participant_input_leakage": 281_101,
+    "target_identity_contamination": 281_102,
+    "temporal_history_disruption": 281_103,
+    "training_plan_counterfactual_sensitivity": 281_104,
+    "observation_noise_perturbation": 281_105,
 }
+_RUN_NAMESPACE = "res281"
 AUDIT_ROW_COUNT = 96
 MODEL_SEEDS = (383_001, 383_002, 383_003)
 _SHA256 = "sha256:"
@@ -76,7 +77,7 @@ _PUBLIC_RIGHTS = RightsMetadata(
 _RESULT_RIGHTS = RightsMetadata(
     "MIT",
     "Powerlifting State Research contributors",
-    "RES-278 audit execution metadata under the repository license.",
+    "RES-281 audit execution metadata under the repository license.",
 )
 _ATTACKS = {item.reference: item for item in ATTACK_SPECS}
 _AXES = {item.slug: item for item in VALIDITY_AXES}
@@ -1045,7 +1046,7 @@ def _run_id(
             "audit_realization_digest": audit_realization_digest,
         }
     )
-    return f"res278-{attack_slug}-{digest[7:19]}"
+    return f"{_RUN_NAMESPACE}-{attack_slug}-{digest[7:19]}"
 
 
 def _record(
@@ -1234,7 +1235,7 @@ def _write_audit_realization(
     source_commit: str,
     extra_seeds: tuple[tuple[str, int], ...] = (),
 ) -> tuple[DatasetRealizationManifest, str, tuple[EvidenceArtifactReference, ...]]:
-    realization_id = f"res278-{attack_slug.replace('_', '-')}-seed-{seed}"
+    realization_id = f"{_RUN_NAMESPACE}-{attack_slug.replace('_', '-')}-seed-{seed}"
     folder = staging / "realizations" / realization_id
     folder.mkdir(parents=True)
     final_folder = (output_rel / "realizations" / realization_id).as_posix()
@@ -1595,7 +1596,7 @@ def _native_intervention_record(
 ) -> AuditExecutionRecord:
     import numpy as np
 
-    realization_id = f"res278-{attack_slug.replace('_', '-')}-seed-{seed}"
+    realization_id = f"{_RUN_NAMESPACE}-{attack_slug.replace('_', '-')}-seed-{seed}"
     config, baseline, profiles = _audit_rows(seed, realization_id)
     intervention = _ATTACKS[f"{attack_slug}@1.0.0"].permitted_interventions[0]
     model_inputs = m4.artifact_refs

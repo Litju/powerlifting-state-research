@@ -38,7 +38,7 @@ def _executed(**changes: object) -> AuditExecutionRecord:
         "input_artifacts": (SOURCE,),
         "diagnostics": {"paired_prediction_delta": 0.0},
         "source_commit": "a" * 40,
-        "seed": 278_101,
+        "seed": 281_101,
         "intervention": _ATTACKS["participant_input_leakage@1.0.0"].permitted_interventions[0],
         "decision_criteria": (
             "The paired diagnostic was executed; no decision margin was declared.",
@@ -160,6 +160,8 @@ def test_audit_output_cannot_target_frozen_m4_artifacts() -> None:
 def test_execution_serialization_round_trips_with_stable_hashes() -> None:
     record = _executed()
     replay = _executed()
+    assert record.run_id is not None and record.run_id.startswith("res281-")
+    assert record.audit_realization_id == replay.audit_realization_id
     assert canonical_json_bytes(replay) == canonical_json_bytes(record)
     content = canonical_json_bytes(record)
     replayed = read_audit_execution_record(json.loads(content))
@@ -167,3 +169,14 @@ def test_execution_serialization_round_trips_with_stable_hashes() -> None:
     assert canonical_json_bytes(replayed) == content
     assert replayed.result_artifact_identity == record.result_artifact_identity
     assert replayed.result_artifact_sha256 == record.result_artifact_sha256
+
+
+def test_res278_audit_bundle_is_unchanged() -> None:
+    manifest = json.loads(
+        (ROOT / "results/audits/res278/audit-results.manifest.json").read_text(encoding="utf-8")
+    )
+    assert manifest["bundle_identity"] == (
+        "psr:audit-bundle@sha256:0507c294ad33c5d0382fced64ef888a03d9e72c0f4065be3f084edf347d9531a"
+    )
+    for item in manifest["files"]:
+        assert sha256_file_content(ROOT / item["path"]) == item["sha256"]
