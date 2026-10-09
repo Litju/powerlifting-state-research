@@ -25,6 +25,14 @@ from .specifications import ATTACK_SPECS, VALIDITY_AXES, AuditResult, AuditStatu
 ROOT = Path(__file__).resolve().parents[3]
 DEFAULT_BUNDLE = Path("results/audits/res281")
 DEFAULT_OUTPUT = Path("results/audits/res281-analysis")
+_IID_MANIFEST = Path(
+    "data/manifests/realizations/"
+    "latent_capacity_change_with_transient_expression_forecasting/iid-production.json"
+)
+_FULL_PRODUCTION_TEST = Path(
+    "tests/benchmarks/"
+    "iid_latent_capacity_change_with_transient_expression_forecasting/test_full_production.py"
+)
 STATES = tuple(status.value for status in AuditStatus)
 _EXECUTED = {AuditStatus.PASS, AuditStatus.FAIL, AuditStatus.INCONCLUSIVE}
 _RESULT_RIGHTS = {
@@ -101,18 +109,68 @@ def _load_inputs(root: Path, bundle: Path) -> tuple[dict[str, Any], list[Any], d
 
     axis_path = bundle_path / "reproducibility-execution.json"
     axis_execution = json.loads(axis_path.read_bytes())
+    execution = axis_execution["execution"]
     result_values = dict(axis_execution["result"])
     result_values["status"] = AuditStatus(result_values["status"])
     for name in ("attack_spec_refs", "evidence_refs", "missing_evidence", "limitations"):
         result_values[name] = tuple(result_values[name])
     axis_result = AuditResult(**result_values)
+    expected_manifest_sha = _sha256(_safe_repo_file(root, _IID_MANIFEST.as_posix()).read_bytes())
+    test_source_sha = _sha256(_safe_repo_file(root, _FULL_PRODUCTION_TEST.as_posix()).read_bytes())
+    run_digest = sha256_record(
+        {
+            "format": "PSR_AUDIT_AXIS_RUN_V1",
+            "benchmark_version": axis_result.benchmark_version,
+            "axis_slug": axis_result.axis_slug,
+            "source_commit": axis_result.source_commit,
+            "test_path": _FULL_PRODUCTION_TEST.as_posix(),
+            "test_sha256": test_source_sha,
+            "expected_manifest_sha256": expected_manifest_sha,
+            "repeat_count": 2,
+        }
+    )
+    expected_run_id = f"res281-reproducibility-{run_digest[7:19]}"
+    expected_realization_digest = sha256_record(
+        {
+            "format": "PSR_AUDIT_REALIZATION_V1",
+            "benchmark_version": axis_result.benchmark_version,
+            "axis_slug": axis_result.axis_slug,
+            "run_id": expected_run_id,
+            "source_commit": axis_result.source_commit,
+            "canonical_realization_id": execution["canonical_dataset_realization_id"],
+            "canonical_realization_digest": execution["canonical_dataset_realization_digest"],
+            "manifest_sha256": expected_manifest_sha,
+            "generated_artifacts": json.loads(
+                _safe_repo_file(root, _IID_MANIFEST.as_posix()).read_bytes()
+            )["artifact_hashes"],
+            "repeat_count": 2,
+            "comparison": (
+                "train and validation bytes identical across two generations; both manifests "
+                "byte-identical to frozen manifest"
+            ),
+        }
+    )
+    expected_realization_id = (
+        "psr:audit-realization:iid-latent-capacity-change-with-transient-expression-forecasting-"
+        f"reproducibility@{expected_realization_digest}"
+    )
     if (
         axis_result.axis_slug != "reproducibility"
         or axis_result.status is not AuditStatus.PASS
-        or axis_result.run_id != axis_execution["execution"]["run_id"]
-        or axis_result.source_commit != axis_execution["execution"]["source_commit"]
-        or axis_result.diagnostics["audit_realization_id"]
-        != axis_execution["execution"]["audit_realization_id"]
+        or execution["exit_code"] != 0
+        or execution["expected_manifest_sha256"] != expected_manifest_sha
+        or execution["test_source_sha256"] != test_source_sha
+        or axis_result.run_id != execution["run_id"]
+        or axis_result.run_id != expected_run_id
+        or axis_result.source_commit != execution["source_commit"]
+        or execution["audit_realization_digest"] != expected_realization_digest
+        or execution["audit_realization_id"] != expected_realization_id
+        or axis_result.diagnostics["audit_realization_id"] != expected_realization_id
+        or axis_result.diagnostics["audit_realization_digest"] != expected_realization_digest
+        or axis_result.diagnostics["repeat_count"] != 2
+        or axis_result.diagnostics["manifest_match_count"] != 2
+        or axis_result.diagnostics["train_jsonl_byte_identical"] is not True
+        or axis_result.diagnostics["validation_jsonl_byte_identical"] is not True
     ):
         raise ValueError("reproducibility axis execution record is inconsistent")
     for evidence_path in axis_result.evidence_refs:
