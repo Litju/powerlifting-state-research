@@ -8,6 +8,8 @@ Output status and generated/committed policy.
 
 Commit generated outputs only when they are small, inspectable, reproducible, and have a documented source and license.
 
-## Bootstrap state
+## PUBLIC_NATIVE temporal expert
 
-No result or historical output is included. Preserve null, negative, and failed runs with their provenance.
+The verified three-seed IID predictions and EvaluationResults are in [the PUBLIC_NATIVE result package](benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/). Its run manifest, verification receipt, source inventory, and checksums are under [manifests](manifests/).
+
+This evidence is separate from the historical scrambled-Sobol track. Do not rank their raw scores against each other. Preserve null, negative, and failed runs with their provenance.

@@ -8,6 +8,8 @@ Run/result manifests and checksums.
 
 Run manifests record immutable input identities, environment, commands, output paths, checksums, and status.
 
-## Bootstrap state
+## PUBLIC_NATIVE temporal expert
 
-No result or historical output is included. Preserve null, negative, and failed runs with their provenance.
+The [run manifest](public-native-temporal-expert.json) binds the Gate-C PUBLIC_NATIVE IID evidence to its source bundle SHA and PASS verification. The accompanying source inventory and receipt allow normal CI to verify the ingested package without Drive access.
+
+Preserve null, negative, and failed runs with their provenance.

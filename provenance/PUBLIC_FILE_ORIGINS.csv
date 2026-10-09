@@ -13,7 +13,7 @@ artifacts/checksums/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,"Checksums for 
 artifacts/dataset-cards/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Dataset-card exports linked to typed dataset definitions.
 artifacts/dataset-cards/iid-latent-capacity-change-with-transient-expression-forecasting.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-card,Definitive PUBLIC_NATIVE IID dataset contract and regeneration record.
 artifacts/model-cards/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Model-card index and artifact publication policy.
-artifacts/model-cards/public-native-temporal-capacity-change.md,NEWLY_AUTHORED,CC-BY-4.0,model-card,"Historical lineage, reported-versus-recomputed local evidence summary, and clean-room PUBLIC_NATIVE model specification; no private source, data, or weights."
+artifacts/model-cards/public-native-temporal-capacity-change.md,NEWLY_AUTHORED,CC-BY-4.0,model-card,Historical Sobol reconstruction and separately identified PUBLIC_NATIVE IID fitted evidence with exact metrics.
 artifacts/registries/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Generated registry exports; typed Python is authoritative.
 artifacts/registries/benchmark-registry.json,GENERATED_PUBLIC_ARTIFACT,MIT,registry-export,Public machine-readable registry export generated from typed Python.
 artifacts/release-bundles/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Versioned public release bundles from cleared sources.
@@ -277,3 +277,4 @@ results/manifests/public-native-temporal-expert-checksums.json,GENERATED_PUBLIC_
 results/manifests/public-native-temporal-expert-source-inventory.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Exact Gate-B final SHA-256 inventory copied from the verified bundle for Drive-independent CI checks.
 results/manifests/public-native-temporal-expert-verification-receipt.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Exact PASS receipt copied from the independent Gate-B verifier.
 results/manifests/public-native-temporal-expert.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,"Public-safe manifest binding Gate-C scientific identities, runtime, validation isolation, and results."
+results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/README.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,"Discovery index for the verified PUBLIC_NATIVE IID predictions, EvaluationResults, manifests, and checkpoint metadata."

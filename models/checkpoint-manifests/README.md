@@ -2,10 +2,10 @@
 
 ## Scope
 
-Checkpoint metadata and rights manifests; weights need separate clearance.
+Checkpoint metadata and rights manifests; weight bytes follow a separate publication policy.
 
 ## Model artifact rules
 
-A manifest may describe a checkpoint before any weight is distributed. Weight files require documented source, training-data, redistribution, and access rights.
+A manifest may describe a checkpoint before any weight is distributed. Weight files must document their source, training data, redistribution rights, and distribution state.
 
-The initial repository contains no historical checkpoint or private model bytes. Every future model artifact needs a model card and explicit rights/provenance metadata.
+The [PUBLIC_NATIVE temporal expert](public-native-temporal-expert/) has verified checkpoint and fitted-instance metadata. Its newly trained public-safe bytes are verified, while release-byte publication is deferred to M7/M8 packaging. No checkpoint bytes are tracked in Git. Historical checkpoint bytes remain private.

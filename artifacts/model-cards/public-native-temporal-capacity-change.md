@@ -144,7 +144,7 @@ The locked runtime uses PyTorch 2.9.1 with its CPU wheel for public CI and NumPy
 - Historical source bytes are not public implementation source.
 - Historical checkpoint bytes are not redistributed; only approved identity and hash metadata appears here.
 - No public weights exist in RES-272.
-- RES-274 will train PUBLIC_NATIVE weights from scratch.
+- RES-274 trained new PUBLIC_NATIVE weights from scratch; Gate C verified them and committed only metadata and hashes, with release-byte publication deferred to M7/M8.
 - Public runtime has no historical checkpoint path or private adapter dependency. The one-off local equivalence adapter used for RES-272 was not committed.
 - No historical checkpoint was evaluated on the PUBLIC_NATIVE IID benchmark.
 
@@ -201,3 +201,65 @@ Canonical target-wise RMSE, MAE, R², and SRE (`ddof=0`) were recomputed from th
 | Deadlift | 3.5060434500 | 2.2558997246 | 0.8489536586 | 0.3886468081 |
 
 The canonical arithmetic mean of these three target SREs is `0.382691483706746`, `8.79e-10` below `HISTORICAL_REPORTED`. The reported value is retained unchanged. A separate arithmetic mean of the three CPU-replayed checkpoint predictions had SRE `0.382692798577011` and differed from the preserved original ensemble predictions by at most `0.00692378575` kg per target element; the recorded GPU/BF16 runtime is a plausible source of this replay difference. No historical metric or checkpoint was tuned to remove it.
+
+## PUBLIC_NATIVE fitted evidence (IID)
+
+This evidence is distinct from the historical scrambled-Sobol evidence above. The IID results use a different BenchmarkSpec and DatasetRealization; their raw scores must not be ranked directly against the historical results.
+
+### Frozen identities and training
+
+| Component | Identity |
+| --- | --- |
+| MODEL | `psr:model:public-native-lift-shared-temporal-gru-capacity-change@1.0.0~34d23123138f` |
+| TRAINING_PROTOCOL | `psr:training-protocol:public-native-temporal-expert@1.0.0~dc47230f3465` |
+| BenchmarkSpec | `psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting@1.0.0~f99463d55ba0` |
+| DatasetSpec | `psr:dataset-spec:latent-capacity-transient-iid-sampling-design@1.0.0~1d079eb645ed` |
+| DatasetRealization | `psr:dataset-realization:latent-capacity-transient-iid-production@sha256:2659bad8979e5a00829a50580c14bfbc90579c4520c46c8159dec8c34f1c8cad` |
+| EVALUATION | `psr:evaluation:iid-latent-capacity-change-four-metric-validation@1.0.0~cd4fe982e7b8` |
+| RUN_ID | `20261008T071545Z-827f338c` |
+
+The [typed training protocol export](../training-protocols/public-native-temporal-expert.json) is the protocol authority. It uses equal-target standardized MSE, AdamW, learning rate 3e-4, weight decay 1e-4, batch size 256, five warmup epochs, cosine decay to 1e-5, a 120-epoch maximum, global gradient clipping at 1.0, deterministic algorithms, and exactly three seeds: 383001, 383002, and 383003.
+
+### PUBLIC_NATIVE fitted checkpoints
+
+| Seed | Checkpoint ID | Fitted-instance ID | Checkpoint SHA-256 | Selected epoch | Selection standardized MSE |
+| ---: | --- | --- | --- | ---: | ---: |
+| 383001 | `psr:checkpoint:public-native-temporal-expert-seed-383001@sha256:f8889305226cbac69874a2a983809e2b12adfdbfb8dd6446dbce932ac02904bb` | `psr:fitted-instance:public-native-temporal-expert-seed-383001@sha256:8097eb52fabd88d36992b2af5e363baab3b5e2333d5701798430b20882ce31b9` | `f8889305226cbac69874a2a983809e2b12adfdbfb8dd6446dbce932ac02904bb` | 54 | 0.15088153822037306 |
+| 383002 | `psr:checkpoint:public-native-temporal-expert-seed-383002@sha256:eb6c858e20e3a0cba5a542db605494359df83c15fac54b068ed938866d1398c4` | `psr:fitted-instance:public-native-temporal-expert-seed-383002@sha256:7f4caedb37631f4aab38fa7cc1156b9625a5e71825b31b05b1385e4790c5763b` | `eb6c858e20e3a0cba5a542db605494359df83c15fac54b068ed938866d1398c4` | 44 | 0.14870723135963548 |
+| 383003 | `psr:checkpoint:public-native-temporal-expert-seed-383003@sha256:c8f6bb329ee6b9e37155d95515e071b98d0aacf720f163bbe060804a0ecdef18` | `psr:fitted-instance:public-native-temporal-expert-seed-383003@sha256:e77b5b66e868fcb9345717d913d5bd6bcc17237c0d27ae46bf9cf994b5e5d59f` | `c8f6bb329ee6b9e37155d95515e071b98d0aacf720f163bbe060804a0ecdef18` | 68 | 0.1491499231254783 |
+
+All checkpoints were selected using only the deterministic, entity-disjoint TRAIN-internal split: 9,984 fit rows and 2,304 selection rows. Normalization used the 9,984 fit rows only. Each checkpoint manifest records `canonical_validation_used=false`.
+
+The actual training runtime was NVIDIA RTX PRO 6000 Blackwell Server Edition, PyTorch 2.9.1+cu128, CUDA 12.8, cuDNN 91002, Python 3.12.3, NVIDIA driver 580.82.07, on `Linux-6.6.122+-x86_64-with-glibc2.39`. Deterministic algorithms were enabled; cross-GPU bitwise equivalence is not guaranteed.
+
+The checkpoint-seal receipt records all three checkpoints sealed at `2026-10-08T07:18:42.700526Z`. Canonical validation scoring began at `2026-10-08T07:18:44.057961Z`, and the validation-order receipt confirms all seed checkpoints were sealed before scoring. The Gate-B verification receipt is `PASS` under verifier SHA `33e8dcecf49747314c182feb596dadb4527fbddd`; its source bundle SHA-256 is `fa31764220dbca936275b07965e7b4b4adb146251fc38db063dc5e88de8eaec4`.
+
+### Per-seed canonical validation metrics
+
+Values below are read from the exact ingested EvaluationResult JSON files. Each metric uses 3,072 validation rows.
+
+| Seed | Target | RMSE (kg) | MAE (kg) | R² | SRE (ddof=0) |
+| ---: | --- | ---: | ---: | ---: | ---: |
+| 383001 | Squat | 3.018465882001808 | 1.942294152710178 | 0.8277221279820695 | 0.4150636963382012 |
+| 383001 | Bench press | 1.9346295228029706 | 1.231048248949233 | 0.8577438027744704 | 0.37716865885904366 |
+| 383001 | Deadlift | 3.755466586500602 | 2.385558635167758 | 0.8204927150525819 | 0.4236830005409918 |
+| 383002 | Squat | 2.943496532734479 | 1.8569143879480923 | 0.8361735527729722 | 0.40475479889314186 |
+| 383002 | Bench press | 1.9094222855872036 | 1.217430547903808 | 0.8614267038516912 | 0.3722543433572116 |
+| 383002 | Deadlift | 3.7090540265327014 | 2.327382573165171 | 0.8249022391338827 | 0.4184468435370462 |
+| 383003 | Squat | 2.94658517833719 | 1.8338806628876931 | 0.8358295623472658 | 0.40517951287390414 |
+| 383003 | Bench press | 1.9025142533601664 | 1.2000626941379118 | 0.8624275690538351 | 0.3709075773641796 |
+| 383003 | Deadlift | 3.7494162360428676 | 2.3613792309198582 | 0.8210706496858069 | 0.4230004140827679 |
+
+### Three-seed ensemble
+
+The ensemble identity is `psr:ensemble:public-native-temporal-expert-three-seed-standardized-mean@sha256:9903ff129182dee5b85146affef6cb44de1e586063977f6f439d693ab5686fb7`; its fitted-instance identity is `psr:fitted-instance:public-native-temporal-expert-three-seed-ensemble@sha256:ff4e475ffeef1c03976c92c5868e75d0afd72672cb2848f0250e707dbd4c7fad`. It averages exactly the three seed predictions in standardized target space and applies one inverse transform.
+
+| Evidence | Target | RMSE (kg) | MAE (kg) | R² | SRE (ddof=0) |
+| --- | --- | ---: | ---: | ---: | ---: |
+| Ensemble | Squat | 2.9009557745782533 | 1.8344337258276735 | 0.8408747232546605 | 0.3989050974170919 |
+| Ensemble | Bench press | 1.8702871931828533 | 1.187341252597957 | 0.8670488270300638 | 0.3646247015356147 |
+| Ensemble | Deadlift | 3.6681919557104026 | 2.31680470523922 | 0.8287390369162662 | 0.41383687980137035 |
+
+Checkpoint distribution state: `PUBLIC_SAFE_BYTES_VERIFIED_RELEASE_ASSET_PENDING`. These are newly trained PUBLIC_NATIVE checkpoint bytes; only metadata and hashes are committed now. Release-byte publication is deferred to M7/M8 packaging, not to resolve historical-rights uncertainty.
+
+The [run manifest](../../results/manifests/public-native-temporal-expert.json), [checkpoint metadata](../../models/checkpoint-manifests/public-native-temporal-expert/), and [prediction and EvaluationResult package](../../results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/) preserve the corresponding evidence and checksums.
