@@ -21,3 +21,5 @@ This table records only model families supported by surviving repository evidenc
 - `provenance/PUBLIC_FILE_ORIGINS.csv` and `src/powerlifting_state_research/provenance/historical_sources.py` — file rights and benchmark lineage context, not independent model results.
 
 No historical benchmark, dataset, or evaluation identity is changed here. Historical results on the scrambled-Sobol realization and PUBLIC_NATIVE results on the IID realization remain non-comparable as raw scores because both the DatasetRealization and EVALUATION differ.
+
+No surviving evidence supports historical ElasticNet, RandomForest, ExtraTrees, or a distinct PIML family. None is reconstructed or assigned a historical score.

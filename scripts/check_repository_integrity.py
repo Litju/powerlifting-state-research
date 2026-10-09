@@ -22,8 +22,25 @@ from powerlifting_state_research.contracts.benchmark import (  # noqa: E402
     IdentityResolution,
     ImplementationStatus,
 )
-from powerlifting_state_research.contracts.serialization import require_scientific_id  # noqa: E402
+from powerlifting_state_research.contracts.serialization import (  # noqa: E402
+    require_scientific_id,
+    sha256_record,
+)
+from powerlifting_state_research.evaluation.identity import (  # noqa: E402
+    EVALUATION_ID,
+    METRIC_IDENTITIES,
+    TARGETS,
+)
+from powerlifting_state_research.evaluation.prediction import (  # noqa: E402
+    PREDICTION_SCHEMA_ID,
+    parse_prediction_jsonl,
+)
 from powerlifting_state_research.exports import check_exports  # noqa: E402
+from powerlifting_state_research.models.comparators import MODEL_SPECS  # noqa: E402
+from powerlifting_state_research.models.training import (  # noqa: E402
+    COMPARATOR_TRAINING_PROTOCOL_DIGEST,
+    COMPARATOR_TRAINING_PROTOCOL_ID,
+)
 from powerlifting_state_research.provenance import HISTORICAL_SOURCES  # noqa: E402
 from powerlifting_state_research.registry import (  # noqa: E402
     BENCHMARK_REGISTRY,
@@ -657,6 +674,333 @@ def verify_gate_c_package(root: Path = ROOT) -> list[str]:
     return errors
 
 
+def verify_res275_comparator_package(root: Path = ROOT) -> list[str]:
+    """Verify frozen RES-275 identities, result bindings, and every indexed byte."""
+    errors: list[str] = []
+    protocol_path = "artifacts/training-protocols/public-native-comparator-suite.json"
+    registry_path = "artifacts/registries/public-native-comparator-registry.json"
+    run_path = "results/manifests/public-native-comparator-suite.json"
+    index_path = "results/manifests/public-native-comparator-suite-checksums.json"
+    metrics_path = "results/tables/public-native-comparator-frontier.csv"
+    fitted_root = "models/fitted-instances/public-native-comparator-suite"
+    output_root = (
+        "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/"
+        "public-native-comparator-suite"
+    )
+    benchmark_id = (
+        "psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-"
+        "forecasting@1.0.0~f99463d55ba0"
+    )
+    benchmark_digest = "sha256:f99463d55ba0902595a1866032ba94b803ac97d9b4985a89e208293da9c7fed0"
+    dataset_id = (
+        "psr:dataset-realization:latent-capacity-transient-iid-production@sha256:"
+        "2659bad8979e5a00829a50580c14bfbc90579c4520c46c8159dec8c34f1c8cad"
+    )
+    dataset_digest = "sha256:2659bad8979e5a00829a50580c14bfbc90579c4520c46c8159dec8c34f1c8cad"
+    train_sha256 = "914dc51fcf9a0dca30224a8093431e97fe29272bf830160bf46a78396026d550"
+    validation_sha256 = "0d7bd0c9291e7af5627ec18e2b82025aa1f5f3d46de07d502f7df90eace24b9a"
+    seeds = (383001, 383002, 383003)
+
+    def check(condition: bool, message: str) -> None:
+        if not condition:
+            errors.append(message)
+
+    def load(path: str) -> dict:
+        try:
+            value = json.loads((root / path).read_text(encoding="utf-8"))
+            check(isinstance(value, dict), f"invalid RES-275 JSON object: {path}")
+            return value if isinstance(value, dict) else {}
+        except (OSError, json.JSONDecodeError) as error:
+            errors.append(f"missing or invalid RES-275 JSON {path}: {error}")
+            return {}
+
+    def file_sha(path: str) -> str:
+        try:
+            return hashlib.sha256((root / path).read_bytes()).hexdigest()
+        except OSError as error:
+            errors.append(f"unreadable RES-275 artifact {path}: {error}")
+            return ""
+
+    protocol_file, registry, run, index = map(
+        load, (protocol_path, registry_path, run_path, index_path)
+    )
+    protocol = protocol_file.get("protocol", {})
+    check(
+        protocol_file.get("training_protocol_id") == COMPARATOR_TRAINING_PROTOCOL_ID
+        and protocol_file.get("protocol_digest") == COMPARATOR_TRAINING_PROTOCOL_DIGEST
+        and sha256_record(protocol) == COMPARATOR_TRAINING_PROTOCOL_DIGEST,
+        "RES-275 typed protocol identity or digest changed",
+    )
+    check(
+        protocol.get("benchmark_id") == benchmark_id
+        and protocol.get("benchmark_digest") == benchmark_digest
+        and protocol.get("dataset_realization_id") == dataset_id
+        and protocol.get("dataset_realization_digest") == dataset_digest
+        and protocol.get("train_sha256") == train_sha256
+        and protocol.get("validation_sha256") == validation_sha256
+        and protocol.get("evaluation_id") == EVALUATION_ID
+        and tuple(protocol.get("metric_ids", ()))
+        == tuple(item.metric_id for item in METRIC_IDENTITIES)
+        and tuple(protocol.get("seeds", ())) == seeds,
+        "RES-275 protocol no longer binds the frozen RES-271 identities and seeds",
+    )
+    validation_isolation = protocol.get("validation_isolation", {})
+    check(
+        validation_isolation.get("training_loader")
+        == "opens and validates canonical train.jsonl only"
+        and validation_isolation.get("validation_purpose")
+        == "one canonical RES-271 evaluation; no tuning or revisions",
+        "RES-275 protocol validation-isolation rule changed",
+    )
+    check(
+        run.get("format") == "PSR_RES275_STANDARDIZED_COMPARATOR_RUN_V1"
+        and run.get("status") == "PASS"
+        and run.get("protocol_id") == COMPARATOR_TRAINING_PROTOCOL_ID
+        and run.get("benchmark_id") == benchmark_id
+        and run.get("benchmark_digest") == benchmark_digest
+        and run.get("dataset_realization_id") == dataset_id
+        and run.get("dataset_realization_digest") == dataset_digest
+        and run.get("train_sha256") == train_sha256
+        and run.get("train_row_count") == 12_288
+        and run.get("validation_sha256") == validation_sha256
+        and run.get("validation_row_count") == 3_072
+        and run.get("evaluation_id") == EVALUATION_ID,
+        "RES-275 run manifest identity changed",
+    )
+    isolation = run.get("validation_isolation", {})
+    split = run.get("fit_selection_split", {})
+    check(
+        isolation.get("training_loader_opened_validation") is False
+        and isolation.get("fit_artifacts_sealed_before_validation_access") is True
+        and isolation.get("canonical_validation_used_for_selection_or_revision") is False
+        and isolation.get("evaluation_after_seal") is True
+        and split.get("fit_row_count") == 9_984
+        and split.get("selection_row_count") == 2_304
+        and split.get("split_digest")
+        == "sha256:9cccd9014e03d9f497f41dd91686307f2315ec19fe8c9b43bab908ac3e8f0b25"
+        and split.get("entity_disjoint") is True
+        and split.get("support_preserved") is True,
+        "RES-275 fit seal or validation-isolation evidence is incomplete",
+    )
+    check(
+        run.get("source", {}).get("worktree_status") == "clean",
+        "RES-275 training source was not a clean committed checkout",
+    )
+
+    registry_comparators = registry.get("comparators", [])
+    expected_models = {item.method: item for item in MODEL_SPECS}
+    actual_methods = {item.get("method") for item in registry_comparators if isinstance(item, dict)}
+    check(
+        registry.get("format") == "PSR_STANDARDIZED_COMPARATOR_REGISTRY_V1"
+        and registry.get("training_protocol_id") == COMPARATOR_TRAINING_PROTOCOL_ID
+        and registry.get("benchmark_id") == benchmark_id
+        and registry.get("dataset_realization_id") == dataset_id
+        and registry.get("evaluation_id") == EVALUATION_ID
+        and actual_methods == set(expected_models),
+        "RES-275 comparator registry is incomplete or uses a different identity",
+    )
+
+    output_paths: set[str] = set()
+    for item in registry_comparators:
+        if not isinstance(item, dict):
+            continue
+        method = str(item.get("method"))
+        spec = expected_models.get(method)
+        check(
+            spec is not None
+            and item.get("model_id") == spec.model_id
+            and item.get("classification") == "NEW_STANDARDIZED_COMPARATOR"
+            and item.get("training_protocol_id") == COMPARATOR_TRAINING_PROTOCOL_ID
+            and (root / str(item.get("model_card", ""))).is_file(),
+            f"RES-275 comparator identity/classification mismatch: {method}",
+        )
+        if spec is None:
+            continue
+        runs = item.get("runs", [])
+        check(
+            len(runs) == len(seeds)
+            and {run_item.get("seed") for run_item in runs if isinstance(run_item, dict)}
+            == set(seeds),
+            f"RES-275 comparator seed registry is incomplete: {method}",
+        )
+        for run_item in runs:
+            if not isinstance(run_item, dict):
+                continue
+            fitted_path = str(run_item.get("fitted_instance_path", ""))
+            prediction_path = str(run_item.get("prediction_path", ""))
+            result_path = str(run_item.get("evaluation_result_path", ""))
+            output_paths.update((fitted_path, prediction_path, result_path))
+            check(
+                fitted_path.startswith(f"{fitted_root}/")
+                and prediction_path.startswith(f"{output_root}/")
+                and result_path.startswith(f"{output_root}/"),
+                f"RES-275 artifact path escaped its public result home: {method}",
+            )
+            fitted_sha = file_sha(fitted_path)
+            prediction_sha = file_sha(prediction_path)
+            result_sha = file_sha(result_path)
+            expected_fitted_id = (
+                f"psr:fitted-instance:{spec.slug}-seed-{run_item.get('seed')}@sha256:{fitted_sha}"
+            )
+            check(
+                fitted_sha
+                == str(run_item.get("fitted_instance_sha256", "")).removeprefix("sha256:")
+                and expected_fitted_id == run_item.get("fitted_instance_id"),
+                f"RES-275 fitted-instance content identity mismatch: {fitted_path}",
+            )
+            fitted = load(fitted_path)
+            check(
+                fitted.get("model_id") == item.get("model_id")
+                and fitted.get("classification") == "NEW_STANDARDIZED_COMPARATOR"
+                and fitted.get("training_protocol_id") == COMPARATOR_TRAINING_PROTOCOL_ID
+                and fitted.get("training_sha256") == train_sha256
+                and fitted.get("seed") == run_item.get("seed")
+                and fitted.get("fit_row_count") == 9_984
+                and fitted.get("selection_row_count") == 2_304,
+                f"RES-275 fitted state is not bound to the frozen fit split: {fitted_path}",
+            )
+            try:
+                predictions = parse_prediction_jsonl((root / prediction_path).read_bytes())
+                result = json.loads((root / result_path).read_text(encoding="utf-8"))
+            except (OSError, ValueError, json.JSONDecodeError) as error:
+                errors.append(f"invalid RES-275 prediction/result pair {prediction_path}: {error}")
+                continue
+            result_id = f"psr:evaluation-result@{sha256_record(result)}"
+            prediction = result.get("prediction_artifact", {})
+            result_fitted = result.get("fitted_instance", {})
+            metrics = result.get("metric_identities", [])
+            expected_prediction_id = (
+                f"psr:prediction-artifact:{prediction.get('artifact_id')}@"
+                f"{sha256_record(prediction)}"
+            )
+            check(
+                len(predictions) == 3_072
+                and prediction_sha
+                == str(run_item.get("prediction_sha256", "")).removeprefix("sha256:")
+                and result_sha
+                == str(run_item.get("evaluation_result_sha256", "")).removeprefix("sha256:")
+                and result_id == run_item.get("evaluation_result_id")
+                and result.get("model", {}).get("model_id") == item.get("model_id")
+                and result.get("training_protocol", {}).get("training_protocol_id")
+                == COMPARATOR_TRAINING_PROTOCOL_ID
+                and result_fitted.get("fitted_instance_id") == run_item.get("fitted_instance_id")
+                and result_fitted.get("content_sha256") == f"sha256:{fitted_sha}"
+                and result.get("benchmark_id") == benchmark_id
+                and result.get("benchmark_spec_digest") == benchmark_digest
+                and result.get("dataset_realization_id") == dataset_id
+                and result.get("dataset_realization_digest") == dataset_digest
+                and result.get("evaluation_id") == EVALUATION_ID
+                and result.get("status") == "COMPLETE"
+                and {metric.get("metric_id") for metric in metrics if isinstance(metric, dict)}
+                == {metric.metric_id for metric in METRIC_IDENTITIES}
+                and not result.get("aggregations")
+                and not result.get("stratifications")
+                and not result.get("uncertainty"),
+                f"RES-275 EvaluationResult binding mismatch: {result_path}",
+            )
+            check(
+                prediction.get("content_sha256") == f"sha256:{prediction_sha}"
+                and prediction.get("output_schema_identity") == PREDICTION_SCHEMA_ID
+                and prediction.get("row_count") == 3_072
+                and prediction.get("rights", {}).get("license_expression") == "MIT"
+                and result.get("rights", {}).get("license_expression") == "MIT"
+                and run_item.get("prediction_artifact_identity") == expected_prediction_id,
+                f"RES-275 prediction-artifact identity mismatch: {prediction_path}",
+            )
+            check(
+                {target.get("target") for target in result.get("targets", [])} == set(TARGETS)
+                and all(
+                    {metric.get("metric") for metric in target.get("metrics", [])}
+                    == {identity.metric.value for identity in METRIC_IDENTITIES}
+                    for target in result.get("targets", [])
+                ),
+                f"RES-275 target-wise metrics are incomplete: {result_path}",
+            )
+
+    immutable = registry.get("immutable_res274_reference", {})
+    expert_identities = {
+        "model_id": (
+            "psr:model:public-native-lift-shared-temporal-gru-capacity-change@1.0.0~34d23123138f"
+        ),
+        "training_protocol_id": (
+            "psr:training-protocol:public-native-temporal-expert@1.0.0~dc47230f3465"
+        ),
+        "classification": "RES-274_IMMUTABLE_PUBLIC_NATIVE_EXPERT",
+        "prediction_and_result_hashes_verified": True,
+    }
+    check(
+        all(immutable.get(key) == value for key, value in expert_identities.items())
+        and immutable.get("result_paths"),
+        "RES-274 immutable expert continuity record changed",
+    )
+    expert_hashes = run.get("immutable_res274_artifacts", {})
+    for path, digest in expert_hashes.items():
+        check(file_sha(str(path)) == digest, f"RES-274 expert artifact changed: {path}")
+
+    try:
+        with (root / metrics_path).open(newline="", encoding="utf-8") as file:
+            metric_rows = list(csv.DictReader(file))
+        check(len(metric_rows) == 66, "RES-275 per-seed target metrics table must contain 66 rows")
+        check(
+            all(
+                row.get("rmse_kg") and row.get("mae_kg") and row.get("r2") and row.get("sre_ddof0")
+                for row in metric_rows
+            ),
+            "RES-275 target metric table contains a missing canonical metric",
+        )
+    except (OSError, csv.Error) as error:
+        errors.append(f"invalid RES-275 target metrics table: {error}")
+
+    entries = index.get("entries", [])
+    indexed: dict[str, str] = {
+        str(entry.get("path")): str(entry.get("sha256"))
+        for entry in entries
+        if isinstance(entry, dict)
+    }
+    check(
+        index.get("format") == "PSR_SHA256_INDEX_V1"
+        and index.get("algorithm") == "SHA-256"
+        and len(indexed) == len(entries),
+        "RES-275 checksum index format or path set is invalid",
+    )
+    for path, digest in indexed.items():
+        check(file_sha(path) == digest, f"RES-275 checksum mismatch: {path}")
+    split_path = str(split.get("path", ""))
+    seal_path = str(isolation.get("seal_path", ""))
+    seal = load(seal_path) if seal_path else {}
+    check(
+        split_path in indexed
+        and indexed.get(split_path) == str(split.get("sha256", "")).removeprefix("sha256:")
+        and seal_path in indexed
+        and indexed.get(seal_path) == str(isolation.get("seal_sha256", "")).removeprefix("sha256:")
+        and seal.get("canonical_validation_accessed") is False
+        and seal.get("protocol_id") == COMPARATOR_TRAINING_PROTOCOL_ID
+        and len(seal.get("fitted_instances", [])) == len(MODEL_SPECS) * len(seeds)
+        and all(
+            item.get("training_validation_accessed") is False
+            for item in seal.get("fitted_instances", [])
+            if isinstance(item, dict)
+        ),
+        "RES-275 split/seal artifact hashes or validation-isolation fields changed",
+    )
+    check(
+        indexed.get(run_path) == file_sha(run_path)
+        and index.get("run_manifest_sha256") == f"sha256:{file_sha(run_path)}"
+        and len(output_paths) == len(MODEL_SPECS) * len(seeds) * 3
+        and len(indexed) == 4 + 2 + len(output_paths) + len(expert_hashes)
+        and {path for path in output_paths if path} <= indexed.keys()
+        and {protocol_path, registry_path, metrics_path} <= indexed.keys(),
+        "RES-275 checksum index omits a required manifest, model, prediction, or result",
+    )
+    check(
+        registry.get("target_metrics_path") == metrics_path
+        and split.get("sha256")
+        and isolation.get("seal_path") in indexed,
+        "RES-275 protocol/registry artifact binding changed",
+    )
+    return errors
+
+
 def main() -> int:
     try:
         tracked = git_files()
@@ -664,6 +1008,8 @@ def main() -> int:
         rows = check_ledger(tracked)
         check_public_files(git_files("--cached", "--others", "--exclude-standard"))
         for error in verify_gate_c_package():
+            fail(error)
+        for error in verify_res275_comparator_package():
             fail(error)
     except (OSError, subprocess.CalledProcessError) as error:
         fail(f"repository scan failed: {error}")
@@ -676,6 +1022,7 @@ def main() -> int:
         f"PASS: 9 benchmark records (8 historical); frozen digest; exports; public safety; "
         f"{rows} rights-ledger rows"
     )
+    print("PASS: RES-275 comparator registry, validation isolation, and artifact hashes")
     return 0
 
 

@@ -13,9 +13,9 @@ artifacts/checksums/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,"Checksums for 
 artifacts/dataset-cards/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Dataset-card exports linked to typed dataset definitions.
 artifacts/dataset-cards/iid-latent-capacity-change-with-transient-expression-forecasting.md,NEWLY_AUTHORED,CC-BY-4.0,dataset-card,Definitive PUBLIC_NATIVE IID dataset contract and regeneration record.
 artifacts/model-cards/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Model-card index and artifact publication policy.
-artifacts/model-cards/historical-model-evidence-lineage.md,NEWLY_AUTHORED,CC-BY-4.0,model-evidence,Historical model family support and non-comparability boundaries from surviving public evidence.
+artifacts/model-cards/historical-model-evidence-lineage.md,NEWLY_AUTHORED,CC-BY-4.0,model-evidence,Historical family support; prohibited unsupported claims; and non-comparability boundaries from surviving public evidence.
 artifacts/model-cards/public-native-temporal-capacity-change.md,NEWLY_AUTHORED,CC-BY-4.0,model-card,Historical Sobol reconstruction and separately identified PUBLIC_NATIVE IID fitted evidence with exact metrics.
-artifacts/registries/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Generated registry exports; typed Python is authoritative.
+artifacts/registries/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,"Generated registry exports; typed Python is authoritative, including the RES-275 comparator export."
 artifacts/registries/benchmark-registry.json,GENERATED_PUBLIC_ARTIFACT,MIT,registry-export,Public machine-readable registry export generated from typed Python.
 artifacts/release-bundles/README.md,NEWLY_AUTHORED,CC-BY-4.0,artifacts,Versioned public release bundles from cleared sources.
 audits/README.md,NEWLY_AUTHORED,CC-BY-4.0,audits,Cross-benchmark audit scope and evidence separation.
@@ -66,12 +66,12 @@ models/README.md,NEWLY_AUTHORED,CC-BY-4.0,models,"Model family, training, compar
 models/checkpoint-manifests/README.md,NEWLY_AUTHORED,CC-BY-4.0,models,Checkpoint metadata and rights manifests; weights need separate clearance.
 models/model-family-specs/README.md,NEWLY_AUTHORED,CC-BY-4.0,models,Typed model-family authority lives in the Python package.
 models/published/README.md,NEWLY_AUTHORED,CC-BY-4.0,models,Cleared published checkpoint metadata and download references.
-models/reference-implementations/README.md,NEWLY_AUTHORED,CC-BY-4.0,models,Lightweight public research comparators.
+models/reference-implementations/README.md,NEWLY_AUTHORED,CC-BY-4.0,models,"RES-275 public-native IID comparators and their dependency, split, and expert-continuity boundary."
 models/training-protocols/README.md,NEWLY_AUTHORED,CC-BY-4.0,models,Typed PUBLIC_NATIVE training authority and artifact identities.
 provenance/PUBLIC_FILE_ORIGINS.csv,GENERATED_PUBLIC_ARTIFACT,MIT,origin-ledger,One permitted provenance class and rights state per initial public file.
 provenance/README.md,NEWLY_AUTHORED,CC-BY-4.0,provenance,Public file-origin and historical-source provenance policy.
 pyproject.toml,NEWLY_AUTHORED,MIT,packaging,"Distribution metadata, build backend, Python baseline, runtime model dependencies, and dev tools."
-results/README.md,NEWLY_AUTHORED,CC-BY-4.0,results,Output status and generated/committed policy.
+results/README.md,NEWLY_AUTHORED,CC-BY-4.0,results,"Output status and generated/committed policy, including RES-275 target-wise comparator results."
 results/audits/README.md,NEWLY_AUTHORED,CC-BY-4.0,results,Audit outputs by scientific axis.
 results/benchmarks/class_normalized_cross_lift_five_target_performance_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,benchmark-result-home,Future prediction/evaluation/result manifest home for this formulation.
 results/benchmarks/held_out_final_origin_five_target_performance_evaluation/README.md,NEWLY_AUTHORED,CC-BY-4.0,benchmark-result-home,Future prediction/evaluation/result manifest home for this formulation.
@@ -100,8 +100,8 @@ schemas/benchmark-spec.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,schema-export,G
 schemas/dataset-realization.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,schema-export,Generated dataset-realization manifest schema.
 schemas/evaluation-result.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,schema-export,Generated evaluation-result schema.
 schemas/prediction.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,schema-export,Generated prediction interchange schema.
-scripts/README.md,NEWLY_AUTHORED,CC-BY-4.0,scripts,Small reproducibility/export tools; no general CLI at bootstrap.
-scripts/check_repository_integrity.py,NEWLY_AUTHORED,MIT,repository-integrity,"Public registry, rights ledger, generated exports, safety, and ingested Gate-C evidence validation."
+scripts/README.md,NEWLY_AUTHORED,CC-BY-4.0,scripts,Small reproducibility and export tools; includes the RES-275 comparator runner.
+scripts/check_repository_integrity.py,NEWLY_AUTHORED,MIT,repository-integrity,"Public registry, rights ledger, generated exports, safety, and RES-274/RES-275 evidence validation."
 scripts/export_benchmark_registry.py,NEWLY_AUTHORED,MIT,registry-export,Exports the typed Python registry to its JSON destination.
 scripts/verify_public_iid_production.py,NEWLY_AUTHORED,MIT,release-verification,Regenerates and verifies the full public-native IID realization.
 src/powerlifting_state_research/__init__.py,NEWLY_AUTHORED,MIT,package,Typed package namespace/home; no benchmark mechanics at bootstrap.
@@ -256,6 +256,7 @@ scripts/build_res274_colab_notebook.py,NEWLY_AUTHORED,MIT,notebook-build,Build/c
 scripts/export_public_native_training_protocol.py,NEWLY_AUTHORED,MIT,training-protocol-export,Export/check the manifest for the typed PUBLIC_NATIVE training authority.
 scripts/validate_res274_colab_notebook.py,NEWLY_AUTHORED,MIT,notebook-validation,Check notebook structure; commands; cell state; and public-safe contents.
 src/powerlifting_state_research/models/train_temporal_expert.py,NEWLY_AUTHORED,MIT,training-runner,Frozen PUBLIC_NATIVE training; checkpoint sealing; evaluation; receipts; and bundle verification.
+src/powerlifting_state_research/models/comparators.py,NEWLY_AUTHORED,MIT,model-comparators,RES-275 fixed comparator models; training; validation-isolated evaluation; and artifact identities.
 tests/models/test_training_protocol.py,NEWLY_AUTHORED,MIT,model-tests,RES-274 training protocol identity and deterministic support-preserving split checks.
 tests/test_res274_colab_notebook.py,NEWLY_AUTHORED,MIT,tests,Notebook generation and structural safety test.
 models/checkpoint-manifests/public-native-temporal-expert/checkpoint-publication.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Verified public-safe checkpoint and fitted-instance metadata; no weight bytes are tracked.
@@ -279,7 +280,8 @@ results/manifests/public-native-temporal-expert-source-inventory.json,GENERATED_
 results/manifests/public-native-temporal-expert-verification-receipt.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Exact PASS receipt copied from the independent Gate-B verifier.
 results/manifests/public-native-temporal-expert.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,"Public-safe manifest binding Gate-C scientific identities, runtime, validation isolation, and results."
 results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/README.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,"Discovery index for the verified PUBLIC_NATIVE IID predictions, EvaluationResults, manifests, and checkpoint metadata."
-tests/test_gate_c_ingested_evidence.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Drive-independent repository-integrity regression for RES-274 Gate-C ingested evidence.
+tests/test_gate_c_ingested_evidence.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Repository-integrity regression for immutable RES-274 evidence and RES-275 comparator artifacts.
 artifacts/training-protocols/public-native-comparator-suite.json,GENERATED_PUBLIC_ARTIFACT,MIT,training-protocol,Versioned RES-275 training and evaluation protocol exported from typed Python authority before comparator fitting.
 scripts/export_standardized_comparator_protocol.py,NEWLY_AUTHORED,MIT,training-protocol-export,Export/check the typed RES-275 comparator protocol manifest.
 tests/models/test_res275_comparator_protocol.py,NEWLY_AUTHORED,MIT,model-tests,Frozen RES-275 protocol identity and generated-manifest checks.
+tests/models/test_res275_standardized_comparators.py,NEWLY_AUTHORED,MIT,model-tests,RES-275 participant-visible feature firewall and compact comparator fit/prediction checks.
