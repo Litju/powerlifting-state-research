@@ -1201,7 +1201,7 @@ def run_comparator_suite(
                     "mae_kg": values.get("MAE"),
                     "r2": values.get("R2"),
                     "sre_ddof0": values.get("SRE"),
-                    "parameter_count": 118_571,
+                    "parameter_count": 118_571 * (3 if item["seed"] == "ensemble" else 1),
                     "fixed_constant_count": 0,
                     "fit_runtime_seconds": "",
                     "shared_preprocessing_runtime_seconds": "",
