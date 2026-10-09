@@ -430,8 +430,16 @@ PUBLIC_NATIVE_COMPARATOR_PROTOCOL = StandardizedComparatorProtocol(
             "shared_preprocessing",
             "measure fitting-row normalization and 127-feature construction once per run",
         ),
+        (
+            "shared_validation_preprocessing",
+            "after fit sealing, construct one canonical validation feature matrix with fit-only "
+            "statistics",
+        ),
         ("hardware", "CPU model when available; platform and Python/NumPy/PyTorch versions"),
-        ("validation_compute", "measured separately from fitting"),
+        (
+            "validation_compute",
+            "per-model/seed prediction time after shared validation feature construction",
+        ),
     ),
     identity_rules=(
         ("new_model_classification", "NEW_STANDARDIZED_COMPARATOR"),
