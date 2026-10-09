@@ -22,8 +22,19 @@ def test_every_repository_file_has_an_origin_and_license_record() -> None:
     assert all((root / path).is_file() for path in paths)
     assert all(row["origin_class"] for row in rows)
     assert all(row["license_expression"] in {"MIT", "CC-BY-4.0"} for row in rows)
-    assert all(
-        row["license_expression"]
-        == ("CC-BY-4.0" if row["path"].endswith(".md") or row["path"] == "LICENSE-DOCS" else "MIT")
-        for row in rows
-    )
+    for row in rows:
+        parts = Path(row["path"]).parts
+        public_audit_realization = (
+            row["origin_class"] == "GENERATED_PUBLIC_ARTIFACT"
+            and parts[:2] == ("results", "audits")
+            and len(parts) > 4
+            and parts[3] == "realizations"
+        )
+        expected = (
+            "CC-BY-4.0"
+            if row["path"].endswith(".md")
+            or row["path"] == "LICENSE-DOCS"
+            or public_audit_realization
+            else "MIT"
+        )
+        assert row["license_expression"] == expected
