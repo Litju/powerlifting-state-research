@@ -376,7 +376,10 @@ PUBLIC_NATIVE_COMPARATOR_PROTOCOL = StandardizedComparatorProtocol(
             "histogram_boosted_stumps",
             (
                 ("algorithm", "squared-error gradient boosting of depth-one regression trees"),
-                ("quantile_thresholds_per_feature", 15),
+                (
+                    "thresholds",
+                    "15 empirical fitting-row quantiles at k/16; duplicate thresholds removed",
+                ),
                 ("learning_rate", 0.05),
                 ("maximum_rounds", 40),
             ),
@@ -384,10 +387,19 @@ PUBLIC_NATIVE_COMPARATOR_PROTOCOL = StandardizedComparatorProtocol(
         (
             "mechanistic_midpoint",
             (
+                ("reference_stimulus", 0.485),
+                ("reference_dose_product", 0.6),
+                ("adaptation_utilization", 0.11),
+                ("adaptation_retention_28d", 0.525),
+                ("suppression_utilization", 0.04),
+                ("suppression_retention", 0.625),
                 (
-                    "rule",
-                    "published adaptation/suppression recurrence with midpoint population "
-                    "parameters",
+                    "baseline_estimator",
+                    "last assessment divided by midpoint model expression fraction at day 223",
+                ),
+                (
+                    "target",
+                    "baseline × adaptation_gain × (adaptation_end − adaptation_day_223)",
                 ),
                 ("fit_parameters", False),
             ),
