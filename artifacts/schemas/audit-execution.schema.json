@@ -1,0 +1,340 @@
+{
+  "$defs": {
+    "AuditExecutionRecord": {
+      "additionalProperties": false,
+      "properties": {
+        "attack_spec_ref": {
+          "type": "string"
+        },
+        "audit_realization_digest": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "audit_realization_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "audit_realization_kind": {
+          "oneOf": [
+            {
+              "enum": [
+                "PUBLIC_DATASET",
+                "INPUT_SELECTION"
+              ]
+            },
+            {}
+          ]
+        },
+        "audit_realization_manifest_path": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "audit_spec_version": {
+          "type": "string"
+        },
+        "axis_slug": {
+          "type": "string"
+        },
+        "benchmark_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "benchmark_version": {
+          "type": "string"
+        },
+        "configuration": {
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {}
+            ]
+          },
+          "type": "object"
+        },
+        "dataset_realization_digest": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "dataset_realization_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "dataset_spec_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "decision_criteria": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "diagnostics": {
+          "additionalProperties": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {}
+            ]
+          },
+          "type": "object"
+        },
+        "evaluation_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "evidence_refs": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "execution_format": {
+          "enum": [
+            "PSR_AUDIT_EXECUTION_V1"
+          ]
+        },
+        "input_artifacts": {
+          "items": {
+            "$ref": "#/$defs/EvidenceArtifactReference"
+          },
+          "type": "array"
+        },
+        "limitations": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "missing_evidence": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "permitted_intervention": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "qoi_ids": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "result_artifact_identity": {
+          "type": "string"
+        },
+        "result_artifact_sha256": {
+          "type": "string"
+        },
+        "result_rights": {
+          "$ref": "#/$defs/RightsMetadata"
+        },
+        "result_schema": {
+          "enum": [
+            "PSR_AUDIT_RESULT_V1"
+          ]
+        },
+        "run_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "semantic_digest": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "source_commit": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "status": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "INCONCLUSIVE",
+            "NOT_APPLICABLE",
+            "NOT_RUN",
+            "UNSUPPORTED_BY_EVIDENCE"
+          ],
+          "type": "string"
+        },
+        "status_reason": {
+          "type": "string"
+        },
+        "task_id": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        }
+      },
+      "required": [
+        "attack_spec_ref",
+        "benchmark_version",
+        "axis_slug",
+        "audit_spec_version",
+        "execution_format",
+        "result_schema",
+        "benchmark_id",
+        "semantic_digest",
+        "dataset_spec_id",
+        "dataset_realization_id",
+        "dataset_realization_digest",
+        "task_id",
+        "qoi_ids",
+        "evaluation_id",
+        "configuration",
+        "input_artifacts",
+        "permitted_intervention",
+        "audit_realization_kind",
+        "audit_realization_id",
+        "audit_realization_digest",
+        "audit_realization_manifest_path",
+        "run_id",
+        "source_commit",
+        "status",
+        "status_reason",
+        "diagnostics",
+        "evidence_refs",
+        "missing_evidence",
+        "decision_criteria",
+        "limitations",
+        "result_rights",
+        "result_artifact_identity",
+        "result_artifact_sha256"
+      ],
+      "type": "object"
+    },
+    "EvidenceArtifactReference": {
+      "additionalProperties": false,
+      "properties": {
+        "media_type": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "rights": {
+          "$ref": "#/$defs/RightsMetadata"
+        },
+        "sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "media_type",
+        "rights"
+      ],
+      "type": "object"
+    },
+    "RightsMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "access_conditions": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "copyright_holder": {
+          "type": "string"
+        },
+        "license_expression": {
+          "type": "string"
+        },
+        "redistribution_status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "license_expression",
+        "copyright_holder",
+        "redistribution_status"
+      ],
+      "type": "object"
+    }
+  },
+  "$ref": "#/$defs/AuditExecutionRecord",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-generator": {
+    "name": "powerlifting-state-research-python",
+    "version": "0.1.0"
+  },
+  "x-semantic-validation": "JSON Schema describes record structure only; semantic and cross-field invariants require the authoritative Python contract validator."
+}

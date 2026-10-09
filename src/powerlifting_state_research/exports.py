@@ -24,6 +24,7 @@ from .audits import (
     ValidityAxis,
     VersionValidityProfile,
 )
+from .audits.runner import AuditExecutionRecord, EvidenceArtifactReference
 from .audits.specifications import CONTRACT_VERSION
 from .benchmarks.latent_capacity_change_with_transient_expression_forecasting.prediction import (
     PREDICTION_CONTRACT,
@@ -233,6 +234,8 @@ SCHEMAS: tuple[tuple[str, type[Any]], ...] = (
     ("validity-axis.schema.json", ValidityAxis),
     ("attack-spec.schema.json", AttackSpec),
     ("audit-result.schema.json", AuditResult),
+    ("audit-execution.schema.json", AuditExecutionRecord),
+    ("evidence-artifact-reference.schema.json", EvidenceArtifactReference),
     ("version-validity-profile.schema.json", VersionValidityProfile),
 )
 

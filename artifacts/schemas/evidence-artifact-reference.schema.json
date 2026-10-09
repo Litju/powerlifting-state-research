@@ -1,0 +1,63 @@
+{
+  "$defs": {
+    "EvidenceArtifactReference": {
+      "additionalProperties": false,
+      "properties": {
+        "media_type": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "rights": {
+          "$ref": "#/$defs/RightsMetadata"
+        },
+        "sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "media_type",
+        "rights"
+      ],
+      "type": "object"
+    },
+    "RightsMetadata": {
+      "additionalProperties": false,
+      "properties": {
+        "access_conditions": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {}
+          ]
+        },
+        "copyright_holder": {
+          "type": "string"
+        },
+        "license_expression": {
+          "type": "string"
+        },
+        "redistribution_status": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "license_expression",
+        "copyright_holder",
+        "redistribution_status"
+      ],
+      "type": "object"
+    }
+  },
+  "$ref": "#/$defs/EvidenceArtifactReference",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "x-generator": {
+    "name": "powerlifting-state-research-python",
+    "version": "0.1.0"
+  },
+  "x-semantic-validation": "JSON Schema describes record structure only; semantic and cross-field invariants require the authoritative Python contract validator."
+}
