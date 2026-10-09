@@ -15,6 +15,8 @@ This suite records six new standardized comparators for the frozen PUBLIC_NATIVE
 
 The protocol is exported from typed Python in [`training.py`](../../src/powerlifting_state_research/models/training.py) as [`public-native-comparator-suite.json`](../training-protocols/public-native-comparator-suite.json). It binds the 12,288-row TRAIN bytes (`914dc51fcf9a0dca30224a8093431e97fe29272bf830160bf46a78396026d550`), the 3,072-row validation bytes (`0d7bd0c9291e7af5627ec18e2b82025aa1f5f3d46de07d502f7df90eace24b9a`), the M3 participant-visible inputs, three run seeds (`383001`, `383002`, `383003`), one fixed configuration per method, and target-wise RMSE, MAE, R², and SRE (`ddof=0`). It creates no universal scalar score.
 
+The six new methods and the immutable RES-274 temporal expert share the frozen canonical IID validation rows and RES-271 four-metric evaluation identity. This common scoring surface fixes the held-out rows and metric definitions; it does not imply identical model-specific input representations, training budgets, architectures, or execution hardware.
+
 All new methods use the same entity-disjoint, support-preserving split of TRAIN: 9,984 fit rows and 2,304 internal selection rows. Its identity is `psr:internal-selection-split:public-native-temporal-expert@sha256:9cccd9014e03d9f497f41dd91686307f2315ec19fe8c9b43bab908ac3e8f0b25`. Normalization statistics are fit on the fit rows only. The internal selection rows choose only the predeclared stopping step for the boosted stumps and neural model. The other new methods use fixed fits and do not select on those rows.
 
 All fitted states and a fit seal were written and hashed before the runner opened canonical validation. The runner then evaluated all new predictions with RES-271. The fit seal records `canonical_validation_accessed=false`; the run manifest records that evaluation followed the seal. Integrity checks verify both records, every fitted-state hash, prediction hash, and EvaluationResult identity.
@@ -78,7 +80,9 @@ Among the six new methods, the compact neural model has the lowest mean RMSE and
 | Compact neural | 4,195 | 0 | 0.004 |
 | Mechanistic + Ridge residual | 384 | 6 | 1.116 |
 
-Training used CPU execution on Linux 6.18 WSL2, x86_64, with 8 logical CPUs, Python 3.12.13, NumPy 2.4.4, and PyTorch 2.9.1+cpu. Shared fit preprocessing took 7.937 seconds once; shared validation feature construction took 1.651 seconds once. Per-model fit and prediction medians above exclude those two shared steps. The exact CPU model was unavailable. RES-274 was trained under its sealed RTX A6000/CUDA environment; fit/inference durations are not present in the ingested expert results, so they are not filled in here.
+Training used CPU execution on Linux 6.18 WSL2, x86_64, with 8 logical CPUs, Python 3.12.13, NumPy 2.4.4, and PyTorch 2.9.1+cpu. Shared fit preprocessing took 7.937 seconds once; shared validation feature construction took 1.651 seconds once. Per-model fit and prediction medians above exclude those two shared steps. The exact CPU model was unavailable.
+
+The immutable RES-274 public-native run's [sealed manifest](../../results/manifests/public-native-temporal-expert.json) records an NVIDIA RTX PRO 6000 Blackwell Server Edition, PyTorch 2.9.1+cu128, CUDA 12.8, cuDNN 91002, Python 3.12.3, and NVIDIA driver 580.82.07. The RTX A6000 reference in the temporal-expert card describes the separate historical run. RES-274 fit and inference wall-clock measurements are absent from the ingested evidence, so its timing fields in the comparator CSV remain empty and are not estimated. The CPU timings above and the GPU runtime fingerprint do not support a measured cross-hardware compute comparison: the hardware, software stacks, and workloads differ.
 
 ## Artifact and claim boundaries
 
