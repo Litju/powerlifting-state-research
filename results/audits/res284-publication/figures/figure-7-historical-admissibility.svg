@@ -1,0 +1,235 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1313" height="625" viewBox="0 0 1313 625" role="img" aria-labelledby="title desc">
+<title id="title">Historical cross-version numerical admissibility matrix</title>
+<desc id="desc">9-version matrix with 36 off-diagonal cross-version pairs, each rejected for numerical comparison. Diagonal cells are within-version and outside this matrix.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#17212b}.title{font-size:22px;font-weight:700}.subtitle{font-size:13px;fill:#405161}.label{font-size:11px}.small{font-size:9px}.grid{stroke:#d8dde3;stroke-width:1}.axis{stroke:#344454;stroke-width:1.2}</style>
+<rect x="0" y="0" width="1313" height="625" fill="#ffffff"/>
+<text x="35.0" y="38.0" class="title" text-anchor="start">Historical cross-version admissibility</text>
+<text x="35.0" y="63.0" class="subtitle" text-anchor="start">All 36 cross-version pairs remain REJECTED_FOR_NUMERICAL_COMPARISON.</text>
+<text x="391.0" y="122.0" class="small" text-anchor="middle">Class-Normalized</text>
+<text x="391.0" y="133.0" class="small" text-anchor="middle">Cross-Lift</text>
+<text x="391.0" y="144.0" class="small" text-anchor="middle">Five-Target</text>
+<text x="391.0" y="155.0" class="small" text-anchor="middle">Performance</text>
+<text x="391.0" y="166.0" class="small" text-anchor="middle">Forecasting</text>
+<text x="493.0" y="122.0" class="small" text-anchor="middle">Four-Target</text>
+<text x="493.0" y="133.0" class="small" text-anchor="middle">Load–Velocity</text>
+<text x="493.0" y="144.0" class="small" text-anchor="middle">and Competition</text>
+<text x="493.0" y="155.0" class="small" text-anchor="middle">Performance</text>
+<text x="493.0" y="166.0" class="small" text-anchor="middle">Forecasting</text>
+<text x="595.0" y="122.0" class="small" text-anchor="middle">Held-Out</text>
+<text x="595.0" y="133.0" class="small" text-anchor="middle">Final-Origin</text>
+<text x="595.0" y="144.0" class="small" text-anchor="middle">Evaluation of</text>
+<text x="595.0" y="155.0" class="small" text-anchor="middle">Five Performance</text>
+<text x="595.0" y="166.0" class="small" text-anchor="middle">Targets</text>
+<text x="697.0" y="122.0" class="small" text-anchor="middle">IID-Sampled</text>
+<text x="697.0" y="133.0" class="small" text-anchor="middle">Latent</text>
+<text x="697.0" y="144.0" class="small" text-anchor="middle">Capacity-Change</text>
+<text x="697.0" y="155.0" class="small" text-anchor="middle">Forecasting with</text>
+<text x="697.0" y="166.0" class="small" text-anchor="middle">Transient</text>
+<text x="697.0" y="177.0" class="small" text-anchor="middle">Performance</text>
+<text x="697.0" y="188.0" class="small" text-anchor="middle">Expression</text>
+<text x="799.0" y="122.0" class="small" text-anchor="middle">Latent</text>
+<text x="799.0" y="133.0" class="small" text-anchor="middle">Capacity-Change</text>
+<text x="799.0" y="144.0" class="small" text-anchor="middle">Forecasting with</text>
+<text x="799.0" y="155.0" class="small" text-anchor="middle">Transient</text>
+<text x="799.0" y="166.0" class="small" text-anchor="middle">Performance</text>
+<text x="799.0" y="177.0" class="small" text-anchor="middle">Expression</text>
+<text x="901.0" y="122.0" class="small" text-anchor="middle">Latent-Origin</text>
+<text x="901.0" y="133.0" class="small" text-anchor="middle">Capacity-Change</text>
+<text x="901.0" y="144.0" class="small" text-anchor="middle">Forecasting</text>
+<text x="1003.0" y="122.0" class="small" text-anchor="middle">Observed-Origin-Referenced</text>
+<text x="1003.0" y="133.0" class="small" text-anchor="middle">Capacity-Change</text>
+<text x="1003.0" y="144.0" class="small" text-anchor="middle">Forecasting</text>
+<text x="1105.0" y="122.0" class="small" text-anchor="middle">Performance</text>
+<text x="1105.0" y="133.0" class="small" text-anchor="middle">Forecasting</text>
+<text x="1105.0" y="144.0" class="small" text-anchor="middle">Under Schedule,</text>
+<text x="1105.0" y="155.0" class="small" text-anchor="middle">Exposure, and</text>
+<text x="1105.0" y="166.0" class="small" text-anchor="middle">Reporting</text>
+<text x="1105.0" y="177.0" class="small" text-anchor="middle">Heterogeneity</text>
+<text x="1207.0" y="122.0" class="small" text-anchor="middle">Seasonal</text>
+<text x="1207.0" y="133.0" class="small" text-anchor="middle">Five-Target</text>
+<text x="1207.0" y="144.0" class="small" text-anchor="middle">Load–Velocity</text>
+<text x="1207.0" y="155.0" class="small" text-anchor="middle">and Performance</text>
+<text x="1207.0" y="166.0" class="small" text-anchor="middle">Forecasting</text>
+<text x="328.0" y="212.0" class="small" text-anchor="end">class normalized cross lift five</text>
+<text x="328.0" y="222.0" class="small" text-anchor="end">target performance forecasting</text>
+<rect x="340.0" y="198.0" width="100.0" height="36.0" fill="#f3f5f7" stroke="#ffffff" stroke-width="1"/>
+<text x="390.0" y="221.0" class="small" text-anchor="middle">—</text>
+<rect x="442.0" y="198.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="492.0" y="221.0" class="small" text-anchor="middle">REJ</text>
+<rect x="544.0" y="198.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="594.0" y="221.0" class="small" text-anchor="middle">REJ</text>
+<rect x="646.0" y="198.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="696.0" y="221.0" class="small" text-anchor="middle">REJ</text>
+<rect x="748.0" y="198.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="798.0" y="221.0" class="small" text-anchor="middle">REJ</text>
+<rect x="850.0" y="198.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="900.0" y="221.0" class="small" text-anchor="middle">REJ</text>
+<rect x="952.0" y="198.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1002.0" y="221.0" class="small" text-anchor="middle">REJ</text>
+<rect x="1054.0" y="198.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1104.0" y="221.0" class="small" text-anchor="middle">REJ</text>
+<rect x="1156.0" y="198.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1206.0" y="221.0" class="small" text-anchor="middle">REJ</text>
+<text x="328.0" y="250.0" class="small" text-anchor="end">four target load velocity and</text>
+<text x="328.0" y="260.0" class="small" text-anchor="end">competition performance forecasting</text>
+<rect x="340.0" y="236.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="390.0" y="259.0" class="small" text-anchor="middle">REJ</text>
+<rect x="442.0" y="236.0" width="100.0" height="36.0" fill="#f3f5f7" stroke="#ffffff" stroke-width="1"/>
+<text x="492.0" y="259.0" class="small" text-anchor="middle">—</text>
+<rect x="544.0" y="236.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="594.0" y="259.0" class="small" text-anchor="middle">REJ</text>
+<rect x="646.0" y="236.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="696.0" y="259.0" class="small" text-anchor="middle">REJ</text>
+<rect x="748.0" y="236.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="798.0" y="259.0" class="small" text-anchor="middle">REJ</text>
+<rect x="850.0" y="236.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="900.0" y="259.0" class="small" text-anchor="middle">REJ</text>
+<rect x="952.0" y="236.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1002.0" y="259.0" class="small" text-anchor="middle">REJ</text>
+<rect x="1054.0" y="236.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1104.0" y="259.0" class="small" text-anchor="middle">REJ</text>
+<rect x="1156.0" y="236.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1206.0" y="259.0" class="small" text-anchor="middle">REJ</text>
+<text x="328.0" y="288.0" class="small" text-anchor="end">held out final origin five target</text>
+<text x="328.0" y="298.0" class="small" text-anchor="end">performance evaluation</text>
+<rect x="340.0" y="274.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="390.0" y="297.0" class="small" text-anchor="middle">REJ</text>
+<rect x="442.0" y="274.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="492.0" y="297.0" class="small" text-anchor="middle">REJ</text>
+<rect x="544.0" y="274.0" width="100.0" height="36.0" fill="#f3f5f7" stroke="#ffffff" stroke-width="1"/>
+<text x="594.0" y="297.0" class="small" text-anchor="middle">—</text>
+<rect x="646.0" y="274.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="696.0" y="297.0" class="small" text-anchor="middle">REJ</text>
+<rect x="748.0" y="274.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="798.0" y="297.0" class="small" text-anchor="middle">REJ</text>
+<rect x="850.0" y="274.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="900.0" y="297.0" class="small" text-anchor="middle">REJ</text>
+<rect x="952.0" y="274.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1002.0" y="297.0" class="small" text-anchor="middle">REJ</text>
+<rect x="1054.0" y="274.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1104.0" y="297.0" class="small" text-anchor="middle">REJ</text>
+<rect x="1156.0" y="274.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1206.0" y="297.0" class="small" text-anchor="middle">REJ</text>
+<text x="328.0" y="326.0" class="small" text-anchor="end">iid latent capacity change with</text>
+<text x="328.0" y="336.0" class="small" text-anchor="end">transient expression forecasting</text>
+<rect x="340.0" y="312.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="390.0" y="335.0" class="small" text-anchor="middle">REJ</text>
+<rect x="442.0" y="312.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="492.0" y="335.0" class="small" text-anchor="middle">REJ</text>
+<rect x="544.0" y="312.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="594.0" y="335.0" class="small" text-anchor="middle">REJ</text>
+<rect x="646.0" y="312.0" width="100.0" height="36.0" fill="#f3f5f7" stroke="#ffffff" stroke-width="1"/>
+<text x="696.0" y="335.0" class="small" text-anchor="middle">—</text>
+<rect x="748.0" y="312.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="798.0" y="335.0" class="small" text-anchor="middle">REJ</text>
+<rect x="850.0" y="312.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="900.0" y="335.0" class="small" text-anchor="middle">REJ</text>
+<rect x="952.0" y="312.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1002.0" y="335.0" class="small" text-anchor="middle">REJ</text>
+<rect x="1054.0" y="312.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1104.0" y="335.0" class="small" text-anchor="middle">REJ</text>
+<rect x="1156.0" y="312.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1206.0" y="335.0" class="small" text-anchor="middle">REJ</text>
+<text x="328.0" y="364.0" class="small" text-anchor="end">latent capacity change with transient</text>
+<text x="328.0" y="374.0" class="small" text-anchor="end">expression forecasting</text>
+<rect x="340.0" y="350.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="390.0" y="373.0" class="small" text-anchor="middle">REJ</text>
+<rect x="442.0" y="350.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="492.0" y="373.0" class="small" text-anchor="middle">REJ</text>
+<rect x="544.0" y="350.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="594.0" y="373.0" class="small" text-anchor="middle">REJ</text>
+<rect x="646.0" y="350.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="696.0" y="373.0" class="small" text-anchor="middle">REJ</text>
+<rect x="748.0" y="350.0" width="100.0" height="36.0" fill="#f3f5f7" stroke="#ffffff" stroke-width="1"/>
+<text x="798.0" y="373.0" class="small" text-anchor="middle">—</text>
+<rect x="850.0" y="350.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="900.0" y="373.0" class="small" text-anchor="middle">REJ</text>
+<rect x="952.0" y="350.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1002.0" y="373.0" class="small" text-anchor="middle">REJ</text>
+<rect x="1054.0" y="350.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1104.0" y="373.0" class="small" text-anchor="middle">REJ</text>
+<rect x="1156.0" y="350.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1206.0" y="373.0" class="small" text-anchor="middle">REJ</text>
+<text x="328.0" y="402.0" class="small" text-anchor="end">latent origin capacity change</text>
+<text x="328.0" y="412.0" class="small" text-anchor="end">forecasting</text>
+<rect x="340.0" y="388.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="390.0" y="411.0" class="small" text-anchor="middle">REJ</text>
+<rect x="442.0" y="388.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="492.0" y="411.0" class="small" text-anchor="middle">REJ</text>
+<rect x="544.0" y="388.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="594.0" y="411.0" class="small" text-anchor="middle">REJ</text>
+<rect x="646.0" y="388.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="696.0" y="411.0" class="small" text-anchor="middle">REJ</text>
+<rect x="748.0" y="388.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="798.0" y="411.0" class="small" text-anchor="middle">REJ</text>
+<rect x="850.0" y="388.0" width="100.0" height="36.0" fill="#f3f5f7" stroke="#ffffff" stroke-width="1"/>
+<text x="900.0" y="411.0" class="small" text-anchor="middle">—</text>
+<rect x="952.0" y="388.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1002.0" y="411.0" class="small" text-anchor="middle">REJ</text>
+<rect x="1054.0" y="388.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1104.0" y="411.0" class="small" text-anchor="middle">REJ</text>
+<rect x="1156.0" y="388.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1206.0" y="411.0" class="small" text-anchor="middle">REJ</text>
+<text x="328.0" y="440.0" class="small" text-anchor="end">observed origin referenced capacity</text>
+<text x="328.0" y="450.0" class="small" text-anchor="end">change forecasting</text>
+<rect x="340.0" y="426.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="390.0" y="449.0" class="small" text-anchor="middle">REJ</text>
+<rect x="442.0" y="426.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="492.0" y="449.0" class="small" text-anchor="middle">REJ</text>
+<rect x="544.0" y="426.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="594.0" y="449.0" class="small" text-anchor="middle">REJ</text>
+<rect x="646.0" y="426.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="696.0" y="449.0" class="small" text-anchor="middle">REJ</text>
+<rect x="748.0" y="426.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="798.0" y="449.0" class="small" text-anchor="middle">REJ</text>
+<rect x="850.0" y="426.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="900.0" y="449.0" class="small" text-anchor="middle">REJ</text>
+<rect x="952.0" y="426.0" width="100.0" height="36.0" fill="#f3f5f7" stroke="#ffffff" stroke-width="1"/>
+<text x="1002.0" y="449.0" class="small" text-anchor="middle">—</text>
+<rect x="1054.0" y="426.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1104.0" y="449.0" class="small" text-anchor="middle">REJ</text>
+<rect x="1156.0" y="426.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1206.0" y="449.0" class="small" text-anchor="middle">REJ</text>
+<text x="328.0" y="478.0" class="small" text-anchor="end">performance forecasting under schedule</text>
+<text x="328.0" y="488.0" class="small" text-anchor="end">exposure reporting heterogeneity</text>
+<rect x="340.0" y="464.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="390.0" y="487.0" class="small" text-anchor="middle">REJ</text>
+<rect x="442.0" y="464.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="492.0" y="487.0" class="small" text-anchor="middle">REJ</text>
+<rect x="544.0" y="464.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="594.0" y="487.0" class="small" text-anchor="middle">REJ</text>
+<rect x="646.0" y="464.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="696.0" y="487.0" class="small" text-anchor="middle">REJ</text>
+<rect x="748.0" y="464.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="798.0" y="487.0" class="small" text-anchor="middle">REJ</text>
+<rect x="850.0" y="464.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="900.0" y="487.0" class="small" text-anchor="middle">REJ</text>
+<rect x="952.0" y="464.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1002.0" y="487.0" class="small" text-anchor="middle">REJ</text>
+<rect x="1054.0" y="464.0" width="100.0" height="36.0" fill="#f3f5f7" stroke="#ffffff" stroke-width="1"/>
+<text x="1104.0" y="487.0" class="small" text-anchor="middle">—</text>
+<rect x="1156.0" y="464.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1206.0" y="487.0" class="small" text-anchor="middle">REJ</text>
+<text x="328.0" y="516.0" class="small" text-anchor="end">seasonal five target load velocity</text>
+<text x="328.0" y="526.0" class="small" text-anchor="end">performance forecasting</text>
+<rect x="340.0" y="502.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="390.0" y="525.0" class="small" text-anchor="middle">REJ</text>
+<rect x="442.0" y="502.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="492.0" y="525.0" class="small" text-anchor="middle">REJ</text>
+<rect x="544.0" y="502.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="594.0" y="525.0" class="small" text-anchor="middle">REJ</text>
+<rect x="646.0" y="502.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="696.0" y="525.0" class="small" text-anchor="middle">REJ</text>
+<rect x="748.0" y="502.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="798.0" y="525.0" class="small" text-anchor="middle">REJ</text>
+<rect x="850.0" y="502.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="900.0" y="525.0" class="small" text-anchor="middle">REJ</text>
+<rect x="952.0" y="502.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1002.0" y="525.0" class="small" text-anchor="middle">REJ</text>
+<rect x="1054.0" y="502.0" width="100.0" height="36.0" fill="#b85c5c" stroke="#ffffff" stroke-width="1"/>
+<text x="1104.0" y="525.0" class="small" text-anchor="middle">REJ</text>
+<rect x="1156.0" y="502.0" width="100.0" height="36.0" fill="#f3f5f7" stroke="#ffffff" stroke-width="1"/>
+<text x="1206.0" y="525.0" class="small" text-anchor="middle">—</text>
+<text x="35.0" y="586.0" class="small" text-anchor="start">REJ = rejected for numerical comparison; — = same-version diagonal, not a cross-version test.</text>
+<text x="35.0" y="608.0" class="small" text-anchor="start">No ranking coefficient, chronological improvement, or raw Sobol-versus-IID comparison is calculated.</text>
+</svg>

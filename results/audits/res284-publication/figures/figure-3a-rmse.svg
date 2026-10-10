@@ -1,0 +1,257 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1505" height="635" viewBox="0 0 1505 635" role="img" aria-labelledby="title desc">
+<title id="title">Public-native target-wise RMSE comparison</title>
+<desc id="desc">Point estimates for all 22 candidate identities, faceted by target. RMSE is lower-is-better; no uncertainty intervals are shown.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#17212b}.title{font-size:22px;font-weight:700}.subtitle{font-size:13px;fill:#405161}.label{font-size:11px}.small{font-size:9px}.grid{stroke:#d8dde3;stroke-width:1}.axis{stroke:#344454;stroke-width:1.2}</style>
+<rect x="0" y="0" width="1505" height="635" fill="#ffffff"/>
+<text x="35.0" y="38.0" class="title" text-anchor="start">Public-native IID model comparison — RMSE</text>
+<text x="35.0" y="63.0" class="subtitle" text-anchor="start">RMSE; kg; lower-is-better. Candidate rows are ordered by the frozen target-wise rank.</text>
+<text x="26.0" y="89.0" class="label" text-anchor="start">Squat capacity change</text>
+<line x1="245" y1="97" x2="245" y2="516" class="axis"/>
+<line x1="245.0" y1="97" x2="245.0" y2="516" class="grid"/>
+<text x="245.0" y="534.0" class="small" text-anchor="middle">2.725</text>
+<line x1="298.8" y1="97" x2="298.8" y2="516" class="grid"/>
+<text x="298.8" y="534.0" class="small" text-anchor="middle">3.253</text>
+<line x1="352.5" y1="97" x2="352.5" y2="516" class="grid"/>
+<text x="352.5" y="534.0" class="small" text-anchor="middle">3.781</text>
+<line x1="406.2" y1="97" x2="406.2" y2="516" class="grid"/>
+<text x="406.2" y="534.0" class="small" text-anchor="middle">4.309</text>
+<line x1="460.0" y1="97" x2="460.0" y2="516" class="grid"/>
+<text x="460.0" y="534.0" class="small" text-anchor="middle">4.837</text>
+<text x="237.0" y="115.0" class="small" text-anchor="end">public-native-temporal-expert:ensemble</text>
+<polygon points="262.9,106.0 267.9,111.0 262.9,116.0 257.9,111.0" fill="#9b5de5" stroke="#17212b" stroke-width="1"/>
+<text x="465.0" y="115.0" class="small" text-anchor="start">2.9010</text>
+<text x="237.0" y="134.0" class="small" text-anchor="end">public-native-temporal-expert:383002</text>
+<circle cx="267.2" cy="130.0" r="4" fill="#9b5de5" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="134.0" class="small" text-anchor="start">2.9435</text>
+<text x="237.0" y="153.0" class="small" text-anchor="end">public-native-temporal-expert:383003</text>
+<circle cx="267.6" cy="149.0" r="4" fill="#9b5de5" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="153.0" class="small" text-anchor="start">2.9466</text>
+<text x="237.0" y="172.0" class="small" text-anchor="end">public-native-temporal-expert:383001</text>
+<circle cx="274.9" cy="168.0" r="4" fill="#9b5de5" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="172.0" class="small" text-anchor="start">3.0185</text>
+<text x="237.0" y="191.0" class="small" text-anchor="end">compact_neural:383002</text>
+<circle cx="303.5" cy="187.0" r="4" fill="#277da1" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="191.0" class="small" text-anchor="start">3.2997</text>
+<text x="237.0" y="210.0" class="small" text-anchor="end">compact_neural:383001</text>
+<circle cx="305.1" cy="206.0" r="4" fill="#277da1" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="210.0" class="small" text-anchor="start">3.3154</text>
+<text x="237.0" y="229.0" class="small" text-anchor="end">compact_neural:383003</text>
+<circle cx="307.1" cy="225.0" r="4" fill="#277da1" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="229.0" class="small" text-anchor="start">3.3348</text>
+<text x="237.0" y="248.0" class="small" text-anchor="end">mechanistic_ridge_residual:383001</text>
+<circle cx="332.8" cy="244.0" r="4" fill="#577590" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="248.0" class="small" text-anchor="start">3.5879</text>
+<text x="237.0" y="267.0" class="small" text-anchor="end">mechanistic_ridge_residual:383002</text>
+<circle cx="332.8" cy="263.0" r="4" fill="#577590" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="267.0" class="small" text-anchor="start">3.5879</text>
+<text x="237.0" y="286.0" class="small" text-anchor="end">mechanistic_ridge_residual:383003</text>
+<circle cx="332.8" cy="282.0" r="4" fill="#577590" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="286.0" class="small" text-anchor="start">3.5879</text>
+<text x="237.0" y="305.0" class="small" text-anchor="end">mechanistic_midpoint:383001</text>
+<circle cx="336.4" cy="301.0" r="4" fill="#43aa8b" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="305.0" class="small" text-anchor="start">3.6234</text>
+<text x="237.0" y="324.0" class="small" text-anchor="end">mechanistic_midpoint:383002</text>
+<circle cx="336.4" cy="320.0" r="4" fill="#43aa8b" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="324.0" class="small" text-anchor="start">3.6234</text>
+<text x="237.0" y="343.0" class="small" text-anchor="end">mechanistic_midpoint:383003</text>
+<circle cx="336.4" cy="339.0" r="4" fill="#43aa8b" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="343.0" class="small" text-anchor="start">3.6234</text>
+<text x="237.0" y="362.0" class="small" text-anchor="end">context_mean:383001</text>
+<circle cx="384.5" cy="358.0" r="4" fill="#7f7f7f" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="362.0" class="small" text-anchor="start">4.0956</text>
+<text x="237.0" y="381.0" class="small" text-anchor="end">context_mean:383002</text>
+<circle cx="384.5" cy="377.0" r="4" fill="#7f7f7f" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="381.0" class="small" text-anchor="start">4.0956</text>
+<text x="237.0" y="400.0" class="small" text-anchor="end">context_mean:383003</text>
+<circle cx="384.5" cy="396.0" r="4" fill="#7f7f7f" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="400.0" class="small" text-anchor="start">4.0956</text>
+<text x="237.0" y="419.0" class="small" text-anchor="end">ridge:383001</text>
+<circle cx="419.4" cy="415.0" r="4" fill="#f9c74f" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="419.0" class="small" text-anchor="start">4.4380</text>
+<text x="237.0" y="438.0" class="small" text-anchor="end">ridge:383002</text>
+<circle cx="419.4" cy="434.0" r="4" fill="#f9c74f" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="438.0" class="small" text-anchor="start">4.4380</text>
+<text x="237.0" y="457.0" class="small" text-anchor="end">ridge:383003</text>
+<circle cx="419.4" cy="453.0" r="4" fill="#f9c74f" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="457.0" class="small" text-anchor="start">4.4380</text>
+<text x="237.0" y="476.0" class="small" text-anchor="end">histogram_boosted_stumps:383001</text>
+<circle cx="442.1" cy="472.0" r="4" fill="#f3722c" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="476.0" class="small" text-anchor="start">4.6613</text>
+<text x="237.0" y="495.0" class="small" text-anchor="end">histogram_boosted_stumps:383002</text>
+<circle cx="442.1" cy="491.0" r="4" fill="#f3722c" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="495.0" class="small" text-anchor="start">4.6613</text>
+<text x="237.0" y="514.0" class="small" text-anchor="end">histogram_boosted_stumps:383003</text>
+<circle cx="442.1" cy="510.0" r="4" fill="#f3722c" stroke="#17212b" stroke-width="0.5"/>
+<text x="465.0" y="514.0" class="small" text-anchor="start">4.6613</text>
+<text x="516.0" y="89.0" class="label" text-anchor="start">Bench press capacity change</text>
+<line x1="735" y1="97" x2="735" y2="516" class="axis"/>
+<line x1="735.0" y1="97" x2="735.0" y2="516" class="grid"/>
+<text x="735.0" y="534.0" class="small" text-anchor="middle">1.727</text>
+<line x1="788.8" y1="97" x2="788.8" y2="516" class="grid"/>
+<text x="788.8" y="534.0" class="small" text-anchor="middle">2.158</text>
+<line x1="842.5" y1="97" x2="842.5" y2="516" class="grid"/>
+<text x="842.5" y="534.0" class="small" text-anchor="middle">2.589</text>
+<line x1="896.2" y1="97" x2="896.2" y2="516" class="grid"/>
+<text x="896.2" y="534.0" class="small" text-anchor="middle">3.020</text>
+<line x1="950.0" y1="97" x2="950.0" y2="516" class="grid"/>
+<text x="950.0" y="534.0" class="small" text-anchor="middle">3.451</text>
+<text x="727.0" y="115.0" class="small" text-anchor="end">public-native-temporal-expert:ensemble</text>
+<polygon points="752.9,106.0 757.9,111.0 752.9,116.0 747.9,111.0" fill="#9b5de5" stroke="#17212b" stroke-width="1"/>
+<text x="955.0" y="115.0" class="small" text-anchor="start">1.8703</text>
+<text x="727.0" y="134.0" class="small" text-anchor="end">public-native-temporal-expert:383003</text>
+<circle cx="756.9" cy="130.0" r="4" fill="#9b5de5" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="134.0" class="small" text-anchor="start">1.9025</text>
+<text x="727.0" y="153.0" class="small" text-anchor="end">public-native-temporal-expert:383002</text>
+<circle cx="757.8" cy="149.0" r="4" fill="#9b5de5" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="153.0" class="small" text-anchor="start">1.9094</text>
+<text x="727.0" y="172.0" class="small" text-anchor="end">public-native-temporal-expert:383001</text>
+<circle cx="760.9" cy="168.0" r="4" fill="#9b5de5" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="172.0" class="small" text-anchor="start">1.9346</text>
+<text x="727.0" y="191.0" class="small" text-anchor="end">compact_neural:383003</text>
+<circle cx="808.6" cy="187.0" r="4" fill="#277da1" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="191.0" class="small" text-anchor="start">2.3173</text>
+<text x="727.0" y="210.0" class="small" text-anchor="end">compact_neural:383002</text>
+<circle cx="808.8" cy="206.0" r="4" fill="#277da1" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="210.0" class="small" text-anchor="start">2.3185</text>
+<text x="727.0" y="229.0" class="small" text-anchor="end">compact_neural:383001</text>
+<circle cx="809.2" cy="225.0" r="4" fill="#277da1" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="229.0" class="small" text-anchor="start">2.3215</text>
+<text x="727.0" y="248.0" class="small" text-anchor="end">mechanistic_ridge_residual:383001</text>
+<circle cx="832.8" cy="244.0" r="4" fill="#577590" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="248.0" class="small" text-anchor="start">2.5109</text>
+<text x="727.0" y="267.0" class="small" text-anchor="end">mechanistic_ridge_residual:383002</text>
+<circle cx="832.8" cy="263.0" r="4" fill="#577590" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="267.0" class="small" text-anchor="start">2.5109</text>
+<text x="727.0" y="286.0" class="small" text-anchor="end">mechanistic_ridge_residual:383003</text>
+<circle cx="832.8" cy="282.0" r="4" fill="#577590" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="286.0" class="small" text-anchor="start">2.5109</text>
+<text x="727.0" y="305.0" class="small" text-anchor="end">mechanistic_midpoint:383001</text>
+<circle cx="836.0" cy="301.0" r="4" fill="#43aa8b" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="305.0" class="small" text-anchor="start">2.5372</text>
+<text x="727.0" y="324.0" class="small" text-anchor="end">mechanistic_midpoint:383002</text>
+<circle cx="836.0" cy="320.0" r="4" fill="#43aa8b" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="324.0" class="small" text-anchor="start">2.5372</text>
+<text x="727.0" y="343.0" class="small" text-anchor="end">mechanistic_midpoint:383003</text>
+<circle cx="836.0" cy="339.0" r="4" fill="#43aa8b" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="343.0" class="small" text-anchor="start">2.5372</text>
+<text x="727.0" y="362.0" class="small" text-anchor="end">context_mean:383001</text>
+<circle cx="884.7" cy="358.0" r="4" fill="#7f7f7f" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="362.0" class="small" text-anchor="start">2.9277</text>
+<text x="727.0" y="381.0" class="small" text-anchor="end">context_mean:383002</text>
+<circle cx="884.7" cy="377.0" r="4" fill="#7f7f7f" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="381.0" class="small" text-anchor="start">2.9277</text>
+<text x="727.0" y="400.0" class="small" text-anchor="end">context_mean:383003</text>
+<circle cx="884.7" cy="396.0" r="4" fill="#7f7f7f" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="400.0" class="small" text-anchor="start">2.9277</text>
+<text x="727.0" y="419.0" class="small" text-anchor="end">ridge:383001</text>
+<circle cx="916.8" cy="415.0" r="4" fill="#f9c74f" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="419.0" class="small" text-anchor="start">3.1854</text>
+<text x="727.0" y="438.0" class="small" text-anchor="end">ridge:383002</text>
+<circle cx="916.8" cy="434.0" r="4" fill="#f9c74f" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="438.0" class="small" text-anchor="start">3.1854</text>
+<text x="727.0" y="457.0" class="small" text-anchor="end">ridge:383003</text>
+<circle cx="916.8" cy="453.0" r="4" fill="#f9c74f" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="457.0" class="small" text-anchor="start">3.1854</text>
+<text x="727.0" y="476.0" class="small" text-anchor="end">histogram_boosted_stumps:383001</text>
+<circle cx="932.1" cy="472.0" r="4" fill="#f3722c" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="476.0" class="small" text-anchor="start">3.3076</text>
+<text x="727.0" y="495.0" class="small" text-anchor="end">histogram_boosted_stumps:383002</text>
+<circle cx="932.1" cy="491.0" r="4" fill="#f3722c" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="495.0" class="small" text-anchor="start">3.3076</text>
+<text x="727.0" y="514.0" class="small" text-anchor="end">histogram_boosted_stumps:383003</text>
+<circle cx="932.1" cy="510.0" r="4" fill="#f3722c" stroke="#17212b" stroke-width="0.5"/>
+<text x="955.0" y="514.0" class="small" text-anchor="start">3.3076</text>
+<text x="1006.0" y="89.0" class="label" text-anchor="start">Deadlift capacity change</text>
+<line x1="1225" y1="97" x2="1225" y2="516" class="axis"/>
+<line x1="1225.0" y1="97" x2="1225.0" y2="516" class="grid"/>
+<text x="1225.0" y="534.0" class="small" text-anchor="middle">3.457</text>
+<line x1="1278.8" y1="97" x2="1278.8" y2="516" class="grid"/>
+<text x="1278.8" y="534.0" class="small" text-anchor="middle">4.090</text>
+<line x1="1332.5" y1="97" x2="1332.5" y2="516" class="grid"/>
+<text x="1332.5" y="534.0" class="small" text-anchor="middle">4.722</text>
+<line x1="1386.2" y1="97" x2="1386.2" y2="516" class="grid"/>
+<text x="1386.2" y="534.0" class="small" text-anchor="middle">5.355</text>
+<line x1="1440.0" y1="97" x2="1440.0" y2="516" class="grid"/>
+<text x="1440.0" y="534.0" class="small" text-anchor="middle">5.988</text>
+<text x="1217.0" y="115.0" class="small" text-anchor="end">public-native-temporal-expert:ensemble</text>
+<polygon points="1242.9,106.0 1247.9,111.0 1242.9,116.0 1237.9,111.0" fill="#9b5de5" stroke="#17212b" stroke-width="1"/>
+<text x="1445.0" y="115.0" class="small" text-anchor="start">3.6682</text>
+<text x="1217.0" y="134.0" class="small" text-anchor="end">public-native-temporal-expert:383002</text>
+<circle cx="1246.4" cy="130.0" r="4" fill="#9b5de5" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="134.0" class="small" text-anchor="start">3.7091</text>
+<text x="1217.0" y="153.0" class="small" text-anchor="end">public-native-temporal-expert:383003</text>
+<circle cx="1249.8" cy="149.0" r="4" fill="#9b5de5" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="153.0" class="small" text-anchor="start">3.7494</text>
+<text x="1217.0" y="172.0" class="small" text-anchor="end">public-native-temporal-expert:383001</text>
+<circle cx="1250.3" cy="168.0" r="4" fill="#9b5de5" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="172.0" class="small" text-anchor="start">3.7555</text>
+<text x="1217.0" y="191.0" class="small" text-anchor="end">compact_neural:383001</text>
+<circle cx="1278.0" cy="187.0" r="4" fill="#277da1" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="191.0" class="small" text-anchor="start">4.0806</text>
+<text x="1217.0" y="210.0" class="small" text-anchor="end">compact_neural:383003</text>
+<circle cx="1278.2" cy="206.0" r="4" fill="#277da1" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="210.0" class="small" text-anchor="start">4.0835</text>
+<text x="1217.0" y="229.0" class="small" text-anchor="end">compact_neural:383002</text>
+<circle cx="1278.7" cy="225.0" r="4" fill="#277da1" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="229.0" class="small" text-anchor="start">4.0888</text>
+<text x="1217.0" y="248.0" class="small" text-anchor="end">mechanistic_ridge_residual:383001</text>
+<circle cx="1294.7" cy="244.0" r="4" fill="#577590" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="248.0" class="small" text-anchor="start">4.2780</text>
+<text x="1217.0" y="267.0" class="small" text-anchor="end">mechanistic_ridge_residual:383002</text>
+<circle cx="1294.7" cy="263.0" r="4" fill="#577590" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="267.0" class="small" text-anchor="start">4.2780</text>
+<text x="1217.0" y="286.0" class="small" text-anchor="end">mechanistic_ridge_residual:383003</text>
+<circle cx="1294.7" cy="282.0" r="4" fill="#577590" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="286.0" class="small" text-anchor="start">4.2780</text>
+<text x="1217.0" y="305.0" class="small" text-anchor="end">mechanistic_midpoint:383001</text>
+<circle cx="1298.7" cy="301.0" r="4" fill="#43aa8b" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="305.0" class="small" text-anchor="start">4.3244</text>
+<text x="1217.0" y="324.0" class="small" text-anchor="end">mechanistic_midpoint:383002</text>
+<circle cx="1298.7" cy="320.0" r="4" fill="#43aa8b" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="324.0" class="small" text-anchor="start">4.3244</text>
+<text x="1217.0" y="343.0" class="small" text-anchor="end">mechanistic_midpoint:383003</text>
+<circle cx="1298.7" cy="339.0" r="4" fill="#43aa8b" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="343.0" class="small" text-anchor="start">4.3244</text>
+<text x="1217.0" y="362.0" class="small" text-anchor="end">context_mean:383001</text>
+<circle cx="1365.1" cy="358.0" r="4" fill="#7f7f7f" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="362.0" class="small" text-anchor="start">5.1067</text>
+<text x="1217.0" y="381.0" class="small" text-anchor="end">context_mean:383002</text>
+<circle cx="1365.1" cy="377.0" r="4" fill="#7f7f7f" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="381.0" class="small" text-anchor="start">5.1067</text>
+<text x="1217.0" y="400.0" class="small" text-anchor="end">context_mean:383003</text>
+<circle cx="1365.1" cy="396.0" r="4" fill="#7f7f7f" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="400.0" class="small" text-anchor="start">5.1067</text>
+<text x="1217.0" y="419.0" class="small" text-anchor="end">ridge:383001</text>
+<circle cx="1400.9" cy="415.0" r="4" fill="#f9c74f" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="419.0" class="small" text-anchor="start">5.5278</text>
+<text x="1217.0" y="438.0" class="small" text-anchor="end">ridge:383002</text>
+<circle cx="1400.9" cy="434.0" r="4" fill="#f9c74f" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="438.0" class="small" text-anchor="start">5.5278</text>
+<text x="1217.0" y="457.0" class="small" text-anchor="end">ridge:383003</text>
+<circle cx="1400.9" cy="453.0" r="4" fill="#f9c74f" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="457.0" class="small" text-anchor="start">5.5278</text>
+<text x="1217.0" y="476.0" class="small" text-anchor="end">histogram_boosted_stumps:383001</text>
+<circle cx="1422.1" cy="472.0" r="4" fill="#f3722c" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="476.0" class="small" text-anchor="start">5.7767</text>
+<text x="1217.0" y="495.0" class="small" text-anchor="end">histogram_boosted_stumps:383002</text>
+<circle cx="1422.1" cy="491.0" r="4" fill="#f3722c" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="495.0" class="small" text-anchor="start">5.7767</text>
+<text x="1217.0" y="514.0" class="small" text-anchor="end">histogram_boosted_stumps:383003</text>
+<circle cx="1422.1" cy="510.0" r="4" fill="#f3722c" stroke="#17212b" stroke-width="0.5"/>
+<text x="1445.0" y="514.0" class="small" text-anchor="start">5.7767</text>
+<circle cx="40" cy="580" r="5" fill="#277da1" stroke="#17212b" stroke-width="0.5"/>
+<text x="50.0" y="584.0" class="small" text-anchor="start">compact_neural</text>
+<circle cx="230" cy="580" r="5" fill="#7f7f7f" stroke="#17212b" stroke-width="0.5"/>
+<text x="240.0" y="584.0" class="small" text-anchor="start">context_mean</text>
+<circle cx="420" cy="580" r="5" fill="#f3722c" stroke="#17212b" stroke-width="0.5"/>
+<text x="430.0" y="584.0" class="small" text-anchor="start">histogram_boosted_stumps</text>
+<circle cx="610" cy="580" r="5" fill="#43aa8b" stroke="#17212b" stroke-width="0.5"/>
+<text x="620.0" y="584.0" class="small" text-anchor="start">mechanistic_midpoint</text>
+<circle cx="800" cy="580" r="5" fill="#577590" stroke="#17212b" stroke-width="0.5"/>
+<text x="810.0" y="584.0" class="small" text-anchor="start">mechanistic_ridge_residual</text>
+<circle cx="990" cy="580" r="5" fill="#9b5de5" stroke="#17212b" stroke-width="0.5"/>
+<text x="1000.0" y="584.0" class="small" text-anchor="start">public-native-temporal-expert</text>
+<circle cx="1180" cy="580" r="5" fill="#f9c74f" stroke="#17212b" stroke-width="0.5"/>
+<text x="1190.0" y="584.0" class="small" text-anchor="start">ridge</text>
+<text x="35.0" y="620.0" class="small" text-anchor="start">These are point estimates from the frozen RES-283 table; exact values and rights fields are in public-native-target-wise-rankings.csv.</text>
+</svg>

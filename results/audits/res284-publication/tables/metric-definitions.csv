@@ -1,0 +1,5 @@
+metric,metric_identity,unit,preferred_direction
+RMSE,psr:metric:rmse@1.0.0~0a9b0918a7aa,kg,lower
+MAE,psr:metric:mae@1.0.0~7319598a8a18,kg,lower
+R²,psr:metric:r-squared@1.0.0~00bad728358d,unitless,higher
+SRE(ddof=0),psr:metric:sre-population-sd-ddof-0@1.0.0~f3341587fd14,unitless,lower

@@ -1,0 +1,168 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1485" height="650" viewBox="0 0 1485 650" role="img" aria-labelledby="title desc">
+<title id="title">Descriptive public-native IID Pareto frontiers</title>
+<desc id="desc">RMSE versus MAE point estimates for all saved candidates by target. Dark rings mark candidates on the exact descriptive frontier; no uncertainty is shown.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#17212b}.title{font-size:22px;font-weight:700}.subtitle{font-size:13px;fill:#405161}.label{font-size:11px}.small{font-size:9px}.grid{stroke:#d8dde3;stroke-width:1}.axis{stroke:#344454;stroke-width:1.2}</style>
+<rect x="0" y="0" width="1485" height="650" fill="#ffffff"/>
+<text x="35.0" y="38.0" class="title" text-anchor="start">Public-native point-estimate Pareto summary</text>
+<text x="35.0" y="63.0" class="subtitle" text-anchor="start">RMSE (kg) and MAE (kg), lower is better; a dark outline marks a non-dominated candidate.</text>
+<text x="34.0" y="91.0" class="label" text-anchor="start">Squat capacity change</text>
+<line x1="94" y1="400" x2="414" y2="400" class="axis"/>
+<line x1="94" y1="110" x2="94" y2="400" class="axis"/>
+<line x1="94.0" y1="110" x2="94.0" y2="400" class="grid"/>
+<line x1="94" y1="400.0" x2="414" y2="400.0" class="grid"/>
+<text x="94.0" y="417.0" class="small" text-anchor="middle">2.76</text>
+<text x="86.0" y="403.0" class="small" text-anchor="end">1.75</text>
+<line x1="174.0" y1="110" x2="174.0" y2="400" class="grid"/>
+<line x1="94" y1="327.5" x2="414" y2="327.5" class="grid"/>
+<text x="174.0" y="417.0" class="small" text-anchor="middle">3.27</text>
+<text x="86.0" y="330.5" class="small" text-anchor="end">2.07</text>
+<line x1="254.0" y1="110" x2="254.0" y2="400" class="grid"/>
+<line x1="94" y1="255.0" x2="414" y2="255.0" class="grid"/>
+<text x="254.0" y="417.0" class="small" text-anchor="middle">3.78</text>
+<text x="86.0" y="258.0" class="small" text-anchor="end">2.39</text>
+<line x1="334.0" y1="110" x2="334.0" y2="400" class="grid"/>
+<line x1="94" y1="182.5" x2="414" y2="182.5" class="grid"/>
+<text x="334.0" y="417.0" class="small" text-anchor="middle">4.29</text>
+<text x="86.0" y="185.5" class="small" text-anchor="end">2.71</text>
+<line x1="414.0" y1="110" x2="414.0" y2="400" class="grid"/>
+<line x1="94" y1="110.0" x2="414" y2="110.0" class="grid"/>
+<text x="414.0" y="417.0" class="small" text-anchor="middle">4.80</text>
+<text x="86.0" y="113.0" class="small" text-anchor="end">3.03</text>
+<circle cx="181.0" cy="288.8" r="4" fill="#277da1" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="178.6" cy="302.0" r="4" fill="#277da1" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="184.0" cy="287.8" r="4" fill="#277da1" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="303.3" cy="199.8" r="4" fill="#7f7f7f" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="303.3" cy="199.8" r="4" fill="#7f7f7f" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="303.3" cy="199.8" r="4" fill="#7f7f7f" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="391.9" cy="163.7" r="4" fill="#f3722c" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="391.9" cy="163.7" r="4" fill="#f3722c" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="391.9" cy="163.7" r="4" fill="#f3722c" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="229.3" cy="270.3" r="4" fill="#43aa8b" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="229.3" cy="270.3" r="4" fill="#43aa8b" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="229.3" cy="270.3" r="4" fill="#43aa8b" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="223.7" cy="266.0" r="4" fill="#577590" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="223.7" cy="266.0" r="4" fill="#577590" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="223.7" cy="266.0" r="4" fill="#577590" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="134.5" cy="355.5" r="4" fill="#9b5de5" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="122.7" cy="374.8" r="4" fill="#9b5de5" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="123.2" cy="380.0" r="6" fill="#9b5de5" stroke="#17212b" stroke-width="2"/>
+<text x="131.2" y="373.0" class="small" text-anchor="start">public-native-temporal-expert:383003</text>
+<circle cx="116.1" cy="379.9" r="6" fill="#9b5de5" stroke="#17212b" stroke-width="2"/>
+<text x="124.1" y="372.9" class="small" text-anchor="start">public-native-temporal-expert:ensemble</text>
+<circle cx="356.9" cy="130.0" r="4" fill="#f9c74f" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="356.9" cy="130.0" r="4" fill="#f9c74f" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="356.9" cy="130.0" r="4" fill="#f9c74f" stroke="#ffffff" stroke-width="0.8"/>
+<text x="254.0" y="437.0" class="small" text-anchor="middle">RMSE (kg)</text>
+<text x="514.0" y="91.0" class="label" text-anchor="start">Bench press capacity change</text>
+<line x1="574" y1="400" x2="894" y2="400" class="axis"/>
+<line x1="574" y1="110" x2="574" y2="400" class="axis"/>
+<line x1="574.0" y1="110" x2="574.0" y2="400" class="grid"/>
+<line x1="574" y1="400.0" x2="894" y2="400.0" class="grid"/>
+<text x="574.0" y="417.0" class="small" text-anchor="middle">1.76</text>
+<text x="566.0" y="403.0" class="small" text-anchor="end">1.11</text>
+<line x1="654.0" y1="110" x2="654.0" y2="400" class="grid"/>
+<line x1="574" y1="327.5" x2="894" y2="327.5" class="grid"/>
+<text x="654.0" y="417.0" class="small" text-anchor="middle">2.17</text>
+<text x="566.0" y="330.5" class="small" text-anchor="end">1.38</text>
+<line x1="734.0" y1="110" x2="734.0" y2="400" class="grid"/>
+<line x1="574" y1="255.0" x2="894" y2="255.0" class="grid"/>
+<text x="734.0" y="417.0" class="small" text-anchor="middle">2.59</text>
+<text x="566.0" y="258.0" class="small" text-anchor="end">1.65</text>
+<line x1="814.0" y1="110" x2="814.0" y2="400" class="grid"/>
+<line x1="574" y1="182.5" x2="894" y2="182.5" class="grid"/>
+<text x="814.0" y="417.0" class="small" text-anchor="middle">3.01</text>
+<text x="566.0" y="185.5" class="small" text-anchor="end">1.92</text>
+<line x1="894.0" y1="110" x2="894.0" y2="400" class="grid"/>
+<line x1="574" y1="110.0" x2="894" y2="110.0" class="grid"/>
+<text x="894.0" y="417.0" class="small" text-anchor="middle">3.42</text>
+<text x="566.0" y="113.0" class="small" text-anchor="end">2.20</text>
+<circle cx="682.7" cy="282.0" r="4" fill="#277da1" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="682.1" cy="283.0" r="4" fill="#277da1" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="681.9" cy="285.6" r="4" fill="#277da1" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="799.0" cy="188.7" r="4" fill="#7f7f7f" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="799.0" cy="188.7" r="4" fill="#7f7f7f" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="799.0" cy="188.7" r="4" fill="#7f7f7f" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="871.9" cy="164.0" r="4" fill="#f3722c" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="871.9" cy="164.0" r="4" fill="#f3722c" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="871.9" cy="164.0" r="4" fill="#f3722c" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="724.1" cy="261.4" r="4" fill="#43aa8b" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="724.1" cy="261.4" r="4" fill="#43aa8b" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="724.1" cy="261.4" r="4" fill="#43aa8b" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="719.0" cy="254.2" r="4" fill="#577590" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="719.0" cy="254.2" r="4" fill="#577590" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="719.0" cy="254.2" r="4" fill="#577590" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="608.4" cy="368.3" r="4" fill="#9b5de5" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="603.6" cy="371.9" r="4" fill="#9b5de5" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="602.3" cy="376.6" r="4" fill="#9b5de5" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="596.1" cy="380.0" r="6" fill="#9b5de5" stroke="#17212b" stroke-width="2"/>
+<text x="604.1" y="373.0" class="small" text-anchor="start">public-native-temporal-expert:ensemble</text>
+<circle cx="848.5" cy="130.0" r="4" fill="#f9c74f" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="848.5" cy="130.0" r="4" fill="#f9c74f" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="848.5" cy="130.0" r="4" fill="#f9c74f" stroke="#ffffff" stroke-width="0.8"/>
+<text x="734.0" y="437.0" class="small" text-anchor="middle">RMSE (kg)</text>
+<text x="994.0" y="91.0" class="label" text-anchor="start">Deadlift capacity change</text>
+<line x1="1054" y1="400" x2="1374" y2="400" class="axis"/>
+<line x1="1054" y1="110" x2="1054" y2="400" class="axis"/>
+<line x1="1054.0" y1="110" x2="1054.0" y2="400" class="grid"/>
+<line x1="1054" y1="400.0" x2="1374" y2="400.0" class="grid"/>
+<text x="1054.0" y="417.0" class="small" text-anchor="middle">3.50</text>
+<text x="1046.0" y="403.0" class="small" text-anchor="end">2.21</text>
+<line x1="1134.0" y1="110" x2="1134.0" y2="400" class="grid"/>
+<line x1="1054" y1="327.5" x2="1374" y2="327.5" class="grid"/>
+<text x="1134.0" y="417.0" class="small" text-anchor="middle">4.11</text>
+<text x="1046.0" y="330.5" class="small" text-anchor="end">2.60</text>
+<line x1="1214.0" y1="110" x2="1214.0" y2="400" class="grid"/>
+<line x1="1054" y1="255.0" x2="1374" y2="255.0" class="grid"/>
+<text x="1214.0" y="417.0" class="small" text-anchor="middle">4.72</text>
+<text x="1046.0" y="258.0" class="small" text-anchor="end">2.99</text>
+<line x1="1294.0" y1="110" x2="1294.0" y2="400" class="grid"/>
+<line x1="1054" y1="182.5" x2="1374" y2="182.5" class="grid"/>
+<text x="1294.0" y="417.0" class="small" text-anchor="middle">5.33</text>
+<text x="1046.0" y="185.5" class="small" text-anchor="end">3.38</text>
+<line x1="1374.0" y1="110" x2="1374.0" y2="400" class="grid"/>
+<line x1="1054" y1="110.0" x2="1374" y2="110.0" class="grid"/>
+<text x="1374.0" y="417.0" class="small" text-anchor="middle">5.95</text>
+<text x="1046.0" y="113.0" class="small" text-anchor="end">3.77</text>
+<circle cx="1130.0" cy="311.8" r="4" fill="#277da1" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1131.1" cy="307.2" r="4" fill="#277da1" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1130.4" cy="314.1" r="4" fill="#277da1" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1264.3" cy="201.4" r="4" fill="#7f7f7f" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1264.3" cy="201.4" r="4" fill="#7f7f7f" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1264.3" cy="201.4" r="4" fill="#7f7f7f" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1351.9" cy="177.1" r="4" fill="#f3722c" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1351.9" cy="177.1" r="4" fill="#f3722c" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1351.9" cy="177.1" r="4" fill="#f3722c" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1161.9" cy="297.4" r="4" fill="#43aa8b" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1161.9" cy="297.4" r="4" fill="#43aa8b" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1161.9" cy="297.4" r="4" fill="#43aa8b" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1155.8" cy="295.7" r="4" fill="#577590" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1155.8" cy="295.7" r="4" fill="#577590" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1155.8" cy="295.7" r="4" fill="#577590" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1087.5" cy="367.2" r="4" fill="#9b5de5" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1081.4" cy="378.0" r="4" fill="#9b5de5" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1086.7" cy="371.7" r="4" fill="#9b5de5" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1076.1" cy="380.0" r="6" fill="#9b5de5" stroke="#17212b" stroke-width="2"/>
+<text x="1084.1" y="373.0" class="small" text-anchor="start">public-native-temporal-expert:ensemble</text>
+<circle cx="1319.4" cy="130.0" r="4" fill="#f9c74f" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1319.4" cy="130.0" r="4" fill="#f9c74f" stroke="#ffffff" stroke-width="0.8"/>
+<circle cx="1319.4" cy="130.0" r="4" fill="#f9c74f" stroke="#ffffff" stroke-width="0.8"/>
+<text x="1214.0" y="437.0" class="small" text-anchor="middle">RMSE (kg)</text>
+<circle cx="40" cy="526" r="5" fill="#277da1" stroke="#17212b" stroke-width="0.5"/>
+<text x="50.0" y="530.0" class="small" text-anchor="start">compact_neural</text>
+<circle cx="230" cy="526" r="5" fill="#7f7f7f" stroke="#17212b" stroke-width="0.5"/>
+<text x="240.0" y="530.0" class="small" text-anchor="start">context_mean</text>
+<circle cx="420" cy="526" r="5" fill="#f3722c" stroke="#17212b" stroke-width="0.5"/>
+<text x="430.0" y="530.0" class="small" text-anchor="start">histogram_boosted_stumps</text>
+<circle cx="610" cy="526" r="5" fill="#43aa8b" stroke="#17212b" stroke-width="0.5"/>
+<text x="620.0" y="530.0" class="small" text-anchor="start">mechanistic_midpoint</text>
+<circle cx="800" cy="526" r="5" fill="#577590" stroke="#17212b" stroke-width="0.5"/>
+<text x="810.0" y="530.0" class="small" text-anchor="start">mechanistic_ridge_residual</text>
+<circle cx="990" cy="526" r="5" fill="#9b5de5" stroke="#17212b" stroke-width="0.5"/>
+<text x="1000.0" y="530.0" class="small" text-anchor="start">public-native-temporal-expert</text>
+<circle cx="1180" cy="526" r="5" fill="#f9c74f" stroke="#17212b" stroke-width="0.5"/>
+<text x="1190.0" y="530.0" class="small" text-anchor="start">ridge</text>
+<text x="35.0" y="564.0" class="small" text-anchor="start">Squat capacity change frontier (2): public-native-temporal-expert:383003, public-native-temporal-expert:ensemble.</text>
+<text x="35.0" y="579.0" class="small" text-anchor="start">Bench press capacity change frontier (1): public-native-temporal-expert:ensemble.</text>
+<text x="35.0" y="594.0" class="small" text-anchor="start">Deadlift capacity change frontier (1): public-native-temporal-expert:ensemble.</text>
+<text x="35.0" y="635.0" class="small" text-anchor="start">R² and SRE(ddof=0) are monotone transforms of RMSE for a fixed target and add no independent ordering.</text>
+</svg>
