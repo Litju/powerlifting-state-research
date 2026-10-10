@@ -1,0 +1,19 @@
+target,metric_a,metric_b,candidate_pairs,pairs_ordered_on_both_metrics,rank_reversals,ties_on_metric_a,ties_on_metric_b,interpretation
+squat_delta_capacity_kg,RMSE,MAE,231,216,20,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.
+squat_delta_capacity_kg,RMSE,R²,231,216,0,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.
+squat_delta_capacity_kg,RMSE,SRE(ddof=0),231,216,0,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.
+squat_delta_capacity_kg,MAE,R²,231,216,20,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.
+squat_delta_capacity_kg,MAE,SRE(ddof=0),231,216,20,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.
+squat_delta_capacity_kg,R²,SRE(ddof=0),231,216,0,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.
+bench_press_delta_capacity_kg,RMSE,MAE,231,216,18,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.
+bench_press_delta_capacity_kg,RMSE,R²,231,216,0,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.
+bench_press_delta_capacity_kg,RMSE,SRE(ddof=0),231,216,0,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.
+bench_press_delta_capacity_kg,MAE,R²,231,216,18,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.
+bench_press_delta_capacity_kg,MAE,SRE(ddof=0),231,216,18,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.
+bench_press_delta_capacity_kg,R²,SRE(ddof=0),231,216,0,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.
+deadlift_delta_capacity_kg,RMSE,MAE,231,216,19,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.
+deadlift_delta_capacity_kg,RMSE,R²,231,216,0,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.
+deadlift_delta_capacity_kg,RMSE,SRE(ddof=0),231,216,0,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.
+deadlift_delta_capacity_kg,MAE,R²,231,216,19,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.
+deadlift_delta_capacity_kg,MAE,SRE(ddof=0),231,216,19,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.
+deadlift_delta_capacity_kg,R²,SRE(ddof=0),231,216,0,15,15,Descriptive; R² and SRE are monotone transforms of RMSE within a fixed target population.

@@ -1,0 +1,326 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1660" height="536" viewBox="0 0 1660 536" role="img" aria-labelledby="title desc">
+<title id="title">Benchmark version by RES-277 validity axis</title>
+<desc id="desc">Categorical RES-277 baseline status for 9 benchmark versions and 10 validity axes. A direct RES-281 axis state is shown separately in the cell when available; cells are not combined into a score.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#17212b}.title{font-size:22px;font-weight:700}.subtitle{font-size:13px;fill:#405161}.label{font-size:11px}.small{font-size:9px}.grid{stroke:#d8dde3;stroke-width:1}.axis{stroke:#344454;stroke-width:1.2}</style>
+<rect x="0" y="0" width="1660" height="536" fill="#ffffff"/>
+<text x="40.0" y="38.0" class="title" text-anchor="start">Version-by-axis validity profile</text>
+<text x="40.0" y="64.0" class="subtitle" text-anchor="start">RES-277 profile snapshot; RES-281 executed evidence is shown in the attack matrix and version reports.</text>
+<text x="374.0" y="103.0" class="small" text-anchor="middle">domain</text>
+<text x="374.0" y="116.0" class="small" text-anchor="middle">faithfulness</text>
+<text x="502.0" y="103.0" class="small" text-anchor="middle">reproducibility</text>
+<text x="630.0" y="103.0" class="small" text-anchor="middle">leakage shortcut</text>
+<text x="630.0" y="116.0" class="small" text-anchor="middle">susceptibility</text>
+<text x="758.0" y="103.0" class="small" text-anchor="middle">reconstructability</text>
+<text x="886.0" y="103.0" class="small" text-anchor="middle">simple model</text>
+<text x="886.0" y="116.0" class="small" text-anchor="middle">frontier</text>
+<text x="1014.0" y="103.0" class="small" text-anchor="middle">ml load bearing</text>
+<text x="1014.0" y="116.0" class="small" text-anchor="middle">contribution</text>
+<text x="1142.0" y="103.0" class="small" text-anchor="middle">out of</text>
+<text x="1142.0" y="116.0" class="small" text-anchor="middle">distribution</text>
+<text x="1142.0" y="129.0" class="small" text-anchor="middle">robustness</text>
+<text x="1270.0" y="103.0" class="small" text-anchor="middle">seed stability</text>
+<text x="1398.0" y="103.0" class="small" text-anchor="middle">hidden test</text>
+<text x="1398.0" y="116.0" class="small" text-anchor="middle">fairness</text>
+<text x="1526.0" y="103.0" class="small" text-anchor="middle">audit coverage</text>
+<text x="296.0" y="156.0" class="small" text-anchor="end">class normalized cross lift five</text>
+<text x="296.0" y="166.0" class="small" text-anchor="end">target performance forecasting</text>
+<rect x="310.0" y="142.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="373.0" y="154.0" class="small" text-anchor="middle">U</text>
+<text x="373.0" y="166.0" class="small" text-anchor="middle">direct —</text>
+<rect x="438.0" y="142.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="501.0" y="154.0" class="small" text-anchor="middle">U</text>
+<text x="501.0" y="166.0" class="small" text-anchor="middle">direct —</text>
+<rect x="566.0" y="142.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="629.0" y="154.0" class="small" text-anchor="middle">U</text>
+<text x="629.0" y="166.0" class="small" text-anchor="middle">direct —</text>
+<rect x="694.0" y="142.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="757.0" y="154.0" class="small" text-anchor="middle">U</text>
+<text x="757.0" y="166.0" class="small" text-anchor="middle">direct —</text>
+<rect x="822.0" y="142.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="885.0" y="154.0" class="small" text-anchor="middle">U</text>
+<text x="885.0" y="166.0" class="small" text-anchor="middle">direct —</text>
+<rect x="950.0" y="142.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1013.0" y="154.0" class="small" text-anchor="middle">U</text>
+<text x="1013.0" y="166.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1078.0" y="142.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1141.0" y="154.0" class="small" text-anchor="middle">U</text>
+<text x="1141.0" y="166.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1206.0" y="142.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1269.0" y="154.0" class="small" text-anchor="middle">U</text>
+<text x="1269.0" y="166.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1334.0" y="142.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1397.0" y="154.0" class="small" text-anchor="middle">U</text>
+<text x="1397.0" y="166.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1462.0" y="142.0" width="126.0" height="29.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="1525.0" y="154.0" class="small" text-anchor="middle">NR</text>
+<text x="1525.0" y="166.0" class="small" text-anchor="middle">direct —</text>
+<text x="296.0" y="187.0" class="small" text-anchor="end">four target load velocity and</text>
+<text x="296.0" y="197.0" class="small" text-anchor="end">competition performance forecasting</text>
+<rect x="310.0" y="173.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="373.0" y="185.0" class="small" text-anchor="middle">U</text>
+<text x="373.0" y="197.0" class="small" text-anchor="middle">direct —</text>
+<rect x="438.0" y="173.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="501.0" y="185.0" class="small" text-anchor="middle">U</text>
+<text x="501.0" y="197.0" class="small" text-anchor="middle">direct —</text>
+<rect x="566.0" y="173.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="629.0" y="185.0" class="small" text-anchor="middle">U</text>
+<text x="629.0" y="197.0" class="small" text-anchor="middle">direct —</text>
+<rect x="694.0" y="173.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="757.0" y="185.0" class="small" text-anchor="middle">U</text>
+<text x="757.0" y="197.0" class="small" text-anchor="middle">direct —</text>
+<rect x="822.0" y="173.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="885.0" y="185.0" class="small" text-anchor="middle">U</text>
+<text x="885.0" y="197.0" class="small" text-anchor="middle">direct —</text>
+<rect x="950.0" y="173.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1013.0" y="185.0" class="small" text-anchor="middle">U</text>
+<text x="1013.0" y="197.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1078.0" y="173.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1141.0" y="185.0" class="small" text-anchor="middle">U</text>
+<text x="1141.0" y="197.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1206.0" y="173.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1269.0" y="185.0" class="small" text-anchor="middle">U</text>
+<text x="1269.0" y="197.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1334.0" y="173.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1397.0" y="185.0" class="small" text-anchor="middle">U</text>
+<text x="1397.0" y="197.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1462.0" y="173.0" width="126.0" height="29.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="1525.0" y="185.0" class="small" text-anchor="middle">NR</text>
+<text x="1525.0" y="197.0" class="small" text-anchor="middle">direct —</text>
+<text x="296.0" y="218.0" class="small" text-anchor="end">held out final origin five target</text>
+<text x="296.0" y="228.0" class="small" text-anchor="end">performance evaluation</text>
+<rect x="310.0" y="204.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="373.0" y="216.0" class="small" text-anchor="middle">U</text>
+<text x="373.0" y="228.0" class="small" text-anchor="middle">direct —</text>
+<rect x="438.0" y="204.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="501.0" y="216.0" class="small" text-anchor="middle">U</text>
+<text x="501.0" y="228.0" class="small" text-anchor="middle">direct —</text>
+<rect x="566.0" y="204.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="629.0" y="216.0" class="small" text-anchor="middle">U</text>
+<text x="629.0" y="228.0" class="small" text-anchor="middle">direct —</text>
+<rect x="694.0" y="204.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="757.0" y="216.0" class="small" text-anchor="middle">U</text>
+<text x="757.0" y="228.0" class="small" text-anchor="middle">direct —</text>
+<rect x="822.0" y="204.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="885.0" y="216.0" class="small" text-anchor="middle">U</text>
+<text x="885.0" y="228.0" class="small" text-anchor="middle">direct —</text>
+<rect x="950.0" y="204.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1013.0" y="216.0" class="small" text-anchor="middle">U</text>
+<text x="1013.0" y="228.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1078.0" y="204.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1141.0" y="216.0" class="small" text-anchor="middle">U</text>
+<text x="1141.0" y="228.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1206.0" y="204.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1269.0" y="216.0" class="small" text-anchor="middle">U</text>
+<text x="1269.0" y="228.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1334.0" y="204.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1397.0" y="216.0" class="small" text-anchor="middle">U</text>
+<text x="1397.0" y="228.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1462.0" y="204.0" width="126.0" height="29.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="1525.0" y="216.0" class="small" text-anchor="middle">NR</text>
+<text x="1525.0" y="228.0" class="small" text-anchor="middle">direct —</text>
+<text x="296.0" y="249.0" class="small" text-anchor="end">iid latent capacity change with</text>
+<text x="296.0" y="259.0" class="small" text-anchor="end">transient expression forecasting</text>
+<rect x="310.0" y="235.0" width="126.0" height="29.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="373.0" y="247.0" class="small" text-anchor="middle">NR</text>
+<text x="373.0" y="259.0" class="small" text-anchor="middle">direct —</text>
+<rect x="438.0" y="235.0" width="126.0" height="29.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="501.0" y="247.0" class="small" text-anchor="middle">NR</text>
+<text x="501.0" y="259.0" class="small" text-anchor="middle">direct PASS</text>
+<rect x="566.0" y="235.0" width="126.0" height="29.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="629.0" y="247.0" class="small" text-anchor="middle">NR</text>
+<text x="629.0" y="259.0" class="small" text-anchor="middle">direct —</text>
+<rect x="694.0" y="235.0" width="126.0" height="29.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="757.0" y="247.0" class="small" text-anchor="middle">NR</text>
+<text x="757.0" y="259.0" class="small" text-anchor="middle">direct —</text>
+<rect x="822.0" y="235.0" width="126.0" height="29.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="885.0" y="247.0" class="small" text-anchor="middle">NR</text>
+<text x="885.0" y="259.0" class="small" text-anchor="middle">direct —</text>
+<rect x="950.0" y="235.0" width="126.0" height="29.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="1013.0" y="247.0" class="small" text-anchor="middle">NR</text>
+<text x="1013.0" y="259.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1078.0" y="235.0" width="126.0" height="29.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="1141.0" y="247.0" class="small" text-anchor="middle">NR</text>
+<text x="1141.0" y="259.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1206.0" y="235.0" width="126.0" height="29.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="1269.0" y="247.0" class="small" text-anchor="middle">NR</text>
+<text x="1269.0" y="259.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1334.0" y="235.0" width="126.0" height="29.0" fill="#66717e" stroke="#ffffff" stroke-width="1"/>
+<text x="1397.0" y="247.0" class="small" text-anchor="middle">NA</text>
+<text x="1397.0" y="259.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1462.0" y="235.0" width="126.0" height="29.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="1525.0" y="247.0" class="small" text-anchor="middle">NR</text>
+<text x="1525.0" y="259.0" class="small" text-anchor="middle">direct —</text>
+<text x="296.0" y="280.0" class="small" text-anchor="end">latent capacity change with transient</text>
+<text x="296.0" y="290.0" class="small" text-anchor="end">expression forecasting</text>
+<rect x="310.0" y="266.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="373.0" y="278.0" class="small" text-anchor="middle">U</text>
+<text x="373.0" y="290.0" class="small" text-anchor="middle">direct —</text>
+<rect x="438.0" y="266.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="501.0" y="278.0" class="small" text-anchor="middle">U</text>
+<text x="501.0" y="290.0" class="small" text-anchor="middle">direct —</text>
+<rect x="566.0" y="266.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="629.0" y="278.0" class="small" text-anchor="middle">U</text>
+<text x="629.0" y="290.0" class="small" text-anchor="middle">direct —</text>
+<rect x="694.0" y="266.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="757.0" y="278.0" class="small" text-anchor="middle">U</text>
+<text x="757.0" y="290.0" class="small" text-anchor="middle">direct —</text>
+<rect x="822.0" y="266.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="885.0" y="278.0" class="small" text-anchor="middle">U</text>
+<text x="885.0" y="290.0" class="small" text-anchor="middle">direct —</text>
+<rect x="950.0" y="266.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1013.0" y="278.0" class="small" text-anchor="middle">U</text>
+<text x="1013.0" y="290.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1078.0" y="266.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1141.0" y="278.0" class="small" text-anchor="middle">U</text>
+<text x="1141.0" y="290.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1206.0" y="266.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1269.0" y="278.0" class="small" text-anchor="middle">U</text>
+<text x="1269.0" y="290.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1334.0" y="266.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1397.0" y="278.0" class="small" text-anchor="middle">U</text>
+<text x="1397.0" y="290.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1462.0" y="266.0" width="126.0" height="29.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="1525.0" y="278.0" class="small" text-anchor="middle">NR</text>
+<text x="1525.0" y="290.0" class="small" text-anchor="middle">direct —</text>
+<text x="296.0" y="311.0" class="small" text-anchor="end">latent origin capacity change</text>
+<text x="296.0" y="321.0" class="small" text-anchor="end">forecasting</text>
+<rect x="310.0" y="297.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="373.0" y="309.0" class="small" text-anchor="middle">U</text>
+<text x="373.0" y="321.0" class="small" text-anchor="middle">direct —</text>
+<rect x="438.0" y="297.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="501.0" y="309.0" class="small" text-anchor="middle">U</text>
+<text x="501.0" y="321.0" class="small" text-anchor="middle">direct —</text>
+<rect x="566.0" y="297.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="629.0" y="309.0" class="small" text-anchor="middle">U</text>
+<text x="629.0" y="321.0" class="small" text-anchor="middle">direct —</text>
+<rect x="694.0" y="297.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="757.0" y="309.0" class="small" text-anchor="middle">U</text>
+<text x="757.0" y="321.0" class="small" text-anchor="middle">direct —</text>
+<rect x="822.0" y="297.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="885.0" y="309.0" class="small" text-anchor="middle">U</text>
+<text x="885.0" y="321.0" class="small" text-anchor="middle">direct —</text>
+<rect x="950.0" y="297.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1013.0" y="309.0" class="small" text-anchor="middle">U</text>
+<text x="1013.0" y="321.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1078.0" y="297.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1141.0" y="309.0" class="small" text-anchor="middle">U</text>
+<text x="1141.0" y="321.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1206.0" y="297.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1269.0" y="309.0" class="small" text-anchor="middle">U</text>
+<text x="1269.0" y="321.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1334.0" y="297.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1397.0" y="309.0" class="small" text-anchor="middle">U</text>
+<text x="1397.0" y="321.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1462.0" y="297.0" width="126.0" height="29.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="1525.0" y="309.0" class="small" text-anchor="middle">NR</text>
+<text x="1525.0" y="321.0" class="small" text-anchor="middle">direct —</text>
+<text x="296.0" y="342.0" class="small" text-anchor="end">observed origin referenced capacity</text>
+<text x="296.0" y="352.0" class="small" text-anchor="end">change forecasting</text>
+<rect x="310.0" y="328.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="373.0" y="340.0" class="small" text-anchor="middle">U</text>
+<text x="373.0" y="352.0" class="small" text-anchor="middle">direct —</text>
+<rect x="438.0" y="328.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="501.0" y="340.0" class="small" text-anchor="middle">U</text>
+<text x="501.0" y="352.0" class="small" text-anchor="middle">direct —</text>
+<rect x="566.0" y="328.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="629.0" y="340.0" class="small" text-anchor="middle">U</text>
+<text x="629.0" y="352.0" class="small" text-anchor="middle">direct —</text>
+<rect x="694.0" y="328.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="757.0" y="340.0" class="small" text-anchor="middle">U</text>
+<text x="757.0" y="352.0" class="small" text-anchor="middle">direct —</text>
+<rect x="822.0" y="328.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="885.0" y="340.0" class="small" text-anchor="middle">U</text>
+<text x="885.0" y="352.0" class="small" text-anchor="middle">direct —</text>
+<rect x="950.0" y="328.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1013.0" y="340.0" class="small" text-anchor="middle">U</text>
+<text x="1013.0" y="352.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1078.0" y="328.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1141.0" y="340.0" class="small" text-anchor="middle">U</text>
+<text x="1141.0" y="352.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1206.0" y="328.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1269.0" y="340.0" class="small" text-anchor="middle">U</text>
+<text x="1269.0" y="352.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1334.0" y="328.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1397.0" y="340.0" class="small" text-anchor="middle">U</text>
+<text x="1397.0" y="352.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1462.0" y="328.0" width="126.0" height="29.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="1525.0" y="340.0" class="small" text-anchor="middle">NR</text>
+<text x="1525.0" y="352.0" class="small" text-anchor="middle">direct —</text>
+<text x="296.0" y="373.0" class="small" text-anchor="end">performance forecasting under schedule</text>
+<text x="296.0" y="383.0" class="small" text-anchor="end">exposure reporting heterogeneity</text>
+<rect x="310.0" y="359.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="373.0" y="371.0" class="small" text-anchor="middle">U</text>
+<text x="373.0" y="383.0" class="small" text-anchor="middle">direct —</text>
+<rect x="438.0" y="359.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="501.0" y="371.0" class="small" text-anchor="middle">U</text>
+<text x="501.0" y="383.0" class="small" text-anchor="middle">direct —</text>
+<rect x="566.0" y="359.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="629.0" y="371.0" class="small" text-anchor="middle">U</text>
+<text x="629.0" y="383.0" class="small" text-anchor="middle">direct —</text>
+<rect x="694.0" y="359.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="757.0" y="371.0" class="small" text-anchor="middle">U</text>
+<text x="757.0" y="383.0" class="small" text-anchor="middle">direct —</text>
+<rect x="822.0" y="359.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="885.0" y="371.0" class="small" text-anchor="middle">U</text>
+<text x="885.0" y="383.0" class="small" text-anchor="middle">direct —</text>
+<rect x="950.0" y="359.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1013.0" y="371.0" class="small" text-anchor="middle">U</text>
+<text x="1013.0" y="383.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1078.0" y="359.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1141.0" y="371.0" class="small" text-anchor="middle">U</text>
+<text x="1141.0" y="383.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1206.0" y="359.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1269.0" y="371.0" class="small" text-anchor="middle">U</text>
+<text x="1269.0" y="383.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1334.0" y="359.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1397.0" y="371.0" class="small" text-anchor="middle">U</text>
+<text x="1397.0" y="383.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1462.0" y="359.0" width="126.0" height="29.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="1525.0" y="371.0" class="small" text-anchor="middle">NR</text>
+<text x="1525.0" y="383.0" class="small" text-anchor="middle">direct —</text>
+<text x="296.0" y="404.0" class="small" text-anchor="end">seasonal five target load velocity</text>
+<text x="296.0" y="414.0" class="small" text-anchor="end">performance forecasting</text>
+<rect x="310.0" y="390.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="373.0" y="402.0" class="small" text-anchor="middle">U</text>
+<text x="373.0" y="414.0" class="small" text-anchor="middle">direct —</text>
+<rect x="438.0" y="390.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="501.0" y="402.0" class="small" text-anchor="middle">U</text>
+<text x="501.0" y="414.0" class="small" text-anchor="middle">direct —</text>
+<rect x="566.0" y="390.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="629.0" y="402.0" class="small" text-anchor="middle">U</text>
+<text x="629.0" y="414.0" class="small" text-anchor="middle">direct —</text>
+<rect x="694.0" y="390.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="757.0" y="402.0" class="small" text-anchor="middle">U</text>
+<text x="757.0" y="414.0" class="small" text-anchor="middle">direct —</text>
+<rect x="822.0" y="390.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="885.0" y="402.0" class="small" text-anchor="middle">U</text>
+<text x="885.0" y="414.0" class="small" text-anchor="middle">direct —</text>
+<rect x="950.0" y="390.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1013.0" y="402.0" class="small" text-anchor="middle">U</text>
+<text x="1013.0" y="414.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1078.0" y="390.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1141.0" y="402.0" class="small" text-anchor="middle">U</text>
+<text x="1141.0" y="414.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1206.0" y="390.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1269.0" y="402.0" class="small" text-anchor="middle">U</text>
+<text x="1269.0" y="414.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1334.0" y="390.0" width="126.0" height="29.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1397.0" y="402.0" class="small" text-anchor="middle">U</text>
+<text x="1397.0" y="414.0" class="small" text-anchor="middle">direct —</text>
+<rect x="1462.0" y="390.0" width="126.0" height="29.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="1525.0" y="402.0" class="small" text-anchor="middle">NR</text>
+<text x="1525.0" y="414.0" class="small" text-anchor="middle">direct —</text>
+<rect x="40.0" y="469.0" width="16.0" height="14.0" fill="#287d57" stroke="#ffffff" stroke-width="1"/>
+<text x="62.0" y="480.0" class="small" text-anchor="start">PASS</text>
+<rect x="300.0" y="469.0" width="16.0" height="14.0" fill="#a63d40" stroke="#ffffff" stroke-width="1"/>
+<text x="322.0" y="480.0" class="small" text-anchor="start">FAIL</text>
+<rect x="560.0" y="469.0" width="16.0" height="14.0" fill="#b97812" stroke="#ffffff" stroke-width="1"/>
+<text x="582.0" y="480.0" class="small" text-anchor="start">INCONCLUSIVE</text>
+<rect x="820.0" y="469.0" width="16.0" height="14.0" fill="#66717e" stroke="#ffffff" stroke-width="1"/>
+<text x="842.0" y="480.0" class="small" text-anchor="start">NOT_APPLICABLE</text>
+<rect x="1080.0" y="469.0" width="16.0" height="14.0" fill="#366f9b" stroke="#ffffff" stroke-width="1"/>
+<text x="1102.0" y="480.0" class="small" text-anchor="start">NOT_RUN</text>
+<rect x="1340.0" y="469.0" width="16.0" height="14.0" fill="#795a91" stroke="#ffffff" stroke-width="1"/>
+<text x="1362.0" y="480.0" class="small" text-anchor="start">UNSUPPORTED_BY_EVIDENCE</text>
+<text x="40.0" y="521.0" class="small" text-anchor="start">All 10 axes remain separate; color and labels encode the exact six-state vocabulary.</text>
+</svg>

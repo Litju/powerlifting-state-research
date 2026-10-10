@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="363" viewBox="0 0 1280 363" role="img" aria-labelledby="title desc">
+<title id="title">Metric-dependent model ranking reversals</title>
+<desc id="desc">Counts of pairwise rank reversals for each metric pair and target. Counts are descriptive and have no uncertainty or significance interpretation.</desc>
+<style>text{font-family:Arial,Helvetica,sans-serif;fill:#17212b}.title{font-size:22px;font-weight:700}.subtitle{font-size:13px;fill:#405161}.label{font-size:11px}.small{font-size:9px}.grid{stroke:#d8dde3;stroke-width:1}.axis{stroke:#344454;stroke-width:1.2}</style>
+<rect x="0" y="0" width="1280" height="363" fill="#ffffff"/>
+<text x="35.0" y="38.0" class="title" text-anchor="start">Metric-dependent ranking sensitivity</text>
+<text x="35.0" y="63.0" class="subtitle" text-anchor="start">Cell label: rank reversals / candidate pairs ordered on both metrics. Ties are retained in the table.</text>
+<text x="403.0" y="94.0" class="small" text-anchor="middle">RMSE vs MAE</text>
+<text x="549.0" y="94.0" class="small" text-anchor="middle">RMSE vs R²</text>
+<text x="695.0" y="94.0" class="small" text-anchor="middle">RMSE vs</text>
+<text x="695.0" y="106.0" class="small" text-anchor="middle">SRE(ddof=0)</text>
+<text x="841.0" y="94.0" class="small" text-anchor="middle">MAE vs R²</text>
+<text x="987.0" y="94.0" class="small" text-anchor="middle">MAE vs</text>
+<text x="987.0" y="106.0" class="small" text-anchor="middle">SRE(ddof=0)</text>
+<text x="1133.0" y="94.0" class="small" text-anchor="middle">R² vs SRE(ddof=0)</text>
+<text x="318.0" y="143.0" class="label" text-anchor="end">Squat capacity change</text>
+<rect x="330.0" y="120.0" width="143.0" height="43.0" fill="#f5d9ab" stroke="#aab5c0" stroke-width="1"/>
+<text x="401.5" y="139.0" class="label" text-anchor="middle">20 / 216</text>
+<rect x="476.0" y="120.0" width="143.0" height="43.0" fill="#e8edf2" stroke="#aab5c0" stroke-width="1"/>
+<text x="547.5" y="139.0" class="label" text-anchor="middle">0 / 216</text>
+<rect x="622.0" y="120.0" width="143.0" height="43.0" fill="#e8edf2" stroke="#aab5c0" stroke-width="1"/>
+<text x="693.5" y="139.0" class="label" text-anchor="middle">0 / 216</text>
+<rect x="768.0" y="120.0" width="143.0" height="43.0" fill="#f5d9ab" stroke="#aab5c0" stroke-width="1"/>
+<text x="839.5" y="139.0" class="label" text-anchor="middle">20 / 216</text>
+<rect x="914.0" y="120.0" width="143.0" height="43.0" fill="#f5d9ab" stroke="#aab5c0" stroke-width="1"/>
+<text x="985.5" y="139.0" class="label" text-anchor="middle">20 / 216</text>
+<rect x="1060.0" y="120.0" width="143.0" height="43.0" fill="#e8edf2" stroke="#aab5c0" stroke-width="1"/>
+<text x="1131.5" y="139.0" class="label" text-anchor="middle">0 / 216</text>
+<text x="318.0" y="189.0" class="label" text-anchor="end">Bench press capacity change</text>
+<rect x="330.0" y="166.0" width="143.0" height="43.0" fill="#f5d9ab" stroke="#aab5c0" stroke-width="1"/>
+<text x="401.5" y="185.0" class="label" text-anchor="middle">18 / 216</text>
+<rect x="476.0" y="166.0" width="143.0" height="43.0" fill="#e8edf2" stroke="#aab5c0" stroke-width="1"/>
+<text x="547.5" y="185.0" class="label" text-anchor="middle">0 / 216</text>
+<rect x="622.0" y="166.0" width="143.0" height="43.0" fill="#e8edf2" stroke="#aab5c0" stroke-width="1"/>
+<text x="693.5" y="185.0" class="label" text-anchor="middle">0 / 216</text>
+<rect x="768.0" y="166.0" width="143.0" height="43.0" fill="#f5d9ab" stroke="#aab5c0" stroke-width="1"/>
+<text x="839.5" y="185.0" class="label" text-anchor="middle">18 / 216</text>
+<rect x="914.0" y="166.0" width="143.0" height="43.0" fill="#f5d9ab" stroke="#aab5c0" stroke-width="1"/>
+<text x="985.5" y="185.0" class="label" text-anchor="middle">18 / 216</text>
+<rect x="1060.0" y="166.0" width="143.0" height="43.0" fill="#e8edf2" stroke="#aab5c0" stroke-width="1"/>
+<text x="1131.5" y="185.0" class="label" text-anchor="middle">0 / 216</text>
+<text x="318.0" y="235.0" class="label" text-anchor="end">Deadlift capacity change</text>
+<rect x="330.0" y="212.0" width="143.0" height="43.0" fill="#f5d9ab" stroke="#aab5c0" stroke-width="1"/>
+<text x="401.5" y="231.0" class="label" text-anchor="middle">19 / 216</text>
+<rect x="476.0" y="212.0" width="143.0" height="43.0" fill="#e8edf2" stroke="#aab5c0" stroke-width="1"/>
+<text x="547.5" y="231.0" class="label" text-anchor="middle">0 / 216</text>
+<rect x="622.0" y="212.0" width="143.0" height="43.0" fill="#e8edf2" stroke="#aab5c0" stroke-width="1"/>
+<text x="693.5" y="231.0" class="label" text-anchor="middle">0 / 216</text>
+<rect x="768.0" y="212.0" width="143.0" height="43.0" fill="#f5d9ab" stroke="#aab5c0" stroke-width="1"/>
+<text x="839.5" y="231.0" class="label" text-anchor="middle">19 / 216</text>
+<rect x="914.0" y="212.0" width="143.0" height="43.0" fill="#f5d9ab" stroke="#aab5c0" stroke-width="1"/>
+<text x="985.5" y="231.0" class="label" text-anchor="middle">19 / 216</text>
+<rect x="1060.0" y="212.0" width="143.0" height="43.0" fill="#e8edf2" stroke="#aab5c0" stroke-width="1"/>
+<text x="1131.5" y="231.0" class="label" text-anchor="middle">0 / 216</text>
+<text x="35.0" y="308.0" class="small" text-anchor="start">R² and SRE(ddof=0) are monotone transforms of RMSE for each fixed target; matching ranks are expected.</text>
+<text x="35.0" y="329.0" class="small" text-anchor="start">RMSE-versus-MAE reversals from source table: 20/216 Squat capacity change; 18/216 Bench press capacity change; 19/216 Deadlift capacity change.</text>
+<text x="35.0" y="348.0" class="small" text-anchor="start">No model is called universally best from these metric-dependent point rankings.</text>
+</svg>

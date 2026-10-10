@@ -1,0 +1,8 @@
+model_family,rights_access_constraints,source_prediction_files_copied,source_checkpoint_files_copied
+compact_neural,IID data CC-BY-4.0; model prediction rights: MIT; Repository-generated public-native predictions; redistribution permitted under the repository license.,NO,NO
+context_mean,IID data CC-BY-4.0; model prediction rights: MIT; Repository-generated public-native predictions; redistribution permitted under the repository license.,NO,NO
+histogram_boosted_stumps,IID data CC-BY-4.0; model prediction rights: MIT; Repository-generated public-native predictions; redistribution permitted under the repository license.,NO,NO
+mechanistic_midpoint,IID data CC-BY-4.0; model prediction rights: MIT; Repository-generated public-native predictions; redistribution permitted under the repository license.,NO,NO
+mechanistic_ridge_residual,IID data CC-BY-4.0; model prediction rights: MIT; Repository-generated public-native predictions; redistribution permitted under the repository license.,NO,NO
+public-native-temporal-expert,IID data CC-BY-4.0; model prediction rights: NOASSERTION; External prediction rights are not claimed; only evaluation metadata is retained.,NO,NO
+ridge,IID data CC-BY-4.0; model prediction rights: MIT; Repository-generated public-native predictions; redistribution permitted under the repository license.,NO,NO
