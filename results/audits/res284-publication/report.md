@@ -130,7 +130,7 @@ Every published claim has a row in tables/evidence-to-claim.csv with its evidenc
 
 The source prediction-rights field for public-native temporal expert remains NOASSERTION as recorded in the RES-283 evidence table. The publication includes aggregate EvaluationResult metadata and does not copy source prediction JSONL or checkpoint files. Private historical rows, checkpoints, and outputs remain outside this bundle. Repository presence alone is not treated as permission.
 
-RES-278 and RES-281 bundle and checksum verification passed; the RES-281 bundle SHA-256 matches the handoff value. The RES-281 analysis source index and RES-283 output checksum index were verified. The input/output hashes and scientific source identities are in checksum-index.json.
+RES-278 and RES-281 bundle manifests and record identities verify, and tracked record-level input hashes match. Both ledgers reference generated IID train/validation JSONLs under data/synthetic that are not tracked; their declared hashes are preserved as unavailable and no local copy was read or regenerated. The RES-281 bundle SHA-256 matches the handoff value. The RES-281 analysis source index and RES-283 output checksum index were verified.
 
 ## Reproduction and companion tables
 
@@ -141,6 +141,7 @@ Check deterministic report, table, and figure replay with: uv run --locked pytho
 | --- | --- |
 | tables/version-by-axis-evidence.csv | RES-277 baseline states plus RES-281 direct axis evidence |
 | tables/attack-evidence-states.csv | Both 126-record RES-278 and RES-281 attack ledgers, including exact identities and diagnostics |
+| tables/audit-input-artifact-status.csv | Tracked audit input hashes and generated inputs unavailable for byte recheck |
 | tables/attack-by-version-res281.csv | RES-281 attack-by-version state matrix |
 | tables/public-native-target-wise-rankings.csv | Exact target-wise metrics and ranks for all 22 candidates |
 | tables/metric-definitions.csv | Frozen metric identities, units, and directions |

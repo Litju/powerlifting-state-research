@@ -29,7 +29,7 @@
         "license_expression": "CC-BY-4.0",
         "redistribution_status": "RES-284 publication artifact under the repository license; temporal-expert source prediction rights remain NOASSERTION."
       },
-      "sha256": "sha256:067dc9e642d4df80b733f055d1a9dd003c9340c8f864f3b4e54c9efed8fc2087",
+      "sha256": "sha256:dccc47999a847ff20528358000c5cd1742ad9ed76b5a894f4c6023f3a0304eb4",
       "sources": [
         {
           "path": "results/audits/res283-analysis/cross-version-ranking-admissibility.csv",
@@ -225,7 +225,7 @@
         "license_expression": "CC-BY-4.0",
         "redistribution_status": "RES-284 publication artifact under the repository license; temporal-expert source prediction rights remain NOASSERTION."
       },
-      "sha256": "sha256:4317c43d54d9b353a391b411018c06b8d02195a51979177eeb29db619ad54f6d",
+      "sha256": "sha256:6f73e83e4e71ac57c6418178300788057653b1c814bfc768a8cbc38c2273775a",
       "sources": [
         {
           "path": "docs/audits/index.md",
@@ -801,7 +801,7 @@
         "license_expression": "CC-BY-4.0",
         "redistribution_status": "RES-284 publication artifact under the repository license; temporal-expert source prediction rights remain NOASSERTION."
       },
-      "sha256": "sha256:74da24a450189ae074bfc7837c2cfe5568f31fb4ea93122c45253a466e521d53",
+      "sha256": "sha256:39bac7616e541d9b70566a0594e53ff6cb0ff9acc1297809e8d3e41dc73a3efe",
       "sources": [
         {
           "path": "docs/audits/index.md",
@@ -849,7 +849,27 @@
         "license_expression": "MIT",
         "redistribution_status": "RES-284 publication artifact under the repository license; temporal-expert source prediction rights remain NOASSERTION."
       },
-      "sha256": "sha256:4d5e13fc4d095bc3f1f66de1a04262a0284cff78c7c93e3897718c3c68cccab7",
+      "sha256": "sha256:2291b6360630879707d17c5107b34581fa870869e84217c5964340c4b563fe51",
+      "sources": [
+        {
+          "path": "results/audits/res278/audit-results.json",
+          "sha256": "sha256:0507c294ad33c5d0382fced64ef888a03d9e72c0f4065be3f084edf347d9531a"
+        },
+        {
+          "path": "results/audits/res281/audit-results.json",
+          "sha256": "sha256:0bbe5d58be59c8ba76fae1a9d6e4a116629b5c88fbdbfb32def6c4b9872bb597"
+        }
+      ]
+    },
+    {
+      "media_type": "text/csv",
+      "path": "results/audits/res284-publication/tables/audit-input-artifact-status.csv",
+      "rights": {
+        "copyright_holder": "Powerlifting State Research contributors",
+        "license_expression": "MIT",
+        "redistribution_status": "RES-284 publication artifact under the repository license; temporal-expert source prediction rights remain NOASSERTION."
+      },
+      "sha256": "sha256:c863c339b8c962462db498acf95d64fb0e11855d262e35fb15ec916acee537d7",
       "sources": [
         {
           "path": "results/audits/res278/audit-results.json",
@@ -885,7 +905,7 @@
         "license_expression": "MIT",
         "redistribution_status": "RES-284 publication artifact under the repository license; temporal-expert source prediction rights remain NOASSERTION."
       },
-      "sha256": "sha256:d5746c7c14a6d959cb497695b5dff710480ca81866f1e884f641b0a173f21925",
+      "sha256": "sha256:07f8f5c5b544acec9dd9e535df9d1dfa85555e9b62dd72201192d311bb89cceb",
       "sources": [
         {
           "path": "artifacts/registries/version-validity-profiles.json",
@@ -897,7 +917,7 @@
         },
         {
           "path": "provenance/PUBLIC_FILE_ORIGINS.csv",
-          "sha256": "sha256:aa6d41ffd5e7544934e064f72c15df50256ee880fba64daa68173597db78ec38"
+          "sha256": "sha256:e9fb6962b6447174e62498dc7d29359c75a3a8ea084b849b88acb584487328b9"
         },
         {
           "path": "results/audits/res278/audit-results.json",
@@ -1169,7 +1189,7 @@
       "sources": [
         {
           "path": "provenance/PUBLIC_FILE_ORIGINS.csv",
-          "sha256": "sha256:aa6d41ffd5e7544934e064f72c15df50256ee880fba64daa68173597db78ec38"
+          "sha256": "sha256:e9fb6962b6447174e62498dc7d29359c75a3a8ea084b849b88acb584487328b9"
         },
         {
           "path": "results/audits/res283-analysis/version-by-model-evidence.csv",
@@ -1185,7 +1205,7 @@
         "license_expression": "MIT",
         "redistribution_status": "RES-284 publication artifact under the repository license; temporal-expert source prediction rights remain NOASSERTION."
       },
-      "sha256": "sha256:3aeb998780c22fad0e032a4d23872ef039dd4bb7da7c9f782391a2e54e7197ad",
+      "sha256": "sha256:6e1271d79076abf4a6632de9757ad136db901a619f5a5c98a36711072a19183f",
       "sources": [
         {
           "path": "docs/audits/index.md",
@@ -1193,7 +1213,11 @@
         },
         {
           "path": "provenance/PUBLIC_FILE_ORIGINS.csv",
-          "sha256": "sha256:aa6d41ffd5e7544934e064f72c15df50256ee880fba64daa68173597db78ec38"
+          "sha256": "sha256:e9fb6962b6447174e62498dc7d29359c75a3a8ea084b849b88acb584487328b9"
+        },
+        {
+          "path": "results/audits/res278/audit-results.json",
+          "sha256": "sha256:0507c294ad33c5d0382fced64ef888a03d9e72c0f4065be3f084edf347d9531a"
         },
         {
           "path": "results/audits/res281-analysis/attack-by-version.csv",
@@ -1259,7 +1283,7 @@
     }
   ],
   "format": "PSR_RES284_PUBLICATION_INDEX_V1",
-  "publication_fingerprint": "sha256:34bf8786caf6cc0dbc01d36f2824387a40a92829b35c6462821d783b1757a425",
+  "publication_fingerprint": "sha256:bdcf46f7514ea85083f5448bc7edebb1713353bac85b7aa2327015073faa9782",
   "rights_note": "Aggregate evaluation metadata only; temporal-expert source prediction rights remain NOASSERTION; source predictions and checkpoints are not copied.",
   "source_files": [
     {
@@ -1301,14 +1325,6 @@
     {
       "path": "data/manifests/realizations/latent_capacity_change_with_transient_expression_forecasting/iid-production.json",
       "sha256": "sha256:7247673db768630a0a0df9e35449a4735161d826f0bde33d355882fa5cc3ef11"
-    },
-    {
-      "path": "data/synthetic/latent_capacity_change_with_transient_expression_forecasting/iid-production/train.jsonl",
-      "sha256": "sha256:914dc51fcf9a0dca30224a8093431e97fe29272bf830160bf46a78396026d550"
-    },
-    {
-      "path": "data/synthetic/latent_capacity_change_with_transient_expression_forecasting/iid-production/validation.jsonl",
-      "sha256": "sha256:0d7bd0c9291e7af5627ec18e2b82025aa1f5f3d46de07d502f7df90eace24b9a"
     },
     {
       "path": "docs/audits/index.md",
@@ -1472,7 +1488,7 @@
     },
     {
       "path": "provenance/PUBLIC_FILE_ORIGINS.csv",
-      "sha256": "sha256:aa6d41ffd5e7544934e064f72c15df50256ee880fba64daa68173597db78ec38"
+      "sha256": "sha256:e9fb6962b6447174e62498dc7d29359c75a3a8ea084b849b88acb584487328b9"
     },
     {
       "path": "results/audits/res278/audit-results.json",
@@ -1956,7 +1972,7 @@
     },
     {
       "path": "src/powerlifting_state_research/audits/res284_publication.py",
-      "sha256": "sha256:92342d251fc08adde82922b5a2a8d3d33dccce56901772c2d2d92dc05906e513"
+      "sha256": "sha256:4077ee6ca345bfd6e77a34ea7ea8d026e57ceacf8abc74a13cbc384aab6bd2a4"
     },
     {
       "path": "src/powerlifting_state_research/audits/runner.py",

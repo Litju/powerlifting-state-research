@@ -12,6 +12,7 @@ import html
 import io
 import json
 import os
+import subprocess
 import tempfile
 import xml.etree.ElementTree as ET
 from collections import Counter
@@ -126,9 +127,14 @@ def _verify_file_entries(root: Path, entries: list[dict[str, Any]]) -> None:
             raise ValueError(f"source artifact checksum mismatch: {entry['path']}")
 
 
+def _tracked_paths(root: Path) -> set[str]:
+    entries = subprocess.check_output(["git", "ls-files", "-z"], cwd=root).split(b"\0")
+    return {entry.decode("utf-8") for entry in entries if entry}
+
+
 def _verify_audit_bundle(
-    root: Path, directory: Path
-) -> tuple[dict[str, Any], list[dict[str, Any]]]:
+    root: Path, directory: Path, tracked_paths: set[str]
+) -> tuple[dict[str, Any], list[dict[str, Any]], list[dict[str, Any]]]:
     manifest_path = directory / "audit-results.manifest.json"
     manifest = _read_json(root, manifest_path.as_posix())
     if manifest.get("format") != "PSR_AUDIT_ARTIFACT_INDEX_V1":
@@ -149,6 +155,7 @@ def _verify_audit_bundle(
         raise ValueError(f"audit record count mismatch: {bundle_path}")
     if len(records) != 126:
         raise ValueError(f"expected 126 frozen audit records in {bundle_path}")
+    input_status_by_path: dict[str, dict[str, Any]] = {}
     for index, (record, artifact) in enumerate(zip(records, artifacts, strict=True)):
         expected = f"/records/{index}"
         if artifact.get("json_pointer") != expected:
@@ -162,12 +169,50 @@ def _verify_audit_bundle(
         if record.get("status") not in VALIDITY_STATES:
             raise ValueError(f"unknown audit status at {expected}")
         for input_artifact in cast(list[dict[str, Any]], record.get("input_artifacts", [])):
-            input_path = root / str(input_artifact["path"])
-            if not input_path.is_file() or _sha256(input_path) != input_artifact["sha256"]:
-                raise ValueError(
-                    f"audit input artifact identity mismatch: {input_artifact['path']}"
+            source_path = str(input_artifact["path"])
+            declared_sha256 = str(input_artifact["sha256"])
+            if source_path in input_status_by_path:
+                status_row = input_status_by_path[source_path]
+                if status_row["declared_sha256"] != declared_sha256:
+                    raise ValueError(f"conflicting audit input hashes: {source_path}")
+                status_row["referring_record_count"] += 1
+                continue
+            if source_path in tracked_paths:
+                input_path = root / source_path
+                if not input_path.is_file() or _sha256(input_path) != declared_sha256:
+                    raise ValueError(f"audit input artifact identity mismatch: {source_path}")
+                observed_sha256 = _sha256(input_path)
+                status = "VERIFIED_TRACKED_INPUT"
+                reason = (
+                    "Tracked source bytes match the SHA-256 declared by the frozen audit record."
                 )
-    return manifest, records
+            elif source_path.startswith("data/synthetic/"):
+                observed_sha256 = ""
+                status = "UNAVAILABLE_UNTRACKED_GENERATED_INPUT"
+                reason = (
+                    "The generated IID source file is not tracked; its declared hash is retained, "
+                    "but the file was not read or regenerated."
+                )
+            else:
+                raise ValueError(
+                    f"untracked audit input is outside the declared generated-data gap: {source_path}"
+                )
+            input_status_by_path[source_path] = {
+                "execution": directory.name.upper(),
+                "path": source_path,
+                "declared_sha256": declared_sha256,
+                "observed_sha256": observed_sha256,
+                "source_evidence_status": status,
+                "referring_record_count": 1,
+                "rights_json": json.dumps(
+                    input_artifact.get("rights", {}),
+                    ensure_ascii=False,
+                    sort_keys=True,
+                    separators=(",", ":"),
+                ),
+                "reason": reason,
+            }
+    return manifest, records, list(input_status_by_path.values())
 
 
 def _verify_res281_analysis(root: Path) -> dict[str, Any]:
@@ -204,6 +249,7 @@ def _input_paths(
     res281_manifest: dict[str, Any],
     res281_analysis: dict[str, Any],
     res283_index: dict[str, Any],
+    tracked_paths: set[str],
     res278_records: list[dict[str, Any]],
     res281_records: list[dict[str, Any]],
 ) -> list[str]:
@@ -261,7 +307,9 @@ def _input_paths(
         paths.add(str(entry["path"]))
     for record in (*res278_records, *res281_records):
         for input_artifact in cast(list[dict[str, Any]], record.get("input_artifacts", [])):
-            paths.add(str(input_artifact["path"]))
+            source_path = str(input_artifact["path"])
+            if source_path in tracked_paths:
+                paths.add(source_path)
     registry = _read_json(root, "artifacts/registries/benchmark-registry.json")
     for benchmark in cast(list[dict[str, Any]], registry["benchmarks"]):
         paths.add(f"docs/benchmarks/{str(benchmark['slug']).replace('_', '-')}.md")
@@ -401,10 +449,10 @@ def _evidence_claims() -> list[dict[str, str]]:
         },
         {
             "claim_id": "C16",
-            "claim": "RES-281 bundle and analysis source identities, RES-278 bundle, and RES-283 analysis outputs reproduce from their recorded checksums.",
+            "claim": "The RES-278/281 bundles, RES-281 analysis, and RES-283 outputs match their recorded checksums; all tracked audit inputs were byte-verified.",
             "evidence_class": "REPRODUCIBILITY_AND_PROVENANCE",
-            "evidence_state": "PASS",
-            "scope_and_limit": "Reproduction verifies these exact tracked artifacts and source identities only.",
+            "evidence_state": "INCONCLUSIVE",
+            "scope_and_limit": "Two generated IID train/validation input files referenced by audit records are not tracked, so their declared hashes cannot be independently checked from this checkout.",
             "source_artifacts": "results/audits/res278/audit-results.manifest.json;results/audits/res281/audit-results.manifest.json;results/audits/res281-analysis/analysis-results.manifest.json;results/audits/res283-analysis/checksum-index.json",
         },
         {
@@ -414,6 +462,14 @@ def _evidence_claims() -> list[dict[str, str]]:
             "evidence_state": "PASS",
             "scope_and_limit": "This receipt covers only the public-native IID DatasetRealization and does not recreate historical scrambled-Sobol bytes.",
             "source_artifacts": "results/audits/res281/reproducibility-execution.json;data/manifests/realizations/latent_capacity_change_with_transient_expression_forecasting/iid-production.json",
+        },
+        {
+            "claim_id": "C18",
+            "claim": "The RES-278/281 audit records retain hashes for two generated IID input files whose bytes are not tracked in Git.",
+            "evidence_class": "SOURCE_BYTE_AVAILABILITY",
+            "evidence_state": "UNSUPPORTED_BY_EVIDENCE",
+            "scope_and_limit": "Declared hashes are preserved; no local ignored copy was read and no dataset was regenerated.",
+            "source_artifacts": "results/audits/res278/audit-results.json;results/audits/res281/audit-results.json",
         },
     ]
 
@@ -468,6 +524,13 @@ def _limitations() -> list[dict[str, str]]:
             "claim_boundary": "Repository presence does not establish rights to redistribute source predictions or checkpoints.",
             "future_evidence_required": "Explicit rights documentation before any source prediction or checkpoint redistribution.",
             "source_artifacts": "results/audits/res283-analysis/version-by-model-evidence.csv;provenance/PUBLIC_FILE_ORIGINS.csv",
+        },
+        {
+            "evidence_gap": "Unavailable RES-278/281 IID input bytes",
+            "current_state": "UNSUPPORTED_BY_EVIDENCE",
+            "claim_boundary": "The records declare hashes for generated IID train and validation JSONL files that are not tracked, so those source bytes cannot be rechecked here.",
+            "future_evidence_required": "A rights-cleared tracked copy or independent hash attestation for the declared files; no regeneration was performed for RES-284.",
+            "source_artifacts": "results/audits/res278/audit-results.json;results/audits/res281/audit-results.json",
         },
     ]
 
@@ -1093,8 +1156,13 @@ def _historical_figure(
 
 
 def _analysis_data(root: Path) -> dict[str, Any]:
-    res278_manifest, res278_records = _verify_audit_bundle(root, RES278_DIR)
-    res281_manifest, res281_records = _verify_audit_bundle(root, RES281_DIR)
+    tracked_paths = _tracked_paths(root)
+    res278_manifest, res278_records, res278_input_status = _verify_audit_bundle(
+        root, RES278_DIR, tracked_paths
+    )
+    res281_manifest, res281_records, res281_input_status = _verify_audit_bundle(
+        root, RES281_DIR, tracked_paths
+    )
     if res281_manifest.get("bundle_sha256") != EXPECTED_RES281_BUNDLE_SHA256:
         raise ValueError("RES-281 bundle does not match the verified RES-284 handoff hash")
     res281_analysis = _verify_res281_analysis(root)
@@ -1263,6 +1331,28 @@ def _analysis_data(root: Path) -> dict[str, Any]:
             raise ValueError(f"{execution} does not contain exactly one result per version/attack")
         if {item["benchmark_version"] for item in records} != set(versions):
             raise ValueError(f"{execution} versions differ from the RES-277 profile registry")
+    missing_input_paths = {
+        row["path"]
+        for row in (*res278_input_status, *res281_input_status)
+        if row["source_evidence_status"] == "UNAVAILABLE_UNTRACKED_GENERATED_INPUT"
+    }
+    expected_missing_input_paths = {
+        "data/synthetic/latent_capacity_change_with_transient_expression_forecasting/iid-production/train.jsonl",
+        "data/synthetic/latent_capacity_change_with_transient_expression_forecasting/iid-production/validation.jsonl",
+    }
+    if missing_input_paths != expected_missing_input_paths:
+        raise ValueError("frozen audit generated-input availability differs from its declared gap")
+    for execution, input_rows in (
+        ("RES-278", res278_input_status),
+        ("RES-281", res281_input_status),
+    ):
+        missing_for_execution = {
+            row["path"]
+            for row in input_rows
+            if row["source_evidence_status"] == "UNAVAILABLE_UNTRACKED_GENERATED_INPUT"
+        }
+        if missing_for_execution != expected_missing_input_paths:
+            raise ValueError(f"{execution} source-byte gap differs from the frozen audit records")
     result_lookup = {
         (str(record["benchmark_version"]), str(record["attack_spec_ref"])): str(record["status"])
         for record in res281_records
@@ -1299,6 +1389,7 @@ def _analysis_data(root: Path) -> dict[str, Any]:
         res281_manifest,
         res281_analysis,
         res283_index,
+        tracked_paths,
         res278_records,
         res281_records,
     )
@@ -1332,6 +1423,7 @@ def _analysis_data(root: Path) -> dict[str, Any]:
         "reproducibility_execution": reproducibility,
         "res278_records": res278_records,
         "res281_records": res281_records,
+        "audit_input_status": [*res278_input_status, *res281_input_status],
     }
 
 
@@ -1656,7 +1748,7 @@ def _report_markdown(data: dict[str, Any]) -> str:
             "",
             "The source prediction-rights field for public-native temporal expert remains NOASSERTION as recorded in the RES-283 evidence table. The publication includes aggregate EvaluationResult metadata and does not copy source prediction JSONL or checkpoint files. Private historical rows, checkpoints, and outputs remain outside this bundle. Repository presence alone is not treated as permission.",
             "",
-            "RES-278 and RES-281 bundle and checksum verification passed; the RES-281 bundle SHA-256 matches the handoff value. The RES-281 analysis source index and RES-283 output checksum index were verified. The input/output hashes and scientific source identities are in checksum-index.json.",
+            "RES-278 and RES-281 bundle manifests and record identities verify, and tracked record-level input hashes match. Both ledgers reference generated IID train/validation JSONLs under data/synthetic that are not tracked; their declared hashes are preserved as unavailable and no local copy was read or regenerated. The RES-281 bundle SHA-256 matches the handoff value. The RES-281 analysis source index and RES-283 output checksum index were verified.",
             "",
             "## Reproduction and companion tables",
             "",
@@ -1667,6 +1759,7 @@ def _report_markdown(data: dict[str, Any]) -> str:
             "| --- | --- |",
             "| tables/version-by-axis-evidence.csv | RES-277 baseline states plus RES-281 direct axis evidence |",
             "| tables/attack-evidence-states.csv | Both 126-record RES-278 and RES-281 attack ledgers, including exact identities and diagnostics |",
+            "| tables/audit-input-artifact-status.csv | Tracked audit input hashes and generated inputs unavailable for byte recheck |",
             "| tables/attack-by-version-res281.csv | RES-281 attack-by-version state matrix |",
             "| tables/public-native-target-wise-rankings.csv | Exact target-wise metrics and ranks for all 22 candidates |",
             "| tables/metric-definitions.csv | Frozen metric identities, units, and directions |",
@@ -1712,6 +1805,7 @@ def _summary_markdown(data: dict[str, Any]) -> str:
             "",
             "- Paired uncertainty is unsupported because validation truth and row-to-entity mapping are absent; all 264 uncertainty cells remain unsupported and inferential status remains inconclusive.",
             "- All 36 historical cross-version comparisons remain rejected. Eight historical versions have no public matched fitted-model/evaluation panel, so historical model-ranking stability is not identifiable.",
+            "- Frozen audit ledgers reference generated IID train/validation JSONLs that are not tracked. Their hashes remain recorded, but their bytes could not be independently rechecked without dataset generation.",
             "- Benchmark chronology does not establish validity improvement. The historical scrambled-Sobol and public-native IID scores are not directly ranked.",
             "- The temporal-expert source prediction-rights field remains NOASSERTION; this publication contains only aggregate evaluation metadata.",
             "",
@@ -1730,7 +1824,7 @@ def _methods_markdown() -> str:
             "",
             "## Evidence qualification",
             "",
-            "The starting checkout was clean and synchronized at main SHA 99a834721098d9953fd268dcdef5ce2177a490b0. The RES-278 and RES-281 audit bundle manifests were checked against every listed file, bundle digest, result-record pointer, result identity, record digest, serialized-record digest, and record-level input artifact hash. Each contains 126 records over nine versions and fourteen attack contracts. The RES-281 bundle hash is 0bbe5d58be59c8ba76fae1a9d6e4a116629b5c88fbdbfb32def6c4b9872bb597.",
+            "The starting checkout was clean and synchronized at main SHA 99a834721098d9953fd268dcdef5ce2177a490b0. The RES-278 and RES-281 bundle manifests were checked against every listed file, bundle digest, result-record pointer, result identity, and serialized-record digest. All tracked record-level input files match their declared hashes. Both ledgers also reference generated IID train/validation JSONLs that are not tracked; their declared hashes are retained as unavailable in tables/audit-input-artifact-status.csv, and no local ignored copy was read or regenerated. Each bundle contains 126 records over nine versions and fourteen attack contracts. The RES-281 bundle hash is 0bbe5d58be59c8ba76fae1a9d6e4a116629b5c88fbdbfb32def6c4b9872bb597.",
             "",
             "The RES-281 analysis manifest, source files, and output files were checksum-verified. RES-283 checksum-index and run-manifest hashes were verified, then its existing deterministic replay check was run. The audit runner read-only reconciliation and RES-283 deterministic replay both passed before publication. The publication index includes source hashes for every direct report, table, and figure dependency.",
             "",
@@ -1857,6 +1951,12 @@ def build_publication_artifacts(root: Path = ROOT) -> dict[str, bytes]:
                         sort_keys=True,
                         separators=(",", ":"),
                     ),
+                    "input_artifacts_json": json.dumps(
+                        record.get("input_artifacts", []),
+                        ensure_ascii=False,
+                        sort_keys=True,
+                        separators=(",", ":"),
+                    ),
                     "source_artifact": source,
                 }
             )
@@ -1879,6 +1979,12 @@ def build_publication_artifacts(root: Path = ROOT) -> dict[str, bytes]:
     add(
         f"{OUTPUT_DIR.as_posix()}/tables/attack-evidence-states.csv",
         _csv_bytes(audit_rows, audit_fields),
+        ["results/audits/res278/audit-results.json", "results/audits/res281/audit-results.json"],
+    )
+    input_status_rows = data["audit_input_status"]
+    add(
+        f"{OUTPUT_DIR.as_posix()}/tables/audit-input-artifact-status.csv",
+        _csv_bytes(input_status_rows, list(input_status_rows[0])),
         ["results/audits/res278/audit-results.json", "results/audits/res281/audit-results.json"],
     )
     diagnostic_fields = list(diagnostics[0])

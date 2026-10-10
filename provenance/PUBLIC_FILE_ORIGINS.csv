@@ -471,3 +471,4 @@ results/audits/res284-publication/tables/scientific-limitations.csv,GENERATED_PU
 results/audits/res284-publication/tables/version-by-axis-evidence.csv,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,"Source-hash-bound RES-284 table; preserves source values, evidence states, and rights constraints."
 src/powerlifting_state_research/audits/res284_publication.py,NEWLY_AUTHORED,MIT,audits,RES-284 source-hash-verified publication builder and deterministic replay check.
 tests/audits/test_res284_publication.py,NEWLY_AUTHORED,MIT,audits,RES-284 source-hash-verified publication builder and deterministic replay check.
+results/audits/res284-publication/tables/audit-input-artifact-status.csv,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Tracked audit input hash verification and explicit unavailable-source states for untracked generated IID train/validation JSONL references.

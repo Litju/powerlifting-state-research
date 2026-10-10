@@ -15,6 +15,7 @@ RES-284 publishes a multidimensional validity synthesis and the admissible model
 
 - Paired uncertainty is unsupported because validation truth and row-to-entity mapping are absent; all 264 uncertainty cells remain unsupported and inferential status remains inconclusive.
 - All 36 historical cross-version comparisons remain rejected. Eight historical versions have no public matched fitted-model/evaluation panel, so historical model-ranking stability is not identifiable.
+- Frozen audit ledgers reference generated IID train/validation JSONLs that are not tracked. Their hashes remain recorded, but their bytes could not be independently rechecked without dataset generation.
 - Benchmark chronology does not establish validity improvement. The historical scrambled-Sobol and public-native IID scores are not directly ranked.
 - The temporal-expert source prediction-rights field remains NOASSERTION; this publication contains only aggregate evaluation metadata.
 

@@ -2,7 +2,7 @@
 
 ## Evidence qualification
 
-The starting checkout was clean and synchronized at main SHA 99a834721098d9953fd268dcdef5ce2177a490b0. The RES-278 and RES-281 audit bundle manifests were checked against every listed file, bundle digest, result-record pointer, result identity, record digest, serialized-record digest, and record-level input artifact hash. Each contains 126 records over nine versions and fourteen attack contracts. The RES-281 bundle hash is 0bbe5d58be59c8ba76fae1a9d6e4a116629b5c88fbdbfb32def6c4b9872bb597.
+The starting checkout was clean and synchronized at main SHA 99a834721098d9953fd268dcdef5ce2177a490b0. The RES-278 and RES-281 bundle manifests were checked against every listed file, bundle digest, result-record pointer, result identity, and serialized-record digest. All tracked record-level input files match their declared hashes. Both ledgers also reference generated IID train/validation JSONLs that are not tracked; their declared hashes are retained as unavailable in tables/audit-input-artifact-status.csv, and no local ignored copy was read or regenerated. Each bundle contains 126 records over nine versions and fourteen attack contracts. The RES-281 bundle hash is 0bbe5d58be59c8ba76fae1a9d6e4a116629b5c88fbdbfb32def6c4b9872bb597.
 
 The RES-281 analysis manifest, source files, and output files were checksum-verified. RES-283 checksum-index and run-manifest hashes were verified, then its existing deterministic replay check was run. The audit runner read-only reconciliation and RES-283 deterministic replay both passed before publication. The publication index includes source hashes for every direct report, table, and figure dependency.
 
