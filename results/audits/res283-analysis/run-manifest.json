@@ -1,0 +1,1045 @@
+{
+  "admissible_cross_version_pair_count": 0,
+  "analysis_config": {
+    "path": "results/audits/res283-analysis/analysis-config.json",
+    "sha256": "sha256:8abb9471d445ab480995dd3dc86b763635ba523b7904c0326ca1037c7a21fe12"
+  },
+  "analysis_identity": "psr:analysis:res283-public-native-model-ranking-stability-v1@sha256:313e781f2a7454c1e9068c9de7982f63cd088ea52db1c8d687f1c2016f44a010",
+  "analysis_implementation": {
+    "path": "src/powerlifting_state_research/audits/res283_analysis.py",
+    "sha256": "sha256:4eb9b80fddf0f7f6e47192ae531ec7286cfa4d1a4172f83741d4386a3af93fd0"
+  },
+  "artifacts": [
+    {
+      "path": "results/audits/res283-analysis/RES-284-handoff.md",
+      "sha256": "sha256:2f8fc85d5f0a8abd47c3971108c6aa055cd96a4bbd282b44217f4861171cdcb1"
+    },
+    {
+      "path": "results/audits/res283-analysis/analysis-notebook.ipynb",
+      "sha256": "sha256:4f251fcd71599fde3ff2fce9ea7d9a05c0a72a96a833db3d0ef2bf3dd7a32156"
+    },
+    {
+      "path": "results/audits/res283-analysis/cross-version-ranking-admissibility.csv",
+      "sha256": "sha256:a859e1e533d49bafc19581faecf516f4d88232a246fe70d1286bc74208c6004d"
+    },
+    {
+      "path": "results/audits/res283-analysis/fit-seed-pairwise-reversals.csv",
+      "sha256": "sha256:96d68817cfb48c15291380225101ef10d78afc03e2319670ffe2b6c9b4814cf8"
+    },
+    {
+      "path": "results/audits/res283-analysis/fit-seed-rank-stability.csv",
+      "sha256": "sha256:e39f1608f9f84a60d44d3f2e50d9ea2df8dd38bdd53f92eab849f3c2e2dedb27"
+    },
+    {
+      "path": "results/audits/res283-analysis/frozen-iid-target-wise-rankings.csv",
+      "sha256": "sha256:ff132de4649ec1c9c3883125d9b247f8335f9b160747887c6be2f6a5466b6720"
+    },
+    {
+      "path": "results/audits/res283-analysis/historical-evidence-gap-report.md",
+      "sha256": "sha256:c6d482a066de1c65b4126217e74b9cbec608327394a685f5edd5fc0185525de4"
+    },
+    {
+      "path": "results/audits/res283-analysis/metric-dependent-ranking-summary.csv",
+      "sha256": "sha256:3411d8f6626b512949ce2298b67ed6134edd6344ff687b4bd8142fcbda0f07e9"
+    },
+    {
+      "path": "results/audits/res283-analysis/paired-uncertainty-evidence.csv",
+      "sha256": "sha256:45518e1d74312873f72fde207e7098a296afa671fabb6c55229555781d5e1926"
+    },
+    {
+      "path": "results/audits/res283-analysis/pairwise-ranking-reversals.csv",
+      "sha256": "sha256:4db26985f9cf306544e6b332917226d1788454e5808f73620fa4f5d74115a94b"
+    },
+    {
+      "path": "results/audits/res283-analysis/pareto-comparison-summary.csv",
+      "sha256": "sha256:83c8c9f591155fe349a54523f3c34e63c5b784f4535bc72f201afa183b7fd169"
+    },
+    {
+      "path": "results/audits/res283-analysis/res283-model-ranking-stability.md",
+      "sha256": "sha256:df2a7f59e90c08891d598f904de5a3f5ea7f1c07df455e87ec997cb2634f5171"
+    },
+    {
+      "path": "results/audits/res283-analysis/version-by-model-evidence.csv",
+      "sha256": "sha256:6ad3ea191c83b9b7f9e9f15b1e5621d9f237d8f67fa1469d3c88d4c056f21aca"
+    }
+  ],
+  "benchmark_id": "psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting@1.0.0~f99463d55ba0",
+  "candidate_count": 22,
+  "candidate_identity_bindings": [
+    {
+      "candidate_id": "compact_neural:383001",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-compact-neural/seed-383001.evaluation-result.json",
+        "sha256": "sha256:b084132f54c6e52898900804ed7e49dbf4ad8217ba6736e77909c8a8611f2e99"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:d6acae8acf6281957585a4299d7387c33cbda7c16ffbf2a7894af697d22b2d4e",
+      "fit_seed": "383001",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-compact-neural/seed-383001.fitted-instance.json",
+        "sha256": "sha256:f83064fa9580fd8ac5103c8ddbb865b68d62adc0e106c226c8c555c16e4ef256"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-compact-neural-seed-383001@sha256:f83064fa9580fd8ac5103c8ddbb865b68d62adc0e106c226c8c555c16e4ef256",
+      "model_family": "compact_neural",
+      "model_id": "psr:model:public-native-compact-neural@1.0.0~e0317f3b36a1",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-compact-neural/seed-383001.predictions.jsonl",
+        "sha256": "sha256:7ca5b58f251f0d176353b0b8dc25d763b6ed8787ee6a22cd0012dd0b5568af56"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-7ca5b58f251f@sha256:20964c19c43ab3d88b2e607bd8e9a9529b141dd26c591a6f513730bf3415a75c"
+    },
+    {
+      "candidate_id": "compact_neural:383002",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-compact-neural/seed-383002.evaluation-result.json",
+        "sha256": "sha256:1cf1d50f525c065f968a0b6c562587d83a5af18b9bb751ac70fdae03385f41f3"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:bd8bc4865d7843cfdd58c28183c5afba2c364d20b0ead5287efbfbfeeb9f0618",
+      "fit_seed": "383002",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-compact-neural/seed-383002.fitted-instance.json",
+        "sha256": "sha256:bf62012aaa82eb7a9bfd581969d97ecaa8072736ea39ac4fe230145561964442"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-compact-neural-seed-383002@sha256:bf62012aaa82eb7a9bfd581969d97ecaa8072736ea39ac4fe230145561964442",
+      "model_family": "compact_neural",
+      "model_id": "psr:model:public-native-compact-neural@1.0.0~e0317f3b36a1",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-compact-neural/seed-383002.predictions.jsonl",
+        "sha256": "sha256:d7e37679920fbe96c7412c2080a5cc24296d3ca01ac28e592ff1ee716cda176e"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-d7e37679920f@sha256:d8953f4278dc86952d4ac68c87d2b005ac782fb8ec61be887c35af9ffa852d28"
+    },
+    {
+      "candidate_id": "compact_neural:383003",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-compact-neural/seed-383003.evaluation-result.json",
+        "sha256": "sha256:9d90fdb3ead91e2fe128d5a03e996612b7200f2cf102563e9398c222920097e6"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:eb54fa2513c765733fbf4b1a3fb8e387f8c914229f956adedf725b11f6cb7fb9",
+      "fit_seed": "383003",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-compact-neural/seed-383003.fitted-instance.json",
+        "sha256": "sha256:b84e4b2d1d64c8701968f0db1a2f1a45cabe960619aa641c7811367633dd4401"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-compact-neural-seed-383003@sha256:b84e4b2d1d64c8701968f0db1a2f1a45cabe960619aa641c7811367633dd4401",
+      "model_family": "compact_neural",
+      "model_id": "psr:model:public-native-compact-neural@1.0.0~e0317f3b36a1",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-compact-neural/seed-383003.predictions.jsonl",
+        "sha256": "sha256:515da002595a3a13bd179bf31c7f8db833a5bae00b2c32f35c3002b80623fae0"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-515da002595a@sha256:da2637f962f3d842e84a1c18fc54768cca11261360638d01f404d9e36d723909"
+    },
+    {
+      "candidate_id": "context_mean:383001",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-context-mean/seed-383001.evaluation-result.json",
+        "sha256": "sha256:1e2f54d5f9418f77dfe4e974c8e9be48f6a4f50dce6a07cb6e1cde4145e6da4e"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:1bff8487bcdaa0354e8aee82d3f8726e82f29b834e3ee761da84b538f4a8a861",
+      "fit_seed": "383001",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-context-mean/seed-383001.fitted-instance.json",
+        "sha256": "sha256:61b8453c508e93a84fa9ee4f188b475d853ce6fd19627e8c826706fb9f38ec63"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-context-mean-seed-383001@sha256:61b8453c508e93a84fa9ee4f188b475d853ce6fd19627e8c826706fb9f38ec63",
+      "model_family": "context_mean",
+      "model_id": "psr:model:public-native-context-mean@1.0.0~0b76d1c62dae",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-context-mean/seed-383001.predictions.jsonl",
+        "sha256": "sha256:aab4aaf852f446528bd7c760f8921a1897c72d11ea5f35ebba9b207bd573dbc4"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-aab4aaf852f4@sha256:2ebd09c90016b93ca4494966ee1dea5e439f813c12de9312d1d03e4b863778a2"
+    },
+    {
+      "candidate_id": "context_mean:383002",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-context-mean/seed-383002.evaluation-result.json",
+        "sha256": "sha256:7afac489e185773a4c7c0b8f8e5795af2317a8b5dfe1a955c3af761a74acedee"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:c249b8f54d42b01ee5953a84994d8baf1d473ae4e3dcf0326cbe79db7369508c",
+      "fit_seed": "383002",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-context-mean/seed-383002.fitted-instance.json",
+        "sha256": "sha256:a1fb9089447382135cf7365a44eaa554d291aac43059de7f45420d0941d58dba"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-context-mean-seed-383002@sha256:a1fb9089447382135cf7365a44eaa554d291aac43059de7f45420d0941d58dba",
+      "model_family": "context_mean",
+      "model_id": "psr:model:public-native-context-mean@1.0.0~0b76d1c62dae",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-context-mean/seed-383002.predictions.jsonl",
+        "sha256": "sha256:aab4aaf852f446528bd7c760f8921a1897c72d11ea5f35ebba9b207bd573dbc4"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-aab4aaf852f4@sha256:2ebd09c90016b93ca4494966ee1dea5e439f813c12de9312d1d03e4b863778a2"
+    },
+    {
+      "candidate_id": "context_mean:383003",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-context-mean/seed-383003.evaluation-result.json",
+        "sha256": "sha256:9fa9f122333fb635f3f508cd156244c4f813681ff16d1824a464c2fc718bcaaf"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:64ae5d10fe181da69d712b0a86d3beee5be66e05af084b8d1ef983dcf8985bad",
+      "fit_seed": "383003",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-context-mean/seed-383003.fitted-instance.json",
+        "sha256": "sha256:5845dd0a73a43880664bc253bf1406bcb5cb3ec84a93cc66e33b9b36295187c1"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-context-mean-seed-383003@sha256:5845dd0a73a43880664bc253bf1406bcb5cb3ec84a93cc66e33b9b36295187c1",
+      "model_family": "context_mean",
+      "model_id": "psr:model:public-native-context-mean@1.0.0~0b76d1c62dae",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-context-mean/seed-383003.predictions.jsonl",
+        "sha256": "sha256:aab4aaf852f446528bd7c760f8921a1897c72d11ea5f35ebba9b207bd573dbc4"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-aab4aaf852f4@sha256:2ebd09c90016b93ca4494966ee1dea5e439f813c12de9312d1d03e4b863778a2"
+    },
+    {
+      "candidate_id": "histogram_boosted_stumps:383001",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383001.evaluation-result.json",
+        "sha256": "sha256:814be273d6992052a86f2ee155b7b0caaa9db8ad6493afdb89ab4c66fc4a27a6"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:e13a7a9ad5e65fbdd0318459407e806d9869a079ada5ec0e20be25eefcb92bf8",
+      "fit_seed": "383001",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383001.fitted-instance.json",
+        "sha256": "sha256:2ac65f5ac5bf01af1f9ed9979f544efc8a4a2f15ea0dfc5f6832e327cdf2a377"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-histogram-boosted-stumps-seed-383001@sha256:2ac65f5ac5bf01af1f9ed9979f544efc8a4a2f15ea0dfc5f6832e327cdf2a377",
+      "model_family": "histogram_boosted_stumps",
+      "model_id": "psr:model:public-native-histogram-boosted-stumps@1.0.0~dbec1ea66506",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383001.predictions.jsonl",
+        "sha256": "sha256:9828ff75ec9e4ae18488abd3c828dcef57afda07c504cb88896088df6c9323b5"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-9828ff75ec9e@sha256:ede2355586a256bb282bf7d47dc238c608f7993894b55b8a420550adb4c02806"
+    },
+    {
+      "candidate_id": "histogram_boosted_stumps:383002",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383002.evaluation-result.json",
+        "sha256": "sha256:6f6fe7d52574927aec780e89187a1e135aa1cce765284954302d65ddbef1f20d"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:653b408b7fbe89d771012e8217b57507e11630d8db573441a62c90a0d96b4969",
+      "fit_seed": "383002",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383002.fitted-instance.json",
+        "sha256": "sha256:b2891fa36ca460f15994084b86fac59101ff83ae572b73d0e2093d6eb9ddeb75"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-histogram-boosted-stumps-seed-383002@sha256:b2891fa36ca460f15994084b86fac59101ff83ae572b73d0e2093d6eb9ddeb75",
+      "model_family": "histogram_boosted_stumps",
+      "model_id": "psr:model:public-native-histogram-boosted-stumps@1.0.0~dbec1ea66506",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383002.predictions.jsonl",
+        "sha256": "sha256:9828ff75ec9e4ae18488abd3c828dcef57afda07c504cb88896088df6c9323b5"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-9828ff75ec9e@sha256:ede2355586a256bb282bf7d47dc238c608f7993894b55b8a420550adb4c02806"
+    },
+    {
+      "candidate_id": "histogram_boosted_stumps:383003",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383003.evaluation-result.json",
+        "sha256": "sha256:2c84d96ef9525e1dd290a7e2a1a7f08b7a99766c8793d1f661074550b34c0d66"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:32058c81404e87f25d81c8a407ec7e7e6411aae19dc69d26186254b40c1af2b4",
+      "fit_seed": "383003",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383003.fitted-instance.json",
+        "sha256": "sha256:ebc78ff2a18236d8e38e9a84684699d02c9f7651b15bc40756968f786d49c1f6"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-histogram-boosted-stumps-seed-383003@sha256:ebc78ff2a18236d8e38e9a84684699d02c9f7651b15bc40756968f786d49c1f6",
+      "model_family": "histogram_boosted_stumps",
+      "model_id": "psr:model:public-native-histogram-boosted-stumps@1.0.0~dbec1ea66506",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383003.predictions.jsonl",
+        "sha256": "sha256:9828ff75ec9e4ae18488abd3c828dcef57afda07c504cb88896088df6c9323b5"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-9828ff75ec9e@sha256:ede2355586a256bb282bf7d47dc238c608f7993894b55b8a420550adb4c02806"
+    },
+    {
+      "candidate_id": "mechanistic_midpoint:383001",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383001.evaluation-result.json",
+        "sha256": "sha256:5087070f4eee5b6c808ad99d16f05aedc81e28e5835cb2f4ff9c87dd33340f41"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:85c9bb4a86f2cfeaad71497457db12f6f012d32f065186b5e4b10e4d9c3a4fac",
+      "fit_seed": "383001",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383001.fitted-instance.json",
+        "sha256": "sha256:b0dd9239f24b02cc8e3a93d591f0ce1edc70e391beec1c1b9964023254ac8390"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-mechanistic-midpoint-seed-383001@sha256:b0dd9239f24b02cc8e3a93d591f0ce1edc70e391beec1c1b9964023254ac8390",
+      "model_family": "mechanistic_midpoint",
+      "model_id": "psr:model:public-native-mechanistic-midpoint@1.0.0~9b52973798f4",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383001.predictions.jsonl",
+        "sha256": "sha256:bad41b609c8f7dccd235898c07c239a3b30e2ae279373284a762fd68a4017ab9"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-bad41b609c8f@sha256:40d7658d90a8c27a72985f7f64455dbfc85a33c15967673f6de6b6f84988cfef"
+    },
+    {
+      "candidate_id": "mechanistic_midpoint:383002",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383002.evaluation-result.json",
+        "sha256": "sha256:3941daeb60a61fbf055b6607aa58e211baa1c2325de81c9294717e0b8226cbaa"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:43a95972223bd9a67a3ecaba609218ea1b015b7ddac1aa2cbb65f40ce5c425d8",
+      "fit_seed": "383002",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383002.fitted-instance.json",
+        "sha256": "sha256:27297eaa4df87e889b6514bc5b6abc0b6d65d1b7dbcc2d606034a86e9a7ecfb3"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-mechanistic-midpoint-seed-383002@sha256:27297eaa4df87e889b6514bc5b6abc0b6d65d1b7dbcc2d606034a86e9a7ecfb3",
+      "model_family": "mechanistic_midpoint",
+      "model_id": "psr:model:public-native-mechanistic-midpoint@1.0.0~9b52973798f4",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383002.predictions.jsonl",
+        "sha256": "sha256:bad41b609c8f7dccd235898c07c239a3b30e2ae279373284a762fd68a4017ab9"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-bad41b609c8f@sha256:40d7658d90a8c27a72985f7f64455dbfc85a33c15967673f6de6b6f84988cfef"
+    },
+    {
+      "candidate_id": "mechanistic_midpoint:383003",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383003.evaluation-result.json",
+        "sha256": "sha256:86b994541527893a41620b738bfd28a54c8b947ac59c5f7c840f31efbf5885f7"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:a5c34ec217f484305222a621a8766d5366d13fd67c82e0db27a2ee7def200eb4",
+      "fit_seed": "383003",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383003.fitted-instance.json",
+        "sha256": "sha256:6b7ec1326780ab1f688b570fc7cb5e5357be50cb582ef46954fc401647abc5ac"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-mechanistic-midpoint-seed-383003@sha256:6b7ec1326780ab1f688b570fc7cb5e5357be50cb582ef46954fc401647abc5ac",
+      "model_family": "mechanistic_midpoint",
+      "model_id": "psr:model:public-native-mechanistic-midpoint@1.0.0~9b52973798f4",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383003.predictions.jsonl",
+        "sha256": "sha256:bad41b609c8f7dccd235898c07c239a3b30e2ae279373284a762fd68a4017ab9"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-bad41b609c8f@sha256:40d7658d90a8c27a72985f7f64455dbfc85a33c15967673f6de6b6f84988cfef"
+    },
+    {
+      "candidate_id": "mechanistic_ridge_residual:383001",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383001.evaluation-result.json",
+        "sha256": "sha256:287cd8f00a64a102913ba76baa2f60e15ad13b124c0518a6458ca0194416fbc8"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:839187d8f8e9e62d3b61b4a1cff71569314d280b629b26b6b260679b25409d6c",
+      "fit_seed": "383001",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383001.fitted-instance.json",
+        "sha256": "sha256:db416b1d9d643f91ed2da0223730c63922e90aaf52dc26cee1cfaa579de93e7b"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-mechanistic-ridge-residual-seed-383001@sha256:db416b1d9d643f91ed2da0223730c63922e90aaf52dc26cee1cfaa579de93e7b",
+      "model_family": "mechanistic_ridge_residual",
+      "model_id": "psr:model:public-native-mechanistic-ridge-residual@1.0.0~e153e20558e2",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383001.predictions.jsonl",
+        "sha256": "sha256:b889191ea30b5a9aee89913650699e48e11e580ab85997cc6b3484e6e755404c"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-b889191ea30b@sha256:3c448d39ba399e2ca20707240fe1f83903685496cd12d5d5892316925988d417"
+    },
+    {
+      "candidate_id": "mechanistic_ridge_residual:383002",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383002.evaluation-result.json",
+        "sha256": "sha256:9a97afa01d1fbd5d19f12dd488097d45cc2b7f234c4b3b67dd93a4ee44379347"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:d6dd605fcbff268e94a89862dd90f2ee3b6b60dff9ea059d78408b996a14c369",
+      "fit_seed": "383002",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383002.fitted-instance.json",
+        "sha256": "sha256:6bb30296ce93dd2f47fd7199a730ba5782e2e70b51d8b3fde5aecd3572364185"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-mechanistic-ridge-residual-seed-383002@sha256:6bb30296ce93dd2f47fd7199a730ba5782e2e70b51d8b3fde5aecd3572364185",
+      "model_family": "mechanistic_ridge_residual",
+      "model_id": "psr:model:public-native-mechanistic-ridge-residual@1.0.0~e153e20558e2",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383002.predictions.jsonl",
+        "sha256": "sha256:b889191ea30b5a9aee89913650699e48e11e580ab85997cc6b3484e6e755404c"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-b889191ea30b@sha256:3c448d39ba399e2ca20707240fe1f83903685496cd12d5d5892316925988d417"
+    },
+    {
+      "candidate_id": "mechanistic_ridge_residual:383003",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383003.evaluation-result.json",
+        "sha256": "sha256:ce707447ca6ffad9c85edebaec5850a19355676e50cd04f5bc2aec7970249462"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:e4cc4e1beded8ac0ad6083d39a3abe0412b96f0e1ef94f75866eab1068a6a3c6",
+      "fit_seed": "383003",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383003.fitted-instance.json",
+        "sha256": "sha256:8d92b5a0bcc75f5476fe9bd51ebb8a6d789ddb403bb6bf0f7eb9b41cc4ffadb8"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-mechanistic-ridge-residual-seed-383003@sha256:8d92b5a0bcc75f5476fe9bd51ebb8a6d789ddb403bb6bf0f7eb9b41cc4ffadb8",
+      "model_family": "mechanistic_ridge_residual",
+      "model_id": "psr:model:public-native-mechanistic-ridge-residual@1.0.0~e153e20558e2",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383003.predictions.jsonl",
+        "sha256": "sha256:b889191ea30b5a9aee89913650699e48e11e580ab85997cc6b3484e6e755404c"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-b889191ea30b@sha256:3c448d39ba399e2ca20707240fe1f83903685496cd12d5d5892316925988d417"
+    },
+    {
+      "candidate_id": "public-native-temporal-expert:383001",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383001.evaluation-result.json",
+        "sha256": "sha256:50d9377522cc05795eccb9572fe58ed4363f60535789d13a78399830d6cb292d"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:39615cfdbe3e54cb2f0f69b567eee8f1bad49b12eb5d772753ba58553b3303f1",
+      "fit_seed": "383001",
+      "fitted_identity_artifact": {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383001.fitted-instance.json",
+        "sha256": "sha256:6da523c6bb608bac653b44b4ab6343afb55dca46f766d913fadb6e3386960c87"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-temporal-expert-seed-383001@sha256:8097eb52fabd88d36992b2af5e363baab3b5e2333d5701798430b20882ce31b9",
+      "model_family": "public-native-temporal-expert",
+      "model_id": "psr:model:public-native-lift-shared-temporal-gru-capacity-change@1.0.0~34d23123138f",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383001.predictions.jsonl",
+        "sha256": "sha256:eb1bf322ba1783d0c70f59d13016421736fd6447c2f6827079f713d31332f50c"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-eb1bf322ba17@sha256:cac5014e1515786ea9e55d04d8aaf393743f48d2e8ba1a2738ccb25f5dde6d38"
+    },
+    {
+      "candidate_id": "public-native-temporal-expert:383002",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383002.evaluation-result.json",
+        "sha256": "sha256:ba2cdd57bfd521ce9cf3d845cd7b5a1a876bb10d84dc7dc6d24c435beffc4fe4"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:cb614f4c68075544a0521e9a5cc393ba2761e5a47e714818c2fe31175e3dc4b6",
+      "fit_seed": "383002",
+      "fitted_identity_artifact": {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383002.fitted-instance.json",
+        "sha256": "sha256:22955c9b8cc70d83bb37ffa240277b3949323ae3f402855a89f179e0edd70a4b"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-temporal-expert-seed-383002@sha256:7f4caedb37631f4aab38fa7cc1156b9625a5e71825b31b05b1385e4790c5763b",
+      "model_family": "public-native-temporal-expert",
+      "model_id": "psr:model:public-native-lift-shared-temporal-gru-capacity-change@1.0.0~34d23123138f",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383002.predictions.jsonl",
+        "sha256": "sha256:2373889b26646731eafc88907fada38aaf2982d0cfb464b7cfb4f728fb854e89"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-2373889b2664@sha256:47c74c688dc10c4f39ac5050e1c947817350b98d0425f2112b21ef078b424a06"
+    },
+    {
+      "candidate_id": "public-native-temporal-expert:383003",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383003.evaluation-result.json",
+        "sha256": "sha256:bc8de2622e05f1a130cdec78f263c789e07d0125b38958d17d95ff7019f9e8aa"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:ea4519bc80bcb8b83b3a257937b6d95452e6e9cf901b62585c4326680b7dad1c",
+      "fit_seed": "383003",
+      "fitted_identity_artifact": {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383003.fitted-instance.json",
+        "sha256": "sha256:8b5306e462aedd7639a3fb696abf61f353be60f845068954aefacc31908ad554"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-temporal-expert-seed-383003@sha256:e77b5b66e868fcb9345717d913d5bd6bcc17237c0d27ae46bf9cf994b5e5d59f",
+      "model_family": "public-native-temporal-expert",
+      "model_id": "psr:model:public-native-lift-shared-temporal-gru-capacity-change@1.0.0~34d23123138f",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383003.predictions.jsonl",
+        "sha256": "sha256:472fe8e81648672af3d93e17caaabe433026ab0d1725e384c370eb35f6d45944"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-472fe8e81648@sha256:87be20d42ea5d3589e140c8a65620ab9f328de760a5b3b6596561139fe219c0e"
+    },
+    {
+      "candidate_id": "public-native-temporal-expert:ensemble",
+      "candidate_role": "ensemble",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/ensemble.evaluation-result.json",
+        "sha256": "sha256:03609a9897981331f8862e4fcc07739c79a769f23177006926196fca2946e69d"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:84ccca3c7c53322e1271d07e2578257f8dfcebe14517a1b736898aacc6e93778",
+      "fit_seed": "ensemble",
+      "fitted_identity_artifact": {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/ensemble-manifest.json",
+        "sha256": "sha256:9281eedeecafe893fbad32fc60a11e79527be345d60de7aaf371c2d4250d3413"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-temporal-expert-three-seed-ensemble@sha256:ff4e475ffeef1c03976c92c5868e75d0afd72672cb2848f0250e707dbd4c7fad",
+      "model_family": "public-native-temporal-expert",
+      "model_id": "psr:model:public-native-lift-shared-temporal-gru-capacity-change@1.0.0~34d23123138f",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/ensemble.predictions.jsonl",
+        "sha256": "sha256:f6fb260feac851845f584bcd96a290ec046234f78a7596221aba5453aecc006d"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-f6fb260feac8@sha256:41d24e7312ce08ab69018b5193c881a15ae577ec93f666e4e1385d8c86aa1c90"
+    },
+    {
+      "candidate_id": "ridge:383001",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-ridge/seed-383001.evaluation-result.json",
+        "sha256": "sha256:2171a69215d1630726c72f850c81ae96a5f2e6450402afaddd14e5adc66b90ca"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:91835821f22ef09f72b11d24dee2241b16828899324177f715b7cc0697db345a",
+      "fit_seed": "383001",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-ridge/seed-383001.fitted-instance.json",
+        "sha256": "sha256:e0e37f64f07399b58fca76c0aa7359b6f23f7c8dd3583af4d44448fcbcb2bc48"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-ridge-seed-383001@sha256:e0e37f64f07399b58fca76c0aa7359b6f23f7c8dd3583af4d44448fcbcb2bc48",
+      "model_family": "ridge",
+      "model_id": "psr:model:public-native-ridge@1.0.0~35f69cbae323",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-ridge/seed-383001.predictions.jsonl",
+        "sha256": "sha256:c243aaee0874303607b9ae5660fa3ccbf75ddf6a7a58721d962edf89c2dddcb3"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-c243aaee0874@sha256:93233ab6e760c75ac3cc13d1d0d1b8433525b303378ba8b4192bd49ad01260f6"
+    },
+    {
+      "candidate_id": "ridge:383002",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-ridge/seed-383002.evaluation-result.json",
+        "sha256": "sha256:8983357c9fa4d21f1e326571c4332e720176fa1b519770f718cd3ad5095a19da"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:88e89d1c6fb9009b3a1aba0c04cc5edcaa6a1688864090e5b273f4d9d938e6c5",
+      "fit_seed": "383002",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-ridge/seed-383002.fitted-instance.json",
+        "sha256": "sha256:e16220f0db2288cf344d82a061a006ffac08ac32a370f298dde02aabe197a755"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-ridge-seed-383002@sha256:e16220f0db2288cf344d82a061a006ffac08ac32a370f298dde02aabe197a755",
+      "model_family": "ridge",
+      "model_id": "psr:model:public-native-ridge@1.0.0~35f69cbae323",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-ridge/seed-383002.predictions.jsonl",
+        "sha256": "sha256:c243aaee0874303607b9ae5660fa3ccbf75ddf6a7a58721d962edf89c2dddcb3"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-c243aaee0874@sha256:93233ab6e760c75ac3cc13d1d0d1b8433525b303378ba8b4192bd49ad01260f6"
+    },
+    {
+      "candidate_id": "ridge:383003",
+      "candidate_role": "fit_seed",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-ridge/seed-383003.evaluation-result.json",
+        "sha256": "sha256:a6a8925085c6690feef5f92a41a30bb61e271b96ab94073a620f36dd3085552d"
+      },
+      "evaluation_result_id": "psr:evaluation-result@sha256:5abadc070081d5ae857ada8f8fbc57862a19b59a341028004beb68c22b291cf9",
+      "fit_seed": "383003",
+      "fitted_identity_artifact": {
+        "path": "models/fitted-instances/public-native-comparator-suite/public-native-ridge/seed-383003.fitted-instance.json",
+        "sha256": "sha256:86f71ea0d7c73098dd543a3b5674f6e7f3effcbecd2b93bb9e9c081e0f2bb6ae"
+      },
+      "fitted_instance_id": "psr:fitted-instance:public-native-ridge-seed-383003@sha256:86f71ea0d7c73098dd543a3b5674f6e7f3effcbecd2b93bb9e9c081e0f2bb6ae",
+      "model_family": "ridge",
+      "model_id": "psr:model:public-native-ridge@1.0.0~35f69cbae323",
+      "prediction_artifact": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-ridge/seed-383003.predictions.jsonl",
+        "sha256": "sha256:c243aaee0874303607b9ae5660fa3ccbf75ddf6a7a58721d962edf89c2dddcb3"
+      },
+      "prediction_artifact_identity": "psr:prediction-artifact:prediction-jsonl-c243aaee0874@sha256:93233ab6e760c75ac3cc13d1d0d1b8433525b303378ba8b4192bd49ad01260f6"
+    }
+  ],
+  "canonical_evaluation_sample_count": 3072,
+  "completed_entity_bootstrap_resamples": 0,
+  "cross_version_pair_count": 36,
+  "dataset_realization_id": "psr:dataset-realization:latent-capacity-transient-iid-production@sha256:2659bad8979e5a00829a50580c14bfbc90579c4520c46c8159dec8c34f1c8cad",
+  "dataset_spec_id": "psr:dataset-spec:latent-capacity-transient-iid-sampling-design@1.0.0~1d079eb645ed",
+  "evaluation_id": "psr:evaluation:iid-latent-capacity-change-four-metric-validation@1.0.0~cd4fe982e7b8",
+  "evaluation_result_ids": [
+    "psr:evaluation-result@sha256:1bff8487bcdaa0354e8aee82d3f8726e82f29b834e3ee761da84b538f4a8a861",
+    "psr:evaluation-result@sha256:32058c81404e87f25d81c8a407ec7e7e6411aae19dc69d26186254b40c1af2b4",
+    "psr:evaluation-result@sha256:39615cfdbe3e54cb2f0f69b567eee8f1bad49b12eb5d772753ba58553b3303f1",
+    "psr:evaluation-result@sha256:43a95972223bd9a67a3ecaba609218ea1b015b7ddac1aa2cbb65f40ce5c425d8",
+    "psr:evaluation-result@sha256:5abadc070081d5ae857ada8f8fbc57862a19b59a341028004beb68c22b291cf9",
+    "psr:evaluation-result@sha256:64ae5d10fe181da69d712b0a86d3beee5be66e05af084b8d1ef983dcf8985bad",
+    "psr:evaluation-result@sha256:653b408b7fbe89d771012e8217b57507e11630d8db573441a62c90a0d96b4969",
+    "psr:evaluation-result@sha256:839187d8f8e9e62d3b61b4a1cff71569314d280b629b26b6b260679b25409d6c",
+    "psr:evaluation-result@sha256:84ccca3c7c53322e1271d07e2578257f8dfcebe14517a1b736898aacc6e93778",
+    "psr:evaluation-result@sha256:85c9bb4a86f2cfeaad71497457db12f6f012d32f065186b5e4b10e4d9c3a4fac",
+    "psr:evaluation-result@sha256:88e89d1c6fb9009b3a1aba0c04cc5edcaa6a1688864090e5b273f4d9d938e6c5",
+    "psr:evaluation-result@sha256:91835821f22ef09f72b11d24dee2241b16828899324177f715b7cc0697db345a",
+    "psr:evaluation-result@sha256:a5c34ec217f484305222a621a8766d5366d13fd67c82e0db27a2ee7def200eb4",
+    "psr:evaluation-result@sha256:bd8bc4865d7843cfdd58c28183c5afba2c364d20b0ead5287efbfbfeeb9f0618",
+    "psr:evaluation-result@sha256:c249b8f54d42b01ee5953a84994d8baf1d473ae4e3dcf0326cbe79db7369508c",
+    "psr:evaluation-result@sha256:cb614f4c68075544a0521e9a5cc393ba2761e5a47e714818c2fe31175e3dc4b6",
+    "psr:evaluation-result@sha256:d6acae8acf6281957585a4299d7387c33cbda7c16ffbf2a7894af697d22b2d4e",
+    "psr:evaluation-result@sha256:d6dd605fcbff268e94a89862dd90f2ee3b6b60dff9ea059d78408b996a14c369",
+    "psr:evaluation-result@sha256:e13a7a9ad5e65fbdd0318459407e806d9869a079ada5ec0e20be25eefcb92bf8",
+    "psr:evaluation-result@sha256:e4cc4e1beded8ac0ad6083d39a3abe0412b96f0e1ef94f75866eab1068a6a3c6",
+    "psr:evaluation-result@sha256:ea4519bc80bcb8b83b3a257937b6d95452e6e9cf901b62585c4326680b7dad1c",
+    "psr:evaluation-result@sha256:eb54fa2513c765733fbf4b1a3fb8e387f8c914229f956adedf725b11f6cb7fb9"
+  ],
+  "fitted_instance_ids": [
+    "psr:fitted-instance:public-native-compact-neural-seed-383001@sha256:f83064fa9580fd8ac5103c8ddbb865b68d62adc0e106c226c8c555c16e4ef256",
+    "psr:fitted-instance:public-native-compact-neural-seed-383002@sha256:bf62012aaa82eb7a9bfd581969d97ecaa8072736ea39ac4fe230145561964442",
+    "psr:fitted-instance:public-native-compact-neural-seed-383003@sha256:b84e4b2d1d64c8701968f0db1a2f1a45cabe960619aa641c7811367633dd4401",
+    "psr:fitted-instance:public-native-context-mean-seed-383001@sha256:61b8453c508e93a84fa9ee4f188b475d853ce6fd19627e8c826706fb9f38ec63",
+    "psr:fitted-instance:public-native-context-mean-seed-383002@sha256:a1fb9089447382135cf7365a44eaa554d291aac43059de7f45420d0941d58dba",
+    "psr:fitted-instance:public-native-context-mean-seed-383003@sha256:5845dd0a73a43880664bc253bf1406bcb5cb3ec84a93cc66e33b9b36295187c1",
+    "psr:fitted-instance:public-native-histogram-boosted-stumps-seed-383001@sha256:2ac65f5ac5bf01af1f9ed9979f544efc8a4a2f15ea0dfc5f6832e327cdf2a377",
+    "psr:fitted-instance:public-native-histogram-boosted-stumps-seed-383002@sha256:b2891fa36ca460f15994084b86fac59101ff83ae572b73d0e2093d6eb9ddeb75",
+    "psr:fitted-instance:public-native-histogram-boosted-stumps-seed-383003@sha256:ebc78ff2a18236d8e38e9a84684699d02c9f7651b15bc40756968f786d49c1f6",
+    "psr:fitted-instance:public-native-mechanistic-midpoint-seed-383001@sha256:b0dd9239f24b02cc8e3a93d591f0ce1edc70e391beec1c1b9964023254ac8390",
+    "psr:fitted-instance:public-native-mechanistic-midpoint-seed-383002@sha256:27297eaa4df87e889b6514bc5b6abc0b6d65d1b7dbcc2d606034a86e9a7ecfb3",
+    "psr:fitted-instance:public-native-mechanistic-midpoint-seed-383003@sha256:6b7ec1326780ab1f688b570fc7cb5e5357be50cb582ef46954fc401647abc5ac",
+    "psr:fitted-instance:public-native-mechanistic-ridge-residual-seed-383001@sha256:db416b1d9d643f91ed2da0223730c63922e90aaf52dc26cee1cfaa579de93e7b",
+    "psr:fitted-instance:public-native-mechanistic-ridge-residual-seed-383002@sha256:6bb30296ce93dd2f47fd7199a730ba5782e2e70b51d8b3fde5aecd3572364185",
+    "psr:fitted-instance:public-native-mechanistic-ridge-residual-seed-383003@sha256:8d92b5a0bcc75f5476fe9bd51ebb8a6d789ddb403bb6bf0f7eb9b41cc4ffadb8",
+    "psr:fitted-instance:public-native-ridge-seed-383001@sha256:e0e37f64f07399b58fca76c0aa7359b6f23f7c8dd3583af4d44448fcbcb2bc48",
+    "psr:fitted-instance:public-native-ridge-seed-383002@sha256:e16220f0db2288cf344d82a061a006ffac08ac32a370f298dde02aabe197a755",
+    "psr:fitted-instance:public-native-ridge-seed-383003@sha256:86f71ea0d7c73098dd543a3b5674f6e7f3effcbecd2b93bb9e9c081e0f2bb6ae",
+    "psr:fitted-instance:public-native-temporal-expert-seed-383001@sha256:8097eb52fabd88d36992b2af5e363baab3b5e2333d5701798430b20882ce31b9",
+    "psr:fitted-instance:public-native-temporal-expert-seed-383002@sha256:7f4caedb37631f4aab38fa7cc1156b9625a5e71825b31b05b1385e4790c5763b",
+    "psr:fitted-instance:public-native-temporal-expert-seed-383003@sha256:e77b5b66e868fcb9345717d913d5bd6bcc17237c0d27ae46bf9cf994b5e5d59f",
+    "psr:fitted-instance:public-native-temporal-expert-three-seed-ensemble@sha256:ff4e475ffeef1c03976c92c5868e75d0afd72672cb2848f0250e707dbd4c7fad"
+  ],
+  "format": "PSR_RES283_ANALYSIS_RUN_V1",
+  "input_artifacts": [
+    {
+      "path": "artifacts/registries/benchmark-registry.json",
+      "sha256": "sha256:e6b44c4067e06297d5122d2dc80a59f5347d662c0074274b3a84cff9502c334d"
+    },
+    {
+      "path": "artifacts/registries/public-native-comparator-registry.json",
+      "sha256": "sha256:547aaec617f984f6bf0a76406396b4bcbcc03a13ad7e27922e2ac6e5dd8b1454"
+    },
+    {
+      "path": "artifacts/registries/version-validity-profiles.json",
+      "sha256": "sha256:d17168e63f837777ebcd89b880c31930ad356ac010287213a6b5c72e79c39904"
+    },
+    {
+      "path": "artifacts/training-protocols/public-native-comparator-suite.json",
+      "sha256": "sha256:7479b946bfc862f66177f5c5bdf6b320e10b0dd24a9f66fa498d50a1cf8e36cb"
+    },
+    {
+      "path": "artifacts/training-protocols/public-native-temporal-expert.json",
+      "sha256": "sha256:02d242f7e49df3082920b7f11772562f82cd1aad35f34b7016958d3775139c42"
+    },
+    {
+      "path": "data/manifests/realizations/latent_capacity_change_with_transient_expression_forecasting/iid-production.json",
+      "sha256": "sha256:7247673db768630a0a0df9e35449a4735161d826f0bde33d355882fa5cc3ef11"
+    },
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/ensemble-manifest.json",
+      "sha256": "sha256:9281eedeecafe893fbad32fc60a11e79527be345d60de7aaf371c2d4250d3413"
+    },
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383001.fitted-instance.json",
+      "sha256": "sha256:6da523c6bb608bac653b44b4ab6343afb55dca46f766d913fadb6e3386960c87"
+    },
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383002.fitted-instance.json",
+      "sha256": "sha256:22955c9b8cc70d83bb37ffa240277b3949323ae3f402855a89f179e0edd70a4b"
+    },
+    {
+      "path": "models/checkpoint-manifests/public-native-temporal-expert/seed-383003.fitted-instance.json",
+      "sha256": "sha256:8b5306e462aedd7639a3fb696abf61f353be60f845068954aefacc31908ad554"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-compact-neural/seed-383001.fitted-instance.json",
+      "sha256": "sha256:f83064fa9580fd8ac5103c8ddbb865b68d62adc0e106c226c8c555c16e4ef256"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-compact-neural/seed-383002.fitted-instance.json",
+      "sha256": "sha256:bf62012aaa82eb7a9bfd581969d97ecaa8072736ea39ac4fe230145561964442"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-compact-neural/seed-383003.fitted-instance.json",
+      "sha256": "sha256:b84e4b2d1d64c8701968f0db1a2f1a45cabe960619aa641c7811367633dd4401"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-context-mean/seed-383001.fitted-instance.json",
+      "sha256": "sha256:61b8453c508e93a84fa9ee4f188b475d853ce6fd19627e8c826706fb9f38ec63"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-context-mean/seed-383002.fitted-instance.json",
+      "sha256": "sha256:a1fb9089447382135cf7365a44eaa554d291aac43059de7f45420d0941d58dba"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-context-mean/seed-383003.fitted-instance.json",
+      "sha256": "sha256:5845dd0a73a43880664bc253bf1406bcb5cb3ec84a93cc66e33b9b36295187c1"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383001.fitted-instance.json",
+      "sha256": "sha256:2ac65f5ac5bf01af1f9ed9979f544efc8a4a2f15ea0dfc5f6832e327cdf2a377"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383002.fitted-instance.json",
+      "sha256": "sha256:b2891fa36ca460f15994084b86fac59101ff83ae572b73d0e2093d6eb9ddeb75"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383003.fitted-instance.json",
+      "sha256": "sha256:ebc78ff2a18236d8e38e9a84684699d02c9f7651b15bc40756968f786d49c1f6"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383001.fitted-instance.json",
+      "sha256": "sha256:b0dd9239f24b02cc8e3a93d591f0ce1edc70e391beec1c1b9964023254ac8390"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383002.fitted-instance.json",
+      "sha256": "sha256:27297eaa4df87e889b6514bc5b6abc0b6d65d1b7dbcc2d606034a86e9a7ecfb3"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383003.fitted-instance.json",
+      "sha256": "sha256:6b7ec1326780ab1f688b570fc7cb5e5357be50cb582ef46954fc401647abc5ac"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383001.fitted-instance.json",
+      "sha256": "sha256:db416b1d9d643f91ed2da0223730c63922e90aaf52dc26cee1cfaa579de93e7b"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383002.fitted-instance.json",
+      "sha256": "sha256:6bb30296ce93dd2f47fd7199a730ba5782e2e70b51d8b3fde5aecd3572364185"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383003.fitted-instance.json",
+      "sha256": "sha256:8d92b5a0bcc75f5476fe9bd51ebb8a6d789ddb403bb6bf0f7eb9b41cc4ffadb8"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-ridge/seed-383001.fitted-instance.json",
+      "sha256": "sha256:e0e37f64f07399b58fca76c0aa7359b6f23f7c8dd3583af4d44448fcbcb2bc48"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-ridge/seed-383002.fitted-instance.json",
+      "sha256": "sha256:e16220f0db2288cf344d82a061a006ffac08ac32a370f298dde02aabe197a755"
+    },
+    {
+      "path": "models/fitted-instances/public-native-comparator-suite/public-native-ridge/seed-383003.fitted-instance.json",
+      "sha256": "sha256:86f71ea0d7c73098dd543a3b5674f6e7f3effcbecd2b93bb9e9c081e0f2bb6ae"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "sha256:ae816ab27568aa62ac035592aa886f982b99ffc6da8809a36445255ad1cd9bcc"
+    },
+    {
+      "path": "results/audits/res281-analysis/analysis-results.manifest.json",
+      "sha256": "sha256:5be2cada31581a05604458dd9bc46c8ce0dffac46fcc1613e6d848057ee5fa19"
+    },
+    {
+      "path": "results/audits/res281-analysis/attack-by-version.csv",
+      "sha256": "sha256:a6480a5985c4b170bd2ee226bd3be4f509b497754f5d2736c8579456ca571e15"
+    },
+    {
+      "path": "results/audits/res281-analysis/cross-version-comparability.csv",
+      "sha256": "sha256:ecfd74ef0cab6c71e881bd5339420de812160cad2ff73ffb1575f4989ffda679"
+    },
+    {
+      "path": "results/audits/res281-analysis/res281-validity-analysis.md",
+      "sha256": "sha256:f8b19a002436c7ee7edb56a6210a09518e45719bc9a6d60087283aa1cd9f9931"
+    },
+    {
+      "path": "results/audits/res281-analysis/unsupported-evidence.json",
+      "sha256": "sha256:b0e15e8f98dea1ef1cc22738f78dcf89615b9ea030066519679f8ab789445e47"
+    },
+    {
+      "path": "results/audits/res281/audit-results.json",
+      "sha256": "sha256:0bbe5d58be59c8ba76fae1a9d6e4a116629b5c88fbdbfb32def6c4b9872bb597"
+    },
+    {
+      "path": "results/audits/res281/audit-results.manifest.json",
+      "sha256": "sha256:9463ed175d593ae3e4d9fca0f0466d02bd76ebba0065d1e9062fc5411a2200d5"
+    },
+    {
+      "path": "results/audits/res283-analysis/analysis-config.json",
+      "sha256": "sha256:8abb9471d445ab480995dd3dc86b763635ba523b7904c0326ca1037c7a21fe12"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/internal-selection-split.json",
+      "sha256": "sha256:62f68cdb65a342af9dba9c821f3e225d2cd7afe732dd819ad61c86e93e2b0d9c"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-compact-neural/seed-383001.evaluation-result.json",
+      "sha256": "sha256:b084132f54c6e52898900804ed7e49dbf4ad8217ba6736e77909c8a8611f2e99"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-compact-neural/seed-383001.predictions.jsonl",
+      "sha256": "sha256:7ca5b58f251f0d176353b0b8dc25d763b6ed8787ee6a22cd0012dd0b5568af56"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-compact-neural/seed-383002.evaluation-result.json",
+      "sha256": "sha256:1cf1d50f525c065f968a0b6c562587d83a5af18b9bb751ac70fdae03385f41f3"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-compact-neural/seed-383002.predictions.jsonl",
+      "sha256": "sha256:d7e37679920fbe96c7412c2080a5cc24296d3ca01ac28e592ff1ee716cda176e"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-compact-neural/seed-383003.evaluation-result.json",
+      "sha256": "sha256:9d90fdb3ead91e2fe128d5a03e996612b7200f2cf102563e9398c222920097e6"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-compact-neural/seed-383003.predictions.jsonl",
+      "sha256": "sha256:515da002595a3a13bd179bf31c7f8db833a5bae00b2c32f35c3002b80623fae0"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-context-mean/seed-383001.evaluation-result.json",
+      "sha256": "sha256:1e2f54d5f9418f77dfe4e974c8e9be48f6a4f50dce6a07cb6e1cde4145e6da4e"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-context-mean/seed-383001.predictions.jsonl",
+      "sha256": "sha256:aab4aaf852f446528bd7c760f8921a1897c72d11ea5f35ebba9b207bd573dbc4"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-context-mean/seed-383002.evaluation-result.json",
+      "sha256": "sha256:7afac489e185773a4c7c0b8f8e5795af2317a8b5dfe1a955c3af761a74acedee"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-context-mean/seed-383002.predictions.jsonl",
+      "sha256": "sha256:aab4aaf852f446528bd7c760f8921a1897c72d11ea5f35ebba9b207bd573dbc4"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-context-mean/seed-383003.evaluation-result.json",
+      "sha256": "sha256:9fa9f122333fb635f3f508cd156244c4f813681ff16d1824a464c2fc718bcaaf"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-context-mean/seed-383003.predictions.jsonl",
+      "sha256": "sha256:aab4aaf852f446528bd7c760f8921a1897c72d11ea5f35ebba9b207bd573dbc4"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383001.evaluation-result.json",
+      "sha256": "sha256:814be273d6992052a86f2ee155b7b0caaa9db8ad6493afdb89ab4c66fc4a27a6"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383001.predictions.jsonl",
+      "sha256": "sha256:9828ff75ec9e4ae18488abd3c828dcef57afda07c504cb88896088df6c9323b5"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383002.evaluation-result.json",
+      "sha256": "sha256:6f6fe7d52574927aec780e89187a1e135aa1cce765284954302d65ddbef1f20d"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383002.predictions.jsonl",
+      "sha256": "sha256:9828ff75ec9e4ae18488abd3c828dcef57afda07c504cb88896088df6c9323b5"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383003.evaluation-result.json",
+      "sha256": "sha256:2c84d96ef9525e1dd290a7e2a1a7f08b7a99766c8793d1f661074550b34c0d66"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-histogram-boosted-stumps/seed-383003.predictions.jsonl",
+      "sha256": "sha256:9828ff75ec9e4ae18488abd3c828dcef57afda07c504cb88896088df6c9323b5"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383001.evaluation-result.json",
+      "sha256": "sha256:5087070f4eee5b6c808ad99d16f05aedc81e28e5835cb2f4ff9c87dd33340f41"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383001.predictions.jsonl",
+      "sha256": "sha256:bad41b609c8f7dccd235898c07c239a3b30e2ae279373284a762fd68a4017ab9"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383002.evaluation-result.json",
+      "sha256": "sha256:3941daeb60a61fbf055b6607aa58e211baa1c2325de81c9294717e0b8226cbaa"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383002.predictions.jsonl",
+      "sha256": "sha256:bad41b609c8f7dccd235898c07c239a3b30e2ae279373284a762fd68a4017ab9"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383003.evaluation-result.json",
+      "sha256": "sha256:86b994541527893a41620b738bfd28a54c8b947ac59c5f7c840f31efbf5885f7"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-midpoint/seed-383003.predictions.jsonl",
+      "sha256": "sha256:bad41b609c8f7dccd235898c07c239a3b30e2ae279373284a762fd68a4017ab9"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383001.evaluation-result.json",
+      "sha256": "sha256:287cd8f00a64a102913ba76baa2f60e15ad13b124c0518a6458ca0194416fbc8"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383001.predictions.jsonl",
+      "sha256": "sha256:b889191ea30b5a9aee89913650699e48e11e580ab85997cc6b3484e6e755404c"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383002.evaluation-result.json",
+      "sha256": "sha256:9a97afa01d1fbd5d19f12dd488097d45cc2b7f234c4b3b67dd93a4ee44379347"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383002.predictions.jsonl",
+      "sha256": "sha256:b889191ea30b5a9aee89913650699e48e11e580ab85997cc6b3484e6e755404c"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383003.evaluation-result.json",
+      "sha256": "sha256:ce707447ca6ffad9c85edebaec5850a19355676e50cd04f5bc2aec7970249462"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-mechanistic-ridge-residual/seed-383003.predictions.jsonl",
+      "sha256": "sha256:b889191ea30b5a9aee89913650699e48e11e580ab85997cc6b3484e6e755404c"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-ridge/seed-383001.evaluation-result.json",
+      "sha256": "sha256:2171a69215d1630726c72f850c81ae96a5f2e6450402afaddd14e5adc66b90ca"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-ridge/seed-383001.predictions.jsonl",
+      "sha256": "sha256:c243aaee0874303607b9ae5660fa3ccbf75ddf6a7a58721d962edf89c2dddcb3"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-ridge/seed-383002.evaluation-result.json",
+      "sha256": "sha256:8983357c9fa4d21f1e326571c4332e720176fa1b519770f718cd3ad5095a19da"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-ridge/seed-383002.predictions.jsonl",
+      "sha256": "sha256:c243aaee0874303607b9ae5660fa3ccbf75ddf6a7a58721d962edf89c2dddcb3"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-ridge/seed-383003.evaluation-result.json",
+      "sha256": "sha256:a6a8925085c6690feef5f92a41a30bb61e271b96ab94073a620f36dd3085552d"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/public-native-ridge/seed-383003.predictions.jsonl",
+      "sha256": "sha256:c243aaee0874303607b9ae5660fa3ccbf75ddf6a7a58721d962edf89c2dddcb3"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/training-seal.json",
+      "sha256": "sha256:e54baf2c122535e998f2c42934974fa62f381928a4461dfa9f34b1654abe0f03"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/ensemble.evaluation-result.json",
+      "sha256": "sha256:03609a9897981331f8862e4fcc07739c79a769f23177006926196fca2946e69d"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/ensemble.predictions.jsonl",
+      "sha256": "sha256:f6fb260feac851845f584bcd96a290ec046234f78a7596221aba5453aecc006d"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383001.evaluation-result.json",
+      "sha256": "sha256:50d9377522cc05795eccb9572fe58ed4363f60535789d13a78399830d6cb292d"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383001.predictions.jsonl",
+      "sha256": "sha256:eb1bf322ba1783d0c70f59d13016421736fd6447c2f6827079f713d31332f50c"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383002.evaluation-result.json",
+      "sha256": "sha256:ba2cdd57bfd521ce9cf3d845cd7b5a1a876bb10d84dc7dc6d24c435beffc4fe4"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383002.predictions.jsonl",
+      "sha256": "sha256:2373889b26646731eafc88907fada38aaf2982d0cfb464b7cfb4f728fb854e89"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383003.evaluation-result.json",
+      "sha256": "sha256:bc8de2622e05f1a130cdec78f263c789e07d0125b38958d17d95ff7019f9e8aa"
+    },
+    {
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383003.predictions.jsonl",
+      "sha256": "sha256:472fe8e81648672af3d93e17caaabe433026ab0d1725e384c370eb35f6d45944"
+    },
+    {
+      "path": "results/manifests/public-native-comparator-suite-checksums.json",
+      "sha256": "sha256:76d4cf0592ae350a89a03343152cb02d47d857e40d685b0638ec888b5dbe0420"
+    },
+    {
+      "path": "results/manifests/public-native-comparator-suite.json",
+      "sha256": "sha256:055fef64afb53f996a142064a306093080284aed02dfc92594e239f08e4655bd"
+    },
+    {
+      "path": "results/manifests/public-native-temporal-expert-checksums.json",
+      "sha256": "sha256:cc41a1bddfd1060d817f85f37638b26ca6374904fe5341494cdbfdc2802c862e"
+    },
+    {
+      "path": "results/manifests/public-native-temporal-expert-source-inventory.json",
+      "sha256": "sha256:416a7cfb2f0a7bef3a6865a3649f49859f1108db1f98aafc09529f447855e616"
+    },
+    {
+      "path": "results/manifests/public-native-temporal-expert-verification-receipt.json",
+      "sha256": "sha256:fd11790ea0f4b461f38d6cb96f6fb925ec9917128b53a54e0a6f053197771273"
+    },
+    {
+      "path": "results/manifests/public-native-temporal-expert.json",
+      "sha256": "sha256:ff939961f54a431563de90de7d47e1a8f63ae90778eb176793b18bac7edbf168"
+    },
+    {
+      "path": "results/tables/public-native-comparator-frontier.csv",
+      "sha256": "sha256:e42208f54525d7bcff94ec396d2413dd174fe89e9ebcd4b7039b0114852cbce8"
+    },
+    {
+      "path": "src/powerlifting_state_research/artifacts/hashes.py",
+      "sha256": "sha256:2da5056e5163b13edb7d63129a50b4fd3a34bac0bb4802eaa97a2ec7195cc899"
+    },
+    {
+      "path": "src/powerlifting_state_research/audits/res283_analysis.py",
+      "sha256": "sha256:4eb9b80fddf0f7f6e47192ae531ec7286cfa4d1a4172f83741d4386a3af93fd0"
+    },
+    {
+      "path": "src/powerlifting_state_research/audits/runner.py",
+      "sha256": "sha256:fbc7fe6031232d0db1d8e73a5774d2c82bc707ba176cb6b9c4681c1ac3f00ce1"
+    },
+    {
+      "path": "src/powerlifting_state_research/contracts/comparability.py",
+      "sha256": "sha256:8fccaa61dd7c1437bb2817c4152dd4df435cbef526bef24e1a37aa7552a5698d"
+    },
+    {
+      "path": "src/powerlifting_state_research/contracts/serialization.py",
+      "sha256": "sha256:11599efed9d21c4d186c3bbfb2ec3edea38bc5ac18da871423e79093872515a1"
+    },
+    {
+      "path": "src/powerlifting_state_research/evaluation/metrics.py",
+      "sha256": "sha256:b764c7fa8bbe25237cb78f17eca45e917a6a795c757e1ebe59de21efff1d9715"
+    },
+    {
+      "path": "uv.lock",
+      "sha256": "sha256:881af5d6eae98150eefa8ee5ad3293e61b4c837e03fd548291790c4f7f3a99b9"
+    }
+  ],
+  "metric_ids": [
+    "psr:metric:rmse@1.0.0~0a9b0918a7aa",
+    "psr:metric:mae@1.0.0~7319598a8a18",
+    "psr:metric:r-squared@1.0.0~00bad728358d",
+    "psr:metric:sre-population-sd-ddof-0@1.0.0~f3341587fd14"
+  ],
+  "model_selection_split_id": "psr:internal-selection-split:public-native-temporal-expert@sha256:9cccd9014e03d9f497f41dd91686307f2315ec19fe8c9b43bab908ac3e8f0b25",
+  "planned_entity_bootstrap_resamples": 2000,
+  "prediction_artifact_identities": [
+    "psr:prediction-artifact:prediction-jsonl-2373889b2664@sha256:47c74c688dc10c4f39ac5050e1c947817350b98d0425f2112b21ef078b424a06",
+    "psr:prediction-artifact:prediction-jsonl-472fe8e81648@sha256:87be20d42ea5d3589e140c8a65620ab9f328de760a5b3b6596561139fe219c0e",
+    "psr:prediction-artifact:prediction-jsonl-515da002595a@sha256:da2637f962f3d842e84a1c18fc54768cca11261360638d01f404d9e36d723909",
+    "psr:prediction-artifact:prediction-jsonl-7ca5b58f251f@sha256:20964c19c43ab3d88b2e607bd8e9a9529b141dd26c591a6f513730bf3415a75c",
+    "psr:prediction-artifact:prediction-jsonl-9828ff75ec9e@sha256:ede2355586a256bb282bf7d47dc238c608f7993894b55b8a420550adb4c02806",
+    "psr:prediction-artifact:prediction-jsonl-aab4aaf852f4@sha256:2ebd09c90016b93ca4494966ee1dea5e439f813c12de9312d1d03e4b863778a2",
+    "psr:prediction-artifact:prediction-jsonl-b889191ea30b@sha256:3c448d39ba399e2ca20707240fe1f83903685496cd12d5d5892316925988d417",
+    "psr:prediction-artifact:prediction-jsonl-bad41b609c8f@sha256:40d7658d90a8c27a72985f7f64455dbfc85a33c15967673f6de6b6f84988cfef",
+    "psr:prediction-artifact:prediction-jsonl-c243aaee0874@sha256:93233ab6e760c75ac3cc13d1d0d1b8433525b303378ba8b4192bd49ad01260f6",
+    "psr:prediction-artifact:prediction-jsonl-d7e37679920f@sha256:d8953f4278dc86952d4ac68c87d2b005ac782fb8ec61be887c35af9ffa852d28",
+    "psr:prediction-artifact:prediction-jsonl-eb1bf322ba17@sha256:cac5014e1515786ea9e55d04d8aaf393743f48d2e8ba1a2738ccb25f5dde6d38",
+    "psr:prediction-artifact:prediction-jsonl-f6fb260feac8@sha256:41d24e7312ce08ab69018b5193c881a15ae577ec93f666e4e1385d8c86aa1c90"
+  ],
+  "prediction_row_key_count": 3072,
+  "qoi_ids": [
+    "psr:qoi:latent-capacity-change@1.0.0~675491124046"
+  ],
+  "res281_public_native_baseline_domination_result_identity": "psr:audit-result:iid_latent_capacity_change_with_transient_expression_forecasting-baseline_domination@1.0.0~b98e2eb0b9d3",
+  "res281_public_native_baseline_domination_status": "INCONCLUSIVE",
+  "res281_public_native_model_ranking_result_identity": "psr:audit-result:iid_latent_capacity_change_with_transient_expression_forecasting-model_ranking_instability@1.0.0~1fc848142265",
+  "res281_public_native_model_ranking_status": "INCONCLUSIVE",
+  "row_to_entity_mapping_available": false,
+  "run_id": "res283-ranking-313e781f2a74",
+  "source_commit": "2a054dde5042293b2cb096a528442c9f25f28ae4",
+  "source_model_ids": [
+    "psr:model:public-native-compact-neural@1.0.0~e0317f3b36a1",
+    "psr:model:public-native-context-mean@1.0.0~0b76d1c62dae",
+    "psr:model:public-native-histogram-boosted-stumps@1.0.0~dbec1ea66506",
+    "psr:model:public-native-lift-shared-temporal-gru-capacity-change@1.0.0~34d23123138f",
+    "psr:model:public-native-mechanistic-midpoint@1.0.0~9b52973798f4",
+    "psr:model:public-native-mechanistic-ridge-residual@1.0.0~e153e20558e2",
+    "psr:model:public-native-ridge@1.0.0~35f69cbae323"
+  ],
+  "target_count": 3,
+  "task_id": "psr:task:latent-capacity-change@1.0.0~44fc77353e7a",
+  "validation_split_id": "validation",
+  "validation_target_truth_available": false
+}

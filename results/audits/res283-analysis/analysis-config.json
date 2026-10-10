@@ -1,0 +1,99 @@
+{
+  "format": "PSR_RES283_ANALYSIS_CONFIG_V1",
+  "analysis_id": "res283-public-native-model-ranking-stability-v1",
+  "source_commit": "2a054dde5042293b2cb096a528442c9f25f28ae4",
+  "source_artifacts": [
+    "src/powerlifting_state_research/audits/res283_analysis.py",
+    "src/powerlifting_state_research/artifacts/hashes.py",
+    "src/powerlifting_state_research/contracts/comparability.py",
+    "src/powerlifting_state_research/contracts/serialization.py",
+    "src/powerlifting_state_research/evaluation/metrics.py",
+    "src/powerlifting_state_research/audits/runner.py",
+    "pyproject.toml",
+    "uv.lock",
+    "artifacts/registries/benchmark-registry.json",
+    "artifacts/registries/public-native-comparator-registry.json",
+    "artifacts/training-protocols/public-native-comparator-suite.json",
+    "artifacts/training-protocols/public-native-temporal-expert.json",
+    "artifacts/registries/version-validity-profiles.json",
+    "results/audits/res281/audit-results.json",
+    "results/audits/res281/audit-results.manifest.json",
+    "results/audits/res281-analysis/attack-by-version.csv",
+    "results/audits/res281-analysis/analysis-results.manifest.json",
+    "results/audits/res281-analysis/cross-version-comparability.csv",
+    "results/audits/res281-analysis/res281-validity-analysis.md",
+    "results/audits/res281-analysis/unsupported-evidence.json",
+    "results/manifests/public-native-comparator-suite.json",
+    "results/manifests/public-native-comparator-suite-checksums.json",
+    "results/manifests/public-native-temporal-expert.json",
+    "results/manifests/public-native-temporal-expert-checksums.json",
+    "results/manifests/public-native-temporal-expert-source-inventory.json",
+    "results/manifests/public-native-temporal-expert-verification-receipt.json",
+    "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/training-seal.json",
+    "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/internal-selection-split.json",
+    "results/tables/public-native-comparator-frontier.csv",
+    "data/manifests/realizations/latent_capacity_change_with_transient_expression_forecasting/iid-production.json"
+  ],
+  "comparison_policy": {
+    "within_version": "ADMISSIBLE only when model and target results share benchmark, DatasetRealization, evaluation identity, target QOI, prediction semantics, and exactly aligned prediction row keys",
+    "cross_version": "Copy all 36 RES-281 decisions without relaxation; no cross-version scores or rankings are calculated",
+    "missing_historical_model_evaluations": "UNSUPPORTED_BY_EVIDENCE; never impute from public-native IID results",
+    "iid_vs_scrambled_sobol": "REJECTED_FOR_NUMERICAL_COMPARISON"
+  },
+  "candidate_policy": {
+    "unit": "fitted instance per target result",
+    "temporal_expert": "Keep each of three fit seeds separate and keep the ensemble as a separate candidate",
+    "other_families": "Keep each of three saved fitted instances separate; do not average family metrics",
+    "seed_design": {
+      "stochastic_fit_families": ["public-native-temporal-expert", "compact_neural"],
+      "deterministic_fit_families": [
+        "mechanistic_midpoint",
+        "mechanistic_ridge_residual",
+        "context_mean",
+        "ridge",
+        "histogram_boosted_stumps"
+      ],
+      "verification": "Check protocol-declared seed labels and exact prediction content hashes; deterministic duplicates have no independent fit-seed replication"
+    },
+    "families": [
+      "public-native-temporal-expert",
+      "compact_neural",
+      "mechanistic_midpoint",
+      "mechanistic_ridge_residual",
+      "context_mean",
+      "ridge",
+      "histogram_boosted_stumps"
+    ],
+    "fit_seed_stability": "Rank each fit seed within its matched same-seed panel of seven model families, following the RES-281 per-seed family-panel diagnostic; exclude the separately reported ensemble. Report seed-wise ranks, rank range, distinct ranks, pairwise order reversals, and prediction identity count. Deterministic seed labels are not independent training replications."
+  },
+  "metrics": [
+    {"name": "RMSE", "direction": "lower_is_better"},
+    {"name": "MAE", "direction": "lower_is_better"},
+    {"name": "R²", "direction": "higher_is_better"},
+    {"name": "SRE(ddof=0)", "direction": "lower_is_better"}
+  ],
+  "ranking": {
+    "rank_one_is_best": true,
+    "ties": "Exact numeric equality receives average ranks; no tolerance or post-hoc tie threshold",
+    "pairwise_reversal": "Compare pairwise order across metric rankings; ties are counted separately and are not reversals",
+    "pareto": "RMSE and MAE minimize; R² and SRE maximize; dominance requires no worse on all four and strictly better on at least one"
+  },
+  "paired_uncertainty": {
+    "method": "Entity-cluster bootstrap planned for the frozen IID validation population",
+    "eligibility": "Run only when canonical target truth rows and row-to-entity mapping are present in tracked public evidence; prediction row IDs alone do not qualify",
+    "resamples": 2000,
+    "seed": 283001,
+    "unit": "inputs.entity_id; retain every row and all target/model predictions for each sampled entity",
+    "interval": "Percentile 95% average-rank interval and frequency attaining the best score; exact ties count jointly; planned only when evidence is available",
+    "decision_threshold": null,
+    "status_without_practical_threshold": "INCONCLUSIVE",
+    "missing_evidence_policy": "If tracked validation truth or row-to-entity mapping is absent, do not regenerate the dataset; mark UNSUPPORTED_BY_EVIDENCE and inference INCONCLUSIVE"
+  },
+  "prohibitions": [
+    "No training, checkpoint mutation, or prediction regeneration",
+    "No historical fitted-model panel, ranking, correlation, or stability coefficient",
+    "No universal scalar ranking",
+    "No inference that benchmark chronology demonstrates model-ranking improvement",
+    "No private historical datasets, checkpoints, or outputs"
+  ]
+}

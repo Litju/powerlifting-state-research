@@ -75,6 +75,7 @@ select = ["E", "F", "I", "UP", "B"]
 "src/powerlifting_state_research/audits/profiles.py" = ["E501"]
 # Result reasons and claim boundaries intentionally keep complete sentences together.
 "src/powerlifting_state_research/audits/runner.py" = ["E501"]
+"src/powerlifting_state_research/audits/res283_analysis.py" = ["E501"]
 
 [tool.mypy]
 python_version = "3.12"

@@ -140,6 +140,7 @@ src/powerlifting_state_research/artifacts/hashes.py,NEWLY_AUTHORED,MIT,artifacts
 src/powerlifting_state_research/artifacts/manifests.py,NEWLY_AUTHORED,MIT,artifacts,Artifact-manifest and export helpers.
 src/powerlifting_state_research/audits/__init__.py,NEWLY_AUTHORED,MIT,audits,Public typed exports for validity axes; attack contracts; results; and profiles.
 src/powerlifting_state_research/audits/profiles.py,NEWLY_AUTHORED,MIT,audits,Version-scoped evidence states using existing public-safe artifacts and explicit historical gaps.
+src/powerlifting_state_research/audits/res283_analysis.py,NEWLY_AUTHORED,MIT,audits,Deterministic identity-checked RES-283 ranking analysis and artifact writer; no model fitting or prediction generation.
 src/powerlifting_state_research/audits/runner.py,NEWLY_AUTHORED,MIT,audits,Deterministic RES-278/RES-281 evidence reconciliation, native M4 diagnostics, metadata-only historical provenance audits, and execution records.
 src/powerlifting_state_research/audits/specifications.py,NEWLY_AUTHORED,MIT,audits,"Typed RES-277 AuditSpec, ValidityAxis, AttackSpec, AuditResult, and VersionValidityProfile contracts."
 src/powerlifting_state_research/benchmarks/__init__.py,NEWLY_AUTHORED,MIT,package,Typed package namespace/home; no benchmark mechanics at bootstrap.
@@ -248,6 +249,7 @@ tests/benchmarks/performance_forecasting_under_schedule_exposure_reporting_heter
 tests/benchmarks/seasonal_five_target_load_velocity_performance_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/benchmarks/four_target_load_velocity_and_competition_performance_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/audits/test_contracts.py,NEWLY_AUTHORED,MIT,audit-tests,RES-277 axis/attack applicability; profile identities; status; and provenance contract checks.
+tests/audits/test_res283_analysis.py,NEWLY_AUTHORED,MIT,audit-tests,RES-283 comparison admissibility metric ranks entity pairing checksums replay and frozen-evidence tests.
 tests/audits/test_runner.py,NEWLY_AUTHORED,MIT,audit-tests,RES-278/RES-281 identity binding, six-state consistency, rights, historical metadata-only scope, immutable artifact, and replay checks.
 tests/fixtures/README.md,NEWLY_AUTHORED,CC-BY-4.0,tests,Small repository-authored deterministic fixtures only.
 tests/models/test_temporal_expert.py,NEWLY_AUTHORED,MIT,model-tests,Public model input firewall; preprocessing; inference; identity; and ensemble checks.
@@ -388,6 +390,22 @@ results/audits/res281-analysis/res281-validity-analysis.md,GENERATED_PUBLIC_ARTI
 results/audits/res281-analysis/unsupported-evidence.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Unsupported attack and baseline-axis records with evidence references and named gaps.
 results/audits/res281-analysis/version-by-axis-evidence.csv,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Pre-run profile states alongside RES-281 evidence states for every version and validity axis.
 results/audits/res281-analysis/version-by-axis-evidence.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,"Machine-readable version-by-axis evidence, findings, and missing-input details."
+results/audits/res283-analysis/RES-284-handoff.md,GENERATED_PUBLIC_ARTIFACT,CC-BY-4.0,Powerlifting State Research contributors,RES-284 publication boundary and evidence requirements; no RES-284 work is executed.
+results/audits/res283-analysis/analysis-config.json,NEWLY_AUTHORED,MIT,audits,Predeclared RES-283 candidate ranking pairing and entity-bootstrap analysis configuration.
+results/audits/res283-analysis/analysis-notebook.ipynb,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,"Reproducible RES-283 summary, target rankings, matched fit-seed diagnostics, cross-version result, and candidate RMSE-rank heatmap."
+results/audits/res283-analysis/checksum-index.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,SHA-256 index for RES-283 run manifest configuration and derived analysis artifacts.
+results/audits/res283-analysis/cross-version-ranking-admissibility.csv,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,All 36 RES-281 numerical comparison decisions with failed semantic conditions missing evidence and identifiability states.
+results/audits/res283-analysis/paired-uncertainty-evidence.csv,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Uncertainty eligibility and evidence gaps; no resampling is reported without tracked validation truth and entity keys.
+results/audits/res283-analysis/fit-seed-pairwise-reversals.csv,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Matched same-seed seven-family pairwise ordering and fit-seed rank reversals.
+results/audits/res283-analysis/fit-seed-rank-stability.csv,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Within-seed-panel family ranks rank dispersion prediction identity counts and inconclusive status.
+results/audits/res283-analysis/frozen-iid-target-wise-rankings.csv,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Candidate-level four-metric target rankings bound to canonical evaluation and fitted identities.
+results/audits/res283-analysis/historical-evidence-gap-report.md,GENERATED_PUBLIC_ARTIFACT,CC-BY-4.0,Powerlifting State Research contributors,Historical ranking evidence gaps; unsupported rankings are distinguished from demonstrated instability.
+results/audits/res283-analysis/metric-dependent-ranking-summary.csv,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Target-wise pairwise rank reversals and ties across evaluation metrics.
+results/audits/res283-analysis/pairwise-ranking-reversals.csv,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Candidate-pair order relations across target-wise evaluation metrics.
+results/audits/res283-analysis/pareto-comparison-summary.csv,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Exact candidate-level target-wise Pareto frontiers and dominance relations.
+results/audits/res283-analysis/res283-model-ranking-stability.md,GENERATED_PUBLIC_ARTIFACT,CC-BY-4.0,Powerlifting State Research contributors,RES-283 admissibility target-wise rankings fit-seed and metric changes Pareto results uncertainty limits and historical evidence gaps.
+results/audits/res283-analysis/run-manifest.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Versioned RES-283 run identity source model and evaluation bindings input hashes and derived artifact hashes.
+results/audits/res283-analysis/version-by-model-evidence.csv,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Nine-version by seven-family evidence census with identities seed design participant information rights and admissibility.
 results/audits/res281/audit-results.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Versioned RES-281 six-state audit execution records and hashed evidence references.
 results/audits/res281/audit-results.manifest.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Detached identities and SHA-256 index for RES-281 execution outputs.
 results/audits/res281/realizations/res281-observation-noise-perturbation-seed-281105/baseline.jsonl,GENERATED_PUBLIC_ARTIFACT,CC-BY-4.0,Powerlifting State Research contributors,Fresh public-native baseline rows generated for the RES-281 diagnostic.

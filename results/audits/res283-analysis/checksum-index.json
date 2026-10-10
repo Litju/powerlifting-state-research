@@ -1,0 +1,82 @@
+{
+  "algorithm": "SHA-256",
+  "files": [
+    {
+      "path": "results/audits/res283-analysis/RES-284-handoff.md",
+      "sha256": "sha256:2f8fc85d5f0a8abd47c3971108c6aa055cd96a4bbd282b44217f4861171cdcb1",
+      "size_bytes": 1237
+    },
+    {
+      "path": "results/audits/res283-analysis/analysis-config.json",
+      "sha256": "sha256:8abb9471d445ab480995dd3dc86b763635ba523b7904c0326ca1037c7a21fe12",
+      "size_bytes": 6068
+    },
+    {
+      "path": "results/audits/res283-analysis/analysis-notebook.ipynb",
+      "sha256": "sha256:4f251fcd71599fde3ff2fce9ea7d9a05c0a72a96a833db3d0ef2bf3dd7a32156",
+      "size_bytes": 37363
+    },
+    {
+      "path": "results/audits/res283-analysis/cross-version-ranking-admissibility.csv",
+      "sha256": "sha256:a859e1e533d49bafc19581faecf516f4d88232a246fe70d1286bc74208c6004d",
+      "size_bytes": 39648
+    },
+    {
+      "path": "results/audits/res283-analysis/fit-seed-pairwise-reversals.csv",
+      "sha256": "sha256:96d68817cfb48c15291380225101ef10d78afc03e2319670ffe2b6c9b4814cf8",
+      "size_bytes": 121371
+    },
+    {
+      "path": "results/audits/res283-analysis/fit-seed-rank-stability.csv",
+      "sha256": "sha256:e39f1608f9f84a60d44d3f2e50d9ea2df8dd38bdd53f92eab849f3c2e2dedb27",
+      "size_bytes": 29948
+    },
+    {
+      "path": "results/audits/res283-analysis/frozen-iid-target-wise-rankings.csv",
+      "sha256": "sha256:ff132de4649ec1c9c3883125d9b247f8335f9b160747887c6be2f6a5466b6720",
+      "size_bytes": 55889
+    },
+    {
+      "path": "results/audits/res283-analysis/historical-evidence-gap-report.md",
+      "sha256": "sha256:c6d482a066de1c65b4126217e74b9cbec608327394a685f5edd5fc0185525de4",
+      "size_bytes": 3637
+    },
+    {
+      "path": "results/audits/res283-analysis/metric-dependent-ranking-summary.csv",
+      "sha256": "sha256:3411d8f6626b512949ce2298b67ed6134edd6344ff687b4bd8142fcbda0f07e9",
+      "size_bytes": 2781
+    },
+    {
+      "path": "results/audits/res283-analysis/paired-uncertainty-evidence.csv",
+      "sha256": "sha256:45518e1d74312873f72fde207e7098a296afa671fabb6c55229555781d5e1926",
+      "size_bytes": 118234
+    },
+    {
+      "path": "results/audits/res283-analysis/pairwise-ranking-reversals.csv",
+      "sha256": "sha256:4db26985f9cf306544e6b332917226d1788454e5808f73620fa4f5d74115a94b",
+      "size_bytes": 130776
+    },
+    {
+      "path": "results/audits/res283-analysis/pareto-comparison-summary.csv",
+      "sha256": "sha256:83c8c9f591155fe349a54523f3c34e63c5b784f4535bc72f201afa183b7fd169",
+      "size_bytes": 31080
+    },
+    {
+      "path": "results/audits/res283-analysis/res283-model-ranking-stability.md",
+      "sha256": "sha256:df2a7f59e90c08891d598f904de5a3f5ea7f1c07df455e87ec997cb2634f5171",
+      "size_bytes": 12591
+    },
+    {
+      "path": "results/audits/res283-analysis/run-manifest.json",
+      "sha256": "sha256:478bb374bf4942ed300f6a6f74e0e5e80e9002a4599e6ee654fa2ac12e9fa789",
+      "size_bytes": 72372
+    },
+    {
+      "path": "results/audits/res283-analysis/version-by-model-evidence.csv",
+      "sha256": "sha256:6ad3ea191c83b9b7f9e9f15b1e5621d9f237d8f67fa1469d3c88d4c056f21aca",
+      "size_bytes": 134189
+    }
+  ],
+  "format": "PSR_SHA256_INDEX_V1",
+  "run_manifest_sha256": "sha256:478bb374bf4942ed300f6a6f74e0e5e80e9002a4599e6ee654fa2ac12e9fa789"
+}
