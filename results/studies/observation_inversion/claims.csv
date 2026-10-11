@@ -1,0 +1,8 @@
+claim,status,classification,evidence,limit
+Noiseless P inverse,PASS,NEW_PUBLIC_NATIVE_EXPERIMENT,"metrics.csv: noise0,last,P223; formal specification inverse",expressed performance only
+Single-time C/A/R uniqueness,FAIL,NEW_PUBLIC_NATIVE_EXPERIMENT,diagnostics.json: instantaneous; formal specification level set,free state at one time
+Universal hidden state/parameter identification,FAIL,NEW_PUBLIC_NATIVE_EXPERIMENT,diagnostics.json: constant_input_equivalence; formal specification,constant continue outside canonical history templates
+Global native-template parameter identification,INCONCLUSIVE,NEW_PUBLIC_NATIVE_EXPERIMENT,diagnostics.json: native_parameter_local_sensitivity,local rank does not prove global injectivity
+Combined finite-noise improvement,INCONCLUSIVE,NEW_PUBLIC_NATIVE_EXPERIMENT,comparisons.csv: condition-specific statuses,no universal superiority claim
+Historical G1 quantitative conclusions,UNSUPPORTED_BY_EVIDENCE,UNSUPPORTED_BY_EVIDENCE,historical-lineage.md; registry and historical provenance,missing historical measurements/results
+Real-athlete physiology or causal effects,UNSUPPORTED_BY_EVIDENCE,UNSUPPORTED_BY_EVIDENCE,formal specification; synthetic protocol,no empirical or causal identification design

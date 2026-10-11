@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480" viewBox="0 0 800 480">
+<rect width="800" height="480" fill="white"/>
+<g font-family="sans-serif" font-size="14" fill="black">
+<text x="70" y="25">Squat expressed-performance recovery, day223 (32 synthetic entities)</text>
+<text x="70" y="55">RMSE (kg); last observation; lines are point estimates</text>
+<path d="M70 80 V370 H650" fill="none" stroke="black"/>
+<text x="10" y="370.000">0.00</text>
+<text x="10" y="300.000">7.59</text>
+<text x="10" y="230.000">15.19</text>
+<text x="10" y="160.000">22.78</text>
+<text x="10" y="90.000">30.38</text>
+<text x="70.000" y="395">0.0</text>
+<text x="210.000" y="395">0.5</text>
+<text x="350.000" y="395">1.0</text>
+<text x="630.000" y="395">2.0</text>
+<polyline points="70.000,370.000 210.000,316.534 350.000,263.067 630.000,156.135" fill="none" stroke="#0072B2" stroke-width="2"/>
+<text x="660" y="100" fill="#0072B2">assessment</text>
+<polyline points="70.000,370.000 210.000,306.008 350.000,242.794 630.000,115.455" fill="none" stroke="#D55E00" stroke-width="2"/>
+<text x="660" y="125" fill="#D55E00">velocity</text>
+<polyline points="70.000,370.000 210.000,322.472 350.000,274.374 630.000,176.054" fill="none" stroke="#009E73" stroke-width="2"/>
+<text x="660" y="150" fill="#009E73">combined</text>
+<polyline points="70.000,339.597 210.000,311.003 350.000,261.699 630.000,157.157" fill="none" stroke="#CC79A7" stroke-width="2"/>
+<text x="660" y="175" fill="#CC79A7">load</text>
+<text x="220" y="430">Observation-noise multiplier (dimensionless)</text>
+<text x="70" y="460">Synthetic laws only; not latent recovery. Uncertainty: metrics.csv; invalid cells omitted.</text>
+</g></svg>

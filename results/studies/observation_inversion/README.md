@@ -1,13 +1,3 @@
-# Observation Inversion
+# RES-287 results
 
-## Scope
-
-Distinct result/manifest home for this retrospective study.
-
-## Output identity
-
-A result bundle should reference the study, benchmark specifications, data realizations, model/evaluation records, source files, checksums, and claim scope that produced it.
-
-## Bootstrap state
-
-No historical study report or result artifact is reproduced here. Negative and null results should be retained with the same provenance as positive findings.
+Read [report.md](report.md), [manifest.json](manifest.json), [claims.csv](claims.csv) and [RES-289-handoff.md](RES-289-handoff.md). All measurements here are independent public-native experiments, not G1 historical results. The frozen study protocol precedes execution. Full replay: `uv run --locked python -m powerlifting_state_research.studies.observation_inversion --check`.

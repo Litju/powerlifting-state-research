@@ -1,5 +1,8 @@
 """Deterministic analytical observation study; run with --check for full replay."""
 
+# ruff: noqa: E501
+# Generated scientific prose keeps complete sentences together.
+
 from __future__ import annotations
 
 import argparse
