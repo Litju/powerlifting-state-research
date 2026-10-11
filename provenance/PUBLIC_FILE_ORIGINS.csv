@@ -472,3 +472,8 @@ results/audits/res284-publication/tables/version-by-axis-evidence.csv,GENERATED_
 src/powerlifting_state_research/audits/res284_publication.py,NEWLY_AUTHORED,MIT,audits,RES-284 source-hash-verified publication builder and deterministic replay check.
 tests/audits/test_res284_publication.py,NEWLY_AUTHORED,MIT,audits,RES-284 source-hash-verified publication builder and deterministic replay check.
 results/audits/res284-publication/tables/audit-input-artifact-status.csv,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Tracked audit input hash verification and explicit unavailable-source states for untracked generated IID train/validation JSONL references.
+src/powerlifting_state_research/studies/observation_inversion_protocol.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,RES-287 frozen study design and public evidence lineage; no historical artifact bytes.
+studies/observation_inversion/historical-lineage.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,RES-287 frozen study design and public evidence lineage; no historical artifact bytes.
+studies/observation_inversion/frozen-m0-m5.json,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,RES-287 frozen study design and public evidence lineage; no historical artifact bytes.
+studies/observation_inversion/protocol.json,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,RES-287 frozen study design and public evidence lineage; no historical artifact bytes.
+studies/observation_inversion/formal-specification.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,RES-287 frozen study design and public evidence lineage; no historical artifact bytes.

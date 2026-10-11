@@ -1,0 +1,85 @@
+{
+  "mechanics_sha256": {
+    "src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/README.md": "sha256:c5fe6c1549d09fb3fd0ae2552c9e1c747596d064dbcea8c1ea62cf23a3ab9c1b",
+    "src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/__init__.py": "sha256:a3cb23c9a4a020ac1f3ac13fc81dee553e377c50037a11961dbf4dbd9db3a25e",
+    "src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/__main__.py": "sha256:7329e328016dee946764124573143342b5133b215b94130b70fab8d60cdf886b",
+    "src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/alignment.py": "sha256:266c6a229e858b80e6b448c21c69e64a4442bc852efe3fbf5fb069f27562e978",
+    "src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/dataset.py": "sha256:273feab777b054928955c05ec9b93dcae57bb789cde231fd5e75664d2442b16f",
+    "src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/dynamics.py": "sha256:28234fff0385b0294e98053211315a5c12327bec0dd8f07965899f33bd170992",
+    "src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/evaluate.py": "sha256:19c224db8c9387ba75695980cb8047d05993a0a41d3862a02d2bfda6e6d45d51",
+    "src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/implementation.py": "sha256:7d1cf9cee0493fce76fb776824513098c3c8b200a55b42375a659989c0bf70ac",
+    "src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/interventions.py": "sha256:f04500db820b9a08408a67efa89a0bc8c0ac4cb9574c265f70b357aa8a413fb5",
+    "src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/observations.py": "sha256:8888a476cab856c3266b53dfbf6519223697768af8512dac7b6983771c2fcf9e",
+    "src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/population.py": "sha256:f349dc6b8f6abdf76c8d93747d6a92710d2de9f25366a7d697bdafae13356f84",
+    "src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/prediction.py": "sha256:4d5d14329f32a4df53c4aec70b682622f31b5afe10c5ad55e786f89a20fff869",
+    "src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/provenance.py": "sha256:1aa53649b087c9a9c9ac10855d8e5e795e2bfc461015fd4481dad272afe1c006",
+    "src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/public_native_research.py": "sha256:ffb65483143464197bfceaedc5edb412b41b3d998e8e2d329a119836a263e5aa",
+    "src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/research.py": "sha256:6697a10aec90ddeea63af76be618461cba7c2861bfd21689a5b8d91ca027e7bb",
+    "src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/spec.py": "sha256:c5a3d6109f557599c7b10e97e0b970646340f8ba9aeed07cdc7d341815cb2d34"
+  },
+  "protocol": {
+    "bootstrap_replicates": 1000,
+    "bootstrap_seed": 287103,
+    "cadences_days": [
+      1,
+      7
+    ],
+    "channels": [
+      "assessment",
+      "velocity",
+      "combined",
+      "load"
+    ],
+    "diagnostics": "Single-state constructive level set; known-parameter free-initial-state rest-map Jacobian at A=R=0.3 with gaps 1,7,28 days; analytical versus central difference step1e-6 tolerance1e-6; midpoint six squat-coordinate sensitivity on all four templates at weekly observations using steps1e-5 and5e-6, relative rank threshold1e-8; constant continue input reference-stimulus equivalence with coordinates0.2 and0.8; small reference-coordinate perturbation0.01 on template0; no global proof from rank",
+    "entities": 32,
+    "failure_rule": "FAIL execution on source/protocol/hash drift, nonfinite truth, mismatch or H1 failure. Invalid inverse makes whole metric cell INCONCLUSIVE with null metrics. Interval spanning zero means INCONCLUSIVE for H4; rank is local diagnostic only. Global identification on native templates and physiological identification unresolved.",
+    "hypotheses": [
+      "H1 noiseless channel inverses recover P to absolute tolerance 1e-10 kg",
+      "H2 single-time mean observation Jacobian for (A,R) has rank at most one",
+      "H3 noiseless P inversion does not in general recover C",
+      "H4 combined-minus-assessment RMSE interval below zero supports finite-sample improvement",
+      "H5 longer history means may trade variance reduction for dynamic bias"
+    ],
+    "information_rule": "Estimator accepts only lift name and assessment/load/velocity observations through 223. No latent truth, parameters, population coordinates or future observations. Load-only is a noisy assessment proxy because load fraction is bounded.",
+    "inversion_rule": "assessment=a; velocity=L/(1-0.6*(v-endpoint)/span); load=L/0.695; combined inverse delta-method variance weighted assessment and velocity; variance assessment=(CV*a)^2, velocity=(0.6*L*sigma/span/r^2)^2; zero noise uses equal weights; r outside [0.4,1] yields invalid; combined rejects invalid velocity; no dropping, clipping or imputation",
+    "lengths": [
+      1,
+      4,
+      16,
+      32
+    ],
+    "methods": [
+      "last",
+      "mean"
+    ],
+    "metrics": [
+      "rmse_kg",
+      "mae_kg",
+      "bias_kg",
+      "invalid_count"
+    ],
+    "noise_scales": [
+      0.0,
+      0.5,
+      1.0,
+      2.0
+    ],
+    "observation_id": "psr:observation-model:latent-capacity-transient-performance-observation@1.0.0~9147ed8f5372",
+    "observation_seed": 287102,
+    "population_seed": 287101,
+    "question": "What do assessment and velocity identify about P, C, A, R and parameters?",
+    "realization_rule": "IID 16 coordinates per entity; template=(entity+lift_index)%4; future continue; separate entity/lift observation streams; union of backwards days ending 223; save base assessment/velocity errors and load fraction; scale errors without resampling",
+    "split_rule": "evaluation-only: all 32 entities; no fitting, selection or training split",
+    "targets": [
+      "P223_kg",
+      "C223_kg",
+      "P230_kg"
+    ],
+    "uncertainty_rule": "Paired entity bootstrap 1000 resamples; percentile 95% RMSE and combined-minus-assessment RMSE intervals per lift/condition/target; descriptive same-law synthetic uncertainty, no physiological inference",
+    "version": "1.0.0",
+    "world_id": "psr:world:world-v2-parsimonious-response-world@1.0.0~a1afbf2f5c1e"
+  },
+  "protocol_digest": "sha256:906ce39f2a2ca296b35fa2ea97d5ca1eed033bb3b675f9da186aafc434dfdda9",
+  "starting_main": "b2b664de6bba6372e61afc1a147255a7daecb8a1",
+  "study_id": "psr:study:observation-inversion-public-native@1.0.0~906ce39f2a2c"
+}
