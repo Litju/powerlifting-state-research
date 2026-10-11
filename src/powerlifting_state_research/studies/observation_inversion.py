@@ -570,7 +570,52 @@ def figure(metrics: list[dict[str, Any]]) -> bytes:
     return ("\n".join(lines) + "\n").encode()
 
 
-def report(metrics: list[dict[str, Any]], diag: dict[str, Any]) -> bytes:
+def history_figure(metrics: list[dict[str, Any]]) -> bytes:
+    rows = [
+        r
+        for r in metrics
+        if r["lift"] == "squat"
+        and r["channel"] == "assessment"
+        and r["method"] == "mean"
+        and r["target"] == "P223_kg"
+        and r["noise_scale"] in (0.0, 1.0)
+    ]
+    ymax = max(r["rmse_kg"] for r in rows) * 1.1
+    lines = [
+        '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="480">',
+        '<rect width="800" height="480" fill="white"/>',
+        '<g font-family="sans-serif" font-size="14">',
+        '<text x="70" y="25">Squat current P reconstruction: assessment history mean</text>',
+        '<text x="70" y="55">RMSE (kg), 32 synthetic entities; point estimates</text>',
+        '<path d="M70 80 V370 H650" fill="none" stroke="black"/>',
+    ]
+    for tick in range(5):
+        lines.append(f'<text x="10" y="{370 - 280 * tick / 4:.3f}">{ymax * tick / 4:.2f}</text>')
+    for index, length in enumerate(PROTOCOL.lengths):
+        lines.append(f'<text x="{70 + index * 180}" y="395">{length}</text>')
+    for index, (scale, cadence) in enumerate(((0.0, 1), (0.0, 7), (1.0, 1), (1.0, 7))):
+        color = ("#0072B2", "#D55E00", "#009E73", "#CC79A7")[index]
+        selected = [r for r in rows if r["noise_scale"] == scale and r["cadence_days"] == cadence]
+        points = " ".join(
+            f"{70 + i * 180},{370 - r['rmse_kg'] * 280 / ymax:.3f}" for i, r in enumerate(selected)
+        )
+        lines.append(f'<polyline points="{points}" fill="none" stroke="{color}" stroke-width="2"/>')
+        lines.append(
+            f'<text x="660" y="{100 + index * 35}" fill="{color}">noise{scale}, {cadence}d</text>'
+        )
+    lines.extend(
+        [
+            '<text x="200" y="430">History observations (count, categorical spacing)</text>',
+            '<text x="70" y="460">Same count spans different time periods; smoothing bias remains at zero noise.</text>',
+            "</g></svg>",
+        ]
+    )
+    return ("\n".join(lines) + "\n").encode()
+
+
+def report(
+    metrics: list[dict[str, Any]], diag: dict[str, Any], comparisons: list[dict[str, Any]]
+) -> bytes:
     rows = [
         r
         for r in metrics
@@ -593,6 +638,36 @@ def report(metrics: list[dict[str, Any]], diag: dict[str, Any]) -> bytes:
         table.append(
             f"| {r['lift']} | {r['channel']} | {r['target']} | {rmse} | {ci} | {r['status']} |"
         )
+    indexed = {
+        (
+            r["lift"],
+            r["noise_scale"],
+            r["length"],
+            r["cadence_days"],
+            r["channel"],
+            r["method"],
+            r["target"],
+        ): r
+        for r in metrics
+    }
+    zero_mean = indexed["squat", 0.0, 32, 7, "assessment", "mean", "P223_kg"]["rmse_kg"]
+    zero_capacity = indexed["squat", 0.0, 1, 7, "assessment", "last", "C223_kg"]["rmse_kg"]
+    native_assessment = indexed["squat", 1.0, 1, 7, "assessment", "last", "P223_kg"]["rmse_kg"]
+    native_combined = indexed["squat", 1.0, 1, 7, "combined", "last", "P223_kg"]["rmse_kg"]
+    paired = next(
+        r
+        for r in comparisons
+        if r["lift"] == "squat"
+        and r["noise_scale"] == 1
+        and r["length"] == 1
+        and r["cadence_days"] == 7
+        and r["method"] == "last"
+        and r["target"] == "P223_kg"
+    )
+    states = {
+        status: sum(r["status"] == status for r in comparisons)
+        for status in ("PASS", "FAIL", "INCONCLUSIVE")
+    }
     text = f"""# Observation inversion and latent-state observability
 
 Study `{STUDY_ID}`; protocol `{PROTOCOL_DIGEST}`. Independent synthetic experiment, not recovered G1 measurements. [Manifest](manifest.json) binds every input, source and output SHA-256. The [frozen protocol](../../../studies/observation_inversion/protocol.json), [formal derivation](../../../studies/observation_inversion/formal-specification.md) and [historical lineage](../../../studies/observation_inversion/historical-lineage.md) specify assumptions and evidence classes.
@@ -615,7 +690,11 @@ Native noise, one most recent observation; exact full-precision values and all a
 
 ![Channel/noise sensitivity](channel-noise.svg)
 
-The plot reads these table cells directly. It depicts P recovery, not latent observability. [metrics.csv](metrics.csv) also contains history/cadence and C/P230 sensitivity, including smoothing bias and invalid counts. Per-condition evidence must be used rather than a single aggregate score.
+![History and cadence sensitivity](history-cadence.svg)
+
+The plots read these table cells directly. It depicts P recovery, not latent observability. [metrics.csv](metrics.csv) also contains history/cadence and C/P230 sensitivity, including smoothing bias and invalid counts. Per-condition evidence must be used rather than a single aggregate score.
+
+A concrete negative result: with noiseless squat assessments, the last observation has zero P223 error but the 32-week history mean has RMSE {zero_mean:.6f} kg (metrics.csv: squat, noise0, cadence7, length32, mean, P223). The same noiseless last-observation reconstruction has C223 RMSE {zero_capacity:.6f} kg, directly separating P recovery from capacity recovery. Native-noise squat P223 RMSE is {native_assessment:.6f} kg for assessment and {native_combined:.6f} kg for combined, but the paired difference interval [{paired["ci_low_kg"]:.6f}, {paired["ci_high_kg"]:.6f}] kg includes zero (comparisons.csv: squat, noise1, length1, cadence7, last, P223). Deadlift's same-condition interval excludes zero, while bench press's does not. These support condition-specific conclusions only. Across all predeclared comparisons, {states["PASS"]} PASS, {states["FAIL"]} FAIL and {states["INCONCLUSIVE"]} INCONCLUSIVE cells are retained; duplicated last/mean and cadence conditions are not independent experiments.
 
 ## Mathematical findings and authority boundaries
 
@@ -661,8 +740,27 @@ def build_bundle(root: Path) -> dict[str, bytes]:
         "metrics.csv": csv_bytes(metrics),
         "comparisons.csv": csv_bytes(comparisons),
         "diagnostics.json": json_bytes(diag),
+        "observability-diagnostics.csv": csv_bytes(
+            [
+                {
+                    "diagnostic": name,
+                    "support": r.get("template", r.get("gap_days")),
+                    "rank": r["rank"],
+                    "condition": r["condition"],
+                    "threshold_relative": r["threshold_relative"],
+                    "authority": r["authority"],
+                    "global_identification": r["global_identification"],
+                }
+                for name, records in (
+                    ("native_six_parameter_weekly", diag["native_parameter_local_sensitivity"]),
+                    ("known_parameter_free_initial_rest", diag["free_initial_state_rest"]),
+                )
+                for r in records
+            ]
+        ),
         "channel-noise.svg": figure(metrics),
-        "report.md": report(metrics, diag),
+        "history-cadence.svg": history_figure(metrics),
+        "report.md": report(metrics, diag, comparisons),
     }
     claims = [
         {
