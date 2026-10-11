@@ -233,11 +233,12 @@ def sensitivity(template: int, step: float) -> Array:
 def rank_record(jacobian: Array) -> dict[str, Any]:
     singular = np.linalg.svd(jacobian, compute_uv=False)
     rank = int(np.sum(singular > singular[0] * 1e-8))
+    # Round only serialized SVD diagnostics to suppress backend last-bit differences.
     return {
-        "singular_values": singular.tolist(),
+        "singular_values": [round(float(value), 8) for value in singular],
         "rank": rank,
         "threshold_relative": 1e-8,
-        "condition": float(singular[0] / singular[-1]) if singular[-1] > 0 else None,
+        "condition": round(float(singular[0] / singular[-1]), 8) if singular[-1] > 0 else None,
         "authority": "GENERATOR_AUTHORITY",
         "global_identification": "INCONCLUSIVE",
     }
@@ -705,7 +706,7 @@ Noiseless last-observation assessment, velocity with measured load, and combined
 
 The constructive same-P example has C1={diag["instantaneous"]["C1_kg"]:.9f} kg and C2={diag["instantaneous"]["C2_kg"]:.9f} kg, with different admissible (A,R). It is a single-time free-state counterexample; it is not proof that native whole histories admit those states. Under a separate free-initial-state rest extension with known parameters, two-time Jacobians have the ranks/conditioning and derivative checks in [diagnostics.json](diagnostics.json). Native initial states are fixed zero; knowing parameters and inputs permits forward simulation, which is privileged knowledge rather than observation-based inference.
 
-Midpoint six-coordinate Jacobians for four native templates have ranks and singular spectra in diagnostics.json. These are generator-authority local numerical sensitivity diagnostics with central-difference refinement, not global inverse proofs or participant recovery. Constant-continue histories admit an exact reference-stimulus parameter and hidden-state ambiguity, with maximum P discrepancy {diag["constant_input_equivalence"]["max_P_difference_kg"]:.3g} kg. This controlled input is within dose support but outside the four native templates. The native near-equivalence perturbation changes reference coordinate by 0.01 and yields P-history RMSE {diag["native_near_equivalence"]["P_history_rmse_kg"]:.9f} kg; this measures weak practical sensitivity, not exact equivalence.
+Midpoint six-coordinate Jacobians for four native templates have ranks and singular spectra in diagnostics.json. Singular values and condition numbers serialize to eight decimal places for portable byte replay; rank is calculated before rounding. These are generator-authority local numerical sensitivity diagnostics with central-difference refinement, not global inverse proofs or participant recovery. Constant-continue histories admit an exact reference-stimulus parameter and hidden-state ambiguity, with maximum P discrepancy {diag["constant_input_equivalence"]["max_P_difference_kg"]:.3g} kg. This controlled input is within dose support but outside the four native templates. The native near-equivalence perturbation changes reference coordinate by 0.01 and yields P-history RMSE {diag["native_near_equivalence"]["P_history_rmse_kg"]:.9f} kg; this measures weak practical sensitivity, not exact equivalence.
 
 ## Negative results and unresolved claims
 
