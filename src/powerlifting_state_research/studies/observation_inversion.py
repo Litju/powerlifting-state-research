@@ -141,7 +141,7 @@ def reconstruct(
                     else (assessment * vv + velocity * va) / (va + vv)
                 )
         values.append(value)
-    return sum(values) / len(values)
+    return math.fsum(values) / len(values)
 
 
 def rest_jacobian(
