@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="590" viewBox="0 0 1180 590">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="590" y="28" text-anchor="middle" font-size="20" font-family="sans-serif">Uniform-prior Laplace interval coverage (noise scale 1)</text>
+<text x="590" y="47" text-anchor="middle" font-size="12" font-family="sans-serif">Coverage is descriptive on this 32-entity synthetic test split; valid-posterior denominator is reported in posterior-results.csv.</text>
+<line x1="120" y1="488.0" x2="1140" y2="488.0" stroke="#ddd"/><text x="110" y="492.0" text-anchor="end" font-size="10" font-family="sans-serif">0.0</text>
+<line x1="120" y1="402.0" x2="1140" y2="402.0" stroke="#ddd"/><text x="110" y="406.0" text-anchor="end" font-size="10" font-family="sans-serif">0.2</text>
+<line x1="120" y1="316.0" x2="1140" y2="316.0" stroke="#ddd"/><text x="110" y="320.0" text-anchor="end" font-size="10" font-family="sans-serif">0.4</text>
+<line x1="120" y1="230.0" x2="1140" y2="230.0" stroke="#ddd"/><text x="110" y="234.0" text-anchor="end" font-size="10" font-family="sans-serif">0.6</text>
+<line x1="120" y1="144.0" x2="1140" y2="144.0" stroke="#ddd"/><text x="110" y="148.0" text-anchor="end" font-size="10" font-family="sans-serif">0.8</text>
+<line x1="120" y1="58.0" x2="1140" y2="58.0" stroke="#ddd"/><text x="110" y="62.0" text-anchor="end" font-size="10" font-family="sans-serif">1.0</text>
+<line x1="120" y1="79.50000000000001" x2="1140" y2="79.50000000000001" stroke="#333" stroke-dasharray="5,4"/>
+<text x="154.0" y="480" text-anchor="middle" font-size="8" fill="#777" font-family="sans-serif">n/a</text>
+<text x="154.0" y="506" transform="rotate(45 154.0 506)" font-size="9" font-family="sans-serif">squat:P_223_kg</text>
+<text x="222.0" y="480" text-anchor="middle" font-size="8" fill="#777" font-family="sans-serif">n/a</text>
+<text x="222.0" y="506" transform="rotate(45 222.0 506)" font-size="9" font-family="sans-serif">bench_press:P_223_kg</text>
+<text x="290.0" y="480" text-anchor="middle" font-size="8" fill="#777" font-family="sans-serif">n/a</text>
+<text x="290.0" y="506" transform="rotate(45 290.0 506)" font-size="9" font-family="sans-serif">deadlift:P_223_kg</text>
+<text x="358.0" y="480" text-anchor="middle" font-size="8" fill="#777" font-family="sans-serif">n/a</text>
+<text x="358.0" y="506" transform="rotate(45 358.0 506)" font-size="9" font-family="sans-serif">squat:C_223_kg</text>
+<text x="426.0" y="480" text-anchor="middle" font-size="8" fill="#777" font-family="sans-serif">n/a</text>
+<text x="426.0" y="506" transform="rotate(45 426.0 506)" font-size="9" font-family="sans-serif">bench_press:C_223_kg</text>
+<text x="494.0" y="480" text-anchor="middle" font-size="8" fill="#777" font-family="sans-serif">n/a</text>
+<text x="494.0" y="506" transform="rotate(45 494.0 506)" font-size="9" font-family="sans-serif">deadlift:C_223_kg</text>
+<text x="562.0" y="480" text-anchor="middle" font-size="8" fill="#777" font-family="sans-serif">n/a</text>
+<text x="562.0" y="506" transform="rotate(45 562.0 506)" font-size="9" font-family="sans-serif">squat:DeltaC_56_kg</text>
+<text x="630.0" y="480" text-anchor="middle" font-size="8" fill="#777" font-family="sans-serif">n/a</text>
+<text x="630.0" y="506" transform="rotate(45 630.0 506)" font-size="9" font-family="sans-serif">bench_press:DeltaC_56_kg</text>
+<text x="698.0" y="480" text-anchor="middle" font-size="8" fill="#777" font-family="sans-serif">n/a</text>
+<text x="698.0" y="506" transform="rotate(45 698.0 506)" font-size="9" font-family="sans-serif">deadlift:DeltaC_56_kg</text>
+<text x="766.0" y="480" text-anchor="middle" font-size="8" fill="#777" font-family="sans-serif">n/a</text>
+<text x="766.0" y="506" transform="rotate(45 766.0 506)" font-size="9" font-family="sans-serif">squat:A_223</text>
+<text x="834.0" y="480" text-anchor="middle" font-size="8" fill="#777" font-family="sans-serif">n/a</text>
+<text x="834.0" y="506" transform="rotate(45 834.0 506)" font-size="9" font-family="sans-serif">bench_press:A_223</text>
+<text x="902.0" y="480" text-anchor="middle" font-size="8" fill="#777" font-family="sans-serif">n/a</text>
+<text x="902.0" y="506" transform="rotate(45 902.0 506)" font-size="9" font-family="sans-serif">deadlift:A_223</text>
+<text x="970.0" y="480" text-anchor="middle" font-size="8" fill="#777" font-family="sans-serif">n/a</text>
+<text x="970.0" y="506" transform="rotate(45 970.0 506)" font-size="9" font-family="sans-serif">squat:R_223</text>
+<text x="1038.0" y="480" text-anchor="middle" font-size="8" fill="#777" font-family="sans-serif">n/a</text>
+<text x="1038.0" y="506" transform="rotate(45 1038.0 506)" font-size="9" font-family="sans-serif">bench_press:R_223</text>
+<text x="1106.0" y="480" text-anchor="middle" font-size="8" fill="#777" font-family="sans-serif">n/a</text>
+<text x="1106.0" y="506" transform="rotate(45 1106.0 506)" font-size="9" font-family="sans-serif">deadlift:R_223</text>
+</svg>

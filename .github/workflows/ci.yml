@@ -28,11 +28,13 @@ jobs:
           version: "0.12.2"
           enable-cache: false
       - run: uv sync --locked --all-groups --python 3.12
-      - run: uv run --locked ruff check .
-      - run: uv run --locked ruff format --check .
-      - run: uv run --locked mypy
-      - run: uv run --locked python -m powerlifting_state_research.exports --check
-      - run: uv run --locked python scripts/check_repository_integrity.py
+      - name: Install optional RES-289 research tools
+        run: uv pip install --python .venv/bin/python scipy==1.18.1 scipy-stubs==1.18.1.1
+      - run: uv run --locked --no-sync ruff check .
+      - run: uv run --locked --no-sync ruff format --check .
+      - run: uv run --locked --no-sync mypy
+      - run: uv run --locked --no-sync python -m powerlifting_state_research.exports --check
+      - run: uv run --locked --no-sync python scripts/check_repository_integrity.py
 
   compatibility:
     name: Compatibility (Python ${{ matrix.python-version }})
@@ -51,8 +53,14 @@ jobs:
           version: "0.12.2"
           enable-cache: false
       - run: uv sync --locked --all-groups --python "${{ matrix.python-version }}"
-      - run: uv run --locked python -c "import powerlifting_state_research"
-      - run: uv run --locked pytest
+      - name: Install optional RES-289 research tools (Python 3.11)
+        if: ${{ matrix.python-version == '3.11' }}
+        run: uv pip install --python .venv/bin/python scipy==1.16.3 scipy-stubs==1.16.3.3
+      - name: Install optional RES-289 research tools (Python 3.12+)
+        if: ${{ matrix.python-version != '3.11' }}
+        run: uv pip install --python .venv/bin/python scipy==1.18.1 scipy-stubs==1.18.1.1
+      - run: uv run --locked --no-sync python -c "import powerlifting_state_research"
+      - run: uv run --locked --no-sync pytest
 
   package-smoke:
     name: Package smoke
@@ -73,6 +81,7 @@ jobs:
         run: |
           python -m venv "$RUNNER_TEMP/psr-wheel"
           uv pip install --no-deps --python "$RUNNER_TEMP/psr-wheel/bin/python" "$RUNNER_TEMP/psr-dist"/*.whl
+          uv pip install --python "$RUNNER_TEMP/psr-wheel/bin/python" numpy==2.4.4 scipy==1.18.1
       - name: Import and verify the installed wheel
         run: |
           cd "$RUNNER_TEMP"
@@ -81,6 +90,8 @@ jobs:
           from pathlib import Path
 
           import powerlifting_state_research
+          from powerlifting_state_research.studies.target_sufficient_structural_reconstruction import model_with_jacobian
+          from powerlifting_state_research.studies.target_sufficient_structural_reconstruction_protocol import STUDY_ID
           from powerlifting_state_research.benchmarks.latent_capacity_change_with_transient_expression_forecasting.prediction import PREDICTION_CONTRACT
           from powerlifting_state_research.evaluation.identity import METRIC_IDENTITIES
           from powerlifting_state_research.evaluation.prediction import PREDICTION_SCHEMA_ID
@@ -90,6 +101,11 @@ jobs:
           assert Path(powerlifting_state_research.__file__).resolve().is_relative_to(
               Path(sys.prefix).resolve()
           ), powerlifting_state_research.__file__
+          assert STUDY_ID == (
+              "psr:study:target-sufficient-structural-reconstruction-public-native"
+              "@1.0.0~12aafcbac716"
+          )
+          assert callable(model_with_jacobian)
           assert len(BENCHMARKS) == 9
           historical = resolve_benchmark(
               "latent_capacity_change_with_transient_expression_forecasting"
