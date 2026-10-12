@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1260" height="900" viewBox="0 0 1260 900">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="630" y="34" text-anchor="middle" font-size="22" font-family="sans-serif">Test RMSE by target, lift, and method (noise scale 1)</text>
+<text x="630" y="58" text-anchor="middle" font-size="13" font-family="sans-serif">Separate panels preserve the distinction between expressed performance, capacity, and capacity change; units are kg.</text>
+<rect x="35" y="85" width="370" height="240" fill="#fafafa" stroke="#ccc"/>
+<text x="220" y="107" text-anchor="middle" font-size="16" font-family="sans-serif">P_223_kg · squat</text>
+<line x1="83" y1="137" x2="390" y2="137" stroke="#ddd"/><text x="77" y="141" text-anchor="end" font-size="10" font-family="sans-serif">13.80</text>
+<line x1="83" y1="185" x2="390" y2="185" stroke="#ddd"/><text x="77" y="189" text-anchor="end" font-size="10" font-family="sans-serif">9.20</text>
+<line x1="83" y1="233" x2="390" y2="233" stroke="#ddd"/><text x="77" y="237" text-anchor="end" font-size="10" font-family="sans-serif">4.60</text>
+<line x1="83" y1="281" x2="390" y2="281" stroke="#ddd"/><text x="77" y="285" text-anchor="end" font-size="10" font-family="sans-serif">0.00</text>
+<circle cx="101" cy="161.0" r="6" fill="#3569a8"/>
+<text x="101" y="309" text-anchor="middle" font-size="9" fill="#3569a8" font-family="sans-serif">Reduced</text>
+<circle cx="159" cy="250.71042107011436" r="6" fill="#c6534b"/>
+<text x="159" y="309" text-anchor="middle" font-size="9" fill="#c6534b" font-family="sans-serif">Full MLE</text>
+<circle cx="217" cy="250.71042107011436" r="6" fill="#5a9c6e"/>
+<text x="217" y="309" text-anchor="middle" font-size="9" fill="#5a9c6e" font-family="sans-serif">Bayes U</text>
+<circle cx="275" cy="239.2767641299655" r="6" fill="#8872b2"/>
+<text x="275" y="309" text-anchor="middle" font-size="9" fill="#8872b2" font-family="sans-serif">Bayes B8</text>
+<circle cx="333" cy="250.71042107011436" r="6" fill="#d18f34"/>
+<text x="333" y="309" text-anchor="middle" font-size="9" fill="#d18f34" font-family="sans-serif">Hybrid</text>
+<rect x="435" y="85" width="370" height="240" fill="#fafafa" stroke="#ccc"/>
+<text x="620" y="107" text-anchor="middle" font-size="16" font-family="sans-serif">P_223_kg · bench_press</text>
+<line x1="483" y1="137" x2="790" y2="137" stroke="#ddd"/><text x="477" y="141" text-anchor="end" font-size="10" font-family="sans-serif">8.65</text>
+<line x1="483" y1="185" x2="790" y2="185" stroke="#ddd"/><text x="477" y="189" text-anchor="end" font-size="10" font-family="sans-serif">5.77</text>
+<line x1="483" y1="233" x2="790" y2="233" stroke="#ddd"/><text x="477" y="237" text-anchor="end" font-size="10" font-family="sans-serif">2.88</text>
+<line x1="483" y1="281" x2="790" y2="281" stroke="#ddd"/><text x="477" y="285" text-anchor="end" font-size="10" font-family="sans-serif">0.00</text>
+<circle cx="501" cy="161.0" r="6" fill="#3569a8"/>
+<text x="501" y="309" text-anchor="middle" font-size="9" fill="#3569a8" font-family="sans-serif">Reduced</text>
+<circle cx="559" cy="245.980282224309" r="6" fill="#c6534b"/>
+<text x="559" y="309" text-anchor="middle" font-size="9" fill="#c6534b" font-family="sans-serif">Full MLE</text>
+<circle cx="617" cy="245.980282224309" r="6" fill="#5a9c6e"/>
+<text x="617" y="309" text-anchor="middle" font-size="9" fill="#5a9c6e" font-family="sans-serif">Bayes U</text>
+<circle cx="675" cy="241.00737576378805" r="6" fill="#8872b2"/>
+<text x="675" y="309" text-anchor="middle" font-size="9" fill="#8872b2" font-family="sans-serif">Bayes B8</text>
+<circle cx="733" cy="245.980282224309" r="6" fill="#d18f34"/>
+<text x="733" y="309" text-anchor="middle" font-size="9" fill="#d18f34" font-family="sans-serif">Hybrid</text>
+<rect x="835" y="85" width="370" height="240" fill="#fafafa" stroke="#ccc"/>
+<text x="1020" y="107" text-anchor="middle" font-size="16" font-family="sans-serif">P_223_kg · deadlift</text>
+<line x1="883" y1="137" x2="1190" y2="137" stroke="#ddd"/><text x="877" y="141" text-anchor="end" font-size="10" font-family="sans-serif">19.55</text>
+<line x1="883" y1="185" x2="1190" y2="185" stroke="#ddd"/><text x="877" y="189" text-anchor="end" font-size="10" font-family="sans-serif">13.03</text>
+<line x1="883" y1="233" x2="1190" y2="233" stroke="#ddd"/><text x="877" y="237" text-anchor="end" font-size="10" font-family="sans-serif">6.52</text>
+<line x1="883" y1="281" x2="1190" y2="281" stroke="#ddd"/><text x="877" y="285" text-anchor="end" font-size="10" font-family="sans-serif">0.00</text>
+<circle cx="901" cy="161.0" r="6" fill="#3569a8"/>
+<text x="901" y="309" text-anchor="middle" font-size="9" fill="#3569a8" font-family="sans-serif">Reduced</text>
+<circle cx="959" cy="253.10338484788326" r="6" fill="#c6534b"/>
+<text x="959" y="309" text-anchor="middle" font-size="9" fill="#c6534b" font-family="sans-serif">Full MLE</text>
+<circle cx="1017" cy="253.10338484788326" r="6" fill="#5a9c6e"/>
+<text x="1017" y="309" text-anchor="middle" font-size="9" fill="#5a9c6e" font-family="sans-serif">Bayes U</text>
+<circle cx="1075" cy="251.0642889616436" r="6" fill="#8872b2"/>
+<text x="1075" y="309" text-anchor="middle" font-size="9" fill="#8872b2" font-family="sans-serif">Bayes B8</text>
+<circle cx="1133" cy="253.10338484788326" r="6" fill="#d18f34"/>
+<text x="1133" y="309" text-anchor="middle" font-size="9" fill="#d18f34" font-family="sans-serif">Hybrid</text>
+<rect x="35" y="375" width="370" height="240" fill="#fafafa" stroke="#ccc"/>
+<text x="220" y="397" text-anchor="middle" font-size="16" font-family="sans-serif">C_223_kg · squat</text>
+<line x1="83" y1="427" x2="390" y2="427" stroke="#ddd"/><text x="77" y="431" text-anchor="end" font-size="10" font-family="sans-serif">6.85</text>
+<line x1="83" y1="475" x2="390" y2="475" stroke="#ddd"/><text x="77" y="479" text-anchor="end" font-size="10" font-family="sans-serif">4.57</text>
+<line x1="83" y1="523" x2="390" y2="523" stroke="#ddd"/><text x="77" y="527" text-anchor="end" font-size="10" font-family="sans-serif">2.28</text>
+<line x1="83" y1="571" x2="390" y2="571" stroke="#ddd"/><text x="77" y="575" text-anchor="end" font-size="10" font-family="sans-serif">0.00</text>
+<text x="101" y="580" text-anchor="middle" font-size="9" fill="#777" font-family="sans-serif">n/a</text>
+<text x="101" y="599" text-anchor="middle" font-size="9" fill="#3569a8" font-family="sans-serif">Reduced</text>
+<circle cx="159" cy="452.1049556046914" r="6" fill="#c6534b"/>
+<text x="159" y="599" text-anchor="middle" font-size="9" fill="#c6534b" font-family="sans-serif">Full MLE</text>
+<circle cx="217" cy="452.1049556046914" r="6" fill="#5a9c6e"/>
+<text x="217" y="599" text-anchor="middle" font-size="9" fill="#5a9c6e" font-family="sans-serif">Bayes U</text>
+<circle cx="275" cy="451.0" r="6" fill="#8872b2"/>
+<text x="275" y="599" text-anchor="middle" font-size="9" fill="#8872b2" font-family="sans-serif">Bayes B8</text>
+<circle cx="333" cy="452.1049556046914" r="6" fill="#d18f34"/>
+<text x="333" y="599" text-anchor="middle" font-size="9" fill="#d18f34" font-family="sans-serif">Hybrid</text>
+<rect x="435" y="375" width="370" height="240" fill="#fafafa" stroke="#ccc"/>
+<text x="620" y="397" text-anchor="middle" font-size="16" font-family="sans-serif">C_223_kg · bench_press</text>
+<line x1="483" y1="427" x2="790" y2="427" stroke="#ddd"/><text x="477" y="431" text-anchor="end" font-size="10" font-family="sans-serif">4.44</text>
+<line x1="483" y1="475" x2="790" y2="475" stroke="#ddd"/><text x="477" y="479" text-anchor="end" font-size="10" font-family="sans-serif">2.96</text>
+<line x1="483" y1="523" x2="790" y2="523" stroke="#ddd"/><text x="477" y="527" text-anchor="end" font-size="10" font-family="sans-serif">1.48</text>
+<line x1="483" y1="571" x2="790" y2="571" stroke="#ddd"/><text x="477" y="575" text-anchor="end" font-size="10" font-family="sans-serif">0.00</text>
+<text x="501" y="580" text-anchor="middle" font-size="9" fill="#777" font-family="sans-serif">n/a</text>
+<text x="501" y="599" text-anchor="middle" font-size="9" fill="#3569a8" font-family="sans-serif">Reduced</text>
+<circle cx="559" cy="463.19621329309706" r="6" fill="#c6534b"/>
+<text x="559" y="599" text-anchor="middle" font-size="9" fill="#c6534b" font-family="sans-serif">Full MLE</text>
+<circle cx="617" cy="463.19621329309706" r="6" fill="#5a9c6e"/>
+<text x="617" y="599" text-anchor="middle" font-size="9" fill="#5a9c6e" font-family="sans-serif">Bayes U</text>
+<circle cx="675" cy="451.0" r="6" fill="#8872b2"/>
+<text x="675" y="599" text-anchor="middle" font-size="9" fill="#8872b2" font-family="sans-serif">Bayes B8</text>
+<circle cx="733" cy="463.19621329309706" r="6" fill="#d18f34"/>
+<text x="733" y="599" text-anchor="middle" font-size="9" fill="#d18f34" font-family="sans-serif">Hybrid</text>
+<rect x="835" y="375" width="370" height="240" fill="#fafafa" stroke="#ccc"/>
+<text x="1020" y="397" text-anchor="middle" font-size="16" font-family="sans-serif">C_223_kg · deadlift</text>
+<line x1="883" y1="427" x2="1190" y2="427" stroke="#ddd"/><text x="877" y="431" text-anchor="end" font-size="10" font-family="sans-serif">6.66</text>
+<line x1="883" y1="475" x2="1190" y2="475" stroke="#ddd"/><text x="877" y="479" text-anchor="end" font-size="10" font-family="sans-serif">4.44</text>
+<line x1="883" y1="523" x2="1190" y2="523" stroke="#ddd"/><text x="877" y="527" text-anchor="end" font-size="10" font-family="sans-serif">2.22</text>
+<line x1="883" y1="571" x2="1190" y2="571" stroke="#ddd"/><text x="877" y="575" text-anchor="end" font-size="10" font-family="sans-serif">0.00</text>
+<text x="901" y="580" text-anchor="middle" font-size="9" fill="#777" font-family="sans-serif">n/a</text>
+<text x="901" y="599" text-anchor="middle" font-size="9" fill="#3569a8" font-family="sans-serif">Reduced</text>
+<circle cx="959" cy="452.39301623337997" r="6" fill="#c6534b"/>
+<text x="959" y="599" text-anchor="middle" font-size="9" fill="#c6534b" font-family="sans-serif">Full MLE</text>
+<circle cx="1017" cy="452.39301623337997" r="6" fill="#5a9c6e"/>
+<text x="1017" y="599" text-anchor="middle" font-size="9" fill="#5a9c6e" font-family="sans-serif">Bayes U</text>
+<circle cx="1075" cy="451.0" r="6" fill="#8872b2"/>
+<text x="1075" y="599" text-anchor="middle" font-size="9" fill="#8872b2" font-family="sans-serif">Bayes B8</text>
+<circle cx="1133" cy="452.39301623337997" r="6" fill="#d18f34"/>
+<text x="1133" y="599" text-anchor="middle" font-size="9" fill="#d18f34" font-family="sans-serif">Hybrid</text>
+<rect x="35" y="665" width="370" height="240" fill="#fafafa" stroke="#ccc"/>
+<text x="220" y="687" text-anchor="middle" font-size="16" font-family="sans-serif">DeltaC_56_kg · squat</text>
+<line x1="83" y1="717" x2="390" y2="717" stroke="#ddd"/><text x="77" y="721" text-anchor="end" font-size="10" font-family="sans-serif">6.88</text>
+<line x1="83" y1="765" x2="390" y2="765" stroke="#ddd"/><text x="77" y="769" text-anchor="end" font-size="10" font-family="sans-serif">4.59</text>
+<line x1="83" y1="813" x2="390" y2="813" stroke="#ddd"/><text x="77" y="817" text-anchor="end" font-size="10" font-family="sans-serif">2.29</text>
+<line x1="83" y1="861" x2="390" y2="861" stroke="#ddd"/><text x="77" y="865" text-anchor="end" font-size="10" font-family="sans-serif">0.00</text>
+<text x="101" y="870" text-anchor="middle" font-size="9" fill="#777" font-family="sans-serif">n/a</text>
+<text x="101" y="889" text-anchor="middle" font-size="9" fill="#3569a8" font-family="sans-serif">Reduced</text>
+<circle cx="159" cy="741.0" r="6" fill="#c6534b"/>
+<text x="159" y="889" text-anchor="middle" font-size="9" fill="#c6534b" font-family="sans-serif">Full MLE</text>
+<circle cx="217" cy="741.0" r="6" fill="#5a9c6e"/>
+<text x="217" y="889" text-anchor="middle" font-size="9" fill="#5a9c6e" font-family="sans-serif">Bayes U</text>
+<circle cx="275" cy="803.3418464713557" r="6" fill="#8872b2"/>
+<text x="275" y="889" text-anchor="middle" font-size="9" fill="#8872b2" font-family="sans-serif">Bayes B8</text>
+<circle cx="333" cy="776.6890624659168" r="6" fill="#d18f34"/>
+<text x="333" y="889" text-anchor="middle" font-size="9" fill="#d18f34" font-family="sans-serif">Hybrid</text>
+<rect x="435" y="665" width="370" height="240" fill="#fafafa" stroke="#ccc"/>
+<text x="620" y="687" text-anchor="middle" font-size="16" font-family="sans-serif">DeltaC_56_kg · bench_press</text>
+<line x1="483" y1="717" x2="790" y2="717" stroke="#ddd"/><text x="477" y="721" text-anchor="end" font-size="10" font-family="sans-serif">5.23</text>
+<line x1="483" y1="765" x2="790" y2="765" stroke="#ddd"/><text x="477" y="769" text-anchor="end" font-size="10" font-family="sans-serif">3.49</text>
+<line x1="483" y1="813" x2="790" y2="813" stroke="#ddd"/><text x="477" y="817" text-anchor="end" font-size="10" font-family="sans-serif">1.74</text>
+<line x1="483" y1="861" x2="790" y2="861" stroke="#ddd"/><text x="477" y="865" text-anchor="end" font-size="10" font-family="sans-serif">0.00</text>
+<text x="501" y="870" text-anchor="middle" font-size="9" fill="#777" font-family="sans-serif">n/a</text>
+<text x="501" y="889" text-anchor="middle" font-size="9" fill="#3569a8" font-family="sans-serif">Reduced</text>
+<circle cx="559" cy="741.0" r="6" fill="#c6534b"/>
+<text x="559" y="889" text-anchor="middle" font-size="9" fill="#c6534b" font-family="sans-serif">Full MLE</text>
+<circle cx="617" cy="741.0" r="6" fill="#5a9c6e"/>
+<text x="617" y="889" text-anchor="middle" font-size="9" fill="#5a9c6e" font-family="sans-serif">Bayes U</text>
+<circle cx="675" cy="774.7409760196958" r="6" fill="#8872b2"/>
+<text x="675" y="889" text-anchor="middle" font-size="9" fill="#8872b2" font-family="sans-serif">Bayes B8</text>
+<circle cx="733" cy="771.8932182870017" r="6" fill="#d18f34"/>
+<text x="733" y="889" text-anchor="middle" font-size="9" fill="#d18f34" font-family="sans-serif">Hybrid</text>
+<rect x="835" y="665" width="370" height="240" fill="#fafafa" stroke="#ccc"/>
+<text x="1020" y="687" text-anchor="middle" font-size="16" font-family="sans-serif">DeltaC_56_kg · deadlift</text>
+<line x1="883" y1="717" x2="1190" y2="717" stroke="#ddd"/><text x="877" y="721" text-anchor="end" font-size="10" font-family="sans-serif">8.38</text>
+<line x1="883" y1="765" x2="1190" y2="765" stroke="#ddd"/><text x="877" y="769" text-anchor="end" font-size="10" font-family="sans-serif">5.59</text>
+<line x1="883" y1="813" x2="1190" y2="813" stroke="#ddd"/><text x="877" y="817" text-anchor="end" font-size="10" font-family="sans-serif">2.79</text>
+<line x1="883" y1="861" x2="1190" y2="861" stroke="#ddd"/><text x="877" y="865" text-anchor="end" font-size="10" font-family="sans-serif">0.00</text>
+<text x="901" y="870" text-anchor="middle" font-size="9" fill="#777" font-family="sans-serif">n/a</text>
+<text x="901" y="889" text-anchor="middle" font-size="9" fill="#3569a8" font-family="sans-serif">Reduced</text>
+<circle cx="959" cy="741.0" r="6" fill="#c6534b"/>
+<text x="959" y="889" text-anchor="middle" font-size="9" fill="#c6534b" font-family="sans-serif">Full MLE</text>
+<circle cx="1017" cy="741.0" r="6" fill="#5a9c6e"/>
+<text x="1017" y="889" text-anchor="middle" font-size="9" fill="#5a9c6e" font-family="sans-serif">Bayes U</text>
+<circle cx="1075" cy="778.7402449203651" r="6" fill="#8872b2"/>
+<text x="1075" y="889" text-anchor="middle" font-size="9" fill="#8872b2" font-family="sans-serif">Bayes B8</text>
+<circle cx="1133" cy="784.6291487887795" r="6" fill="#d18f34"/>
+<text x="1133" y="889" text-anchor="middle" font-size="9" fill="#d18f34" font-family="sans-serif">Hybrid</text>
+</svg>

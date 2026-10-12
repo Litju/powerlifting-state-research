@@ -1,0 +1,35 @@
+"""Frozen RES-289 design constants mirrored from the pre-outcome JSON protocol."""
+
+from __future__ import annotations
+
+STUDY_ID = "psr:study:target-sufficient-structural-reconstruction-public-native@1.0.0~12aafcbac716"
+PROTOCOL_DIGEST = "sha256:12aafcbac716350e46002178918fe1ee08f65c2f76167368f7ed6cb4a8e0f405"
+STARTING_MAIN = "b2f54c17c09fe811a58471b5ec5a5ce7c3dc2b09"
+EVALUATION_ID = "res289-target-wise-evaluation-v1"
+
+ENTITY_COUNT = 64
+DEVELOPMENT_COUNT = 32
+NOISE_SCALES = (0.0, 1.0, 2.0)
+BOOTSTRAP_REPLICATES = 1000
+POSTERIOR_DRAWS = 512
+LAPLACE_BOUND_MARGIN = 1e-3
+LAPLACE_MAX_CONDITION = 1e10
+JACOBIAN_STEPS = (1e-5, 5e-6)
+JACOBIAN_RANK_TOLERANCE = 1e-8
+EQUIVALENCE_OBJECTIVE_TOLERANCE = 1e-6
+EQUIVALENCE_HISTORY_RMSE_KG = 1e-6
+EQUIVALENCE_COORDINATE_DISTANCE = 1e-3
+RESIDUAL_ALPHA = 1.0
+RESIDUAL_BOUND_KG = 20.0
+REJECTION_ATTEMPTS = 1000
+LIKELIHOOD_SUPPORT_PENALTY = 1e6
+OPTIMIZER_MAX_ITERATIONS = 100
+OPTIMIZER_MAX_FUNCTION_CALLS = 3000
+NOISE_FREE_MAX_EVALUATIONS = 500
+SEEDS = {
+    "population": 289301,
+    "observation": 289302,
+    "optimizer_starts": 289303,
+    "posterior_draws": 289304,
+    "bootstrap": 289305,
+}

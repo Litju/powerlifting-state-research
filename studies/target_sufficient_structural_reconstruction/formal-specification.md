@@ -67,7 +67,7 @@ coordinates to assessment history and the known schedules under the native
 zero initial state, then derives `P_223`, `C_223`, `A_223`, `R_223`, and
 `DeltaC_56 = C_279 - C_223`. The Bayesian method uses the same full system,
 the exact noisy assessment likelihood, and two predeclared coordinate priors:
-Uniform `[0,1]` and independent Beta(8,8) for prior sensitivity. Its reported
+Uniform `[0,1)` and independent Beta(8,8) for prior sensitivity. Its reported
 posterior is a bounded local Laplace approximation at the MAP; failures of the
 interior-mode, positive-Hessian, conditioning, or draw-support checks remain
 explicit failures. A zero-noise posterior is not defined. The hybrid retains

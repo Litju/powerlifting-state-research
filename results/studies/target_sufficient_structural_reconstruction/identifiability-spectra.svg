@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="520" viewBox="0 0 920 520">
+<rect width="100%" height="100%" fill="#fff"/>
+<text x="460" y="30" text-anchor="middle" font-size="20" font-family="sans-serif">Native-history local Jacobian singular spectra</text>
+<text x="460" y="49" text-anchor="middle" font-size="12" font-family="sans-serif">Midpoint, 16 normalized coordinates, 96 weekly P outputs; low-excitation design is outside canonical templates.</text>
+<line x1="90" y1="62.0" x2="880" y2="62.0" stroke="#ddd"/><text x="82" y="66.0" text-anchor="end" font-size="10" font-family="sans-serif">10^-0</text>
+<line x1="90" y1="122.0" x2="880" y2="122.0" stroke="#ddd"/><text x="82" y="126.0" text-anchor="end" font-size="10" font-family="sans-serif">10^-2</text>
+<line x1="90" y1="182.0" x2="880" y2="182.0" stroke="#ddd"/><text x="82" y="186.0" text-anchor="end" font-size="10" font-family="sans-serif">10^-4</text>
+<line x1="90" y1="242.0" x2="880" y2="242.0" stroke="#ddd"/><text x="82" y="246.0" text-anchor="end" font-size="10" font-family="sans-serif">10^-6</text>
+<line x1="90" y1="302.0" x2="880" y2="302.0" stroke="#ddd"/><text x="82" y="306.0" text-anchor="end" font-size="10" font-family="sans-serif">10^-8</text>
+<line x1="90" y1="362.0" x2="880" y2="362.0" stroke="#ddd"/><text x="82" y="366.0" text-anchor="end" font-size="10" font-family="sans-serif">10^-10</text>
+<line x1="90" y1="422.0" x2="880" y2="422.0" stroke="#ddd"/><text x="82" y="426.0" text-anchor="end" font-size="10" font-family="sans-serif">10^-12</text>
+<line x1="90" y1="302.0" x2="880" y2="302.0" stroke="#555" stroke-dasharray="5,4"/>
+<polyline points="90.00,62.00 142.67,81.99 195.33,88.01 248.00,112.96 300.67,114.80 353.33,115.41 406.00,117.92 458.67,120.02 511.33,121.65 564.00,124.27 616.67,126.63 669.33,130.95 722.00,132.87 774.67,146.72 827.33,149.17 880.00,153.47" fill="none" stroke="#3569a8" stroke-width="2"/>
+<text x="108" y="496" font-size="11" fill="#3569a8" font-family="sans-serif">canonical-template-0</text>
+<polyline points="90.00,62.00 142.67,81.98 195.33,87.99 248.00,112.37 300.67,114.75 353.33,119.34 406.00,120.55 458.67,121.09 511.33,123.45 564.00,124.78 616.67,127.54 669.33,128.80 722.00,134.38 774.67,144.36 827.33,146.73 880.00,151.36" fill="none" stroke="#c6534b" stroke-width="2"/>
+<text x="278" y="496" font-size="11" fill="#c6534b" font-family="sans-serif">canonical-template-1</text>
+<polyline points="90.00,62.00 142.67,82.02 195.33,88.13 248.00,110.43 300.67,112.87 353.33,117.39 406.00,118.56 458.67,121.36 511.33,121.44 564.00,123.80 616.67,125.35 669.33,128.36 722.00,133.25 774.67,144.76 827.33,147.10 880.00,151.71" fill="none" stroke="#5a9c6e" stroke-width="2"/>
+<text x="448" y="496" font-size="11" fill="#5a9c6e" font-family="sans-serif">canonical-template-2</text>
+<polyline points="90.00,62.00 142.67,82.03 195.33,88.16 248.00,111.57 300.67,112.94 353.33,114.66 406.00,115.39 458.67,118.45 511.33,119.97 564.00,123.31 616.67,125.48 669.33,126.78 722.00,130.53 774.67,146.04 827.33,148.38 880.00,152.98" fill="none" stroke="#8872b2" stroke-width="2"/>
+<text x="618" y="496" font-size="11" fill="#8872b2" font-family="sans-serif">canonical-template-3</text>
+<polyline points="90.00,62.00 142.67,82.36 195.33,89.56 248.00,422.00 300.67,422.00 353.33,422.00 406.00,422.00 458.67,422.00 511.33,422.00 564.00,422.00 616.67,422.00 669.33,422.00 722.00,422.00 774.67,422.00 827.33,422.00 880.00,422.00" fill="none" stroke="#333333" stroke-width="2"/>
+<text x="788" y="496" font-size="11" fill="#333333" font-family="sans-serif">zero-input-low-excitation-sensitivity</text>
+<text x="485.0" y="515" text-anchor="middle" font-size="11" font-family="sans-serif">Singular mode (normalized by largest)</text>
+</svg>
