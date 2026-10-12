@@ -1,0 +1,351 @@
+{
+  "format": "PSR_RES290_PUBLIC_SURROGATE_PROTOCOL_V1",
+  "version": "1.0.0",
+  "starting_main": "31ad65bdd4e19ef80243fbdbf507097d70f1776b",
+  "frozen_evidence": {
+    "path": "studies/public_surrogate_reconstruction/frozen-evidence.json",
+    "sha256": "sha256:dd96c5a0d528bcf4b5450b9295a23f29f9e3741097b7fe596eb1df67d34d4734"
+  },
+  "identities": {
+    "historical_study_slug": "public_surrogate_reconstruction",
+    "historical_aliases": [
+      "G3 / ALI-543",
+      "pl_study_g3_public_surrogate"
+    ],
+    "benchmark_id": "psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting@1.0.0~f99463d55ba0",
+    "dataset_spec_id": "psr:dataset-spec:latent-capacity-transient-iid-sampling-design@1.0.0~1d079eb645ed",
+    "world_id": "psr:world:world-v2-parsimonious-response-world@1.0.0~a1afbf2f5c1e",
+    "population_id": "psr:population:latent-capacity-transient-uniform-coordinate-population@1.0.0~1aaf9be508dc",
+    "intervention_id": "psr:intervention-regime:latent-capacity-transient-balanced-plan-history-regime@1.0.0~a1ca0adb3ef3",
+    "observation_id": "psr:observation-model:latent-capacity-transient-performance-observation@1.0.0~9147ed8f5372",
+    "canonical_evaluation_reference": "psr:evaluation:iid-latent-capacity-change-four-metric-validation@1.0.0~cd4fe982e7b8",
+    "study_evaluation_id": "res290-public-surrogate-evaluation-v1",
+    "study_id": "psr:study:public-surrogate-reconstruction-public-native@1.0.0~e71ab192551c",
+    "protocol_digest": "sha256:e71ab192551cb8c80ad28402a11441546a94672bd72375f9f41b29dd86c5480e"
+  },
+  "question": "Can a useful conditional predictor and finite empirical generator be fitted from public-native benchmark samples when fitting receives no source equations, exact population support bounds, latent state, population coordinates, generator implementation, or evaluation truth?",
+  "claim_scope": [
+    "the named PUBLIC_NATIVE benchmark and DatasetSpec",
+    "the frozen participant-visible fields and ordinary units",
+    "the declared plan/history support",
+    "the independent realizations, fitted methods, and evaluation criteria in this protocol"
+  ],
+  "hypotheses": [
+    "H1: At least one conditional learner has lower independent-test error than the plan-by-horizon empirical mean baseline; otherwise predictive utility is inconclusive or unsupported for these samples.",
+    "H2: Sequence-aware nonlinear Ridge may improve or worsen conditional prediction relative to summary Ridge; the paired entity interval, not a universal ranking, determines whether the finite-sample contrast is resolved.",
+    "H3: Empirical finite-support resampling reproduces donor rows exactly while remaining limited by its finite observed record support.",
+    "H4: Independent population and observation draws expose finite-sample coverage and measurement-noise sensitivity that cannot be inferred from training extrema alone.",
+    "H5: Matched supported plan contrasts may differ across fitted surrogates even when their observational predictive performance is similar; such agreement or disagreement does not identify the source mechanism."
+  ],
+  "participant_schema": {
+    "inputs": {
+      "row_id": "opaque synthetic alignment key; excluded from features",
+      "entity_id": "opaque synthetic alignment key; excluded from features",
+      "origin_day": {
+        "type": "integer",
+        "unit": "day",
+        "value": 224
+      },
+      "horizon_days": {
+        "type": "integer",
+        "unit": "days",
+        "values": [
+          14,
+          28,
+          56
+        ]
+      },
+      "declared_future_plan": {
+        "fields": [
+          "plan_id",
+          "start_day",
+          "end_day",
+          "dose",
+          "intensity"
+        ],
+        "units": {
+          "start_day": "day",
+          "end_day": "day",
+          "dose": "dimensionless",
+          "intensity": "dimensionless"
+        },
+        "values": {
+          "cessation": {
+            "dose": 0.0,
+            "intensity": 0.75
+          },
+          "step_down": {
+            "dose": 0.4,
+            "intensity": 0.75
+          },
+          "continue": {
+            "dose": 0.8,
+            "intensity": 0.75
+          },
+          "step_up": {
+            "dose": 1.2,
+            "intensity": 0.75
+          }
+        },
+        "dates": {
+          "start_day": 224,
+          "end_day": 279
+        }
+      },
+      "lifts": {
+        "keys": [
+          "squat",
+          "bench_press",
+          "deadlift"
+        ],
+        "history_schedule": "ordered inclusive-day segments with dimensionless dose and intensity",
+        "history": {
+          "count": 32,
+          "days": "6, 13, ..., 223; exactly 32 ordered weekly observations",
+          "fields": {
+            "assessment_kg": "kg",
+            "prescribed_load_kg": "kg",
+            "velocity_mps": "m/s"
+          }
+        },
+        "history_schedule_values": {
+          "allowed_dose_intensity_pairs": [
+            [
+              0.0,
+              0.75
+            ],
+            [
+              0.4,
+              0.75
+            ],
+            [
+              0.8,
+              0.75
+            ],
+            [
+              1.2,
+              0.75
+            ]
+          ],
+          "segment_coverage": "inclusive, contiguous day segments from 0 through 223"
+        }
+      }
+    },
+    "fitting_and_development_targets": {
+      "squat_delta_capacity_kg": "kg",
+      "bench_press_delta_capacity_kg": "kg",
+      "deadlift_delta_capacity_kg": "kg"
+    },
+    "forbidden_learner_fields": [
+      "true generating equations",
+      "exact population support bounds",
+      "latent states or capacity levels",
+      "source parameters",
+      "population coordinates",
+      "generator implementation or module path",
+      "future realized outcomes or observations",
+      "evaluation truth",
+      "authority-only matched-entity keys"
+    ],
+    "feature_rule": "Use only declared participant-visible numeric fields and plan/horizon category values. Exclude row_id and entity_id."
+  },
+  "roles": {
+    "SURROGATE_LEARNER": {
+      "execution": "separate isolated Python subprocess; staged learner source; JSON request on stdin and result on stdout",
+      "allowed": [
+        "the participant schema above",
+        "fitting rows and their target labels",
+        "development rows and their target labels",
+        "test inputs without target fields",
+        "the frozen NumPy-only model budgets and seeds"
+      ],
+      "blocked": [
+        "authority generator/evaluation modules",
+        "all M2 world source modules and exact support declarations",
+        "all test target or latent truth fields",
+        "filesystem, network, subprocess, and repository imports"
+      ]
+    },
+    "EVALUATION_AUTHORITY": {
+      "access": [
+        "frozen public-native generator and benchmark contracts",
+        "independent population/observation draws",
+        "held-out target truth",
+        "private-to-the-run matched-entity grouping for supported plan contrasts"
+      ],
+      "flow_rule": "No privileged source, truth, score, support-bound, or matched-group information is serialized into learner input or used by learner feature construction, tuning, or model selection."
+    }
+  },
+  "splits": {
+    "unit": "one entity, one declared plan, one horizon, all three lifts",
+    "strata": {
+      "plans": [
+        "cessation",
+        "step_down",
+        "continue",
+        "step_up"
+      ],
+      "horizons_days": [
+        14,
+        28,
+        56
+      ],
+      "balanced_cells": 12
+    },
+    "fitting_rows": 384,
+    "development_rows": 192,
+    "test_population_a_rows": 384,
+    "test_population_b_rows": 384,
+    "paired_noise_replicate_rows": 384,
+    "matched_entities": 64,
+    "matched_rows": 768,
+    "entity_disjointness": "Fitting, development, test A, test B, and matched evaluation populations are disjoint. Noise replicate A is paired to test A only in authority-side metadata.",
+    "canonical_m3_m4_data_used": false
+  },
+  "seeds": {
+    "fitting": {
+      "population": 290101,
+      "intervention": 290102,
+      "observation": 290103,
+      "split": 290104
+    },
+    "development": {
+      "population": 290111,
+      "intervention": 290112,
+      "observation": 290113,
+      "split": 290114
+    },
+    "test_population_a": {
+      "population": 290121,
+      "intervention": 290122,
+      "observation": 290123,
+      "split": 290124
+    },
+    "test_population_b": {
+      "population": 290131,
+      "intervention": 290132,
+      "observation": 290133,
+      "split": 290134
+    },
+    "test_a_noise_replicate": {
+      "population": 290121,
+      "intervention": 290122,
+      "observation": 290126,
+      "split": 290124
+    },
+    "matched_evaluation": {
+      "population": 290141,
+      "intervention": 290142,
+      "observation": 290143
+    },
+    "bootstrap": 290170,
+    "empirical_resampling": 290180,
+    "random_fourier_features": 290190
+  },
+  "methods": {
+    "empirical_finite_support_resampler_v1": {
+      "family": "empirical row resampling",
+      "prediction": "mean target by declared plan and horizon, without history conditioning",
+      "generation": "384 complete participant-visible input records sampled with replacement within plan-by-horizon strata",
+      "tuning": "none"
+    },
+    "summary_ridge_v1": {
+      "family": "linear conditional statistical model",
+      "features": "per lift/channel latest, mean, and linear trend; per lift/schedule-channel mean, standard deviation, latest value, and trend; plan and horizon one-hot",
+      "fit": "closed-form multi-output Ridge on fitting rows only; standardize using fitting rows",
+      "development_budget": "4 alpha values: [0.1, 1, 10, 100]; select by mean target-standardized development MSE"
+    },
+    "sequence_rff_ridge_v1": {
+      "family": "nonlinear sequence-aware conditional statistical model",
+      "features": "ordered 32-step observations and historical schedule, plus plan and horizon one-hot; generic random Fourier features; no equation-derived features",
+      "fit": "128 random Fourier features, seed 290190; closed-form Ridge on fitting rows only; standardize using fitting rows",
+      "development_budget": "9 fixed configurations from gamma [0.01, 0.05, 0.2] by alpha [0.1, 1, 10]; select by mean target-standardized development MSE",
+      "justification": "Ordered public histories support a sequence-aware check; random Fourier features permit generic nonlinear interactions without encoding the source law."
+    },
+    "conditional_sampling": "not implemented; the two fitted conditional models emit means only",
+    "neural_tournament": "not implemented"
+  },
+  "estimands_and_metrics": {
+    "predictive_utility": {
+      "targets": [
+        "squat_delta_capacity_kg",
+        "bench_press_delta_capacity_kg",
+        "deadlift_delta_capacity_kg"
+      ],
+      "stratify_by": [
+        "population",
+        "lift",
+        "horizon_days"
+      ],
+      "metrics": [
+        "RMSE_kg",
+        "MAE_kg",
+        "signed_bias_kg"
+      ],
+      "baseline": "empirical plan-by-horizon mean"
+    },
+    "observable_distribution_fidelity": {
+      "generator": "empirical_finite_support_resampler_v1 only",
+      "metrics": [
+        "field-wise 1-Wasserstein distance normalized by fitting-sample scale, separately by lift and observation channel",
+        "absolute correlation-matrix discrepancy for frozen visible summaries",
+        "declared plan, horizon, and history-template frequency discrepancies"
+      ]
+    },
+    "conditional_response_fidelity": {
+      "intervention": "all four declared plans, matched within authority-generated entity, historical schedule, history/noise, and horizon",
+      "estimand": "predicted minus true within-entity change in each capacity-change target relative to the continue plan",
+      "metrics": [
+        "RMSE_kg",
+        "MAE_kg",
+        "signed_bias_kg"
+      ]
+    },
+    "finite_sample_and_memorization": {
+      "metrics": [
+        "plan-by-horizon and history-template cell coverage",
+        "visible test rows outside observed fitting extrema",
+        "nearest fitting-row distance on standardized visible features",
+        "exact fitting/test visible-record hash overlap",
+        "empirical generated-record donor fraction and unique donor count"
+      ],
+      "interpretation": "Observed extrema and nearest-neighbor distances are finite-sample diagnostics, not estimates of true population bounds."
+    },
+    "structural_nonidentification": {
+      "comparison": "summary_ridge_v1 versus sequence_rff_ridge_v1",
+      "similarity_rule": "Report whether paired 95% entity-bootstrap predictive-error contrasts are resolved; also report prediction and matched-response disagreements.",
+      "claim_rule": "No finite predictive or distributional match establishes structural equivalence or source-system identification."
+    }
+  },
+  "uncertainty": {
+    "resampling_unit": "entity; matched plan/horizon rows and paired noise observations remain clustered within authority entity",
+    "replicates": 1000,
+    "interval": "two-sided 95% percentile entity-bootstrap interval",
+    "paired_contrasts": "resample paired entities with the frozen bootstrap seed and retain all rows for every selected entity",
+    "degenerate_cells": "emit explicit INCONCLUSIVE status and denominator; never drop entities silently"
+  },
+  "support_and_failure_rules": {
+    "admissible_region": "Only the four declared plan values above, four historical templates per lift, valid observation dates, and learner-visible schema",
+    "unsupported_extrapolation": "Inputs outside the declared plan/schema region are UNSUPPORTED_BY_PROTOCOL and are not scored; no source-support extrapolation is tested.",
+    "source_support": "Never inferred from observed extrema. Evaluation reports sample coverage only and keeps exact source support authority-side.",
+    "failure_states": [
+      "PROTOCOL_OR_FROZEN_SOURCE_HASH_MISMATCH",
+      "INVALID_OR_NONFINITE_VISIBLE_FIELD",
+      "SPLIT_OR_ENTITY_OVERLAP",
+      "FORBIDDEN_LEARNER_IMPORT_OR_FILE_ACCESS",
+      "EVALUATION_TARGET_LEAK",
+      "MODEL_FIT_FAILED",
+      "UNSUPPORTED_BY_PROTOCOL",
+      "EMPTY_OR_DEGENERATE_METRIC_CELL",
+      "INCONCLUSIVE_ENTITY_BOOTSTRAP"
+    ],
+    "firewall_failure": "Fail the complete run before scoring.",
+    "method_failure": "Retain a method-specific failure row and continue other frozen methods.",
+    "inconclusive": "Intervals spanning zero or insufficient support remain inconclusive; no post-outcome budget or method changes."
+  },
+  "rights": {
+    "training_and_evaluation_rows": "New public synthetic artifacts generated from independently authored public-native source; MIT/CC-BY-4.0 attribution as scoped by each artifact",
+    "historical_private_artifacts_used": false,
+    "access_conditions": null
+  }
+}
