@@ -1,0 +1,238 @@
+{
+  "protocol": {
+    "claim_scope": [
+      "public-native synthetic system identification",
+      "named M2 law, M3 support, this realization and split"
+    ],
+    "evaluation": {
+      "comparison_rule": "Report method-by-target results and paired entity uncertainty only for predeclared contrasts. No universal scalar model leaderboard.",
+      "failure_states": [
+        "INVALID_OBSERVATION",
+        "OPTIMIZATION_FAILED",
+        "NONCONVERGED_BEST_RETAINED",
+        "POSTERIOR_BOUNDARY_MODE",
+        "POSTERIOR_NON_POSITIVE_HESSIAN",
+        "POSTERIOR_ILL_CONDITIONED",
+        "POSTERIOR_SUPPORT_FAILURE",
+        "NOT_ESTIMATED_BY_METHOD",
+        "GLOBAL_IDENTIFICATION_INCONCLUSIVE"
+      ],
+      "metrics": [
+        "RMSE",
+        "MAE",
+        "signed bias",
+        "95% posterior interval coverage and width",
+        "optimization convergence/failure",
+        "parameter and state error",
+        "objective/gradient evaluations and simulated daily-state transitions (deterministic compute proxy)"
+      ],
+      "paired_contrasts": [
+        "full minus reduced for P_223_kg, separately by lift and noise condition",
+        "uniform-prior Bayesian minus full MLE for each estimable target, separately by lift and noisy condition",
+        "Beta(8,8)-prior Bayesian minus uniform-prior Bayesian for each estimable target, separately by lift and noisy condition",
+        "hybrid minus full MLE for DeltaC_56_kg, separately by lift and noise condition",
+        "full MLE noise scale 2 minus noise scale 1 for each target, separately by lift",
+        "full MLE noise scale 1 minus noise scale 0 for each target, separately by lift"
+      ],
+      "targets": [
+        "P_223_kg",
+        "C_223_kg",
+        "DeltaC_56_kg",
+        "A_223",
+        "R_223",
+        "each named physical parameter and normalized coordinate"
+      ]
+    },
+    "hypotheses": [
+      "H1: Noise-free direct reconstruction recovers the final expressed-performance target, but this alone does not establish capacity, state, or parameter recovery.",
+      "H2: Single-time observations cannot locally identify both free adaptation and suppression states because every channel factors through expressed performance.",
+      "H3: Full bounded fitting and Bayesian fitting may retain substantial state or parameter error despite good expressed-performance fit; recovery is assessed separately for every target.",
+      "H4: Posterior uncertainty and prior sensitivity are condition-dependent; a narrow posterior under Beta(8,8) is not treated as data-driven identification.",
+      "H5: A development-only bounded residual correction may change held-out capacity-change prediction error, but cannot improve state or parameter recovery because those outputs are copied from the full structural fit."
+    ],
+    "identifiability": {
+      "constant_input": "Recompute the RES-287 reference-stimulus/gain symmetry for constant dose-intensity product 0.6 and state explicitly that this is outside canonical historical templates.",
+      "equivalent_solution_rule": "Record a candidate equivalence when objective difference is at most 1e-6, P-history RMSE is at most 1e-6 kg, and maximum normalized-coordinate difference exceeds 1e-3.",
+      "free_state": "No free-initial-state inference is used or transferred.",
+      "global_decision": "An exact admissible native-template counterexample establishes non-uniqueness for that design. Absence of a found counterexample or full local rank is INCONCLUSIVE for global identification.",
+      "jacobian": "Midpoint normalized-coordinate central differences at 1e-5 and 5e-6, 32 weekly P outputs per lift, four canonical templates, plus zero-input low-excitation sensitivity; relative rank threshold 1e-8."
+    },
+    "identities": {
+      "benchmark_id": "psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting@1.0.0~f99463d55ba0",
+      "canonical_m3_evaluation_id": "psr:evaluation:iid-latent-capacity-change-four-metric-validation@1.0.0~cd4fe982e7b8",
+      "dataset_spec_id": "psr:dataset-spec:latent-capacity-transient-iid-sampling-design@1.0.0~1d079eb645ed",
+      "historical_g2_aliases": [
+        "G2 / ALI-542",
+        "pl_study_g2_structural_reconstruction"
+      ],
+      "intervention_id": "psr:intervention-regime:latent-capacity-transient-balanced-plan-history-regime@1.0.0~a1ca0adb3ef3",
+      "observation_id": "psr:observation-model:latent-capacity-transient-performance-observation@1.0.0~9147ed8f5372",
+      "population_id": "psr:population:latent-capacity-transient-uniform-coordinate-population@1.0.0~1aaf9be508dc",
+      "study_evaluation_id": "res289-target-wise-evaluation-v1",
+      "study_slug": "target_sufficient_structural_reconstruction",
+      "world_id": "psr:world:world-v2-parsimonious-response-world@1.0.0~a1afbf2f5c1e"
+    },
+    "methods": {
+      "bayesian": {
+        "id": "bayesian_native_laplace_v1",
+        "rule": "MAP and bounded local Laplace approximation using the exact accepted-assessment likelihood; Uniform and independent Beta(8,8) priors on normalized coordinates. Noise-free posterior is undefined."
+      },
+      "full": {
+        "id": "full_bounded_native_mle_v1",
+        "rule": "Bounded maximum-likelihood fit of all 16 coordinates under the known zero-state model; derive all declared targets."
+      },
+      "hybrid": {
+        "id": "full_plus_development_ridge_residual_v1",
+        "rule": "Full structural outputs plus a Ridge correction for DeltaC_56, fitted on development entities only, alpha=1 on standardized features, correction clipped to [-20,20] kg. State and parameter outputs are exactly those of the full fit."
+      },
+      "reduced": {
+        "id": "reduced_latest_assessment_p223_v1",
+        "rule": "P_223 estimate equals the newest assessment; estimate no other target."
+      }
+    },
+    "optimization": {
+      "convergence": "A solver success flag and finite objective are required for CONVERGED. Failed, nonfinite, boundary, and multimodal results remain recorded.",
+      "likelihood_support": "If a proposal implies zero likelihood for an accepted assessment/load ratio, use a fixed 1e6 quadratic distance penalty to the feasible z=a/P support interval [0.4/0.71, 1/0.68] only to guide optimization. Such proposals are ineligible as final fits; every selected noisy fit is scored with the exact accepted-assessment likelihood.",
+      "noise_free_solver": "Bounded trust-region reflective least squares with analytic Jacobian, lower bound 0 and upper bound nextafter(1,0), max_nfev=500, ftol=xtol=gtol=1e-11.",
+      "noisy_solver": "L-BFGS-B with analytic gradient, lower bound 0 and upper bound nextafter(1,0), maxiter=100, ftol=1e-10, gtol=1e-6, maxfun=3000.",
+      "selection": "Retain every start. Select the lowest finite objective among converged starts; if none converged, retain the lowest finite result and flag it nonconverged. No refits or budget extensions are allowed after outcomes are inspected.",
+      "starts": [
+        "all coordinates 0.25",
+        "all coordinates 0.50",
+        "all coordinates 0.75",
+        "one entity/noise-keyed Uniform(0.1,0.9) start"
+      ]
+    },
+    "participant_information": {
+      "estimator_feature_rule": "All four method families receive the same assessment-only observation channel and known schedules. The newest-assessment reduced estimator and the dynamic structural methods differ only in their declared equations and history use.",
+      "forbidden": [
+        "true latent states",
+        "true capacity or expressed performance",
+        "population coordinates",
+        "true parameters",
+        "future realized outcomes",
+        "future observations"
+      ],
+      "stored_visible_but_unused_by_estimators": [
+        "prescribed load in kg",
+        "velocity in m/s"
+      ],
+      "visible": [
+        "lift identity",
+        "32 assessment observations at days 6,13,...,223",
+        "past daily dose and intensity schedule through day 223",
+        "declared future plan for days 224-279"
+      ]
+    },
+    "prohibited_claims": [
+      "historical G2 reproduction",
+      "real-athlete physiology",
+      "causal training effects",
+      "universal recovery",
+      "global native-template uniqueness from local rank or finite starts",
+      "structural recovery from lower prediction error"
+    ],
+    "question": "Under the known public native zero-initial-state dynamics and participant-visible weekly assessment histories, which expressed, latent, state, and parameter quantities can be reconstructed, with what uncertainty, and does a learned residual improve future capacity-change prediction without improving structural recovery?",
+    "realization": {
+      "future_plan": "The four M3 plan declarations; each split has eight entities per plan, each covering days 224-279.",
+      "history": "Four canonical M3 weekly schedule templates; each split has eight entities per template for each lift.",
+      "noise_rule": "Scale the M2 assessment and velocity innovations by the declared factor; retain the native load-fraction and valid-observation domain; rejection-sample invalid observations up to 1000 attempts. Noise zero is deterministic. Each entity, schedule, and plan is shared across noise conditions.",
+      "noise_scales": [
+        0.0,
+        1.0,
+        2.0
+      ],
+      "observation_days": [
+        6,
+        13,
+        20,
+        27,
+        34,
+        41,
+        48,
+        55,
+        62,
+        69,
+        76,
+        83,
+        90,
+        97,
+        104,
+        111,
+        118,
+        125,
+        132,
+        139,
+        146,
+        153,
+        160,
+        167,
+        174,
+        181,
+        188,
+        195,
+        202,
+        209,
+        216,
+        223
+      ],
+      "population": "64 public-native entities drawn from the M2 IID coordinate transform.",
+      "realization_class": "New PUBLIC_NATIVE study realization, separate from canonical M3/G1 realizations and all M0-M5 data.",
+      "split": "Development entity indices 0-31; held-out test entity indices 32-63. Split is entity-disjoint. No selection split is used; all hyperparameters are fixed in the protocol."
+    },
+    "seeds": {
+      "bootstrap": 289305,
+      "observation": 289302,
+      "optimizer_starts": 289303,
+      "population": 289301,
+      "posterior_draws": 289304
+    },
+    "structural_prior": {
+      "initial_state": "Native A[-1]=R[-1]=0; free initial states are prohibited.",
+      "law": "Frozen M2 daily equations and public M2 population transforms are known exactly.",
+      "model_scope": "Same-law public-native synthetic identification only; no unknown-model, physiological, causal, or real-athlete claim.",
+      "parameter_bounds": "The 16 population coordinates are independently bounded in [0,1); the numerical optimizer uses 0 and the largest representable float below 1. Physical parameter transforms and supports are the public M2 population contract."
+    },
+    "target_quantities": [
+      {
+        "estimand": "current expressed performance",
+        "name": "P_223_kg",
+        "unit": "kg"
+      },
+      {
+        "estimand": "current latent capacity",
+        "name": "C_223_kg",
+        "unit": "kg"
+      },
+      {
+        "estimand": "C_279 - C_223",
+        "name": "DeltaC_56_kg",
+        "unit": "kg"
+      },
+      {
+        "estimand": "adaptation state",
+        "name": "A_223",
+        "unit": "dimensionless"
+      },
+      {
+        "estimand": "suppression state",
+        "name": "R_223",
+        "unit": "dimensionless"
+      },
+      {
+        "estimand": "16 public normalized population coordinates and transformed physical parameters",
+        "name": "parameters",
+        "unit": "kg, dimensionless, or days by parameter"
+      }
+    ],
+    "uncertainty": {
+      "bayesian": "512 in-support multivariate-normal draws from each valid Laplace approximation; 95% equal-tail intervals; Hessian must be positive definite with condition number <=1e10; MAP must be at least 1e-3 from every coordinate bound; all posterior failures are retained.",
+      "paired_bootstrap": "1000 entity-level paired percentile replicates, separately by lift, target, noise, and declared method contrast; do not pool units or lifts into a universal score.",
+      "prior_sensitivity": "Compare Uniform with Beta(8,8) by target-wise posterior mean, interval width, and coverage; no result-driven prior changes."
+    },
+    "version": "1.0.0"
+  },
+  "protocol_digest": "sha256:12aafcbac716350e46002178918fe1ee08f65c2f76167368f7ed6cb4a8e0f405",
+  "starting_main": "b2f54c17c09fe811a58471b5ec5a5ce7c3dc2b09",
+  "study_id": "psr:study:target-sufficient-structural-reconstruction-public-native@1.0.0~12aafcbac716"
+}

@@ -236,7 +236,11 @@ studies/domain_faithfulness_and_reconstructability/README.md,NEWLY_AUTHORED,CC-B
 studies/observation_inversion/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-home,Observation inversion and latent-state observability; retrospective study.
 studies/public_surrogate_reconstruction/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-home,Public-surrogate reconstruction; retrospective study.
 studies/synthetic_pretraining_transfer/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-home,Synthetic-pretraining transfer; retrospective study.
+studies/target_sufficient_structural_reconstruction/formal-specification.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,RES-289 frozen scientific model and identifiability specification.
+studies/target_sufficient_structural_reconstruction/frozen-evidence.json,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,RES-289 frozen M0-M5 and RES-287 evidence source identities.
+studies/target_sufficient_structural_reconstruction/historical-lineage.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,RES-289 classification of surviving G2 metadata and missing historical results.
 studies/target_sufficient_structural_reconstruction/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-home,Target-sufficient structural reconstruction; retrospective study.
+studies/target_sufficient_structural_reconstruction/protocol.json,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,RES-289 pre-outcome frozen protocol and identities.
 tests/benchmarks/class_normalized_cross_lift_five_target_performance_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/benchmarks/held_out_final_origin_five_target_performance_evaluation/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/benchmarks/latent_origin_capacity_change_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
