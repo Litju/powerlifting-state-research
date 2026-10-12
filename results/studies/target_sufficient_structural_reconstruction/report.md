@@ -484,7 +484,7 @@ uv pip install --python .venv/bin/python scipy==1.18.1
 uv run --locked --no-sync python -m powerlifting_state_research.studies.target_sufficient_structural_reconstruction --check
 ```
 
-This study's [protocol](../../../studies/target_sufficient_structural_reconstruction/protocol.json), [frozen M0–M5/RES-287 evidence identities](../../../studies/target_sufficient_structural_reconstruction/frozen-evidence.json), all input bytes, estimator identities, and outputs are checked by the manifest. The result realization is `psr:study-realization:target-sufficient-structural-reconstruction-public-native@sha256:345de0028b7beeefdc355bf7112565bad2d5675e5bbed3a5c5901371436b5af1`; truth SHA-256 `sha256:ef42d257acb51a5974a696c154ad23b7fdf4176bdae5011b0fa0d339096d1aea`; observation SHA-256 `sha256:f825b296b012cad63ce0d5356f41aa5efdd3e9daebdf812237087aa1702fd132`; source-set digest `sha256:4b3ef450a7bcad51a6c0725c0a3d65712410f24da1066668759068f82adc4770`.
+This study's [protocol](../../../studies/target_sufficient_structural_reconstruction/protocol.json), [frozen M0–M5/RES-287 evidence identities](../../../studies/target_sufficient_structural_reconstruction/frozen-evidence.json), all input bytes, estimator identities, and outputs are checked by the manifest. The result realization is `psr:study-realization:target-sufficient-structural-reconstruction-public-native@sha256:345de0028b7beeefdc355bf7112565bad2d5675e5bbed3a5c5901371436b5af1`; truth SHA-256 `sha256:ef42d257acb51a5974a696c154ad23b7fdf4176bdae5011b0fa0d339096d1aea`; observation SHA-256 `sha256:f825b296b012cad63ce0d5356f41aa5efdd3e9daebdf812237087aa1702fd132`; source-set digest `sha256:d54f8232fc10111446cfbe41b6b54a7434a10d346cf3f33f6d6104bc17285957`.
 
 ## Scope and limitations
 

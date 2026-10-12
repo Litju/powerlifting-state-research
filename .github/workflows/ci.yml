@@ -53,7 +53,11 @@ jobs:
           version: "0.12.2"
           enable-cache: false
       - run: uv sync --locked --all-groups --python "${{ matrix.python-version }}"
-      - name: Install optional RES-289 research tools
+      - name: Install optional RES-289 research tools (Python 3.11)
+        if: ${{ matrix.python-version == '3.11' }}
+        run: uv pip install --python .venv/bin/python scipy==1.16.3 scipy-stubs==1.16.3.3
+      - name: Install optional RES-289 research tools (Python 3.12+)
+        if: ${{ matrix.python-version != '3.11' }}
         run: uv pip install --python .venv/bin/python scipy==1.18.1 scipy-stubs==1.18.1.1
       - run: uv run --locked --no-sync python -c "import powerlifting_state_research"
       - run: uv run --locked --no-sync pytest
