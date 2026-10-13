@@ -2131,6 +2131,7 @@ def _report_bytes(
     noise_resolved = sum(
         row["status"] == "RESOLVED_IN_THIS_REALIZATION" for row in metadata["noise"]
     )
+    publication_repair = metadata.get("publication_repair")
     lines = [
         "# Public surrogate reconstruction: RES-290",
         "",
@@ -2140,7 +2141,7 @@ def _report_bytes(
         f"Realization digest: {metadata['realization_digest']}",
         "Evaluation: res290-public-surrogate-evaluation-v1",
         "",
-        "This is a new public-native experiment, not a historical G3 reproduction. Historical G3 survives only as metadata and aliases; no original G3 method, data, fitted model, or score is recovered. See [historical lineage](../../../studies/public_surrogate_reconstruction/historical-lineage.md).",
+        "This is a new public-native experiment, not a historical G3 reproduction. Historical G3 survives only as metadata and aliases; no original G3 method, data, fitted model, or score is recovered. See [historical lineage](../../../../studies/public_surrogate_reconstruction/historical-lineage.md).",
         "",
         "## Historical and scientific claim boundary",
         "",
@@ -2150,11 +2151,11 @@ def _report_bytes(
         "",
         "## Frozen design and firewall",
         "",
-        f"The protocol was frozen at starting main {protocol['starting_main']} before any RES-290 realization was generated. It binds the public-native world, participant row contract, and M4/M5 references in [frozen evidence](../../../studies/public_surrogate_reconstruction/frozen-evidence.json).",
+        f"The protocol was frozen at starting main {protocol['starting_main']} before any RES-290 realization was generated. It binds the public-native world, participant row contract, and M4/M5 references in [frozen evidence](../../../../studies/public_surrogate_reconstruction/frozen-evidence.json).",
         "",
         "Fitting has 384 rows, development 192, and each factual test population 384, balanced across 12 plan-by-horizon cells. Test A and test B use independent population and observation draws. A paired noise realization reuses test-A population and schedules with an independent observation seed. The matched set has 64 authority-only entities across four declared plans and three horizons.",
         "",
-        "The learner receives only public fields and train/development target labels. Test rows have no target fields in the learner payload. Fitting runs in an isolated Python subprocess from a staged learner module; imports outside NumPy and the Python standard library are rejected, and file, network, repository-import, and subprocess events are blocked. The authority keeps truth and matched-entity keys outside the payload, seals prediction bytes, then scores. The [payload audit](learner-input-audit.json) records the exact request digest, source, split counts, and firewall outcome.",
+        "The learner receives only public fields and train/development target labels. Test rows have no target fields in the learner payload. Fitting runs in an isolated Python subprocess from a staged first-party learner module; imports outside NumPy and the Python standard library are rejected, and the audit hook blocks file, network, repository-import, and subprocess events. These subprocess and audit-hook controls provide procedural isolation for this controlled learner; they are not a security-grade sandbox for arbitrary hostile code. The authority keeps truth and matched-entity keys outside the payload, seals prediction bytes, then scores. The [payload audit](learner-input-audit.json) records the exact request digest, source, split counts, and firewall outcome.",
         "",
         "## Methods and fitted identities",
         "",
@@ -2177,6 +2178,8 @@ def _report_bytes(
         "## Observable-record distribution and memorization",
         "",
         "Only the empirical resampler generates complete observable records. Its output is compared with test-A inputs using field-wise 1-Wasserstein distance normalized by each fitting-sample standard deviation. Correlation discrepancy uses the 58 predeclared visible summary features. Plan and horizon frequencies are measured separately.",
+        "",
+        "These are conditional, evaluation-side percentile-bootstrap intervals: the empirical generated donor sample is fixed, and held-out evaluation entities are resampled within plan-by-horizon strata. The intervals do not include uncertainty in both empirical distributions and do not establish fully calibrated population-level two-sample discrepancy intervals. Point estimates use the observed evaluation sample and may fall outside their percentile intervals; the reported values are retained without silent correction. This publication repair leaves all numerical measurements, bootstrap draws, interval bounds, and seeds unchanged.",
         "",
         *distribution_table,
         "",
@@ -2220,11 +2223,26 @@ def _report_bytes(
         "",
         "    uv run --locked python -m powerlifting_state_research.studies.public_surrogate_reconstruction --check",
         "",
+        "Verify the generated report against frozen artifacts without rebuilding the experiment with:",
+        "",
+        "    uv run --locked python -m powerlifting_state_research.studies.public_surrogate_reconstruction --check-report",
+        "",
         "The [study manifest](manifest.json), [artifact manifest](artifact-manifest.json), and [SHA-256 index](SHA256SUMS.txt) bind the report, tables, figures, realizations, fitted states, predictions, and truth to the protocol, realization, fitted models, evaluation, source, and redistribution rights. No private historical artifact was used.",
-        "",
-        "RES-287 lineage and results: [study report](../observation_inversion/report.md), [RES-289 handoff](../observation_inversion/RES-289-handoff.md). RES-289 lineage and results: [study report](../target_sufficient_structural_reconstruction/report.md), [RES-290 handoff](../target_sufficient_structural_reconstruction/RES-290-handoff.md). Historical scores are not compared.",
-        "",
     ]
+    if publication_repair is not None:
+        lines.extend(
+            [
+                "",
+                "Post-merge documentation repair: `source_sha256` in the study manifest preserves the source hashes recorded for RES-290 execution. `publication_repair.generator_source_sha256` records the updated report-generator source and is not the source hash for the original experiment. This repair updates report links and interpretation only; no frozen numerical evidence was regenerated or rescored.",
+            ]
+        )
+    lines.extend(
+        [
+            "",
+            "RES-287 lineage and results: [study report](../../observation_inversion/report.md), [RES-289 handoff](../../observation_inversion/RES-289-handoff.md). RES-289 lineage and results: [study report](../../target_sufficient_structural_reconstruction/report.md), [RES-290 handoff](../../target_sufficient_structural_reconstruction/RES-290-handoff.md). Historical scores are not compared.",
+            "",
+        ]
+    )
     return "\n".join(lines).encode("utf-8")
 
 
@@ -2640,6 +2658,27 @@ def _build_output_files(root: Path) -> dict[str, bytes]:
     files, metadata = _directory_artifacts(
         root, protocol, experiment, learner_result, payload, stdout
     )
+    previous_manifest_path = _output_directory(root) / "manifest.json"
+    previous_manifest = (
+        json.loads(previous_manifest_path.read_text(encoding="utf-8"))
+        if previous_manifest_path.is_file()
+        else {}
+    )
+    execution_source_hashes = previous_manifest.get("execution_provenance", {}).get(
+        "source_sha256", previous_manifest.get("source_sha256", metadata["source_hashes"])
+    )
+    execution_generator_hash = execution_source_hashes[EVALUATOR_RELATIVE]
+    current_generator_hash = metadata["source_hashes"][EVALUATOR_RELATIVE]
+    publication_repair = previous_manifest.get("publication_repair")
+    if execution_generator_hash != current_generator_hash:
+        publication_repair = {
+            "kind": "POST_MERGE_DOCUMENTATION_REPAIR",
+            "generator_source_sha256": current_generator_hash,
+            "execution_source_sha256": execution_generator_hash,
+            "scope": "report links, bootstrap interval interpretation, and learner isolation threat model",
+        }
+    metadata["execution_source_hashes"] = execution_source_hashes
+    metadata["publication_repair"] = publication_repair
     negative_results = _claims_rows(
         files["predictive-metrics.csv"],
         files["paired-model-comparisons.csv"],
@@ -2720,7 +2759,15 @@ def _build_output_files(root: Path) -> dict[str, bytes]:
         },
         "fitted_surrogates": metadata["fitted_models"],
         "learner_authority_audit": metadata["learner_audit"],
-        "source_sha256": metadata["source_hashes"],
+        "source_sha256": metadata["execution_source_hashes"],
+        "execution_provenance": {
+            "source_sha256": metadata["execution_source_hashes"],
+            "realization_id": metadata["realization_id"],
+            "realization_digest": metadata["realization_digest"],
+            "learner_input_sha256": metadata["payload_sha256"],
+            "sealed_prediction_sha256": metadata["learner_audit"]["sealed_prediction_sha256"],
+        },
+        "publication_repair": metadata["publication_repair"],
         "claim_bindings": {
             "path": "claims.json",
             "sha256": "sha256:" + _file_sha256(files["claims.json"]),
@@ -2744,6 +2791,107 @@ def _build_output_files(root: Path) -> dict[str, bytes]:
 
 def _output_directory(root: Path) -> Path:
     return root / OUTPUT_RELATIVE
+
+
+def _frozen_report_bytes(root: Path, files: dict[str, bytes], manifest: dict[str, Any]) -> bytes:
+    def rows(path: str) -> list[dict[str, Any]]:
+        return list(csv.DictReader(io.StringIO(files[path].decode("utf-8"))))
+
+    def jsonl(path: str) -> list[dict[str, Any]]:
+        return [json.loads(line) for line in files[path].splitlines()]
+
+    fitting = jsonl("realizations/fitting.jsonl")
+    test_a = jsonl("realizations/test-a-visible.jsonl")
+    empirical_sample = jsonl("empirical-samples.jsonl")
+    fitting_ids = {row["row_id"] for row in fitting}
+    donor_ids = [row["donor_row_id"] for row in empirical_sample]
+    metadata: dict[str, Any] = {
+        "protocol_id": manifest["study"]["study_id"],
+        "protocol_digest": manifest["study"]["protocol_digest"],
+        "realization_id": manifest["realization"]["realization_id"],
+        "realization_digest": manifest["realization"]["realization_digest"],
+        "fitted_models": manifest["fitted_surrogates"],
+        "metrics": rows("predictive-metrics.csv"),
+        "contrasts": rows("paired-model-comparisons.csv"),
+        "matched": rows("matched-response.csv"),
+        "noise": rows("noise-sensitivity.csv"),
+        "publication_repair": manifest.get("publication_repair"),
+        "memorization": {
+            "generated_record_count": len(empirical_sample),
+            "unique_donor_count": len(set(donor_ids)),
+            "exact_donor_copy_fraction": sum(donor in fitting_ids for donor in donor_ids)
+            / len(empirical_sample),
+            "duplicate_draw_fraction": 1.0 - len(set(donor_ids)) / len(empirical_sample),
+            "exact_fitting_test_visible_record_overlap": len(
+                {_visible_hash(row) for row in fitting} & {_visible_hash(row) for row in test_a}
+            ),
+        },
+    }
+    summary_rows: list[dict[str, Any]] = []
+    for row in rows("summary-metrics.csv"):
+        summary_rows.append(
+            {
+                **row,
+                "n_entities": int(row["n_entities"]),
+                "pooled_rmse_kg": float(row["pooled_rmse_kg"]),
+                "mean_mae_kg": float(row["mean_mae_kg"]),
+                "mean_signed_bias_kg": float(row["mean_signed_bias_kg"]),
+            }
+        )
+    return _report_bytes(
+        verify_design(root),
+        metadata,
+        summary_rows,
+        rows("observable-distribution.csv"),
+        rows("support-coverage.csv"),
+        rows("sampling-geometry.csv"),
+        files["negative-results.csv"],
+    )
+
+
+def check_report(root: Path) -> None:
+    destination = _output_directory(root)
+    stored_manifest = json.loads((destination / "manifest.json").read_text(encoding="utf-8"))
+    actual_files = {
+        path.relative_to(destination).as_posix(): path.read_bytes()
+        for path in destination.rglob("*")
+        if path.is_file()
+    }
+    actual_hashes = _sha_map(
+        {path: data for path, data in actual_files.items() if path != "manifest.json"}
+    )
+    if actual_hashes != stored_manifest["outputs"]:
+        raise ValueError("RES-290 artifact manifest or SHA-256 outputs do not verify")
+    listed = {
+        line.split("  ", maxsplit=1)[1]: "sha256:" + line.split("  ", maxsplit=1)[0]
+        for line in actual_files["SHA256SUMS.txt"].decode("utf-8").splitlines()
+    }
+    indexed_hashes = {
+        path: digest for path, digest in actual_hashes.items() if path != "SHA256SUMS.txt"
+    }
+    if listed != indexed_hashes:
+        raise ValueError("RES-290 SHA256SUMS.txt is incomplete or incorrect")
+    artifact_manifest = json.loads(actual_files["artifact-manifest.json"])
+    for artifact in artifact_manifest["artifacts"]:
+        if _file_sha256(actual_files[artifact["path"]]) != artifact["sha256"]:
+            raise ValueError(f"RES-290 artifact manifest digest mismatch: {artifact['path']}")
+    repair = stored_manifest.get("publication_repair")
+    if stored_manifest.get("execution_provenance", {}).get("source_sha256") != stored_manifest.get(
+        "source_sha256"
+    ):
+        raise ValueError("RES-290 execution source provenance does not verify")
+    if repair is not None:
+        current_hash = "sha256:" + _file_sha256((root / EVALUATOR_RELATIVE).read_bytes())
+        if (
+            repair["kind"] != "POST_MERGE_DOCUMENTATION_REPAIR"
+            or repair["generator_source_sha256"] != current_hash
+            or repair["execution_source_sha256"]
+            != stored_manifest["source_sha256"][EVALUATOR_RELATIVE]
+        ):
+            raise ValueError("RES-290 publication repair provenance does not verify")
+    if _frozen_report_bytes(root, actual_files, stored_manifest) != actual_files["report.md"]:
+        raise ValueError("RES-290 deterministic report render mismatch")
+    print("PASS: RES-290 frozen-evidence report render, provenance, and artifact hashes")
 
 
 def _write_output_atomically(root: Path, files: dict[str, bytes]) -> Path:
@@ -2809,9 +2957,12 @@ def main() -> None:
     if sys.argv[1:] == ["--check"]:
         check_outputs(root)
         return
+    if sys.argv[1:] == ["--check-report"]:
+        check_report(root)
+        return
     if sys.argv[1:]:
         raise SystemExit(
-            "usage: python -m powerlifting_state_research.studies.public_surrogate_reconstruction [--check]"
+            "usage: python -m powerlifting_state_research.studies.public_surrogate_reconstruction [--check|--check-report]"
         )
     protocol = verify_design(root)
     destination = _output_directory(root)
