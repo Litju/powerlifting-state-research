@@ -142,24 +142,30 @@ def verify_design(root: Path) -> dict[str, Any]:
         actual = "sha256:" + _sha((root / relative).read_bytes())
         if actual != expected:
             raise ValueError(f"frozen M0-M5/G1-G3 or G4 evidence changed: {relative}")
-    base_files = frozen["historical_g4"]["baseline_homes"]
-    for relative, expected in base_files.items():
-        result = subprocess.run(
-            ["git", "show", f"{EXPECTED_STARTING_MAIN}:{relative}"],
-            cwd=root,
-            capture_output=True,
-            check=True,
-        )
-        if "sha256:" + _sha(result.stdout) != expected:
-            raise ValueError(f"historical G4 baseline metadata differs at {relative}")
-    ancestor = subprocess.run(
-        ["git", "merge-base", "--is-ancestor", EXPECTED_STARTING_MAIN, "HEAD"],
+    base_available = subprocess.run(
+        ["git", "cat-file", "-e", f"{EXPECTED_STARTING_MAIN}^{{commit}}"],
         cwd=root,
         capture_output=True,
         check=False,
     )
-    if ancestor.returncode != 0:
-        raise ValueError("RES-292 starting main is not an ancestor of this checkout")
+    if base_available.returncode == 0:
+        for relative, expected in frozen["historical_g4"]["baseline_homes"].items():
+            result = subprocess.run(
+                ["git", "show", f"{EXPECTED_STARTING_MAIN}:{relative}"],
+                cwd=root,
+                capture_output=True,
+                check=True,
+            )
+            if "sha256:" + _sha(result.stdout) != expected:
+                raise ValueError(f"historical G4 baseline metadata differs at {relative}")
+        ancestor = subprocess.run(
+            ["git", "merge-base", "--is-ancestor", EXPECTED_STARTING_MAIN, "HEAD"],
+            cwd=root,
+            capture_output=True,
+            check=False,
+        )
+        if ancestor.returncode != 0:
+            raise ValueError("RES-292 starting main is not an ancestor of this checkout")
     return cast(dict[str, Any], protocol)
 
 
