@@ -1327,12 +1327,10 @@ def _evaluation_tables(
     for key, pairs in sorted(curve_groups.items()):
         arm, fit_seed, stage, public_updates, synthetic_updates = key
         for lift_index, target in enumerate(TARGETS):
-            horizon_values = sorted({int(row["inputs"]["horizon_days"]) for row, _ in pairs})
+            horizon_values = sorted({int(row["horizon_days"]) for row, _ in pairs})
             for horizon in horizon_values:
                 values = [
-                    (row, truth)
-                    for row, truth in pairs
-                    if int(row["inputs"]["horizon_days"]) == horizon
+                    (row, truth) for row, truth in pairs if int(row["horizon_days"]) == horizon
                 ]
                 error = np.asarray(
                     [

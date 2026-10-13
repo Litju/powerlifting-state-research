@@ -211,6 +211,7 @@ def _record_curve(
                 "public_updates": public_updates,
                 "synthetic_updates": synthetic_updates,
                 "row_id": row["row_id"],
+                "horizon_days": row["inputs"]["horizon_days"],
                 "targets": {
                     target: float(value) for target, value in zip(TARGETS, prediction, strict=True)
                 },
