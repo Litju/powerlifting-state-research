@@ -113,7 +113,7 @@ results/predictions/README.md,NEWLY_AUTHORED,CC-BY-4.0,results,"Prediction artif
 results/studies/README.md,NEWLY_AUTHORED,CC-BY-4.0,results,"Independent study outputs, including negative results."
 results/studies/domain_faithfulness_and_reconstructability/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-result-home,Distinct result/manifest home for this retrospective study.
 results/studies/observation_inversion/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-result-home,Distinct result/manifest home for this retrospective study.
-results/studies/public_surrogate_reconstruction/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-result-home,Result and manifest home for the independent RES-290 public-native experiment.
+results/studies/public_surrogate_reconstruction/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-result-home,Distinct result/manifest home for this retrospective study.
 results/studies/synthetic_pretraining_transfer/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-result-home,Distinct result/manifest home for this retrospective study.
 results/studies/target_sufficient_structural_reconstruction/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-result-home,Distinct result/manifest home for this retrospective study.
 results/tables/README.md,NEWLY_AUTHORED,CC-BY-4.0,results,Tables derived from identified result inputs.
@@ -234,11 +234,7 @@ src/powerlifting_state_research/studies/registry.py,NEWLY_AUTHORED,MIT,studies,S
 studies/README.md,NEWLY_AUTHORED,CC-BY-4.0,studies,Studies are independent of benchmark identity.
 studies/domain_faithfulness_and_reconstructability/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-home,Domain faithfulness and reconstructability; retrospective study.
 studies/observation_inversion/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-home,Observation inversion and latent-state observability; retrospective study.
-studies/public_surrogate_reconstruction/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-home,Historical G3 lineage and independent RES-290 public-native experiment.
-studies/public_surrogate_reconstruction/formal-specification.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,RES-290 frozen public-surrogate study and learner-authority boundary specification.
-studies/public_surrogate_reconstruction/frozen-evidence.json,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,RES-290 read-only hashes for G3 lineage and frozen M2-M5 public benchmark evidence.
-studies/public_surrogate_reconstruction/historical-lineage.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,RES-290 classification of surviving public-safe historical G3 evidence.
-studies/public_surrogate_reconstruction/protocol.json,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,RES-290 pre-outcome frozen public-native protocol and scientific identity.
+studies/public_surrogate_reconstruction/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-home,Public-surrogate reconstruction; retrospective study.
 studies/synthetic_pretraining_transfer/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-home,Synthetic-pretraining transfer; retrospective study.
 studies/target_sufficient_structural_reconstruction/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-home,Target-sufficient structural reconstruction; retrospective study.
 tests/benchmarks/class_normalized_cross_lift_five_target_performance_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
@@ -530,3 +526,10 @@ studies/target_sufficient_structural_reconstruction/formal-specification.md,NEWL
 studies/target_sufficient_structural_reconstruction/frozen-evidence.json,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,RES-289 frozen M0-M5 and RES-287 evidence source identities.
 studies/target_sufficient_structural_reconstruction/historical-lineage.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,RES-289 classification of surviving G2 metadata and missing historical results.
 studies/target_sufficient_structural_reconstruction/protocol.json,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,RES-289 pre-outcome frozen protocol and identities.
+studies/public_surrogate_reconstruction/formal-specification.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,RES-290 frozen public-surrogate study and learner-authority boundary specification.
+studies/public_surrogate_reconstruction/frozen-evidence.json,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,RES-290 read-only hashes for G3 lineage and frozen M2-M5 public benchmark evidence.
+studies/public_surrogate_reconstruction/historical-lineage.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,RES-290 classification of surviving public-safe historical G3 evidence.
+studies/public_surrogate_reconstruction/protocol.json,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,RES-290 pre-outcome frozen public-native protocol and scientific identity.
+src/powerlifting_state_research/studies/public_surrogate_reconstruction.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,RES-290 Evaluation Authority generation scoring firewall and publication builder.
+src/powerlifting_state_research/studies/public_surrogate_reconstruction_learner.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,RES-290 isolated NumPy-only public-observation surrogate learner.
+tests/studies/test_public_surrogate_reconstruction.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,RES-290 frozen protocol information-boundary deterministic learner and provenance checks.
