@@ -5,6 +5,7 @@ import csv
 import io
 import json
 from pathlib import Path
+from types import SimpleNamespace
 from typing import Any
 
 import pytest
@@ -69,6 +70,16 @@ def test_frozen_protocol_and_public_lineage_hashes_verify() -> None:
     ).read_text()
     assert "UNSUPPORTED_BY_EVIDENCE" in historical
     assert "No historical G3 score is compared" in historical
+
+
+def test_frozen_protocol_verifies_in_a_depth_one_checkout(monkeypatch: pytest.MonkeyPatch) -> None:
+    import powerlifting_state_research.studies.public_surrogate_reconstruction as study
+
+    def no_history(*args: Any, **kwargs: Any) -> Any:
+        return SimpleNamespace(returncode=128)
+
+    monkeypatch.setattr(study.subprocess, "run", no_history)
+    assert verify_design(ROOT)["identities"]["protocol_digest"].startswith("sha256:")
 
 
 def test_subprocess_boundary_disjointness_units_and_resampler_replay() -> None:
