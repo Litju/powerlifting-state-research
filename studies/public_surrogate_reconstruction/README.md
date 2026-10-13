@@ -10,4 +10,4 @@ RES-290 adds an independent PUBLIC_NATIVE experiment under this study home. It i
 
 The methods are an empirical finite-support row resampler, summary Ridge, and a generic sequence-aware random-feature Ridge. The latter is the single nonlinear candidate. Conditional point prediction and complete observable-record sampling are measured separately. The experiment does not use a mechanistic estimator, source-equation reconstruction, neural tournament, new dependency, canonical M3/M4 training result, private artifact, or historical score.
 
-The runner creates immutable outputs under results/studies/public_surrogate_reconstruction. It refuses to overwrite an existing divergent result. Replay and boundary checks are documented in the result README after the realization is frozen.
+From the repository root, run `uv run --locked python -m powerlifting_state_research.studies.public_surrogate_reconstruction` to create the immutable result directory. Run the same command with `--check` to verify the frozen sources, learner boundary, output hashes, and deterministic replay. The runner refuses to overwrite an existing result directory.
