@@ -74,13 +74,13 @@ ARMS = (
     "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_PSEUDOLABEL",
 )
 ARM_DATA = {
-    "PUBLIC_ONLY": ("public", "none"),
+    "PUBLIC_ONLY": ("public", "NONE"),
     "SYNTHETIC_ONLY_BOOTSTRAP": ("bootstrap", "BOOTSTRAP_DUPLICATE_LABEL"),
     "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_BOOTSTRAP": (
         "public+bootstrap",
         "BOOTSTRAP_DUPLICATE_LABEL",
     ),
-    "COMPUTE_MATCHED_PUBLIC_ONLY": ("public", "none"),
+    "COMPUTE_MATCHED_PUBLIC_ONLY": ("public", "NONE"),
     "SYNTHETIC_ONLY_PSEUDOLABEL": ("pseudolabel", "SURROGATE_PSEUDO_LABEL"),
     "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_PSEUDOLABEL": (
         "public+pseudolabel",
@@ -963,7 +963,7 @@ def _fitted_instances(
                 if synthetic_kind == "BOOTSTRAP_DUPLICATE_LABEL"
                 else "synthetic/surrogate-pseudo-labels.jsonl"
             ]
-            if synthetic_kind != "none"
+            if synthetic_kind != "NONE"
             else None,
         }
         digest = sha256_record(
@@ -1699,7 +1699,7 @@ def _compute_accounting(
                 if "public" in synthetic_kind
                 else 0
             )
-            expected_synthetic = 128 if provenance != "none" else 0
+            expected_synthetic = 128 if provenance != "NONE" else 0
             rows.append(
                 {
                     "record_type": "learner_fit",
@@ -2052,6 +2052,7 @@ def _paired_effects_svg(effect_csv: bytes) -> bytes:
         abs(float(row[key]))
         for row in rows
         for key in ("delta_rmse_kg", "ci95_lower_kg", "ci95_upper_kg")
+        if row[key]
     ]
     bound = max(2.0, math.ceil(max(values, default=2.0) / 2.0) * 2.0)
     left = 320
@@ -2098,6 +2099,13 @@ def _paired_effects_svg(effect_csv: bytes) -> bytes:
             f"{'equal updates' if row['control_arm'] == 'COMPUTE_MATCHED_PUBLIC_ONLY' else 'equal public labels'} · "
             f"{row['lift']} · {row['horizon_days']}d"
         )
+        if not row["delta_rmse_kg"]:
+            parts.append(f'<text x="20" y="{y + 4}" font-size="10">{xml_escape(label)}</text>')
+            parts.append(
+                f'<text x="{left + plot_width + 8}" y="{y + 4}" font-size="9">'
+                f"{xml_escape(row['status'])}</text>"
+            )
+            continue
         color = "#b45309" if row["status"] == "PRACTICAL_HARM" else "#176b87"
         x1, x2 = (
             x_coordinate(float(row["ci95_lower_kg"])),

@@ -148,6 +148,8 @@ def test_published_learner_firewall_and_train_dev_test_disjointness() -> None:
         assert by_arm[("SYNTHETIC_ONLY_BOOTSTRAP", seed)]["public_fitting_rows"] == 0
         assert by_arm[("SYNTHETIC_ONLY_PSEUDOLABEL", seed)]["public_fitting_rows"] == 0
         assert by_arm[("PUBLIC_ONLY", seed)]["synthetic_fitting_rows"] == 0
+        assert by_arm[("PUBLIC_ONLY", seed)]["synthetic_label_provenance"] == "NONE"
+        assert by_arm[("COMPUTE_MATCHED_PUBLIC_ONLY", seed)]["synthetic_label_provenance"] == "NONE"
 
 
 def test_donor_copy_and_surrogate_pseudo_labels_remain_distinct() -> None:
