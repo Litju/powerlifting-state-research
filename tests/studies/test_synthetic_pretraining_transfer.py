@@ -4,6 +4,9 @@ import copy
 import csv
 import hashlib
 import json
+import os
+import subprocess
+import sys
 from pathlib import Path
 from typing import Any
 
@@ -107,6 +110,30 @@ def test_practical_decision_keeps_inconclusive_states(
     interval: tuple[float, float], expected: str
 ) -> None:
     assert _decision_status(*interval) == expected
+
+
+def test_numpy_random_can_run_after_the_learner_file_guard() -> None:
+    code = (
+        "import sys\n"
+        "import numpy as np\n"
+        "from numpy import random as _random\n"
+        "def audit(event, args):\n"
+        "    if event in {'open', 'os.open'}:\n"
+        "        raise PermissionError(event)\n"
+        "sys.addaudithook(audit)\n"
+        "rng = _random.default_rng(292201)\n"
+        "assert 0 <= int(rng.integers(0, 2**16)) < 2**16\n"
+    )
+    environment = os.environ.copy()
+    environment.pop("PYTHONPATH", None)
+    environment.pop("PYTHONHOME", None)
+    subprocess.run(
+        [sys.executable, "-I", "-c", code],
+        check=True,
+        capture_output=True,
+        env=environment,
+        timeout=30,
+    )
 
 
 def test_frozen_m0_m5_g1_g3_and_g4_metadata_are_unchanged() -> None:

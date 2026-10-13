@@ -585,9 +585,11 @@ def _run_learner(
         except subprocess.TimeoutExpired as error:
             raise LearnerExecutionError("learner exceeded its frozen 180-second budget") from error
     if process.returncode != 0:
-        raise LearnerExecutionError(
-            "isolated learner failed: " + process.stderr.decode("utf-8", errors="replace")[-2000:]
-        )
+        error_text = process.stderr.decode("utf-8", errors="replace")
+        error_text = error_text.replace(str(sandbox), "<isolated-learner>")
+        error_text = error_text.replace(str(root), "<repository>")
+        error_text = error_text.replace(str(Path(sys.prefix)), "<python-environment>")
+        raise LearnerExecutionError("isolated learner failed: " + error_text[-2000:])
     output = process.stdout
     result = cast(dict[str, Any], json.loads(output))
     if (

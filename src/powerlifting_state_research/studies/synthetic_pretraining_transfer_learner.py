@@ -8,6 +8,7 @@ import sys
 from typing import Any, cast
 
 import numpy as np
+from numpy import random as _random
 from numpy.typing import NDArray
 
 Array = NDArray[np.float64]
@@ -297,9 +298,9 @@ def _fit(request: dict[str, Any]) -> dict[str, Any]:
     if len(development) != 192:
         raise ValueError("development query count does not match the frozen count")
 
-    rng_init = np.random.default_rng(fit_seed)
-    rng_synthetic = np.random.default_rng(fit_seed + 2_000_000)
-    rng_public = np.random.default_rng(fit_seed + 1_000_000)
+    rng_init = _random.default_rng(fit_seed)
+    rng_synthetic = _random.default_rng(fit_seed + 2_000_000)
+    rng_public = _random.default_rng(fit_seed + 1_000_000)
     weights = rng_init.normal(0.0, 0.01, size=(59, 3)).astype(np.float64)
     development_x = np.asarray([_features(row) for row in development], dtype=np.float64)
     curves: list[dict[str, Any]] = []
