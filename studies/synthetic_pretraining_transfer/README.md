@@ -1,15 +1,18 @@
-# Synthetic Pretraining Transfer
+# Synthetic pretraining transfer
 
-## Study identity
+G4 is a retrospective study identity. The historical record contains registry
+metadata only. RES-292 is a separate, frozen PUBLIC_NATIVE experiment; it does
+not reconstruct an unavailable historical protocol or result.
 
-Synthetic-pretraining transfer; retrospective study.
+The experiment compares original public training rows, finite donor-copy
+bootstrap rows, cross-fitted Summary Ridge pseudo-labels, public fine-tuning,
+and a compute-matched public-only control. Every split, seed, label source,
+model update budget, and claim boundary is fixed in [protocol.json](protocol.json).
+The participant-information boundary is specified in
+[formal-specification.md](formal-specification.md), and the evidence status is
+recorded in [historical-lineage.md](historical-lineage.md).
 
-This home is classified as **research study, not benchmark version**. Evidence status at bootstrap: **PROVEN**. A study is not a benchmark version.
-
-## Research record
-
-Future documentation should identify the scientific question, inputs, benchmark and realization identities, methods, changes and held-fixed axes, results, limitations, and any negative findings.
-
-## Bootstrap boundary
-
-No private reports, historical code, datasets, models, or results are copied into this directory. Historical study aliases are retained only in the study registry's provenance fields.
+No independently generated source-truth labels are created. The empirical
+bootstrap copies finite public donor rows. Pseudo-labels are conditional
+predictions from a public-data surrogate. Neither is an independent sample of
+the source world.

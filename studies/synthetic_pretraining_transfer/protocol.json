@@ -1,0 +1,235 @@
+{
+  "format": "PSR_RES292_SYNTHETIC_PRETRAINING_TRANSFER_PROTOCOL_V1",
+  "frozen_evidence": {
+    "path": "studies/synthetic_pretraining_transfer/frozen-evidence.json",
+    "sha256": "sha256:38a78c3fa76d633fd898727e00228b8c733815f8eb4d879118eaff5056f81df3"
+  },
+  "identities": {
+    "benchmark_id": "psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting@1.0.0~f99463d55ba0",
+    "dataset_spec_id": "psr:dataset-spec:latent-capacity-transient-iid-sampling-design@1.0.0~1d079eb645ed",
+    "historical_aliases": [
+      "G4 / ALI-544",
+      "pl_study_g4_synthetic_pretraining"
+    ],
+    "historical_study_slug": "synthetic_pretraining_transfer",
+    "observation_id": "psr:observation-model:latent-capacity-transient-performance-observation@1.0.0~9147ed8f5372",
+    "protocol_digest": "sha256:e6209a7185e826e4b041c7b2aac7b313ae10cc98d83496db5edb528fc20d1e96",
+    "study_evaluation_id": "res292-public-native-synthetic-pretraining-transfer-v1",
+    "study_id": "psr:study:synthetic-pretraining-transfer-public-native@1.0.0~e6209a7185e8",
+    "world_id": "psr:world:world-v2-parsimonious-response-world@1.0.0~a1afbf2f5c1e"
+  },
+  "protocol": {
+    "arms": [
+      {
+        "fit": "From scratch on original public fitting rows",
+        "id": "PUBLIC_ONLY",
+        "updates": 128
+      },
+      {
+        "fit": "From scratch on donor-copy bootstrap rows with copied labels",
+        "id": "SYNTHETIC_ONLY_BOOTSTRAP",
+        "updates": 128
+      },
+      {
+        "fit": "128 donor-copy updates, then 128 updates on the same public rows as PUBLIC_ONLY",
+        "id": "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_BOOTSTRAP",
+        "updates": 256
+      },
+      {
+        "fit": "From scratch on original public fitting rows",
+        "id": "COMPUTE_MATCHED_PUBLIC_ONLY",
+        "updates": 256
+      },
+      {
+        "fit": "From scratch on donor-copy inputs with cross-fitted Summary Ridge predictions",
+        "id": "SYNTHETIC_ONLY_PSEUDOLABEL",
+        "updates": 128
+      },
+      {
+        "fit": "128 pseudo-label updates, then 128 updates on the same public rows as PUBLIC_ONLY",
+        "id": "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_PSEUDOLABEL",
+        "updates": 256
+      }
+    ],
+    "claim_classification": "NEW_PUBLIC_NATIVE_EXPERIMENT",
+    "claim_scope": [
+      "the named public-native synthetic benchmark and frozen DatasetSpec",
+      "the public participant-visible fields and three capacity-change targets",
+      "the two independent held-out population/observation realizations",
+      "the fixed learner, synthetic label provenance, and update budgets below"
+    ],
+    "estimands": {
+      "finite_support": "Unique donor count, duplicate frequency, exact donor-copy fraction, cell coverage, held-out sample-extrema gaps, nearest-donor distance, and source-to-target label discrepancy.",
+      "predictive_utility": "RMSE, MAE, and signed bias in kg by arm, held-out population, lift target, horizon, and fitting seed.",
+      "pretraining_incremental_value": "Paired RMSE difference for bootstrap pretraining plus public fine-tuning versus PUBLIC_ONLY and COMPUTE_MATCHED_PUBLIC_ONLY.",
+      "pseudo_label_distillation": "Pseudo-label-only and pseudo-label-pretraining results are separate secondary analyses; teacher fitting cost is reported separately.",
+      "synthetic_only_learning": "SYNTHETIC_ONLY_BOOTSTRAP and SYNTHETIC_ONLY_PSEUDOLABEL versus PUBLIC_ONLY on identical held-out rows."
+    },
+    "failure_and_interpretation": {
+      "hard_failures": [
+        "protocol, frozen evidence, or upstream source hash mismatch",
+        "nonfinite public input, target, learner state, or prediction",
+        "train/development/test entity overlap",
+        "held-out target or authority-key leakage to learner",
+        "donor or label provenance mismatch",
+        "update or label-exposure budget mismatch",
+        "deterministic replay mismatch",
+        "artifact hash, rights, or manifest mismatch"
+      ],
+      "inconclusive": "Sparse support, failed fits, or paired intervals crossing a practical decision boundary remain INCONCLUSIVE. Do not change hyperparameters or margins after inspecting results.",
+      "method_failure": "Retain a model-specific failure row and continue other frozen arms; do not substitute a different model.",
+      "prohibited_claims": [
+        "historical G4 score or finding",
+        "real-athlete transfer",
+        "causal training effects",
+        "source-system identification",
+        "structural equivalence",
+        "universal failure or success of synthetic pretraining"
+      ]
+    },
+    "hypotheses": [
+      "H1: A fixed learner trained only on donor-copy bootstrap rows may learn predictive structure but receives no independent source-world information beyond its finite public donors.",
+      "H2: Bootstrap pretraining followed by the same public fitting rows may change prediction relative to public-only training at equal public-label exposure; any change is an optimization or initialization effect unless it also resolves against compute-matched public-only training.",
+      "H3: Pretraining plus public fine-tuning is load-bearing for this learner and realization only if its paired RMSE improvement over compute-matched public-only exceeds the predeclared 1.0 kg practical margin.",
+      "H4: Cross-fitted Summary Ridge pseudo-labels may distill a public conditional predictor but are not independent labels from the generating distribution.",
+      "H5: Finite donor support, duplicate frequency, and source-target discrepancy can limit synthetic transfer even when the held-out rows follow the same source distribution."
+    ],
+    "learner": {
+      "architecture": "One linear layer from 58 participant-visible features to 3 target outputs, with bias; 177 trainable scalars.",
+      "batch_size": 32,
+      "development": "Prediction-only learning curves at 0, 32, 64, 96, and 128 phase updates; compute-matched public-only also at 160, 192, 224, and 256. No dev-based selection or stopping.",
+      "fit_seeds": [
+        292201,
+        292202,
+        292203,
+        292204,
+        292205
+      ],
+      "initialization": "Independent NumPy PCG64 normal weights with mean 0 and standard deviation 0.01 per fit seed; zero biases. Paired arms for each seed start from identical weights.",
+      "learning_rate": 0.01,
+      "optimizer": "Full-batch gradient calculation on mini-batches sampled with replacement; mean squared error plus 0.5*1e-4 times the squared non-bias weight norm, giving gradient contribution 1e-4*weight.",
+      "public_exposure_control": "PUBLIC_ONLY and each fine-tuning phase use identical 128 seeded public mini-batches per fitting seed. COMPUTE_MATCHED_PUBLIC_ONLY uses those same first 128 public batches plus 128 further public updates.",
+      "updates": {
+        "compute_matched_public_only": 256,
+        "pretraining": 128,
+        "public_fine_tuning": 128,
+        "public_only": 128,
+        "synthetic_only": 128
+      }
+    },
+    "participant_schema": {
+      "feature_map": "The RES-290 58-feature Summary Ridge map: latest, mean, and weekly trend for three channels per lift; mean, standard deviation, latest, and weekly trend for dose and intensity per lift; four plan indicators and three horizon indicators. No IDs are features.",
+      "feature_unit_scales": {
+        "assessment_kg": 100.0,
+        "dose": 1.0,
+        "intensity": 1.0,
+        "prescribed_load_kg": 100.0,
+        "target_kg": 10.0,
+        "velocity_mps": 1.0
+      },
+      "forbidden_learner_information": [
+        "source-world equations or generator internals",
+        "hidden states, population coordinates, or source parameters",
+        "exact population parameter bounds",
+        "held-out target truth",
+        "authority-only donor, split, or entity matching keys",
+        "private historical material"
+      ],
+      "history": "32 ordered weekly observations at days 6, 13, ..., 223 for squat, bench_press, and deadlift; assessment kg, prescribed load kg, velocity m/s, and public history schedule",
+      "horizons_days": [
+        14,
+        28,
+        56
+      ],
+      "origin_day": 224,
+      "plans": [
+        "cessation",
+        "step_down",
+        "continue",
+        "step_up"
+      ],
+      "targets": [
+        "squat_delta_capacity_kg",
+        "bench_press_delta_capacity_kg",
+        "deadlift_delta_capacity_kg"
+      ]
+    },
+    "research_question": "Does donor-copy or surrogate-pseudo-label pretraining improve prediction on new held-out rows from the same public-native synthetic distribution beyond equal-public-label and equal-compute public-only controls?",
+    "rights": {
+      "authored_prose_and_reports": "CC-BY-4.0",
+      "external_access_conditions": null,
+      "historical_private_material_used": false,
+      "new_code_and_machine_readable_results": "MIT"
+    },
+    "roles": {
+      "evaluation_authority": "Generates new public-native rows and truth, constructs donor-copy and cross-fitted pseudo-label records, retains authority keys, runs firewall checks, seals learner predictions before joining held-out truth, and computes evaluation artifacts.",
+      "learner": "Receives only the arm-specific labeled fitting records and unlabeled development/test participant inputs. It has no generator or evaluation imports, target truth, authority keys, or network/filesystem access."
+    },
+    "seeds": {
+      "bootstrap": 292180,
+      "development": {
+        "intervention": 292112,
+        "observation": 292113,
+        "population": 292111,
+        "split": 292114
+      },
+      "fit_seeds": [
+        292201,
+        292202,
+        292203,
+        292204,
+        292205
+      ],
+      "fitting": {
+        "intervention": 292102,
+        "observation": 292103,
+        "population": 292101,
+        "split": 292104
+      },
+      "paired_bootstrap": 292170,
+      "teacher_crossfit": 292190,
+      "test_population_a": {
+        "intervention": 292122,
+        "observation": 292123,
+        "population": 292121,
+        "split": 292124
+      },
+      "test_population_b": {
+        "intervention": 292132,
+        "observation": 292133,
+        "population": 292131,
+        "split": 292134
+      }
+    },
+    "splits": {
+      "canonical_data_used": false,
+      "disjointness": "Fitting, development, test A, and test B are generated from independent population, intervention, observation, and split seeds and have distinct opaque entity IDs.",
+      "rows": {
+        "development": 192,
+        "fitting": 384,
+        "test_population_a": 384,
+        "test_population_b": 384
+      },
+      "strata": "Balanced 4 declared plans by 3 horizons; each split size is divisible by 12.",
+      "test_sets": "test_population_a and test_population_b are separate source-population and observation draws; both are reported independently.",
+      "unit": "one public forecast row with a unique entity; all three lift targets share that entity"
+    },
+    "synthetic_data": {
+      "bootstrap_duplicate_label": "Copy the donor's ORIGINAL_PUBLIC_LABEL together with the full donor row; classify every copied target as BOOTSTRAP_DUPLICATE_LABEL.",
+      "donor_bootstrap": "Sample 384 complete public fitting records with replacement, separately within each plan-by-horizon cell, preserving each donor input and its original target. Mint a new opaque row ID and record donor lineage outside learner payloads.",
+      "novel_generation": "No genuinely novel synthetic participant records or independently generated source-truth labels are produced. M2 equations remain authority-only.",
+      "surrogate_pseudo_label": "Within each of 12 plan-by-horizon cells, use PCG64 seed 292190 to permute the donor IDs and assign four folds round-robin in permuted order. Fit Summary Ridge alpha=100 on the other three folds and predict each held-out donor input; resample complete donor inputs with replacement and copy these teacher predictions. Classify every label as SURROGATE_PSEUDO_LABEL. The donor's own target is excluded from its teacher fit."
+    },
+    "uncertainty": {
+      "decision": "Paired delta treatment minus control: resolved benefit if the full interval is below -1 kg; resolved harm if the full interval is above +1 kg; practical equivalence if the full interval lies within [-1,+1] kg; otherwise INCONCLUSIVE.",
+      "interval": "two-sided 95% percentile interval",
+      "per_seed_replicates": 1000,
+      "pooled_replicates": 1000,
+      "pooled_rule": "Resample fitting seeds first, then held-out entities within each plan/horizon cell; retain paired arm predictions for each selected entity.",
+      "practical_rmse_margin_kg": 1.0,
+      "resampling_unit": "held-out entity, paired across arms and stratified by plan within each horizon"
+    }
+  },
+  "starting_main": "0489029384af4503d175220e9a9a090845b38cc6",
+  "version": "1.0.0"
+}
