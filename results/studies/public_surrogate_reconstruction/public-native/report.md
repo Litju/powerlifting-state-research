@@ -6,7 +6,7 @@ Study realization: psr:dataset-realization:public-surrogate-reconstruction-publi
 Realization digest: sha256:d6543d9fe0143d1fbb0134d6bb841b5e7c72cc01bc4a9e9901c632d574ac56ac
 Evaluation: res290-public-surrogate-evaluation-v1
 
-This is a new public-native experiment, not a historical G3 reproduction. Historical G3 survives only as metadata and aliases; no original G3 method, data, fitted model, or score is recovered. See [historical lineage](../../../studies/public_surrogate_reconstruction/historical-lineage.md).
+This is a new public-native experiment, not a historical G3 reproduction. Historical G3 survives only as metadata and aliases; no original G3 method, data, fitted model, or score is recovered. See [historical lineage](../../../../studies/public_surrogate_reconstruction/historical-lineage.md).
 
 ## Historical and scientific claim boundary
 
@@ -16,11 +16,11 @@ Predictive utility, observable-record distribution fidelity, matched conditional
 
 ## Frozen design and firewall
 
-The protocol was frozen at starting main 31ad65bdd4e19ef80243fbdbf507097d70f1776b before any RES-290 realization was generated. It binds the public-native world, participant row contract, and M4/M5 references in [frozen evidence](../../../studies/public_surrogate_reconstruction/frozen-evidence.json).
+The protocol was frozen at starting main 31ad65bdd4e19ef80243fbdbf507097d70f1776b before any RES-290 realization was generated. It binds the public-native world, participant row contract, and M4/M5 references in [frozen evidence](../../../../studies/public_surrogate_reconstruction/frozen-evidence.json).
 
 Fitting has 384 rows, development 192, and each factual test population 384, balanced across 12 plan-by-horizon cells. Test A and test B use independent population and observation draws. A paired noise realization reuses test-A population and schedules with an independent observation seed. The matched set has 64 authority-only entities across four declared plans and three horizons.
 
-The learner receives only public fields and train/development target labels. Test rows have no target fields in the learner payload. Fitting runs in an isolated Python subprocess from a staged learner module; imports outside NumPy and the Python standard library are rejected, and file, network, repository-import, and subprocess events are blocked. The authority keeps truth and matched-entity keys outside the payload, seals prediction bytes, then scores. The [payload audit](learner-input-audit.json) records the exact request digest, source, split counts, and firewall outcome.
+The learner receives only public fields and train/development target labels. Test rows have no target fields in the learner payload. Fitting runs in an isolated Python subprocess from a staged first-party learner module; imports outside NumPy and the Python standard library are rejected, and the audit hook blocks file, network, repository-import, and subprocess events. These subprocess and audit-hook controls provide procedural isolation for this controlled learner; they are not a security-grade sandbox for arbitrary hostile code. The authority keeps truth and matched-entity keys outside the payload, seals prediction bytes, then scores. The [payload audit](learner-input-audit.json) records the exact request digest, source, split counts, and firewall outcome.
 
 ## Methods and fitted identities
 
@@ -75,6 +75,8 @@ Figure: [predictive fidelity](predictive-fidelity.svg); the machine-readable tab
 ## Observable-record distribution and memorization
 
 Only the empirical resampler generates complete observable records. Its output is compared with test-A inputs using field-wise 1-Wasserstein distance normalized by each fitting-sample standard deviation. Correlation discrepancy uses the 58 predeclared visible summary features. Plan and horizon frequencies are measured separately.
+
+These are conditional, evaluation-side percentile-bootstrap intervals: the empirical generated donor sample is fixed, and held-out evaluation entities are resampled within plan-by-horizon strata. The intervals do not include uncertainty in both empirical distributions and do not establish fully calibrated population-level two-sample discrepancy intervals. Point estimates use the observed evaluation sample and may fall outside their percentile intervals; the reported values are retained without silent correction. This publication repair leaves all numerical measurements, bootstrap draws, interval bounds, and seeds unchanged.
 
 | Lift | Channel | W1 / training SD | 95% entity-bootstrap interval |
 |---|---|---:|---:|
@@ -148,6 +150,12 @@ Verify source hashes, output identities, learner isolation, and deterministic re
 
     uv run --locked python -m powerlifting_state_research.studies.public_surrogate_reconstruction --check
 
+Verify the generated report against frozen artifacts without rebuilding the experiment with:
+
+    uv run --locked python -m powerlifting_state_research.studies.public_surrogate_reconstruction --check-report
+
 The [study manifest](manifest.json), [artifact manifest](artifact-manifest.json), and [SHA-256 index](SHA256SUMS.txt) bind the report, tables, figures, realizations, fitted states, predictions, and truth to the protocol, realization, fitted models, evaluation, source, and redistribution rights. No private historical artifact was used.
 
-RES-287 lineage and results: [study report](../observation_inversion/report.md), [RES-289 handoff](../observation_inversion/RES-289-handoff.md). RES-289 lineage and results: [study report](../target_sufficient_structural_reconstruction/report.md), [RES-290 handoff](../target_sufficient_structural_reconstruction/RES-290-handoff.md). Historical scores are not compared.
+Post-merge documentation repair: `source_sha256` in the study manifest preserves the source hashes recorded for RES-290 execution. `publication_repair.generator_source_sha256` records the updated report-generator source and is not the source hash for the original experiment. This repair updates report links and interpretation only; no frozen numerical evidence was regenerated or rescored.
+
+RES-287 lineage and results: [study report](../../observation_inversion/report.md), [RES-289 handoff](../../observation_inversion/RES-289-handoff.md). RES-289 lineage and results: [study report](../../target_sufficient_structural_reconstruction/report.md), [RES-290 handoff](../../target_sufficient_structural_reconstruction/RES-290-handoff.md). Historical scores are not compared.

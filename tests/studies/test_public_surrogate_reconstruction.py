@@ -4,9 +4,12 @@ import copy
 import csv
 import io
 import json
+import re
+import subprocess
 from pathlib import Path
 from types import SimpleNamespace
 from typing import Any
+from urllib.parse import unquote, urlsplit
 
 import pytest
 
@@ -205,3 +208,49 @@ def test_artifact_rights_manifest_records_redistribution_scope() -> None:
     assert artifacts["report.md"]["license_expression"] == "CC-BY-4.0"
     assert all(row["origin_class"] == "GENERATED_PUBLIC_ARTIFACT" for row in artifacts.values())
     assert all(row["access_conditions"] is None for row in artifacts.values())
+
+
+def test_generated_report_links_resolve_to_tracked_files_without_replaying_study(
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
+    import powerlifting_state_research.studies.public_surrogate_reconstruction as study
+
+    def no_study_replay(*args: Any, **kwargs: Any) -> Any:
+        pytest.fail("report verification must not regenerate study populations or score outputs")
+
+    monkeypatch.setattr(study, "_build_inputs", no_study_replay)
+    study.check_report(ROOT)
+
+    report_path = ROOT / "results/studies/public_surrogate_reconstruction/public-native/report.md"
+    report = report_path.read_text(encoding="utf-8")
+    targets = [
+        target.strip().split(maxsplit=1)[0].strip("<>")
+        for target in re.findall(r"\[[^\]]*\]\(([^)]*)\)", report)
+    ]
+    assert (
+        targets.count("../../../../studies/public_surrogate_reconstruction/historical-lineage.md")
+        == 1
+    )
+    assert (
+        targets.count("../../../../studies/public_surrogate_reconstruction/frozen-evidence.json")
+        == 1
+    )
+    assert targets.count("../../observation_inversion/report.md") == 1
+    assert targets.count("../../observation_inversion/RES-289-handoff.md") == 1
+    assert targets.count("../../target_sufficient_structural_reconstruction/report.md") == 1
+    assert (
+        targets.count("../../target_sufficient_structural_reconstruction/RES-290-handoff.md") == 1
+    )
+
+    tracked = {
+        untracked.decode("utf-8")
+        for untracked in subprocess.check_output(["git", "ls-files", "-z"], cwd=ROOT).split(b"\0")
+        if untracked
+    }
+    for target in targets:
+        parsed = urlsplit(unquote(target))
+        if parsed.scheme or parsed.netloc or not parsed.path:
+            continue
+        resolved = (report_path.parent / parsed.path).resolve()
+        relative = resolved.relative_to(ROOT.resolve()).as_posix()
+        assert relative in tracked
