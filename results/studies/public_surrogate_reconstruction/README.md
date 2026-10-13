@@ -1,13 +1,11 @@
-# Public Surrogate Reconstruction
+# Public surrogate reconstruction results
 
-## Scope
+## Historical G3
 
-Distinct result/manifest home for this retrospective study.
+The G3 result home survives as metadata only. It contains no rights-cleared original protocol, public participant rows, fitted learner, or quantitative result. The bootstrap PROVEN label was a repository classification, not a scientific finding. See the [historical lineage](../../../studies/public_surrogate_reconstruction/historical-lineage.md).
 
-## Output identity
+## RES-290 public-native experiment
 
-A result bundle should reference the study, benchmark specifications, data realizations, model/evaluation records, source files, checksums, and claim scope that produced it.
+The new independent realization, report, fitted surrogates, metric tables, matched-response results, figures, negative-result register, [RES-292 handoff](public-native/RES-292-handoff.md), artifact manifest, and SHA-256 index are under [public-native](public-native/report.md).
 
-## Bootstrap state
-
-No historical study report or result artifact is reproduced here. Negative and null results should be retained with the same provenance as positive findings.
+The result manifest binds the exact frozen protocol, independent realization, fitted model identities, evaluation, source hashes, and rights. No private historical artifact or canonical M3/M4 fitted state was used. The new scores are not compared with historical G3, G1, or G2 scores.

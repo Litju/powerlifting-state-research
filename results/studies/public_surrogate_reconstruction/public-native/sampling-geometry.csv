@@ -1,0 +1,6 @@
+evaluation_set,n_rows,n_outside_observed_training_extrema,fraction_outside_observed_training_extrema,nearest_training_distance_median,nearest_training_distance_p95,interpretation
+development,192.0000000000,13.0000000000,0.0677083333,5.1526712185,6.2674364681,sample-extrema diagnostic only; not true population support
+test_a,384.0000000000,23.0000000000,0.0598958333,5.1555228100,6.2876941911,sample-extrema diagnostic only; not true population support
+test_b,384.0000000000,32.0000000000,0.0833333333,5.2486300660,6.5630370939,sample-extrema diagnostic only; not true population support
+test_a_noise_replicate,384.0000000000,27.0000000000,0.0703125000,5.1806374117,6.4778873515,sample-extrema diagnostic only; not true population support
+matched,768.0000000000,84.0000000000,0.1093750000,5.1926902882,6.4055241051,sample-extrema diagnostic only; not true population support

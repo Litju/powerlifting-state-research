@@ -1,0 +1,13 @@
+metric,lift,channel,unit,value,ci95_lower,ci95_upper,n_entities
+history_schedule_combination_total_variation,all,schedule,probability,0.2369791667,0.2369791667,0.3177734375,384
+plan_horizon_total_variation,all,declared_plan,probability,0.0000000000,0.0000000000,0.0000000000,384
+visible_summary_correlation_frobenius,all,58_summary_features,correlation_matrix_frobenius,3.2743869559,3.5131113006,4.2036198885,384
+visible_field_wasserstein_1_normalized,squat,assessment_kg,training_sd(assessment_kg),0.0752963280,0.0595778508,0.1359115937,384
+visible_field_wasserstein_1_normalized,squat,prescribed_load_kg,training_sd(prescribed_load_kg),0.0756926148,0.0601605313,0.1366773789,384
+visible_field_wasserstein_1_normalized,squat,velocity_mps,training_sd(velocity_mps),0.1083552619,0.1152625078,0.1367137265,384
+visible_field_wasserstein_1_normalized,bench_press,assessment_kg,training_sd(assessment_kg),0.0506643173,0.0522944139,0.1380251934,384
+visible_field_wasserstein_1_normalized,bench_press,prescribed_load_kg,training_sd(prescribed_load_kg),0.0506356075,0.0527681338,0.1380191429,384
+visible_field_wasserstein_1_normalized,bench_press,velocity_mps,training_sd(velocity_mps),0.1155052226,0.1220357971,0.1433138279,384
+visible_field_wasserstein_1_normalized,deadlift,assessment_kg,training_sd(assessment_kg),0.0908188530,0.0671091283,0.1551952320,384
+visible_field_wasserstein_1_normalized,deadlift,prescribed_load_kg,training_sd(prescribed_load_kg),0.0909108675,0.0678213920,0.1550286518,384
+visible_field_wasserstein_1_normalized,deadlift,velocity_mps,training_sd(velocity_mps),0.1050060730,0.1121382268,0.1336843072,384

@@ -1,0 +1,14 @@
+claim,status,evidence,limit
+Original historical G3 experiment was reproduced,UNSUPPORTED_BY_EVIDENCE,historical-lineage.md,"No rights-cleared historical G3 protocol, data, model, or result survives in the public home."
+At least one conditional learner has lower point RMSE than the empirical plan-by-horizon prediction baseline,LOWER_POINT_RMSE_CELLS_1_OF_54,predictive-metrics.csv and paired-model-comparisons.csv,Point-error cell count only; it does not assert an inferential improvement. See paired entity-bootstrap intervals.
+Sequence RFF and Summary Ridge have distinguishable prediction error,RFF_HIGHER_RMSE_IN_27_OF_27;RESOLVED_27_OF_27,paired-model-comparisons.csv,Entity-bootstrap result for this finite realization; method differences do not identify the source mechanism.
+Summary Ridge versus empirical plan-by-horizon error difference is resolved in some cells,RESOLVED_9_OF_27;INCONCLUSIVE_18_OF_27,paired-model-comparisons.csv,Resolved contrasts have Summary Ridge higher RMSE; remaining cells are inconclusive.
+An observationally similar fitted pair with different matched response surfaces was demonstrated,NOT_DEMONSTRATED,paired-model-comparisons.csv and surrogate-disagreement.csv,The two conditional models were distinguishable on held-out RMSE; no practical equivalence margin was frozen for declaring observational similarity.
+A with-replacement empirical generator learns a new support beyond its observed training rows,NO,support-coverage.csv and empirical-samples.jsonl,Generated rows are finite donor copies; exact held-out row overlap is 0.
+Observation-noise re-realization changes conditional test error,RESOLVED_CELLS_0_OF_27,noise-sensitivity.csv,"This compares independent native-noise draws at the same native noise law, not a noise-scale intervention."
+Matched supported future-plan response fidelity was measured,MEASURED_81_METHOD_CELLS,matched-response.csv,Authority-generated synthetic matched interventions only; no real-world causal claim.
+Any predictive or observable-distribution match establishes source structural equivalence or system identification,NOT_ESTABLISHED,formal-specification.md and matched-response.csv,Finite public samples and distinct fitted algorithms do not identify the source mechanism.
+Learner/evaluation information firewall passed,PASS,learner-input-audit.json and manifest.json,"Enforced process boundary, strict payload, runtime guard, and withheld test targets."
+A frozen surrogate family failed its declared fitting budget,NO_METHOD_FAILURES,method-failures.json,Every failed family and failed tuning configuration is retained; successful families continue independently.
+Extrapolation beyond declared public plan/schema support is characterized,UNSUPPORTED_BY_PROTOCOL,support-coverage.csv,No off-support target is generated or scored.
+Real-athlete or causal training-effect transfer,PROHIBITED,formal-specification.md,The source and every study realization are synthetic.
