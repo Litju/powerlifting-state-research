@@ -8,7 +8,7 @@ Study identity is separate from benchmark identity. The initial five retrospecti
 | observation_inversion | Observation inversion and latent-state observability; retrospective study. |
 | target_sufficient_structural_reconstruction | Target-sufficient structural reconstruction; retrospective study. |
 | public_surrogate_reconstruction | Public-surrogate reconstruction; retrospective study. |
-| synthetic_pretraining_transfer | Synthetic-pretraining transfer; retrospective study. |
+| synthetic_pretraining_transfer | Historical G4 metadata only; new RES-292 public-native transfer study ([frozen protocol](../../studies/synthetic_pretraining_transfer/protocol.json), [report](../../results/studies/synthetic_pretraining_transfer/public-native/report.md)). |
 | representation_dependence | Representation dependence and information ablations. |
 | simple_model_frontier | Simple-model frontier and comparator evaluation. |
 | history_cadence_sensitivity | History and observation-cadence sensitivity. |
