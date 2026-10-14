@@ -1,48 +1,124 @@
-# RES-509 — Independent release-audit preservation boundary
+# RES-509 — Independent audit preservation and baseline qualification
 
-**Review baseline:** `de014231569442c7e83d1774877a8b92a9abc314` (RES-292 / PR #26).  
-**Qualification:** `INCOMPLETE` — not a v1.0 release approval.
+Scientific v1.0 remains **NO-GO**. PR #27 must remain **DRAFT** pending independent review.
+Baseline: `de014231569442c7e83d1774877a8b92a9abc314`.
+Initial candidate reviewed: `da5309bf5a18a4dd6dd145737fffc1f49ccf81f8`.
 
-## Recovered evidence and limitations
+## Evidence recovered on 2026-10-14
 
-The user supplied the **textual** independent release audit dated 2026-10-13. Its preserved text has SHA-256 `309c44d6d0ab088d4bc15247e2b354b08d4f74191a9079abd66eda66fda2a97e`. The text report is retained separately, **not distributed by this repository** pending public-content and provenance review.
+The original audit directory was available. Its 90 top-level regular evidence files
+were independently hashed and copied byte-for-byte to an owner-only local bundle
+outside the repository. All entries in the original checksum index matched; all
+58 command records were recovered. Environment trees, historical private artifacts,
+and the auditor's checkout were not copied or inspected. No remote backup has been
+established: local retention is not archival publication.
 
-The original auditor's 58-command execution ledger, independent G4 calculation script, full sensitivity tables, runtime receipts, history-scan logs, and audit artifact checksum index were not accessible during this RES-509 follow-up. Their status is `NOT_RECOVERED`, not `PASS`; the narrative's claims of independent replay cannot be re-certified from its text alone.
+[Evidence inventory](RES-509-evidence-inventory.json) gives file sizes, independent
+SHA-256 values, original-index comparison and content classification. Reviewed
+public synthetic G4 scripts, sensitivity results and summary metadata are separated
+from unreviewed operational/security logs. Only sanitized metadata is published here.
+Raw logs remain restricted; hashes do not grant redistribution permission.
 
-The public GitHub tree at the audit baseline has 615 tracked files, including **all 481 paths** enumerated in `studies/synthetic_pretraining_transfer/frozen-evidence.json`. Path existence is not a byte-for-byte verification. The new executable verifier below qualifies their hashes only when run from a Git checkout containing that baseline commit.
+The previously asserted textual-report retention and specific report SHA-256 were
+not independently established. That claim is withdrawn. The separate textual report
+is **NOT_RECOVERED**; recovering the command ledger does not recover that narrative.
+The previously asserted four passing tests were independently executed before repair
+and passed; final regression results and exact commands are recorded below.
 
-## Immutable material
+Recovered G1–G4 logs report original execution PASS; the RES-284 log reports FAIL at
+`results/audits/res284-publication/checksum-index.json`. These are recovered historical
+receipts, not newly executed study gates. Independent G4 analysis receipts record
+6,804 comparisons with maximum difference 0, shared-entity sensitivity and nonzero
+initial biases. Preservation does not adjudicate those scientific findings.
 
-The RES-292 source-evidence freeze covers 481 paths, including upstream source, prior G1–G3 studies, published RES-284 source and results, and temporal-expert artifacts. The study's original report, protocol, fitted states, sealed predictions, tables, figures, manifests, and SHA-256 index must also remain unchanged. Other result roots are covered by the release preservation verifier for the audit baseline.
+## Frozen dependency and compatibility qualification
 
-| Original publication bundle | Tracked paths at baseline |
-| --- | ---: |
-| G1 — observation inversion | 14 |
-| G2 — target-sufficient structural reconstruction | 28 |
-| G3 — public-surrogate reconstruction | 37 |
-| G4 — synthetic pretraining transfer | 39 |
-| RES-284 — benchmark audit publication | 42 |
+[Qualification receipt and dependency map](RES-509-qualification.json) binds every
+listed path to independently read baseline Git bytes and candidate worktree bytes.
+Git replacement objects and ambient Git-directory overrides are disabled. A separate
+clean detached checkout pins the baseline; neither main nor its scientific files
+were changed.
 
-The 160 publication-path count includes study/result README files. It is a Git-tree inventory, not the number of manifest-listed experiment artifacts. The source version of `res284_publication.py` and the RES-284 checksum index are frozen dependencies of RES-292: fixing the current RES-284 verifier **in place** would invalidate the original G4 frozen-source check. Use a versioned release verifier and execution-era source resolution instead.
+| Scope | Paths | Byte-preservation verdict |
+| --- | ---: | --- |
+| G4 frozen upstream dependencies | 481 | PASS |
+| G4 execution-source records | 17 | PASS |
+| G1 publication bundle | 14 | PASS |
+| G2 publication bundle | 28 | PASS |
+| G3 publication bundle | 37 | PASS |
+| G4 publication bundle | 39 | PASS |
+| RES-284 publication bundle | 42 | PASS |
 
-## Read-only validation and expected states
+The 160 publication files include README files. Original protocols, fitted states,
+predictions, reports, manifests and checksum indexes remain byte-identical. The G4
+protocol also matches pre-fit commit `63098ca91120d2f31b3926098ffd52da190affbf`.
+The provenance ledger preserves its original prefix and only appends new entries.
 
-From a full-history clone, use:
+Independent static publication checks verify manifest outputs, G3/G4 checksum-index
+entries, G4 input hashes and G1–G4 source records. All recorded publication/output
+hashes match. Three RES-284 historical source references to the origin ledger differ
+from baseline/current bytes; their recorded hash resolves exactly to historical
+commit `b2b664de6bba6372e61afc1a147255a7daecb8a1`. This source-version drift explains
+why baseline/current-source replay must not be inferred from preservation success.
+G1/G2 have manifest output maps rather than separate SHA256SUMS files.
+
+Do not edit any of the 481 dependencies, the 17 execution sources, or original
+publication bundles in place. This includes `res284_publication.py`, G3 source and
+RES-284's checksum index. Future corrections require separately versioned validators
+or errata with execution-era source resolution. Original G4/RES-292 protocol and
+results remain the authority for what executed.
+
+## Verifier repairs and outcomes
+
+The verifier now rejects symlink files/parents, missing evidence, ignored/untracked
+or staged additions within publication directories, and protected changes in HEAD
+or index hidden by restored worktree bytes. It explicitly protects the protocol and
+frozen evidence map. Evidence output must be outside the worktree and atomic output
+replacement cannot mutate a protected file through an external hardlink. Malformed
+maps and unsafe paths cannot qualify as PASS. Git evidence uses exact commit objects
+without replacement refs. These behaviors have disposable-Git regression coverage.
+
+| State | Meaning |
+| --- | --- |
+| PASS | Executed byte/hash preservation checks succeeded for the declared scope |
+| FAIL | A verified preservation mismatch or unsafe output target |
+| NOT_RUN | Required Git evidence unavailable, or numerical replay not executed |
+| INCONCLUSIVE | Malformed/unusable evidence or scientific release qualification unresolved |
+| UNSUPPORTED | Private historical replay excluded from this public verifier |
+
+Missing evidence is never PASS. Structured non-PASS receipts are written for unavailable
+Git objects and malformed evidence. Numerical replay and scientific/rights qualification
+have separate states even when byte preservation passes.
+
+Use a full-history checkout and keep the output outside it:
 
 ```sh
-python scripts/verify_release_freeze.py --baseline de014231569442c7e83d1774877a8b92a9abc314 --json-out ../psr-res509-freeze.json
+.venv/bin/python scripts/verify_release_freeze.py --baseline de014231569442c7e83d1774877a8b92a9abc314 --json-out ../psr-res509-freeze.json
 ```
 
-The tool also verifies the original G4 manifest’s execution-time source SHA-256 records (including the protocol and learner source). It compares each recorded upstream SHA-256 to the corresponding Git object **at the baseline**, then independently compares every frozen upstream file and all five original publication directories to the candidate worktree. It fails on mutated/missing protected files, added files inside original publication directories, missing baseline objects, or mismatched frozen-manifest hashes. `NOT_RUN` means required Git evidence was unavailable; it is never accepted as a pass.
+Final regression: **19 passed**. Full pytest: **174 passed, 1 skipped** (opt-in
+production regeneration). Ruff lint/format, strict package and verifier mypy,
+generated exports, repository integrity and Git object integrity all passed.
+Both candidate and detached baseline preservation scans passed.
 
-A successful preservation check is **not** an independent rerun of G1–G4 metrics, corrected G4 uncertainty, rights clearance, or release approval. Those remain separate release-qualification gates.
+The qualification JSON records exact commands, exit codes, log hashes, environment,
+source hashes and per-file results. The environment includes SciPy installed outside
+the lock; passing checks here do not resolve the recovered pure-lock dependency failure.
 
-## Release-review handoff
+## Separate verification tracks and remaining blockers
 
-- `RES-510`: independently adjudicate G4's crossed fitting-seed/held-out-entity uncertainty and publish corrected inference separately.
-- `RES-511`: disclose the G4 nonzero-bias initialization deviation without changing executed learner weights.
-- `RES-297`: resolve prediction/checkpoint rights and complete history/security qualification.
-- `RES-298`: establish full research lock, real RES-284 source-version replay, and heavy release gates.
-- `RES-299`–`RES-301`: scientific documentation, archive completeness, citation and v1.0 authorization.
+Original execution replay uses the pinned baseline and historical source versions;
+its fresh numerical G1–G4 replay is **NOT_RUN** in this preservation task. Recovered
+historical receipts are retained without changing their scripts or results. Current
+release qualification must use separately versioned validators/errata and independently
+review scientific uncertainty, protocol deviations, rights and packaging completeness.
 
-Do not use this preservation receipt to claim any historical G1–G4 outcome was recovered. Do not merge a downstream PR without independent review of frozen-source compatibility.
+- Independent review of this PR's coverage, receipts and retention is still required.
+- RES-284 baseline-source replay failure remains unresolved; historical source resolution
+  is evidence, not a newly executed successful replay.
+- RES-510 uncertainty adjudication and RES-511 protocol disclosure remain dependencies;
+  neither was started here.
+- RES-297 rights/security clearance, RES-298 locked environments and reproducibility,
+  and RES-299–RES-301 documentation/archive/release authorization remain blockers.
+- No private historical replay, new experiment, GPU training, tag, release, DOI,
+  merge, or main modification was performed.

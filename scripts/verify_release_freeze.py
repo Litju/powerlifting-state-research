@@ -10,10 +10,12 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import re
 import subprocess
+import tempfile
 from pathlib import Path
-from typing import Any
+from typing import Any, NotRequired, TypedDict
 
 BASELINE = "de014231569442c7e83d1774877a8b92a9abc314"
 FROZEN = "studies/synthetic_pretraining_transfer/frozen-evidence.json"
@@ -28,17 +30,34 @@ PROTECTED_PREFIXES = (
 )
 
 
+class FileEvidence(TypedDict):
+    path: str
+    baseline_sha256: str
+    candidate_sha256: str | None
+    candidate_status: str
+    frozen_sha256: NotRequired[str]
+    recorded_sha256: NotRequired[str]
+    baseline_status: NotRequired[str]
+
+
+class FreezeUnavailable(RuntimeError):
+    """Required Git evidence could not be resolved."""
+
+
 class FreezeError(RuntimeError):
     """The declared baseline cannot be independently inspected."""
 
 
 def _git(root: Path, *args: str) -> bytes:
     proc = subprocess.run(
-        ["git", "-C", str(root), *args], capture_output=True, check=False
+        ["git", "--no-replace-objects", "-C", str(root), *args],
+        capture_output=True,
+        check=False,
+        env={key: value for key, value in os.environ.items() if not key.startswith("GIT_")},
     )
     if proc.returncode:
         detail = proc.stderr.decode("utf-8", "replace").strip()
-        raise FreezeError(f"git {' '.join(args[:2])}: {detail}")
+        raise FreezeUnavailable(f"git {' '.join(args[:2])}: {detail}")
     return proc.stdout
 
 
@@ -47,7 +66,12 @@ def _digest(data: bytes) -> str:
 
 
 def _checked_file(root: Path, path: str) -> str | None:
+    parts = Path(path).parts
+    if not parts or Path(path).is_absolute() or ".." in parts or path != Path(path).as_posix():
+        raise FreezeError(f"unsafe evidence path: {path}")
     candidate = root / path
+    if any(parent.is_symlink() for parent in (candidate, *candidate.parents) if parent != root):
+        return None
     return _digest(candidate.read_bytes()) if candidate.is_file() else None
 
 
@@ -69,19 +93,33 @@ def _tracked(root: Path, commit: str) -> set[str]:
 def inspect(root: Path, baseline: str) -> dict[str, Any]:
     if not re.fullmatch(r"[0-9a-f]{40}", baseline):
         raise FreezeError("baseline must be a complete 40-character commit SHA")
-    head = _git(root, "rev-parse", "HEAD").decode().strip()
+    if Path(_git(root, "rev-parse", "--show-toplevel").decode().strip()).resolve() != root:
+        raise FreezeError("root must be the Git worktree top level")
+    head = _git(root, "rev-parse", "HEAD^{commit}").decode().strip()
     if _git(root, "rev-parse", f"{baseline}^{{commit}}").decode().strip() != baseline:
         raise FreezeError("baseline ref did not resolve to the specified commit")
-    _git(root, "merge-base", "--is-ancestor", baseline, "HEAD")
+    if baseline not in _git(root, "rev-list", "HEAD").decode().splitlines():
+        raise FreezeError("baseline is not an ancestor of candidate HEAD")
     frozen_bytes = _baseline_bytes(root, baseline, FROZEN)
     protocol = json.loads(_baseline_bytes(root, baseline, PROTOCOL))
     frozen = json.loads(frozen_bytes)
     frozen_digest = _digest(frozen_bytes)
+    if not isinstance(protocol, dict):
+        raise FreezeError("baseline protocol must be an object")
     recorded_digest = protocol["frozen_evidence"]["sha256"]
+    if not isinstance(frozen, dict):
+        raise FreezeError("baseline frozen evidence must be an object")
     pinned = frozen.get("files")
     if not isinstance(pinned, dict) or not pinned:
         raise FreezeError("baseline has no frozen source-file map")
-    upstream: list[dict[str, str | None]] = []
+    if any(
+        not isinstance(path, str)
+        or not isinstance(value, str)
+        or not re.fullmatch(r"sha256:[0-9a-f]{64}", value)
+        for path, value in pinned.items()
+    ):
+        raise FreezeError("invalid frozen source-file map")
+    upstream: list[FileEvidence] = []
     for path, expected in sorted(pinned.items()):
         if path.startswith("/") or ".." in Path(path).parts:
             raise FreezeError(f"unsafe frozen path: {path}")
@@ -98,10 +136,19 @@ def inspect(root: Path, baseline: str) -> dict[str, Any]:
             }
         )
     manifest = json.loads(_baseline_bytes(root, baseline, G4_MANIFEST))
+    if not isinstance(manifest, dict):
+        raise FreezeError("baseline G4 manifest must be an object")
     bound_sources = manifest.get("source_hashes")
     if not isinstance(bound_sources, dict) or not bound_sources:
         raise FreezeError("baseline G4 manifest has no bound execution-source hashes")
-    execution_sources: list[dict[str, str | None]] = []
+    if any(
+        not isinstance(path, str)
+        or not isinstance(value, str)
+        or not re.fullmatch(r"sha256:[0-9a-f]{64}", value)
+        for path, value in bound_sources.items()
+    ):
+        raise FreezeError("invalid execution-source map")
+    execution_sources: list[FileEvidence] = []
     for path, expected in sorted(bound_sources.items()):
         if path.startswith("/") or ".." in Path(path).parts:
             raise FreezeError(f"unsafe execution-source path: {path}")
@@ -118,7 +165,13 @@ def inspect(root: Path, baseline: str) -> dict[str, Any]:
             }
         )
     protected_paths = _tracked(root, baseline)
-    originals: list[dict[str, str | None]] = []
+    declared_inputs = {FROZEN, PROTOCOL}
+    declared_input_changes = sorted(
+        path
+        for path in declared_inputs
+        if _checked_file(root, path) != _digest(_baseline_bytes(root, baseline, path))
+    )
+    originals: list[FileEvidence] = []
     for path in sorted(protected_paths):
         original = _digest(_baseline_bytes(root, baseline, path))
         current = _checked_file(root, path)
@@ -130,12 +183,59 @@ def inspect(root: Path, baseline: str) -> dict[str, Any]:
                 "candidate_status": _status(current, original),
             }
         )
-    current_tracked = {
+    current_tracked = _tracked(root, head) | {
         part.decode("utf-8")
         for part in _git(root, "ls-files", "-z", "--", *PROTECTED_PREFIXES).split(b"\0")
         if part
     }
+    for prefix in PROTECTED_PREFIXES:
+        folder = root / prefix
+        if any(parent.is_symlink() for parent in (folder, *folder.parents) if parent != root):
+            continue
+        for directory, dirs, files in os.walk(root / prefix, followlinks=False):
+            current_tracked.update(
+                (Path(directory) / name).relative_to(root).as_posix()
+                for name in [
+                    *files,
+                    *(name for name in dirs if (Path(directory) / name).is_symlink()),
+                ]
+            )
     added_outputs = sorted(current_tracked - protected_paths)
+    protected_set = protected_paths | declared_inputs | set(pinned) | set(bound_sources)
+    head_changes = sorted(
+        protected_set
+        & {
+            path.decode("utf-8")
+            for path in _git(
+                root,
+                "diff",
+                "--no-ext-diff",
+                "--no-textconv",
+                "--no-renames",
+                "--name-only",
+                "-z",
+                baseline,
+                head,
+            ).split(b"\0")
+            if path
+        }
+    )
+    staged_changes = sorted(
+        protected_set
+        & {
+            path.decode("utf-8")
+            for path in _git(root, "diff", "--cached", "--name-only", "-z", head).split(b"\0")
+            if path
+        }
+    )
+    worktree_changes = sorted(
+        protected_set
+        & {
+            path.decode("utf-8")
+            for path in _git(root, "diff", "--name-only", "-z").split(b"\0")
+            if path
+        }
+    )
     baseline_bad = sorted(x["path"] for x in upstream if x["baseline_status"] != "PASS")
     execution_baseline_bad = sorted(
         x["path"] for x in execution_sources if x["baseline_status"] != "PASS"
@@ -154,7 +254,16 @@ def inspect(root: Path, baseline: str) -> dict[str, Any]:
         blockers.append("FROZEN_MANIFEST_DIGEST_MISMATCH")
     if baseline_bad or execution_baseline_bad:
         blockers.append("FROZEN_BASELINE_SOURCE_MISMATCH")
-    if candidate_upstream_bad or execution_candidate_bad or candidate_output_bad or added_outputs:
+    if (
+        candidate_upstream_bad
+        or execution_candidate_bad
+        or candidate_output_bad
+        or added_outputs
+        or head_changes
+        or staged_changes
+        or worktree_changes
+        or declared_input_changes
+    ):
         blockers.append("FROZEN_CANDIDATE_FILES_CHANGED")
     return {
         "format": "PSR_RELEASE_FROZEN_SOURCE_AUDIT_V1",
@@ -176,6 +285,15 @@ def inspect(root: Path, baseline: str) -> dict[str, Any]:
             "status": "PASS" if not blockers else "FAIL",
         },
         "blockers": blockers,
+        "candidate_head_changed_paths": head_changes,
+        "candidate_staged_changed_paths": staged_changes,
+        "candidate_worktree_changed_paths": worktree_changes,
+        "candidate_declared_input_changed_paths": declared_input_changes,
+        "qualification": {
+            "original_numerical_replay": "NOT_RUN",
+            "scientific_release": "INCONCLUSIVE",
+            "private_historical_replay": "UNSUPPORTED",
+        },
         "changed_upstream_paths": candidate_upstream_bad,
         "changed_execution_source_paths": execution_candidate_bad,
         "changed_publication_paths": candidate_output_bad,
@@ -194,14 +312,34 @@ def main() -> int:
         "--json-out", type=Path, help="optional evidence path (outside Git worktree)"
     )
     args = parser.parse_args()
+    root = args.root.resolve()
+    if args.json_out:
+        output = args.json_out.resolve()
+        parent = output.parent
+        while not parent.exists():
+            parent = parent.parent
+        try:
+            inside_worktree = _git(parent, "rev-parse", "--is-inside-work-tree").strip() == b"true"
+        except FreezeUnavailable:
+            inside_worktree = False
+        if output.is_relative_to(root) or inside_worktree:
+            print("FAIL: evidence output must be outside all Git worktrees")
+            return 1
     try:
-        result = inspect(args.root.resolve(), args.baseline)
-    except (FreezeError, OSError, ValueError, KeyError, json.JSONDecodeError) as exc:
-        print(f"NOT_RUN: cannot establish independent frozen-source qualification: {exc}")
-        return 2
+        result = inspect(root, args.baseline)
+    except (FreezeUnavailable, FreezeError, OSError, ValueError, KeyError, TypeError) as exc:
+        status = "NOT_RUN" if isinstance(exc, FreezeUnavailable) else "INCONCLUSIVE"
+        result = {"summary": {"status": status}, "error": str(exc)}
     if args.json_out:
         args.json_out.parent.mkdir(parents=True, exist_ok=True)
-        args.json_out.write_text(json.dumps(result, sort_keys=True, indent=2) + "\n")
+        with tempfile.NamedTemporaryFile(
+            mode="w", dir=args.json_out.parent, encoding="utf-8", delete=False
+        ) as receipt:
+            receipt.write(json.dumps(result, sort_keys=True, indent=2) + "\n")
+        os.replace(receipt.name, args.json_out)
+    if "error" in result:
+        print(f"{result['summary']['status']}: {result['error']}")
+        return 2
     summary = result["summary"]
     print(
         f"{summary['status']}: {summary['upstream_frozen_paths']} frozen upstream files; "

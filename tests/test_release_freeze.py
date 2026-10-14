@@ -8,6 +8,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts/verify_release_freeze.py"
 
 
@@ -38,9 +40,9 @@ def _fixture(root: Path) -> str:
     )
     g4 = root / "results/studies/synthetic_pretraining_transfer/public-native/manifest.json"
     g4.parent.mkdir(parents=True)
-    protocol_sha = "sha256:" + hashlib.sha256(
-        (frozen.parent / "protocol.json").read_bytes()
-    ).hexdigest()
+    protocol_sha = (
+        "sha256:" + hashlib.sha256((frozen.parent / "protocol.json").read_bytes()).hexdigest()
+    )
     source_paths = {"studies/synthetic_pretraining_transfer/protocol.json": protocol_sha}
     g4.write_text(json.dumps({"source_hashes": source_paths}))
     _git(root, "add", ".")
@@ -100,7 +102,7 @@ def test_unavailable_baseline_is_not_marked_pass(tmp_path: Path) -> None:
     process, report = _run(root, "0" * 40)
     assert process.returncode == 2
     assert process.stdout.startswith("NOT_RUN")
-    assert report == {}
+    assert report["summary"]["status"] == "NOT_RUN"
 
 
 def test_execution_bound_source_modification_fails(tmp_path: Path) -> None:
@@ -111,3 +113,150 @@ def test_execution_bound_source_modification_fails(tmp_path: Path) -> None:
     process, report = _run(root, base)
     assert process.returncode == 1
     assert report["summary"]["g4_execution_source_candidate_changes"] == 1
+
+
+@pytest.mark.parametrize(
+    "case",
+    [
+        "missing",
+        "symlink",
+        "parent_symlink",
+        "untracked",
+        "ignored",
+        "staged",
+        "hidden_head",
+        "hidden_index",
+        "mode",
+        "frozen_manifest",
+    ],
+)
+def test_preservation_rejects_false_pass(tmp_path: Path, case: str) -> None:
+    root = tmp_path / "checkout"
+    root.mkdir()
+    base = _fixture(root)
+    report = root / "results/studies/observation_inversion/report.md"
+    if case == "mode":
+        report.chmod(report.stat().st_mode | 0o111)
+    elif case == "missing":
+        report.unlink()
+    elif case == "symlink":
+        external = tmp_path / "external"
+        external.write_bytes(report.read_bytes())
+        report.unlink()
+        report.symlink_to(external)
+    elif case == "parent_symlink":
+        directory = report.parent
+        external = tmp_path / "external"
+        directory.rename(external)
+        directory.symlink_to(external, target_is_directory=True)
+    elif case in {"untracked", "ignored", "staged"}:
+        added = report.parent / "extra.txt"
+        added.write_text("new evidence")
+        if case == "ignored":
+            (root / ".gitignore").write_text("extra.txt\n")
+        elif case == "staged":
+            _git(root, "add", ".")
+    elif case in {"hidden_head", "hidden_index"}:
+        original = report.read_bytes()
+        report.write_text("changed commit")
+        _git(root, "add", ".")
+        if case == "hidden_head":
+            _git(root, "commit", "-qm", "changed scientific evidence")
+        report.write_bytes(original)
+    else:
+        (root / "studies/synthetic_pretraining_transfer/frozen-evidence.json").write_text("{}")
+    process, result = _run(root, base)
+    assert process.returncode == 1, process.stdout + process.stderr
+    assert result["summary"]["status"] == "FAIL"
+
+
+def test_output_cannot_overwrite_scientific_evidence(tmp_path: Path) -> None:
+    root = tmp_path / "checkout"
+    root.mkdir()
+    base = _fixture(root)
+    output = root / "artifacts/registry.txt"
+    original = output.read_bytes()
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(SCRIPT),
+            "--root",
+            str(root),
+            "--baseline",
+            base,
+            "--json-out",
+            str(output),
+        ],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 1
+    assert output.read_bytes() == original
+
+
+def test_malformed_evidence_is_inconclusive(tmp_path: Path) -> None:
+    root = tmp_path / "checkout"
+    root.mkdir()
+    _fixture(root)
+    (root / "studies/synthetic_pretraining_transfer/frozen-evidence.json").write_text("[]")
+    _git(root, "add", ".")
+    _git(root, "commit", "-qm", "unsupported evidence")
+    process, result = _run(root, _git(root, "rev-parse", "HEAD"))
+    assert process.returncode == 2
+    assert result["summary"]["status"] == "INCONCLUSIVE"
+
+
+def test_git_replace_cannot_substitute_baseline(tmp_path: Path) -> None:
+    root = tmp_path / "checkout"
+    root.mkdir()
+    base = _fixture(root)
+    (root / "studies/synthetic_pretraining_transfer/frozen-evidence.json").write_text("[]")
+    _git(root, "add", ".")
+    _git(root, "commit", "-qm", "substituted evidence")
+    replacement = _git(root, "rev-parse", "HEAD")
+    _git(root, "reset", "--hard", base)
+    _git(root, "replace", base, replacement)
+    process, report = _run(root, base)
+    assert process.returncode == 0, process.stdout + process.stderr
+    assert report["summary"]["status"] == "PASS"
+
+
+def test_external_hardlink_output_preserves_original(tmp_path: Path) -> None:
+    root = tmp_path / "checkout"
+    root.mkdir()
+    base = _fixture(root)
+    original = root / "artifacts/registry.txt"
+    data = original.read_bytes()
+    (root.parent / "release-freeze.json").hardlink_to(original)
+    process, _ = _run(root, base)
+    assert process.returncode == 0
+    assert original.read_bytes() == data
+
+
+def test_output_cannot_modify_other_worktree(tmp_path: Path) -> None:
+    root = tmp_path / "checkout"
+    root.mkdir()
+    base = _fixture(root)
+    other = tmp_path / "baseline"
+    other.mkdir()
+    _fixture(other)
+    output = other / "artifacts/registry.txt"
+    original = output.read_bytes()
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(SCRIPT),
+            "--root",
+            str(root),
+            "--baseline",
+            base,
+            "--json-out",
+            str(output),
+        ],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 1
+    assert output.read_bytes() == original
