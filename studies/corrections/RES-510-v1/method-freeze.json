@@ -1,0 +1,10 @@
+{
+  "time_utc": "2026-10-14T00:47:16.318558+00:00",
+  "sha256": "cfa026bdfab6a97cbea2e7a92633339bfc158cd64418bf1000ce9c4f5ac2017c",
+  "status": "FROZEN_BEFORE_COMPLETE_CAMPAIGN",
+  "preexecution_amendment": {
+    "prior_sha256": "32778e1d0e8235f264f093ebd060faeb1afb9fa1977071ebe38bf2f8dc6bc14f",
+    "reason": "Independent reviewer found ECDF inversion requires outer order statistics rather than linear MC envelope interpolation; amended before campaign"
+  },
+  "outcomes_seen_before_freeze": "Only previously published highlighted diagnostic cells; no complete correction campaign run"
+}
