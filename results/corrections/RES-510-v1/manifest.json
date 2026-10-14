@@ -44,7 +44,7 @@
     "studies/corrections/RES-510-v1/method-freeze.json": "sha256:aa5d26c48947a6cb4cdf45c11dd5ee300616a465a2a25829a83dd327c577f40a",
     "studies/corrections/RES-510-v1/methods.md": "sha256:557ce5f4c8193fd6d58902b36be5d38a34607b2bacc641e5b83c59cb476b9bf8",
     "tests/test_res510_correction.py": "sha256:6120002a81c5e476ae5c2b98c9048b93de214ae0af728565f456a2f3116d25a9",
-    "tests/test_res510_verifier.py": "sha256:f1b58247545879bc1c0a372e558d0c644d01f626571b4fa12d87fc0664b66a17"
+    "tests/test_res510_verifier.py": "sha256:13c3465bef80f7475e1423767c1248b049b4ab9bb588b5398e7ddc98c543ab81"
   },
   "specification_sha256": "sha256:cfa026bdfab6a97cbea2e7a92633339bfc158cd64418bf1000ce9c4f5ac2017c",
   "units": "kg"

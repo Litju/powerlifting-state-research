@@ -156,7 +156,13 @@ def test_verifier_requires_exact_artifact_set(tmp_path: Path) -> None:
     module = verifier()
     directory = tmp_path / "correction"
     directory.mkdir()
-    required = {"comparison.csv", "bootstrap-runs.csv", "changed-classifications.csv", "manifest.json", "SHA256SUMS.txt"}
+    required = {
+        "comparison.csv",
+        "bootstrap-runs.csv",
+        "changed-classifications.csv",
+        "manifest.json",
+        "SHA256SUMS.txt",
+    }
     for name in sorted(required):
         (directory / name).write_text(name)
     module.require_exact_output_set(directory, required)
