@@ -619,3 +619,9 @@ scripts/verify_release_freeze.py,NEWLY_AUTHORED,MIT,Powerlifting State Research 
 tests/test_release_freeze.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Git fixture tests for release freeze verifier and failure states.
 audits/release/RES-509-evidence-inventory.json,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Reviewed audit-evidence metadata and independent hashes; restricted raw logs excluded.
 audits/release/RES-509-qualification.json,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Independent frozen dependency map publication hash qualification and command receipts.
+results/corrections/RES-511-v1/initial-biases.csv,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,NumPy 2.4.4 reconstruction of the five RES-292 initial bias rows and shared matrix hashes.
+results/corrections/RES-511-v1/manifest.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Versioned RES-511 erratum provenance and source/output hash manifest.
+results/corrections/RES-511-v1/SHA256SUMS.txt,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,Checksums for the public RES-511 v1 erratum artifacts.
+studies/corrections/RES-511-v1/deviation-record.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,RES-511 machine-readable protocol deviation bound to all 30 RES-292 fitted instances.
+studies/corrections/RES-511-v1/interpretation.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,Reader-facing RES-292 initialization deviation erratum and scientific claim-impact interpretation.
+tests/test_res511_initialization_erratum.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Regression check for NumPy reconstruction and preservation of the historical RES-292 initialization deviation.

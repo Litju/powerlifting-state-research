@@ -1,0 +1,5 @@
+523bef0d3a77985d6821b8b3517be7adf63e7d8025e0fd37266a477cac7655da  docs/studies/index.md
+1dbb36a80283c26aec0f315f1a586545a90fed9e7af35826f56571c980a08a7e  results/corrections/RES-511-v1/initial-biases.csv
+609858c6848bc376d6f9380a72b04b0dc934e0b499eb541ad9f68daf8bb27d81  results/corrections/RES-511-v1/manifest.json
+8488fadd9ead5e1a968258bda087a0f95706ad7246ce1e97509f9235fac7dcfc  studies/corrections/RES-511-v1/deviation-record.json
+3e32e3380050e5e20cd90e677a140b8afc2249a4a3d3ffd6435f99959a458fb6  studies/corrections/RES-511-v1/interpretation.md
