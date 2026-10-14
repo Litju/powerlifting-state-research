@@ -187,11 +187,25 @@ def safe_file(root: Path, relative: str) -> Path:
     return full
 
 
+def require_exact_output_set(directory: Path, expected: set[str]) -> None:
+    """Require the correction directory to contain exactly the declared artifacts."""
+    require(directory.is_dir(), "correction output directory missing")
+    actual = {path.relative_to(directory).as_posix() for path in directory.rglob("*")}
+    require(
+        actual == expected,
+        f"correction output set differs: missing={sorted(expected - actual)}; "
+        f"extra={sorted(actual - expected)}",
+    )
+
+
 def verify(root: Path) -> dict[str, Any]:
     spec_bytes = safe_file(root, SPEC_PATH).read_bytes()
     require(digest(spec_bytes) == SPEC_SHA256, "frozen specification changed")
     spec = json.loads(spec_bytes)
     manifest = read_json(root / RESULTS / "manifest.json")
+    require_exact_output_set(
+        root / RESULTS, set(manifest["outputs"]) | {"manifest.json", "SHA256SUMS.txt"}
+    )
     require(manifest["specification_sha256"] == digest(spec_bytes), "specification hash")
     require(
         manifest["baseline_commit"] == spec["baseline_commit"]

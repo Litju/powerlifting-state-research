@@ -150,3 +150,24 @@ def test_malformed_csv_cannot_pass(tmp_path: Path) -> None:
         path.write_text(content)
         with pytest.raises(ValueError, match="malformed CSV"):
             module.rows(path)
+
+
+def test_verifier_requires_exact_artifact_set(tmp_path: Path) -> None:
+    module = verifier()
+    directory = tmp_path / "correction"
+    directory.mkdir()
+    required = {"comparison.csv", "bootstrap-runs.csv", "changed-classifications.csv", "manifest.json", "SHA256SUMS.txt"}
+    for name in sorted(required):
+        (directory / name).write_text(name)
+    module.require_exact_output_set(directory, required)
+    (directory / "extra-metadata.json").write_text("{}")
+    with pytest.raises(ValueError, match="extra="):
+        module.require_exact_output_set(directory, required)
+    (directory / "extra-metadata.json").unlink()
+    (directory / "SHA256SUMS.txt").unlink()
+    with pytest.raises(ValueError, match="missing="):
+        module.require_exact_output_set(directory, required)
+    (directory / "SHA256SUMS.txt").write_text("SHA256SUMS.txt")
+    (directory / "empty-directory").mkdir()
+    with pytest.raises(ValueError, match="extra="):
+        module.require_exact_output_set(directory, required)

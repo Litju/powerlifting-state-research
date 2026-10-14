@@ -122,3 +122,21 @@ def test_original_inputs_and_all_cells_are_qualified() -> None:
     spec, _, original, _ = MODULE["load"](root)
     assert spec["replicates"] == 50000
     assert len(original) == 108
+
+
+def test_correction_check_rejects_unexpected_and_missing_artifacts(tmp_path: Path) -> None:
+    directory = tmp_path / "correction"
+    directory.mkdir()
+    (directory / "comparison.csv").write_text("frozen numeric content")
+    verify_set = MODULE["require_exact_output_set"]
+    verify_set(directory, {"comparison.csv"})
+    with pytest.raises(ValueError, match="missing"):
+        verify_set(directory, {"comparison.csv", "manifest.json"})
+    extra = directory / "unindexed.json"
+    extra.write_text("{}")
+    with pytest.raises(ValueError, match="extra="):
+        verify_set(directory, {"comparison.csv"})
+    extra.unlink()
+    (directory / "nested").mkdir()
+    with pytest.raises(ValueError, match="extra="):
+        verify_set(directory, {"comparison.csv"})

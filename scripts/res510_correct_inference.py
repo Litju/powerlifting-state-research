@@ -432,6 +432,17 @@ def build(root: Path) -> dict[str, bytes]:
     return outputs
 
 
+def require_exact_output_set(directory: Path, expected: set[str]) -> None:
+    """Require the correction directory to contain exactly the declared artifacts."""
+    require(directory.is_dir(), "correction output directory missing")
+    actual = {path.relative_to(directory).as_posix() for path in directory.rglob("*")}
+    require(
+        actual == expected,
+        f"correction output set differs: missing={sorted(expected - actual)}; "
+        f"extra={sorted(actual - expected)}",
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=Path.cwd())
@@ -445,6 +456,7 @@ def main() -> int:
             not any(p.is_symlink() for p in (destination, *destination.parents)), "symlink output"
         )
         if args.check:
+            require_exact_output_set(destination, set(outputs))
             for path, data in outputs.items():
                 require(
                     (destination / path).read_bytes() == data, f"correction replay differs: {path}"
