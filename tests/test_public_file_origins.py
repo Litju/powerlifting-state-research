@@ -1,3 +1,4 @@
+import base64
 import copy
 import csv
 import hashlib
@@ -17,7 +18,9 @@ from check_repository_integrity import (  # noqa: E402
     RES297_RECORD,
     baseline_paths_from_ledger_prefix,
     derive_res297_release_gate,
+    is_verified_owner_commit,
     validate_res297_rights_record,
+    verify_owner_grant_commit,
 )
 
 
@@ -38,9 +41,19 @@ def _res297_inputs() -> tuple[dict, dict, set[str], dict[str, dict[str, str]]]:
 
 
 def _validate(
-    record: dict, prediction_rights: dict, expected_paths: set[str], origins: dict
+    record: dict,
+    prediction_rights: dict,
+    expected_paths: set[str],
+    origins: dict,
+    verified_owner_commits: set[str] | None = None,
 ) -> list[str]:
-    return validate_res297_rights_record(record, expected_paths, origins, prediction_rights)
+    return validate_res297_rights_record(
+        record,
+        expected_paths,
+        origins,
+        prediction_rights,
+        verified_owner_commits=verified_owner_commits,
+    )
 
 
 def _owner_grant(path: str, digest: str, index: int, license_expression: str = "CC-BY-4.0") -> dict:
@@ -66,10 +79,27 @@ def _owner_grant(path: str, digest: str, index: int, license_expression: str = "
         ),
         "owner_attestation": {
             "decision_id": f"test-owner-decision-{index}",
-            "authenticated_owner_identity": "Powerlifting State Research contributors",
-            "authenticated_at": "2026-10-15",
-            "signed_or_authenticated": True,
+            "rightsholder_identity": "Powerlifting State Research contributors",
+            "authorized_signer_login": "Litju",
+            "authority_basis": "Authorized representative of the named rightsholder.",
+            "decision_date": "2026-10-15",
+            "verified_commit": f"{index + 1:040x}",
         },
+    }
+
+
+def _verified_owner_commits(record: dict, prediction_rights: dict) -> set[str]:
+    items = [
+        *record["hash_decisions"],
+        *record["candidate_inventory"]["new_candidate_files"],
+        *record["checkpoint_dispositions"],
+        *prediction_rights["artifacts"],
+    ]
+    return {
+        item["rights_authorization"]["owner_attestation"]["verified_commit"]
+        for item in items
+        if isinstance(item.get("rights_authorization"), dict)
+        and isinstance(item["rights_authorization"].get("owner_attestation"), dict)
     }
 
 
@@ -226,7 +256,99 @@ def test_res297_accepts_a_complete_owner_authorized_prediction_transition() -> N
     record, prediction_rights, expected_paths, origins = _res297_inputs()
     _clear_all_predictions(record, prediction_rights)
     assert record["candidate_release_gate"] == "GO"
-    assert _validate(record, prediction_rights, expected_paths, origins) == []
+    assert (
+        _validate(
+            record,
+            prediction_rights,
+            expected_paths,
+            origins,
+            _verified_owner_commits(record, prediction_rights),
+        )
+        == []
+    )
+
+
+def test_owner_grant_requires_a_github_verified_commit_by_the_owner() -> None:
+    signed = {
+        "sha": "a" * 40,
+        "author": {"login": "Litju"},
+        "committer": {"login": "Litju"},
+        "commit": {
+            "verification": {
+                "verified": True,
+                "reason": "valid",
+                "signature": "signature",
+                "payload": "payload",
+            }
+        },
+    }
+    assert is_verified_owner_commit(signed, "a" * 40)
+    assert not is_verified_owner_commit(signed, "b" * 40)
+    assert not is_verified_owner_commit({**signed, "author": {"login": "attacker"}}, "a" * 40)
+    assert not is_verified_owner_commit(
+        {**signed, "commit": {"verification": {"verified": False}}}, "a" * 40
+    )
+
+
+def test_owner_grant_verifier_binds_github_signature_to_exact_document_bytes(monkeypatch) -> None:
+    commit_sha = "a" * 40
+    grant_path = "provenance/rights-grants/test.json"
+    grant_bytes = b'{"owner_identity":"Powerlifting State Research contributors"}\n'
+    commit_payload = {
+        "sha": commit_sha,
+        "author": {"login": "Litju"},
+        "committer": {"login": "Litju"},
+        "commit": {
+            "verification": {
+                "verified": True,
+                "reason": "valid",
+                "signature": "signature",
+                "payload": "payload",
+            }
+        },
+    }
+    content_payload = {
+        "encoding": "base64",
+        "content": base64.b64encode(grant_bytes).decode("ascii"),
+    }
+
+    class Response:
+        def __init__(self, payload: dict):
+            self.payload = json.dumps(payload).encode("utf-8")
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *_args):
+            return None
+
+        def read(self):
+            return self.payload
+
+    def fake_urlopen(request, timeout):
+        assert timeout == 15
+        return Response(commit_payload if "/commits/" in request.full_url else content_payload)
+
+    monkeypatch.setattr("check_repository_integrity.urllib.request.urlopen", fake_urlopen)
+    verify_owner_grant_commit.cache_clear()
+    assert verify_owner_grant_commit(
+        commit_sha, grant_path, hashlib.sha256(grant_bytes).hexdigest()
+    )
+    verify_owner_grant_commit.cache_clear()
+    assert not verify_owner_grant_commit(commit_sha, grant_path, "0" * 64)
+    verify_owner_grant_commit.cache_clear()
+    commit_payload["author"]["login"] = "attacker"
+    assert not verify_owner_grant_commit(
+        commit_sha, grant_path, hashlib.sha256(grant_bytes).hexdigest()
+    )
+    verify_owner_grant_commit.cache_clear()
+
+
+def test_res297_rejects_owner_attestation_without_verified_commit() -> None:
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
+    _clear_all_predictions(record, prediction_rights)
+    errors = _validate(record, prediction_rights, expected_paths, origins)
+    assert any("per-hash owner grant" in error for error in errors)
 
 
 def test_res297_accepts_authorized_checkpoint_release_transition() -> None:
@@ -242,7 +364,16 @@ def test_res297_accepts_authorized_checkpoint_release_transition() -> None:
     )
     record["release_inclusion_policy"]["candidate_release_gate"] = record["candidate_release_gate"]
     assert record["candidate_release_gate"] == "GO"
-    assert _validate(record, prediction_rights, expected_paths, origins) == []
+    assert (
+        _validate(
+            record,
+            prediction_rights,
+            expected_paths,
+            origins,
+            _verified_owner_commits(record, prediction_rights),
+        )
+        == []
+    )
 
 
 def test_res297_rejects_missing_or_forged_grants() -> None:
@@ -259,8 +390,18 @@ def test_res297_rejects_missing_or_forged_grants() -> None:
     record, prediction_rights, expected_paths, origins = _res297_inputs()
     _clear_all_predictions(record, prediction_rights)
     prediction_rights["artifacts"][0]["rights_authorization"]["owner_attestation"][
-        "signed_or_authenticated"
-    ] = False
+        "authorized_signer_login"
+    ] = "attacker"
+    assert any(
+        "per-hash owner grant" in error
+        for error in _validate(
+            record,
+            prediction_rights,
+            expected_paths,
+            origins,
+            _verified_owner_commits(record, prediction_rights),
+        )
+    )
     assert any(
         "per-hash owner grant" in error
         for error in _validate(record, prediction_rights, expected_paths, origins)
@@ -295,7 +436,13 @@ def test_res297_rejects_wrong_artifact_hash_and_wrong_rightsholder() -> None:
     grant["owner_identity"] = "Unverified third party"
     assert any(
         "per-hash owner grant" in error
-        for error in _validate(record, prediction_rights, expected_paths, origins)
+        for error in _validate(
+            record,
+            prediction_rights,
+            expected_paths,
+            origins,
+            _verified_owner_commits(record, prediction_rights),
+        )
     )
 
 
@@ -316,7 +463,13 @@ def test_res297_rejects_license_scope_and_evidence_contradictions() -> None:
     grant["authorization_scope"] = ""
     assert any(
         "per-hash owner grant" in error
-        for error in _validate(record, prediction_rights, expected_paths, origins)
+        for error in _validate(
+            record,
+            prediction_rights,
+            expected_paths,
+            origins,
+            _verified_owner_commits(record, prediction_rights),
+        )
     )
 
     record, prediction_rights, expected_paths, origins = _res297_inputs()

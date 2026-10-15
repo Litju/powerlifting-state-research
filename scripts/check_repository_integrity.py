@@ -3,7 +3,9 @@
 
 from __future__ import annotations
 
+import base64
 import csv
+import functools
 import hashlib
 import io
 import json
@@ -11,6 +13,9 @@ import os
 import re
 import subprocess
 import sys
+import urllib.error
+import urllib.parse
+import urllib.request
 from collections import Counter
 from datetime import date
 from pathlib import Path
@@ -112,6 +117,8 @@ RES297_BASELINE = "5893b6261b53faa874af6a77e9b04a47ea421777"
 RES297_BASELINE_TREE = "2b116774cfa5ea538eef56a19529b29fb4cd3c2a"
 RES297_BASELINE_LEDGER_SHA256 = "c7775772976ea16ddcd2c6ba6597e77ec74521b9cb7596f734d42ee706705e99"
 RES297_BASELINE_PATH_COUNT = 641
+RES297_GITHUB_OWNER = "Litju"
+RES297_GITHUB_REPOSITORY = "powerlifting-state-research"
 RES297_PREDICTIONS = {
     "ensemble.predictions.jsonl": (
         "f6fb260feac851845f584bcd96a290ec046234f78a7596221aba5453aecc006d"
@@ -131,11 +138,85 @@ RES297_CHECKPOINTS = {
     383002: ("eb6c858e20e3a0cba5a542db605494359df83c15fac54b068ed938866d1398c4"),
     383003: ("c8f6bb329ee6b9e37155d95515e071b98d0aacf720f163bbe060804a0ecdef18"),
 }
+RES297_OWNER_DECISION_REQUIRED = (
+    "Confirm the copyright holder and grant or deny redistribution for this exact SHA-256, "
+    "including the already-public Git repository and future source archives. Any grant must be "
+    "a hash-bound document in provenance/rights-grants committed with a GitHub-verified "
+    "signature authored by Litju."
+)
 ERRORS: list[str] = []
 
 
 def fail(message: str) -> None:
     ERRORS.append(message)
+
+
+def is_verified_owner_commit(payload: object, commit_sha: str) -> bool:
+    if not isinstance(payload, dict):
+        return False
+    author = payload.get("author")
+    committer = payload.get("committer")
+    commit = payload.get("commit")
+    verification = commit.get("verification") if isinstance(commit, dict) else None
+    return (
+        payload.get("sha") == commit_sha
+        and isinstance(author, dict)
+        and author.get("login") == RES297_GITHUB_OWNER
+        and isinstance(committer, dict)
+        and committer.get("login") == RES297_GITHUB_OWNER
+        and isinstance(verification, dict)
+        and verification.get("verified") is True
+        and verification.get("reason") == "valid"
+        and verification.get("reason") == "valid"
+        and isinstance(verification.get("signature"), str)
+        and bool(verification["signature"])
+        and isinstance(verification.get("payload"), str)
+        and bool(verification["payload"])
+    )
+
+
+@functools.lru_cache(maxsize=64)
+def verify_owner_grant_commit(commit_sha: str, grant_path: str, grant_sha256: str) -> bool:
+    """Authenticate an exact owner grant through GitHub's verified commit signature."""
+    if (
+        re.fullmatch(r"[0-9a-f]{40}", commit_sha) is None
+        or not grant_path.startswith("provenance/rights-grants/")
+        or re.fullmatch(r"[0-9a-f]{64}", grant_sha256) is None
+    ):
+        return False
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "User-Agent": "powerlifting-state-research-res297-validator",
+    }
+    commit_url = (
+        f"https://api.github.com/repos/{RES297_GITHUB_OWNER}/"
+        f"{RES297_GITHUB_REPOSITORY}/commits/{commit_sha}"
+    )
+    contents_url = (
+        f"https://api.github.com/repos/{RES297_GITHUB_OWNER}/"
+        f"{RES297_GITHUB_REPOSITORY}/contents/{urllib.parse.quote(grant_path, safe='/')}"
+        f"?ref={commit_sha}"
+    )
+    try:
+        request = urllib.request.Request(commit_url, headers=headers)
+        with urllib.request.urlopen(request, timeout=15) as response:
+            commit_payload = json.loads(response.read())
+        if not is_verified_owner_commit(commit_payload, commit_sha):
+            return False
+        request = urllib.request.Request(contents_url, headers=headers)
+        with urllib.request.urlopen(request, timeout=15) as response:
+            file_payload = json.loads(response.read())
+        if (
+            not isinstance(file_payload, dict)
+            or file_payload.get("encoding") != "base64"
+            or not isinstance(file_payload.get("content"), str)
+        ):
+            return False
+        grant_bytes = base64.b64decode(file_payload.get("content", ""), validate=False)
+        return hashlib.sha256(grant_bytes).hexdigest() == grant_sha256
+    except (OSError, urllib.error.URLError, json.JSONDecodeError, ValueError):
+        return False
 
 
 def git_files(*options: str) -> set[str]:
@@ -270,8 +351,10 @@ def validate_res297_rights_record(
     origins: dict[str, dict[str, str]],
     prediction_rights: object | None = None,
     evidence_sources_valid: bool = True,
+    verified_owner_commits: set[str] | None = None,
 ) -> list[str]:
     errors: list[str] = []
+    verified_owner_commits = verified_owner_commits or set()
     if not isinstance(record, dict):
         return ["RES-297 rights record must be a JSON object"]
     if record.get("format") != "PSR_RES_297_RIGHTS_SECURITY_RECORD_V1":
@@ -413,13 +496,13 @@ def validate_res297_rights_record(
             owner_attestation = authorization.get("owner_attestation")
             evidence_path = next(iter(evidence_paths)) if len(evidence_paths) == 1 else ""
             try:
-                authenticated_at = (
-                    date.fromisoformat(str(owner_attestation.get("authenticated_at")))
+                decision_date = (
+                    date.fromisoformat(str(owner_attestation.get("decision_date")))
                     if isinstance(owner_attestation, dict)
                     else None
                 )
             except ValueError:
-                authenticated_at = None
+                decision_date = None
             scope = str(authorization.get("authorization_scope", "")).lower()
             public_prediction = str(item.get("path", "")) in {
                 "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/"
@@ -431,12 +514,15 @@ def validate_res297_rights_record(
                 and evidence_path != item.get("path")
                 and isinstance(owner_attestation, dict)
                 and bool(owner_attestation.get("decision_id"))
-                and owner_attestation.get("authenticated_owner_identity")
+                and owner_attestation.get("rightsholder_identity")
                 == authorization.get("owner_identity")
-                and owner_attestation.get("signed_or_authenticated") is True
-                and authenticated_at is not None
+                and owner_attestation.get("authorized_signer_login") == RES297_GITHUB_OWNER
+                and bool(owner_attestation.get("authority_basis"))
+                and isinstance(owner_attestation.get("verified_commit"), str)
+                and owner_attestation.get("verified_commit") in verified_owner_commits
+                and decision_date is not None
                 and record_date is not None
-                and authenticated_at <= record_date
+                and decision_date <= record_date
                 and (
                     not public_prediction
                     or ("public repository" in scope and "source archive" in scope)
@@ -557,12 +643,7 @@ def validate_res297_rights_record(
             errors.append(f"unresolved prediction contains an unauthorized grant: {path}")
         if (
             isinstance(resolution, dict)
-            and resolution.get("owner_decision_required")
-            != (
-                "Confirm the copyright holder and grant or deny redistribution for this exact "
-                "SHA-256, "
-                "including the already-public Git repository and future source archives."
-            )
+            and resolution.get("owner_decision_required") != RES297_OWNER_DECISION_REQUIRED
             and item.get("rights_disposition") != "CLEARED"
         ):
             errors.append(
@@ -880,6 +961,7 @@ def derive_res297_release_gate(
 
 def check_res297_rights_record(tracked: set[str]) -> None:
     evidence_error_start = len(ERRORS)
+    verified_owner_commits: set[str] = set()
     try:
         record = json.loads((ROOT / RES297_RECORD).read_text(encoding="utf-8"))
         prediction_rights = json.loads(
@@ -1037,7 +1119,14 @@ def check_res297_rights_record(tracked: set[str]) -> None:
                     if (
                         not isinstance(grant, dict)
                         or grant.get("format") != "PSR_OWNER_RIGHTS_GRANT_V1"
-                        or grant.get("owner_attestation") != attestation
+                        or not isinstance(attestation, dict)
+                        or grant.get("decision_id") != attestation.get("decision_id")
+                        or grant.get("rightsholder_identity")
+                        != attestation.get("rightsholder_identity")
+                        or grant.get("authorized_signer_login")
+                        != attestation.get("authorized_signer_login")
+                        or grant.get("authority_basis") != attestation.get("authority_basis")
+                        or grant.get("decision_date") != attestation.get("decision_date")
                         or grant.get("artifact_path") != item_path
                         or grant.get("artifact_sha256") != authorization.get("artifact_sha256")
                         or grant.get("artifact_sha256") != item_sha
@@ -1052,6 +1141,17 @@ def check_res297_rights_record(tracked: set[str]) -> None:
                         != authorization.get("redistribution_conditions")
                     ):
                         fail(f"RES-297 owner grant document contradicts its binding: {source_path}")
+                    elif isinstance(attestation, dict) and verify_owner_grant_commit(
+                        str(attestation.get("verified_commit", "")),
+                        source_path,
+                        str(source.get("sha256", "")),
+                    ):
+                        verified_owner_commits.add(str(attestation["verified_commit"]))
+                    else:
+                        fail(
+                            "RES-297 owner grant lacks an authenticated owner signature: "
+                            f"{source_path}"
+                        )
 
         for item in record.get("hash_decisions", []):
             if isinstance(item, dict):
@@ -1151,6 +1251,7 @@ def check_res297_rights_record(tracked: set[str]) -> None:
         origins,
         prediction_rights,
         evidence_sources_valid=len(ERRORS) == evidence_error_start,
+        verified_owner_commits=verified_owner_commits,
     ):
         fail(error)
 

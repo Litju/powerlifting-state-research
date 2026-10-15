@@ -24,7 +24,7 @@
         "release_inclusion": true,
         "rights_authorization": {
           "artifact_path": "provenance/RES-297-prediction-rights-resolution-v1.json",
-          "artifact_sha256": "a4091b75247770ec86876b3c244f588744682c433e96421d1cd349751ce0f166",
+          "artifact_sha256": "a85176db01ed9902a8c17cd1330a04906e677affacfdcb971ec8ee5192484cf4",
           "authority_type": "PUBLISHED_LICENSE",
           "authorization_scope": "This newly authored RES-297 candidate file at this exact path and SHA-256.",
           "evidence": [
@@ -42,7 +42,7 @@
         },
         "rights_disposition": "CLEARED",
         "rights_family": "project_owned_mit_artifacts",
-        "sha256": "a4091b75247770ec86876b3c244f588744682c433e96421d1cd349751ce0f166"
+        "sha256": "a85176db01ed9902a8c17cd1330a04906e677affacfdcb971ec8ee5192484cf4"
       },
       {
         "license_authority": [
@@ -6033,7 +6033,7 @@
       "sha256": "fdfe7bb834c7404c0913ecda3a734a67a61bf4c4cb35cd346c7e416642961515"
     },
     {
-      "candidate_sha256": "7b06d42cab1ab7dd1d06bae72325a6c3cf1988d7ac3d62aa0e0d2c578a2c5795",
+      "candidate_sha256": "12059484b1339c4fdad74a9122f920aeb3c0eca7cb3a1382193ffee1b0f1981b",
       "license_authority": [
         {
           "path": "LICENSE",
@@ -6047,7 +6047,7 @@
       "release_inclusion": true,
       "rights_authorization": {
         "artifact_path": "scripts/check_repository_integrity.py",
-        "artifact_sha256": "7b06d42cab1ab7dd1d06bae72325a6c3cf1988d7ac3d62aa0e0d2c578a2c5795",
+        "artifact_sha256": "12059484b1339c4fdad74a9122f920aeb3c0eca7cb3a1382193ffee1b0f1981b",
         "authority_type": "PUBLISHED_LICENSE",
         "authorization_scope": "Project-authored software and explicitly MIT-scoped metadata; this exact repository path and SHA-256 only.",
         "evidence": [
@@ -10719,7 +10719,7 @@
       "sha256": "dfe6ab8efd7f5ef7a28e56de57bb0a26fadc6b4b11f8d71eaa0f3b9c08026c1d"
     },
     {
-      "candidate_sha256": "512d3e0cc0a438fcab813d2b0414e99d4d75de232eaa25874b2e7eeccd8b3ede",
+      "candidate_sha256": "9e9110c09c19dfcc5a0fcc8ae2c43beab5aac80ed8ce9c5f7600a981fb7daf6c",
       "license_authority": [
         {
           "path": "LICENSE",
@@ -10733,7 +10733,7 @@
       "release_inclusion": true,
       "rights_authorization": {
         "artifact_path": "tests/test_public_file_origins.py",
-        "artifact_sha256": "512d3e0cc0a438fcab813d2b0414e99d4d75de232eaa25874b2e7eeccd8b3ede",
+        "artifact_sha256": "9e9110c09c19dfcc5a0fcc8ae2c43beab5aac80ed8ce9c5f7600a981fb7daf6c",
         "authority_type": "PUBLISHED_LICENSE",
         "authorization_scope": "Project-authored software and explicitly MIT-scoped metadata; this exact repository path and SHA-256 only.",
         "evidence": [
@@ -26231,7 +26231,7 @@
     },
     {
       "path": "scripts/check_repository_integrity.py",
-      "sha256": "7b06d42cab1ab7dd1d06bae72325a6c3cf1988d7ac3d62aa0e0d2c578a2c5795"
+      "sha256": "12059484b1339c4fdad74a9122f920aeb3c0eca7cb3a1382193ffee1b0f1981b"
     },
     {
       "path": "src/powerlifting_state_research/evaluation/prediction.py",
@@ -26250,7 +26250,8 @@
     "coverage_limitations": [
       "Pattern scans do not prove absence of every credential, private identifier, or sensitive datum.",
       "Unreachable Git objects, private workspaces, and external artifact storage are not scanned.",
-      "No cloud-provider credential validation or independent legal opinion is performed."
+      "No cloud-provider credential validation or independent legal opinion is performed.",
+      "Owner grants are accepted only from a GitHub-verified signature by the configured repository owner; API verification is fail-closed."
     ],
     "exact_head_scan": {
       "command": "uv run python scripts/verify_res297_security_history.py --json-out <private-temp>/res297-security-history.json",

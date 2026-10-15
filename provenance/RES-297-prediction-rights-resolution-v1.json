@@ -8,7 +8,7 @@
         "sha256": "03609a9897981331f8862e4fcc07739c79a769f23177006926196fca2946e69d"
       },
       "origin_ledger_license": "MIT",
-      "owner_decision_required": "Confirm the copyright holder and grant or deny redistribution for this exact SHA-256, including the already-public Git repository and future source archives.",
+      "owner_decision_required": "Confirm the copyright holder and grant or deny redistribution for this exact SHA-256, including the already-public Git repository and future source archives. Any grant must be a hash-bound document in provenance/rights-grants committed with a GitHub-verified signature authored by Litju.",
       "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/ensemble.predictions.jsonl",
       "prediction_bytes_license": "NOASSERTION",
       "public_repository_disposition": "ALREADY_PUBLIC_GIT_TRACKED",
@@ -26,7 +26,7 @@
         "sha256": "50d9377522cc05795eccb9572fe58ed4363f60535789d13a78399830d6cb292d"
       },
       "origin_ledger_license": "MIT",
-      "owner_decision_required": "Confirm the copyright holder and grant or deny redistribution for this exact SHA-256, including the already-public Git repository and future source archives.",
+      "owner_decision_required": "Confirm the copyright holder and grant or deny redistribution for this exact SHA-256, including the already-public Git repository and future source archives. Any grant must be a hash-bound document in provenance/rights-grants committed with a GitHub-verified signature authored by Litju.",
       "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383001.predictions.jsonl",
       "prediction_bytes_license": "NOASSERTION",
       "public_repository_disposition": "ALREADY_PUBLIC_GIT_TRACKED",
@@ -44,7 +44,7 @@
         "sha256": "ba2cdd57bfd521ce9cf3d845cd7b5a1a876bb10d84dc7dc6d24c435beffc4fe4"
       },
       "origin_ledger_license": "MIT",
-      "owner_decision_required": "Confirm the copyright holder and grant or deny redistribution for this exact SHA-256, including the already-public Git repository and future source archives.",
+      "owner_decision_required": "Confirm the copyright holder and grant or deny redistribution for this exact SHA-256, including the already-public Git repository and future source archives. Any grant must be a hash-bound document in provenance/rights-grants committed with a GitHub-verified signature authored by Litju.",
       "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383002.predictions.jsonl",
       "prediction_bytes_license": "NOASSERTION",
       "public_repository_disposition": "ALREADY_PUBLIC_GIT_TRACKED",
@@ -62,7 +62,7 @@
         "sha256": "bc8de2622e05f1a130cdec78f263c789e07d0125b38958d17d95ff7019f9e8aa"
       },
       "origin_ledger_license": "MIT",
-      "owner_decision_required": "Confirm the copyright holder and grant or deny redistribution for this exact SHA-256, including the already-public Git repository and future source archives.",
+      "owner_decision_required": "Confirm the copyright holder and grant or deny redistribution for this exact SHA-256, including the already-public Git repository and future source archives. Any grant must be a hash-bound document in provenance/rights-grants committed with a GitHub-verified signature authored by Litju.",
       "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383003.predictions.jsonl",
       "prediction_bytes_license": "NOASSERTION",
       "public_repository_disposition": "ALREADY_PUBLIC_GIT_TRACKED",
@@ -79,9 +79,31 @@
     "reachable_git_author_count": 1
   },
   "format": "PSR_RES_297_PREDICTION_RIGHTS_RESOLUTION_V1",
+  "future_owner_grant_requirements": {
+    "content_binding": "The validator fetches the grant file at that signed commit and checks its SHA-256 against the rights record and current candidate file.",
+    "document_fields": [
+      "decision_id",
+      "rightsholder_identity",
+      "authorized_signer_login",
+      "authority_basis",
+      "decision_date",
+      "artifact_path",
+      "artifact_sha256",
+      "license_expression",
+      "authorization_scope",
+      "valid_from",
+      "valid_until",
+      "redistribution_conditions"
+    ],
+    "document_path": "provenance/rights-grants/<per-hash-decision>.json",
+    "format": "PSR_OWNER_RIGHTS_GRANT_V1",
+    "scope_requirement": "The grant must authorize the already-public Git repository copies and future source archives, not only optional release-bundle inclusion.",
+    "signature_requirement": "The grant document must be present at the cited path in a commit GitHub verifies as signed, with both commit author and committer resolving to Litju and verification reason valid.",
+    "signer": "GitHub repository owner Litju"
+  },
   "immutable_evaluation_boundary": "Frozen EvaluationResults remain byte-identical. Their artifact-level prediction rights remain NOASSERTION; MIT applies only to EvaluationResult metadata.",
   "issue": "RES-297",
-  "owner_decision_required": "Confirm the copyright holder and grant or deny redistribution for this exact SHA-256, including the already-public Git repository and future source archives.",
+  "owner_decision_required": "Confirm the copyright holder and grant or deny redistribution for this exact SHA-256, including the already-public Git repository and future source archives. Any grant must be a hash-bound document in provenance/rights-grants committed with a GitHub-verified signature authored by Litju.",
   "owner_decision_state": "NOT_RECEIVED",
   "public_git_disposition": "Excluding these four byte sequences from an optional release archive does not contain or remove the copies already tracked in this public Git repository. No history rewrite or deletion is authorized.",
   "record_version": "1.0.0",
