@@ -3,6 +3,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import re
 from pathlib import Path
 
 import numpy as np
@@ -10,10 +11,52 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 ERRATUM = ROOT / "studies/corrections/RES-511-v1"
 RESULTS = ROOT / "results/corrections/RES-511-v1"
+STUDY_INDEX = ROOT / "docs/studies/index.md"
 
 
 def _sha256(path: Path) -> str:
     return "sha256:" + hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def test_study_index_links_to_versioned_res511_erratum() -> None:
+    target = "../../studies/corrections/RES-511-v1/interpretation.md"
+    links = re.findall(r"\[([^\]]+)\]\(([^)]+)\)", STUDY_INDEX.read_text())
+
+    assert ("RES-511 v1 initialization erratum", target) in links
+    assert (STUDY_INDEX.parent / target).is_file()
+
+
+def test_res511_output_artifact_inventory_is_exact() -> None:
+    expected_entries = {
+        RESULTS: {"SHA256SUMS.txt", "initial-biases.csv", "manifest.json"},
+        ERRATUM: {"deviation-record.json", "interpretation.md"},
+    }
+    for directory, expected in expected_entries.items():
+        assert directory.is_dir() and not directory.is_symlink()
+        actual = {path.relative_to(directory).as_posix() for path in directory.rglob("*")}
+        assert actual == expected
+        assert all(
+            (directory / relative).is_file() and not (directory / relative).is_symlink()
+            for relative in expected
+        )
+
+    manifest = json.loads((RESULTS / "manifest.json").read_text())
+    assert set(manifest["published_artifacts"]) == {
+        "results/corrections/RES-511-v1/initial-biases.csv",
+        "studies/corrections/RES-511-v1/deviation-record.json",
+        "studies/corrections/RES-511-v1/interpretation.md",
+    }
+    checksum_paths = []
+    for line in (RESULTS / "SHA256SUMS.txt").read_text().splitlines():
+        _, relative = line.split("  ", maxsplit=1)
+        checksum_paths.append(relative)
+    assert len(checksum_paths) == len(set(checksum_paths))
+    assert set(checksum_paths) == {
+        "results/corrections/RES-511-v1/initial-biases.csv",
+        "results/corrections/RES-511-v1/manifest.json",
+        "studies/corrections/RES-511-v1/deviation-record.json",
+        "studies/corrections/RES-511-v1/interpretation.md",
+    }
 
 
 def test_res511_erratum_records_the_historical_initialization() -> None:

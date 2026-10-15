@@ -11,7 +11,6 @@
   "protocol_file_sha256": "sha256:699550a3d48bed34af89953ca3e255796b7f11190731718a524368e3535b0d9e",
   "provenance_commit": "63098ca91120d2f31b3926098ffd52da190affbf",
   "published_artifacts": {
-    "docs/studies/index.md": "sha256:523bef0d3a77985d6821b8b3517be7adf63e7d8025e0fd37266a477cac7655da",
     "results/corrections/RES-511-v1/initial-biases.csv": "sha256:1dbb36a80283c26aec0f315f1a586545a90fed9e7af35826f56571c980a08a7e",
     "studies/corrections/RES-511-v1/deviation-record.json": "sha256:8488fadd9ead5e1a968258bda087a0f95706ad7246ce1e97509f9235fac7dcfc",
     "studies/corrections/RES-511-v1/interpretation.md": "sha256:3e32e3380050e5e20cd90e677a140b8afc2249a4a3d3ffd6435f99959a458fb6"
