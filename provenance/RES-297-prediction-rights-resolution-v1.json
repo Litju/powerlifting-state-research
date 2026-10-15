@@ -1,0 +1,195 @@
+{
+  "artifacts": [
+    {
+      "already_public_git_tracked": true,
+      "evaluation_metadata_license": "MIT",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/ensemble.evaluation-result.json",
+        "sha256": "03609a9897981331f8862e4fcc07739c79a769f23177006926196fca2946e69d"
+      },
+      "origin_ledger_license": "MIT",
+      "owner_decision_required": "Confirm the copyright holder and grant or deny redistribution for this exact SHA-256, including the already-public Git repository and future source archives.",
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/ensemble.predictions.jsonl",
+      "prediction_bytes_license": "NOASSERTION",
+      "public_repository_disposition": "ALREADY_PUBLIC_GIT_TRACKED",
+      "release_inclusion": false,
+      "rights_authorization": null,
+      "rights_disposition": "UNRESOLVED",
+      "rights_license_expression": null,
+      "sha256": "f6fb260feac851845f584bcd96a290ec046234f78a7596221aba5453aecc006d"
+    },
+    {
+      "already_public_git_tracked": true,
+      "evaluation_metadata_license": "MIT",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383001.evaluation-result.json",
+        "sha256": "50d9377522cc05795eccb9572fe58ed4363f60535789d13a78399830d6cb292d"
+      },
+      "origin_ledger_license": "MIT",
+      "owner_decision_required": "Confirm the copyright holder and grant or deny redistribution for this exact SHA-256, including the already-public Git repository and future source archives.",
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383001.predictions.jsonl",
+      "prediction_bytes_license": "NOASSERTION",
+      "public_repository_disposition": "ALREADY_PUBLIC_GIT_TRACKED",
+      "release_inclusion": false,
+      "rights_authorization": null,
+      "rights_disposition": "UNRESOLVED",
+      "rights_license_expression": null,
+      "sha256": "eb1bf322ba1783d0c70f59d13016421736fd6447c2f6827079f713d31332f50c"
+    },
+    {
+      "already_public_git_tracked": true,
+      "evaluation_metadata_license": "MIT",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383002.evaluation-result.json",
+        "sha256": "ba2cdd57bfd521ce9cf3d845cd7b5a1a876bb10d84dc7dc6d24c435beffc4fe4"
+      },
+      "origin_ledger_license": "MIT",
+      "owner_decision_required": "Confirm the copyright holder and grant or deny redistribution for this exact SHA-256, including the already-public Git repository and future source archives.",
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383002.predictions.jsonl",
+      "prediction_bytes_license": "NOASSERTION",
+      "public_repository_disposition": "ALREADY_PUBLIC_GIT_TRACKED",
+      "release_inclusion": false,
+      "rights_authorization": null,
+      "rights_disposition": "UNRESOLVED",
+      "rights_license_expression": null,
+      "sha256": "2373889b26646731eafc88907fada38aaf2982d0cfb464b7cfb4f728fb854e89"
+    },
+    {
+      "already_public_git_tracked": true,
+      "evaluation_metadata_license": "MIT",
+      "evaluation_result": {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383003.evaluation-result.json",
+        "sha256": "bc8de2622e05f1a130cdec78f263c789e07d0125b38958d17d95ff7019f9e8aa"
+      },
+      "origin_ledger_license": "MIT",
+      "owner_decision_required": "Confirm the copyright holder and grant or deny redistribution for this exact SHA-256, including the already-public Git repository and future source archives.",
+      "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/seed-383003.predictions.jsonl",
+      "prediction_bytes_license": "NOASSERTION",
+      "public_repository_disposition": "ALREADY_PUBLIC_GIT_TRACKED",
+      "release_inclusion": false,
+      "rights_authorization": null,
+      "rights_disposition": "UNRESOLVED",
+      "rights_license_expression": null,
+      "sha256": "472fe8e81648672af3d93e17caaabe433026ab0d1725e384c370eb35f6d45944"
+    }
+  ],
+  "authorship_evidence": {
+    "generation_commit": "83e1eb84cd373eb038b1daa3e4f618dfe1f6fc19",
+    "interpretation": "A project generation commit and Git author metadata identify provenance only; neither establishes copyright ownership or redistribution authority.",
+    "reachable_git_author_count": 1
+  },
+  "format": "PSR_RES_297_PREDICTION_RIGHTS_RESOLUTION_V1",
+  "immutable_evaluation_boundary": "Frozen EvaluationResults remain byte-identical. Their artifact-level prediction rights remain NOASSERTION; MIT applies only to EvaluationResult metadata.",
+  "issue": "RES-297",
+  "owner_decision_required": "Confirm the copyright holder and grant or deny redistribution for this exact SHA-256, including the already-public Git repository and future source archives.",
+  "owner_decision_state": "NOT_RECEIVED",
+  "public_git_disposition": "Excluding these four byte sequences from an optional release archive does not contain or remove the copies already tracked in this public Git repository. No history rewrite or deletion is authorized.",
+  "record_version": "1.0.0",
+  "recorded_on": "2026-10-15",
+  "rights_status": "UNRESOLVED",
+  "source_trace": {
+    "dataset_realization_id": "psr:dataset-realization:latent-capacity-transient-iid-production@sha256:2659bad8979e5a00829a50580c14bfbc90579c4520c46c8159dec8c34f1c8cad",
+    "dataset_rights": {
+      "access_conditions": null,
+      "copyright_holder": "Powerlifting State Research contributors",
+      "license_expression": "CC-BY-4.0",
+      "redistribution_status": "Public redistribution permitted with attribution"
+    },
+    "generation_receipt": {
+      "checksum_index": {
+        "path": "results/manifests/public-native-temporal-expert-checksums.json",
+        "sha256": "cc41a1bddfd1060d817f85f37638b26ca6374904fe5341494cdbfdc2802c862e"
+      },
+      "run_manifest": {
+        "path": "results/manifests/public-native-temporal-expert.json",
+        "sha256": "ff939961f54a431563de90de7d47e1a8f63ae90778eb176793b18bac7edbf168"
+      },
+      "source_bundle_sha256": "fa31764220dbca936275b07965e7b4b4adb146251fc38db063dc5e88de8eaec4",
+      "source_inventory": {
+        "path": "results/manifests/public-native-temporal-expert-source-inventory.json",
+        "sha256": "416a7cfb2f0a7bef3a6865a3649f49859f1108db1f98aafc09529f447855e616"
+      },
+      "verification_receipt": {
+        "path": "results/manifests/public-native-temporal-expert-verification-receipt.json",
+        "sha256": "fd11790ea0f4b461f38d6cb96f6fb925ec9917128b53a54e0a6f053197771273"
+      },
+      "verification_status": "PASS"
+    },
+    "model_id": "psr:model:public-native-lift-shared-temporal-gru-capacity-change@1.0.0~34d23123138f",
+    "source_code_and_metadata": [
+      {
+        "path": "LICENSE",
+        "sha256": "b19f91b4acf3c2192532cb9840cafc7296b28e9e832676e590d1e9240117786f"
+      },
+      {
+        "path": "LICENSE-DOCS",
+        "sha256": "716ee70029fa86b9de628da71217c294e57fd6693538c96603a6106e71eb87b6"
+      },
+      {
+        "path": "provenance/PUBLIC_FILE_ORIGINS.csv",
+        "sha256": "c7775772976ea16ddcd2c6ba6597e77ec74521b9cb7596f734d42ee706705e99"
+      },
+      {
+        "path": "provenance/README.md",
+        "sha256": "eadd7ab291d4fcd766e13b926861a15041a47411871fb89e8745c2d866bdfdba"
+      },
+      {
+        "path": "docs/public-private-firewall.md",
+        "sha256": "395b298c0df6356cf89db8ad91e3a0c68c156764acb3014b660b91c0a9fc70f3"
+      },
+      {
+        "path": "src/powerlifting_state_research/models/train_temporal_expert.py",
+        "sha256": "7b42494e61e152362283229bed2cfb54f26ce84ebae5ae8d60c464ff3a0074c1"
+      },
+      {
+        "path": "src/powerlifting_state_research/models/temporal_expert.py",
+        "sha256": "4ac7144d3bfd3b4fe9edc6bc672a2fa7aceb2bd1b00fd9bfc168c224969a42a7"
+      },
+      {
+        "path": "src/powerlifting_state_research/evaluation/prediction.py",
+        "sha256": "8b62d41764e96c2420c6feb0d3f1cb3460cee4c842e4e3835f4dac74449f1c64"
+      },
+      {
+        "path": "data/manifests/realizations/latent_capacity_change_with_transient_expression_forecasting/iid-production.json",
+        "sha256": "7247673db768630a0a0df9e35449a4735161d826f0bde33d355882fa5cc3ef11"
+      },
+      {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/checkpoint-publication.json",
+        "sha256": "9f4a05f2fc647bc38af904641ebbf0c047b1b9fcf36ed17c0a789221d3537d4d"
+      },
+      {
+        "path": "models/checkpoint-manifests/public-native-temporal-expert/ensemble-manifest.json",
+        "sha256": "9281eedeecafe893fbad32fc60a11e79527be345d60de7aaf371c2d4250d3413"
+      },
+      {
+        "path": "results/manifests/public-native-temporal-expert.json",
+        "sha256": "ff939961f54a431563de90de7d47e1a8f63ae90778eb176793b18bac7edbf168"
+      },
+      {
+        "path": "results/manifests/public-native-temporal-expert-source-inventory.json",
+        "sha256": "416a7cfb2f0a7bef3a6865a3649f49859f1108db1f98aafc09529f447855e616"
+      },
+      {
+        "path": "results/manifests/public-native-temporal-expert-verification-receipt.json",
+        "sha256": "fd11790ea0f4b461f38d6cb96f6fb925ec9917128b53a54e0a6f053197771273"
+      },
+      {
+        "path": "results/manifests/public-native-temporal-expert-checksums.json",
+        "sha256": "cc41a1bddfd1060d817f85f37638b26ca6374904fe5341494cdbfdc2802c862e"
+      },
+      {
+        "path": "artifacts/training-protocols/public-native-temporal-expert.json",
+        "sha256": "02d242f7e49df3082920b7f11772562f82cd1aad35f34b7016958d3775139c42"
+      },
+      {
+        "path": "artifacts/model-cards/public-native-temporal-capacity-change.md",
+        "sha256": "a812a973e583819934b8f74cf619a875af9ba49a8128a5e7941ca466747de51b"
+      },
+      {
+        "path": "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-temporal-expert/README.md",
+        "sha256": "54011f4a346a274f0e92798727ea80987eac4a746b095e54607495b77baaae90"
+      }
+    ],
+    "training_protocol_id": "psr:training-protocol:public-native-temporal-expert@1.0.0~dc47230f3465"
+  }
+}

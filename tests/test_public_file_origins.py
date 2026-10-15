@@ -1,3 +1,4 @@
+import copy
 import csv
 import hashlib
 import json
@@ -10,17 +11,148 @@ sys.path.insert(0, str(ROOT / "scripts"))
 
 from check_repository_integrity import (  # noqa: E402
     RES297_BASELINE,
+    RES297_PREDICTION_RIGHTS,
     RES297_RECORD,
+    derive_res297_release_gate,
     validate_res297_rights_record,
 )
 
 
-def _res297_inputs() -> tuple[dict, set[str], dict[str, dict[str, str]]]:
+def _res297_inputs() -> tuple[dict, dict, set[str], dict[str, dict[str, str]]]:
     root = Path(__file__).resolve().parents[1]
     record = json.loads((root / RES297_RECORD).read_text(encoding="utf-8"))
+    prediction_rights = json.loads((root / RES297_PREDICTION_RIGHTS).read_text(encoding="utf-8"))
     with (root / "provenance/PUBLIC_FILE_ORIGINS.csv").open(newline="", encoding="utf-8") as handle:
         rows = {row["path"]: row for row in csv.DictReader(handle)}
-    return record, set(rows) - {RES297_RECORD}, rows
+    baseline_paths = {
+        item.decode("utf-8")
+        for item in subprocess.check_output(
+            ["git", "ls-tree", "-r", "--name-only", "-z", RES297_BASELINE], cwd=root
+        ).split(b"\0")
+        if item
+    }
+    return record, prediction_rights, baseline_paths, rows
+
+
+def _validate(
+    record: dict, prediction_rights: dict, expected_paths: set[str], origins: dict
+) -> list[str]:
+    return validate_res297_rights_record(record, expected_paths, origins, prediction_rights)
+
+
+def _owner_grant(path: str, digest: str, index: int, license_expression: str = "CC-BY-4.0") -> dict:
+    source_path = f"provenance/rights-grants/test-owner-decision-{index}.json"
+    source_sha = f"{index + 1:064x}"
+    return {
+        "authority_type": "OWNER_ATTESTATION",
+        "owner_identity": "Powerlifting State Research contributors",
+        "evidence": [{"path": source_path, "sha256": source_sha, "role": "owner_grant"}],
+        "artifact_path": path,
+        "artifact_sha256": digest,
+        "license_expression": license_expression,
+        "authorization_scope": (
+            "Redistribute these exact prediction bytes in the public repository, its source "
+            "archives, and release bundles."
+        ),
+        "valid_from": "2026-10-15",
+        "valid_until": None,
+        "redistribution_conditions": (
+            "Include the copyright and permission notice."
+            if license_expression == "MIT"
+            else "Give attribution and link the CC BY 4.0 license."
+        ),
+        "owner_attestation": {
+            "decision_id": f"test-owner-decision-{index}",
+            "authenticated_owner_identity": "Powerlifting State Research contributors",
+            "authenticated_at": "2026-10-15",
+            "signed_or_authenticated": True,
+        },
+    }
+
+
+def _clear_all_predictions(record: dict, prediction_rights: dict) -> None:
+    prediction_family = next(
+        item
+        for item in record["rights_families"]
+        if item["family_id"] == "temporal_expert_prediction_bytes"
+    )
+    prediction_family["rights_disposition"] = "CLEARED"
+    prediction_family["rights_owner"] = "Powerlifting State Research contributors"
+    for index, resolution in enumerate(prediction_rights["artifacts"]):
+        path = resolution["path"]
+        digest = resolution["sha256"]
+        grant = _owner_grant(path, digest, index)
+        evidence = grant["evidence"][0]
+        record["rights_source_hashes"].append(
+            {"path": evidence["path"], "sha256": evidence["sha256"]}
+        )
+        decision = next(item for item in record["hash_decisions"] if item["path"] == path)
+        public_record = next(
+            item for item in record["prediction_artifacts"] if item["path"] == path
+        )
+        for item in (decision, resolution):
+            item["rights_disposition"] = "CLEARED"
+            item["release_inclusion"] = True
+            item["rights_license_expression"] = "CC-BY-4.0"
+            item["rights_authorization"] = copy.deepcopy(grant)
+        public_record["rights_disposition"] = "CLEARED"
+        public_record["release_inclusion"] = True
+        public_record["rights_license_expression"] = "CC-BY-4.0"
+        resolution.pop("owner_decision_required", None)
+    prediction_rights["rights_status"] = "CLEARED"
+    record["summary"] = {
+        disposition: sum(
+            item["rights_disposition"] == disposition for item in record["hash_decisions"]
+        )
+        for disposition in ("CLEARED", "EXCLUDED", "BLOCKED", "UNRESOLVED")
+    }
+    additions = record["candidate_inventory"]["new_candidate_files"]
+    record["candidate_release_gate"] = derive_res297_release_gate(
+        record["hash_decisions"],
+        prediction_rights,
+        additions,
+        record["record_rights"],
+        record["checkpoint_dispositions"],
+    )
+    record["release_inclusion_policy"]["candidate_release_gate"] = record["candidate_release_gate"]
+
+
+def _clear_all_checkpoints(record: dict) -> None:
+    family = next(
+        item
+        for item in record["rights_families"]
+        if item["family_id"] == "temporal_expert_checkpoint_weights"
+    )
+    family["rights_owner"] = "Powerlifting State Research contributors"
+    family["rights_disposition"] = "CLEARED"
+    family["license_expression"] = "MIT"
+    for index, item in enumerate(record["checkpoint_dispositions"]):
+        grant = _owner_grant(item["checkpoint_id"], item["expected_sha256"], index + 10, "MIT")
+        grant["authorization_scope"] = (
+            "Redistribute this exact checkpoint SHA-256 in the public model release."
+        )
+        evidence = grant["evidence"][0]
+        record["rights_source_hashes"].append(
+            {"path": evidence["path"], "sha256": evidence["sha256"]}
+        )
+        item.update(
+            {
+                "rights_disposition": "CLEARED",
+                "rights_owner": "Powerlifting State Research contributors",
+                "rights_license_expression": "MIT",
+                "rights_authorization": grant,
+                "redistribution_authorized": "CLEARED",
+                "weights_release_status": "RELEASED",
+                "release_inclusion": True,
+            }
+        )
+    record["checkpoint_bytes_search"].update(
+        {
+            "redistribution_authorized": "CLEARED",
+            "weights_release_status": "RELEASED",
+            "release_inclusion": True,
+        }
+    )
 
 
 def test_every_repository_file_has_an_origin_and_license_record() -> None:
@@ -62,8 +194,8 @@ def test_every_repository_file_has_an_origin_and_license_record() -> None:
 
 def test_res297_baseline_hashes_cover_all_641_origin_records() -> None:
     root = Path(__file__).resolve().parents[1]
-    record, expected_paths, origins = _res297_inputs()
-    errors = validate_res297_rights_record(record, expected_paths, origins)
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
+    errors = _validate(record, prediction_rights, expected_paths, origins)
     assert errors == []
     assert len(record["hash_decisions"]) == 641
 
@@ -71,41 +203,169 @@ def test_res297_baseline_hashes_cover_all_641_origin_records() -> None:
         path = item["path"]
         candidate_content = (root / path).read_bytes()
         assert hashlib.sha256(candidate_content).hexdigest() == item["candidate_sha256"], path
-        baseline_content = candidate_content
-        if hashlib.sha256(baseline_content).hexdigest() != item["sha256"]:
-            baseline_content = subprocess.check_output(
-                ["git", "show", f"{RES297_BASELINE}:{path}"], cwd=root
-            )
+        baseline_content = subprocess.check_output(
+            ["git", "show", f"{RES297_BASELINE}:{path}"], cwd=root
+        )
         assert hashlib.sha256(baseline_content).hexdigest() == item["sha256"], path
 
 
-def test_res297_rejects_clearing_the_prediction_rights_contradiction() -> None:
-    record, expected_paths, origins = _res297_inputs()
-    prediction = record["prediction_artifacts"][0]
-    prediction["rights_disposition"] = "CLEARED"
-    next(item for item in record["hash_decisions"] if item["path"] == prediction["path"])[
-        "rights_disposition"
-    ] = "CLEARED"
-    errors = validate_res297_rights_record(record, expected_paths, origins)
-    assert any("prediction rights conflict" in error for error in errors)
+def test_res297_accepts_a_complete_owner_authorized_prediction_transition() -> None:
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
+    _clear_all_predictions(record, prediction_rights)
+    assert record["candidate_release_gate"] == "GO"
+    assert _validate(record, prediction_rights, expected_paths, origins) == []
+
+
+def test_res297_accepts_authorized_checkpoint_release_transition() -> None:
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
+    _clear_all_predictions(record, prediction_rights)
+    _clear_all_checkpoints(record)
+    record["candidate_release_gate"] = derive_res297_release_gate(
+        record["hash_decisions"],
+        prediction_rights,
+        record["candidate_inventory"]["new_candidate_files"],
+        record["record_rights"],
+        record["checkpoint_dispositions"],
+    )
+    record["release_inclusion_policy"]["candidate_release_gate"] = record["candidate_release_gate"]
+    assert record["candidate_release_gate"] == "GO"
+    assert _validate(record, prediction_rights, expected_paths, origins) == []
+
+
+def test_res297_rejects_missing_or_forged_grants() -> None:
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
+    cleared = next(
+        item for item in record["hash_decisions"] if item["rights_disposition"] == "CLEARED"
+    )
+    cleared.pop("rights_authorization")
+    assert any(
+        "hash-bound owner grant" in error
+        for error in _validate(record, prediction_rights, expected_paths, origins)
+    )
+
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
+    _clear_all_predictions(record, prediction_rights)
+    prediction_rights["artifacts"][0]["rights_authorization"]["owner_attestation"][
+        "signed_or_authenticated"
+    ] = False
+    assert any(
+        "per-hash owner grant" in error
+        for error in _validate(record, prediction_rights, expected_paths, origins)
+    )
+    assert (
+        derive_res297_release_gate(
+            record["hash_decisions"],
+            prediction_rights,
+            record["candidate_inventory"]["new_candidate_files"],
+            record["record_rights"],
+            record["checkpoint_dispositions"],
+            ["invalid owner grant"],
+        )
+        == "NO-GO"
+    )
+
+
+def test_res297_rejects_wrong_artifact_hash_and_wrong_rightsholder() -> None:
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
+    cleared = next(
+        item for item in record["hash_decisions"] if item["rights_disposition"] == "CLEARED"
+    )
+    cleared["rights_authorization"]["artifact_sha256"] = "0" * 64
+    assert any(
+        "hash-bound owner grant" in error
+        for error in _validate(record, prediction_rights, expected_paths, origins)
+    )
+
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
+    _clear_all_predictions(record, prediction_rights)
+    grant = prediction_rights["artifacts"][0]["rights_authorization"]
+    grant["owner_identity"] = "Unverified third party"
+    assert any(
+        "per-hash owner grant" in error
+        for error in _validate(record, prediction_rights, expected_paths, origins)
+    )
+
+
+def test_res297_rejects_license_scope_and_evidence_contradictions() -> None:
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
+    cleared = next(
+        item for item in record["hash_decisions"] if item["rights_disposition"] == "CLEARED"
+    )
+    cleared["rights_authorization"]["license_expression"] = "CC-BY-4.0"
+    assert any(
+        "hash-bound owner grant" in error
+        for error in _validate(record, prediction_rights, expected_paths, origins)
+    )
+
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
+    _clear_all_predictions(record, prediction_rights)
+    grant = prediction_rights["artifacts"][0]["rights_authorization"]
+    grant["authorization_scope"] = ""
+    assert any(
+        "per-hash owner grant" in error
+        for error in _validate(record, prediction_rights, expected_paths, origins)
+    )
+
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
+    cleared = next(
+        item for item in record["hash_decisions"] if item["rights_disposition"] == "CLEARED"
+    )
+    cleared["rights_authorization"]["evidence"][0]["sha256"] = "0" * 64
+    assert any(
+        "hash-bound owner grant" in error
+        for error in _validate(record, prediction_rights, expected_paths, origins)
+    )
 
 
 def test_res297_rejects_missing_checkpoint_disposition() -> None:
-    record, expected_paths, origins = _res297_inputs()
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
     record["checkpoint_dispositions"].pop()
-    errors = validate_res297_rights_record(record, expected_paths, origins)
+    errors = _validate(record, prediction_rights, expected_paths, origins)
     assert any("all three checkpoint hashes" in error for error in errors)
 
 
 def test_res297_rejects_incomplete_inventory() -> None:
-    record, expected_paths, origins = _res297_inputs()
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
     record["hash_decisions"].pop()
-    errors = validate_res297_rights_record(record, expected_paths, origins)
+    errors = _validate(record, prediction_rights, expected_paths, origins)
     assert any("exactly cover the baseline inventory" in error for error in errors)
 
 
 def test_res297_rejects_unauthorized_release_inclusion() -> None:
-    record, expected_paths, origins = _res297_inputs()
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
     record["prediction_artifacts"][0]["release_inclusion"] = True
-    errors = validate_res297_rights_record(record, expected_paths, origins)
+    errors = _validate(record, prediction_rights, expected_paths, origins)
     assert any("unresolved or excluded bytes" in error for error in errors)
+
+
+def test_res297_records_already_public_predictions_as_unresolved() -> None:
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
+    assert _validate(record, prediction_rights, expected_paths, origins) == []
+    assert all(item["already_public_git_tracked"] for item in prediction_rights["artifacts"])
+    assert all(
+        item["rights_disposition"] == "UNRESOLVED" for item in prediction_rights["artifacts"]
+    )
+    assert all(item["release_inclusion"] is False for item in prediction_rights["artifacts"])
+    assert "does not contain" in prediction_rights["public_git_disposition"]
+
+
+def test_res297_checkpoint_availability_is_separate_from_release_rights() -> None:
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
+    assert _validate(record, prediction_rights, expected_paths, origins) == []
+    for item in record["checkpoint_dispositions"]:
+        assert item["tracked_in_git"] is False
+        assert item["externally_available"] is True
+        assert item["bytes_available"] is True
+        assert item["bytes_hash_independently_verified"] is True
+        assert item["redistribution_authorized"] == "UNRESOLVED"
+        assert item["weights_release_status"] == "NOT_RELEASED"
+        assert item["release_inclusion"] is False
+
+
+def test_res297_rejects_incomplete_candidate_addition_inventory() -> None:
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
+    record["candidate_inventory"]["new_candidate_files"].pop()
+    assert any(
+        "candidate inventory" in error
+        for error in _validate(record, prediction_rights, expected_paths, origins)
+    )
