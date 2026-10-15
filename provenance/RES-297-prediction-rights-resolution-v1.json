@@ -98,6 +98,7 @@
     "document_path": "provenance/rights-grants/<per-hash-decision>.json",
     "format": "PSR_OWNER_RIGHTS_GRANT_V1",
     "scope_requirement": "The grant must authorize the already-public Git repository copies and future source archives, not only optional release-bundle inclusion.",
+    "release_inclusion_scope_requirement": "Set release_inclusion=true only when the exact-hash grant also names a release bundle or release archive.",
     "signature_requirement": "The grant document must be present at the cited path in a commit GitHub verifies as signed, with both commit author and committer resolving to Litju and verification reason valid.",
     "signer": "GitHub repository owner Litju"
   },

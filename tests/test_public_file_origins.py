@@ -162,7 +162,7 @@ def _clear_all_checkpoints(record: dict) -> None:
     for index, item in enumerate(record["checkpoint_dispositions"]):
         grant = _owner_grant(item["checkpoint_id"], item["expected_sha256"], index + 10, "MIT")
         grant["authorization_scope"] = (
-            "Redistribute this exact checkpoint SHA-256 in the public model release."
+            "Redistribute this exact checkpoint SHA-256 in the public model release bundle."
         )
         evidence = grant["evidence"][0]
         record["rights_source_hashes"].append(
@@ -544,6 +544,22 @@ def test_res297_rejects_unauthorized_release_inclusion() -> None:
     record["prediction_artifacts"][0]["release_inclusion"] = True
     errors = _validate(record, prediction_rights, expected_paths, origins)
     assert any("unresolved or excluded bytes" in error for error in errors)
+
+
+def test_res297_rejects_owner_grant_without_release_bundle_scope() -> None:
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
+    _clear_all_predictions(record, prediction_rights)
+    prediction_rights["artifacts"][0]["rights_authorization"]["authorization_scope"] = (
+        "Redistribute these exact prediction bytes in the public repository and source archives."
+    )
+    errors = _validate(
+        record,
+        prediction_rights,
+        expected_paths,
+        origins,
+        _verified_owner_commits(record, prediction_rights),
+    )
+    assert any("valid per-hash owner grant" in error for error in errors)
 
 
 def test_res297_records_already_public_predictions_as_unresolved() -> None:

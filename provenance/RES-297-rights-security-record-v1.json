@@ -24,7 +24,7 @@
         "release_inclusion": true,
         "rights_authorization": {
           "artifact_path": "provenance/RES-297-prediction-rights-resolution-v1.json",
-          "artifact_sha256": "a85176db01ed9902a8c17cd1330a04906e677affacfdcb971ec8ee5192484cf4",
+          "artifact_sha256": "8d7876ae4786fb8e713859e7706a794bf7a89332da1b16958247a8f7c8569a87",
           "authority_type": "PUBLISHED_LICENSE",
           "authorization_scope": "This newly authored RES-297 candidate file at this exact path and SHA-256.",
           "evidence": [
@@ -42,7 +42,7 @@
         },
         "rights_disposition": "CLEARED",
         "rights_family": "project_owned_mit_artifacts",
-        "sha256": "a85176db01ed9902a8c17cd1330a04906e677affacfdcb971ec8ee5192484cf4"
+        "sha256": "8d7876ae4786fb8e713859e7706a794bf7a89332da1b16958247a8f7c8569a87"
       },
       {
         "license_authority": [
@@ -6033,7 +6033,7 @@
       "sha256": "fdfe7bb834c7404c0913ecda3a734a67a61bf4c4cb35cd346c7e416642961515"
     },
     {
-      "candidate_sha256": "a68d5ea1272f5784acf89352812bc9c455af4352f15e06971dc9378e5849cc50",
+      "candidate_sha256": "85fd0634c16f14a260473478cc2ef335369cf22c2461c8514eefb1668305c458",
       "license_authority": [
         {
           "path": "LICENSE",
@@ -6047,7 +6047,7 @@
       "release_inclusion": true,
       "rights_authorization": {
         "artifact_path": "scripts/check_repository_integrity.py",
-        "artifact_sha256": "a68d5ea1272f5784acf89352812bc9c455af4352f15e06971dc9378e5849cc50",
+        "artifact_sha256": "85fd0634c16f14a260473478cc2ef335369cf22c2461c8514eefb1668305c458",
         "authority_type": "PUBLISHED_LICENSE",
         "authorization_scope": "Project-authored software and explicitly MIT-scoped metadata; this exact repository path and SHA-256 only.",
         "evidence": [
@@ -10719,7 +10719,7 @@
       "sha256": "dfe6ab8efd7f5ef7a28e56de57bb0a26fadc6b4b11f8d71eaa0f3b9c08026c1d"
     },
     {
-      "candidate_sha256": "fd812e791906ac53aa741ffa9b10998f2b7c5700ff11e00f05ccdaf7918597b5",
+      "candidate_sha256": "b7aca864c12e213975f99b4ebd2590f49338d21ac0ec4d5b459a748f5d3982ad",
       "license_authority": [
         {
           "path": "LICENSE",
@@ -10733,7 +10733,7 @@
       "release_inclusion": true,
       "rights_authorization": {
         "artifact_path": "tests/test_public_file_origins.py",
-        "artifact_sha256": "fd812e791906ac53aa741ffa9b10998f2b7c5700ff11e00f05ccdaf7918597b5",
+        "artifact_sha256": "b7aca864c12e213975f99b4ebd2590f49338d21ac0ec4d5b459a748f5d3982ad",
         "authority_type": "PUBLISHED_LICENSE",
         "authorization_scope": "Project-authored software and explicitly MIT-scoped metadata; this exact repository path and SHA-256 only.",
         "evidence": [
@@ -25311,7 +25311,7 @@
   },
   "not_run_states": [
     "Full production regeneration and GPU campaign (explicitly outside the authorized scope; one full-production test remains skipped).",
-    "Independent SHA-256 verification and redistribution-rights determination for checkpoint weights (bytes and owner grant unavailable in approved locations).",
+    "Redistribution-rights determination for checkpoint weights (the externally available bytes passed independent integrity verification; redistribution authority remains unresolved).",
     "Owner grant for the four already-public prediction hashes (rights remain UNRESOLVED and release-excluded).",
     "Unreachable/dangling Git objects and private historical workspaces (scope is all reachable Git history and approved public-native locations only).",
     "Release-specific archive build, tag, DOI, archive upload, merge, or deletion of already-public bytes (prohibited by task boundary)."
@@ -26231,7 +26231,7 @@
     },
     {
       "path": "scripts/check_repository_integrity.py",
-      "sha256": "a68d5ea1272f5784acf89352812bc9c455af4352f15e06971dc9378e5849cc50"
+      "sha256": "85fd0634c16f14a260473478cc2ef335369cf22c2461c8514eefb1668305c458"
     },
     {
       "path": "src/powerlifting_state_research/evaluation/prediction.py",

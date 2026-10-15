@@ -531,6 +531,11 @@ def validate_res297_rights_record(
                     not str(item.get("path", "")).startswith("psr:checkpoint:")
                     or ("checkpoint" in scope and "public" in scope)
                 )
+                and (
+                    item.get("release_inclusion") is not True
+                    or "release bundle" in scope
+                    or "release archive" in scope
+                )
             )
         return False
 
