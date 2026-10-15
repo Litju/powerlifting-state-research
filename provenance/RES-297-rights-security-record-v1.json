@@ -26258,7 +26258,7 @@
       "json_findings_are_parsed_and_enforced": true,
       "receipt_delivery": "Sanitized exact-HEAD receipt is preserved in the PR #32 qualification details; raw Gitleaks outputs stay private.",
       "scope": "Exact pushed HEAD, all Git objects reachable from that HEAD, commit metadata, historical paths, and the clean candidate tree.",
-      "status": "DELIVERY_VERIFICATION_REQUIRED"
+      "status": "DELIVERED_IN_PR_QUALIFICATION"
     }
   },
   "source_hashes": [
