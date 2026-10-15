@@ -288,6 +288,20 @@ def test_owner_grant_requires_a_github_verified_commit_by_the_owner() -> None:
     assert not is_verified_owner_commit(
         {**signed, "commit": {"verification": {"verified": False}}}, "a" * 40
     )
+    assert not is_verified_owner_commit(
+        {
+            **signed,
+            "commit": {"verification": {**signed["commit"]["verification"], "reason": "unknown"}},
+        },
+        "a" * 40,
+    )
+    assert not is_verified_owner_commit(
+        {
+            **signed,
+            "commit": {"verification": {**signed["commit"]["verification"], "signature": ""}},
+        },
+        "a" * 40,
+    )
 
 
 def test_owner_grant_verifier_binds_github_signature_to_exact_document_bytes(monkeypatch) -> None:
@@ -338,6 +352,18 @@ def test_owner_grant_verifier_binds_github_signature_to_exact_document_bytes(mon
     assert not verify_owner_grant_commit(commit_sha, grant_path, "0" * 64)
     verify_owner_grant_commit.cache_clear()
     commit_payload["author"]["login"] = "attacker"
+    assert not verify_owner_grant_commit(
+        commit_sha, grant_path, hashlib.sha256(grant_bytes).hexdigest()
+    )
+    verify_owner_grant_commit.cache_clear()
+    assert not verify_owner_grant_commit(
+        commit_sha,
+        "provenance/rights-grants/../../LICENSE",
+        hashlib.sha256(grant_bytes).hexdigest(),
+    )
+    verify_owner_grant_commit.cache_clear()
+    commit_payload["author"]["login"] = "Litju"
+    content_payload["content"] = "not-base64!"
     assert not verify_owner_grant_commit(
         commit_sha, grant_path, hashlib.sha256(grant_bytes).hexdigest()
     )
@@ -405,6 +431,22 @@ def test_res297_rejects_missing_or_forged_grants() -> None:
     assert any(
         "per-hash owner grant" in error
         for error in _validate(record, prediction_rights, expected_paths, origins)
+    )
+
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
+    _clear_all_predictions(record, prediction_rights)
+    prediction_rights["artifacts"][0]["rights_authorization"]["owner_attestation"][
+        "authority_basis"
+    ] = ""
+    assert any(
+        "per-hash owner grant" in error
+        for error in _validate(
+            record,
+            prediction_rights,
+            expected_paths,
+            origins,
+            _verified_owner_commits(record, prediction_rights),
+        )
     )
     assert (
         derive_res297_release_gate(

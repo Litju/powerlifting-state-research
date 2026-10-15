@@ -167,7 +167,6 @@ def is_verified_owner_commit(payload: object, commit_sha: str) -> bool:
         and isinstance(verification, dict)
         and verification.get("verified") is True
         and verification.get("reason") == "valid"
-        and verification.get("reason") == "valid"
         and isinstance(verification.get("signature"), str)
         and bool(verification["signature"])
         and isinstance(verification.get("payload"), str)
@@ -180,7 +179,8 @@ def verify_owner_grant_commit(commit_sha: str, grant_path: str, grant_sha256: st
     """Authenticate an exact owner grant through GitHub's verified commit signature."""
     if (
         re.fullmatch(r"[0-9a-f]{40}", commit_sha) is None
-        or not grant_path.startswith("provenance/rights-grants/")
+        or re.fullmatch(r"provenance/rights-grants/[A-Za-z0-9][A-Za-z0-9._-]*\.json", grant_path)
+        is None
         or re.fullmatch(r"[0-9a-f]{64}", grant_sha256) is None
     ):
         return False
@@ -213,7 +213,7 @@ def verify_owner_grant_commit(commit_sha: str, grant_path: str, grant_sha256: st
             or not isinstance(file_payload.get("content"), str)
         ):
             return False
-        grant_bytes = base64.b64decode(file_payload.get("content", ""), validate=False)
+        grant_bytes = base64.b64decode("".join(file_payload["content"].split()), validate=True)
         return hashlib.sha256(grant_bytes).hexdigest() == grant_sha256
     except (OSError, urllib.error.URLError, json.JSONDecodeError, ValueError):
         return False
