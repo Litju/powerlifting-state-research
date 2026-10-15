@@ -8469,7 +8469,6 @@
     "NOASSERTION": "Artifact-level prediction-byte NOASSERTION overrides surrounding EvaluationResult metadata rights. No weights license is inferred from the publication-status field or their SHA metadata."
   },
   "not_run_states": [
-    "Candidate draft-PR GitHub Actions CI (pending PR creation).",
     "Full production regeneration and GPU campaign (explicitly outside the authorized scope; one full-production test remains skipped).",
     "Independent SHA-256 verification and redistribution-rights determination for checkpoint weights (bytes and owner grant unavailable in approved locations).",
     "Owner grant for the four already-public prediction hashes (rights remain UNRESOLVED and release-excluded).",
@@ -9081,10 +9080,12 @@
       "tested_commit": "5893b6261b53faa874af6a77e9b04a47ea421777"
     },
     {
-      "command": "GitHub Actions Public CI on RES-297 draft pull request",
+      "command": "GitHub Actions Public CI run 38689154169",
       "name": "candidate draft-PR GitHub Actions CI",
-      "outcome": "Will run after branch push and draft PR creation.",
-      "status": "NOT_RUN"
+      "outcome": "All five jobs passed, including all three Python compatibility suites and package smoke.",
+      "run_url": "https://github.com/Litju/powerlifting-state-research/actions/runs/38689154169",
+      "status": "PASS",
+      "tested_commit": "95ac9f0620f05cb97f40721ad520dee3cbc86ae7"
     }
   ],
   "record_rights": {
