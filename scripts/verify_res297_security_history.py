@@ -132,9 +132,9 @@ def _scan_blobs(root: Path, blobs: list[str]) -> tuple[Counter[str], set[str]]:
     )
     assert process.stdin is not None and process.stdout is not None
     try:
-        for blob in blobs:
-            process.stdin.write(blob.encode("ascii") + b"\n")
-            process.stdin.flush()
+        process.stdin.write("".join(f"{blob}\n" for blob in blobs).encode("ascii"))
+        process.stdin.close()
+        for _ in blobs:
             header = process.stdout.readline().split()
             if len(header) != 3 or header[1] != b"blob":
                 raise SecurityScanError("Git blob stream is incomplete")
@@ -207,11 +207,29 @@ def _gitleaks_scan(binary: str, root: Path, head: str, *, history: bool) -> tupl
         raise SecurityScanError(f"Expected Gitleaks {GITLEAKS_VERSION}")
     with tempfile.TemporaryDirectory(prefix="res297-gitleaks-") as tmp:
         report_path = Path(tmp) / "report.json"
+        source_root = root
+        if not history:
+            source_root = Path(tmp) / "candidate-tree"
+            source_root.mkdir()
+            checkout = subprocess.run(
+                [
+                    "git",
+                    "-C",
+                    str(root),
+                    "checkout-index",
+                    "--all",
+                    f"--prefix={source_root.as_posix()}/",
+                ],
+                capture_output=True,
+                check=False,
+            )
+            if checkout.returncode:
+                raise SecurityScanError("Git candidate tree could not be materialized")
         command = [
             binary,
             "detect",
             "--source",
-            str(root),
+            str(source_root),
             "--redact=100",
             "--report-format=json",
             f"--report-path={report_path}",

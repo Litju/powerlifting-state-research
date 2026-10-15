@@ -58,7 +58,7 @@
         "release_inclusion": true,
         "rights_authorization": {
           "artifact_path": "scripts/verify_res297_security_history.py",
-          "artifact_sha256": "aa741863585e1997878e98ae2012d0f7a07e6fbdbde2d9094f7d903d5772c949",
+          "artifact_sha256": "ad7897cdf0178c9779c1ffdd0126b675f3b0e24fd4385154eb0cf4135a054ad2",
           "authority_type": "PUBLISHED_LICENSE",
           "authorization_scope": "This newly authored RES-297 candidate file at this exact path and SHA-256.",
           "evidence": [
@@ -76,7 +76,7 @@
         },
         "rights_disposition": "CLEARED",
         "rights_family": "project_owned_mit_artifacts",
-        "sha256": "aa741863585e1997878e98ae2012d0f7a07e6fbdbde2d9094f7d903d5772c949"
+        "sha256": "ad7897cdf0178c9779c1ffdd0126b675f3b0e24fd4385154eb0cf4135a054ad2"
       },
       {
         "license_authority": [
