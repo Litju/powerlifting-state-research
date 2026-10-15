@@ -309,9 +309,11 @@ def build_receipt(root: Path, gitleaks: str = "gitleaks") -> dict[str, object]:
             "historical_paths": len(history_paths),
             "candidate_paths": current_paths,
             "gitleaks_version": version,
+            "gitleaks_json_reports_parsed": True,
             "gitleaks_history_findings": history_findings,
             "gitleaks_candidate_tree_findings": working_tree_findings,
         },
+        "blocking_finding_counts": blocking,
         "repository_pattern_scan": {
             **dict(history_counts),
             "candidate_tree_credential_or_private_key_matches": worktree_counts.get(
