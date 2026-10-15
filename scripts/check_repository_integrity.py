@@ -104,6 +104,27 @@ PRIVATE_RUN = re.compile(
 )
 PRIVATE_REPO = "ALI4" + "-OpenSource-Recovery"
 OLD_MODULE_NAMES = {"c21", "c22", "v1", "v2", "t0", "t1"}
+RES297_RECORD = "provenance/RES-297-rights-security-record-v1.json"
+RES297_BASELINE = "5893b6261b53faa874af6a77e9b04a47ea421777"
+RES297_PREDICTIONS = {
+    "ensemble.predictions.jsonl": (
+        "f6fb260feac851845f584bcd96a290ec046234f78a7596221aba5453aecc006d"
+    ),
+    "seed-383001.predictions.jsonl": (
+        "eb1bf322ba1783d0c70f59d13016421736fd6447c2f6827079f713d31332f50c"
+    ),
+    "seed-383002.predictions.jsonl": (
+        "2373889b26646731eafc88907fada38aaf2982d0cfb464b7cfb4f728fb854e89"
+    ),
+    "seed-383003.predictions.jsonl": (
+        "472fe8e81648672af3d93e17caaabe433026ab0d1725e384c370eb35f6d45944"
+    ),
+}
+RES297_CHECKPOINTS = {
+    383001: ("f8889305226cbac69874a2a983809e2b12adfdbfb8dd6446dbce932ac02904bb"),
+    383002: ("eb6c858e20e3a0cba5a542db605494359df83c15fac54b068ed938866d1398c4"),
+    383003: ("c8f6bb329ee6b9e37155d95515e071b98d0aacf720f163bbe060804a0ecdef18"),
+}
 ERRORS: list[str] = []
 
 
@@ -235,6 +256,172 @@ def check_ledger(tracked: set[str]) -> int:
         if license_scope != expected:
             fail(f"origin ledger license does not match file scope: {path}")
     return len(rows)
+
+
+def validate_res297_rights_record(
+    record: object,
+    expected_paths: set[str],
+    origins: dict[str, dict[str, str]],
+) -> list[str]:
+    errors: list[str] = []
+    if not isinstance(record, dict):
+        return ["RES-297 rights record must be a JSON object"]
+    if record.get("format") != "PSR_RES_297_RIGHTS_SECURITY_RECORD_V1":
+        errors.append("RES-297 rights record format is invalid")
+    if record.get("baseline_commit") != RES297_BASELINE:
+        errors.append("RES-297 rights record baseline changed")
+    if record.get("candidate_release_gate") != "NO-GO":
+        errors.append(
+            "RES-297 rights gate must remain NO-GO while prediction rights are unresolved"
+        )
+
+    raw_artifacts = record.get("hash_decisions")
+    if not isinstance(raw_artifacts, list) or any(
+        not isinstance(item, dict) for item in raw_artifacts
+    ):
+        errors.append("RES-297 per-hash decisions must be an array of objects")
+        raw_artifacts = []
+    artifacts = [item for item in raw_artifacts if isinstance(item, dict)]
+    raw_families = record.get("rights_families")
+    families = (
+        [item for item in raw_families if isinstance(item, dict)]
+        if isinstance(raw_families, list)
+        else []
+    )
+    family_map = {
+        item["family_id"]: item for item in families if isinstance(item.get("family_id"), str)
+    }
+    if len(family_map) != len(families) or not families:
+        errors.append("RES-297 rights families must have unique identifiers")
+    for family in families:
+        if family.get("rights_disposition") not in {
+            "CLEARED",
+            "EXCLUDED",
+            "BLOCKED",
+            "UNRESOLVED",
+        }:
+            errors.append("RES-297 rights family has an invalid disposition")
+    paths = [item.get("path") for item in artifacts]
+    string_paths = [path for path in paths if isinstance(path, str)]
+    if len(paths) != len(set(string_paths)) or set(string_paths) != expected_paths:
+        errors.append("RES-297 per-hash decisions do not exactly cover the baseline inventory")
+    for item in artifacts:
+        path = item.get("path")
+        if not isinstance(path, str):
+            errors.append("RES-297 hash decision has no path")
+            continue
+        for field in ("sha256", "candidate_sha256"):
+            if re.fullmatch(r"[0-9a-f]{64}", str(item.get(field, ""))) is None:
+                errors.append(f"RES-297 hash decision has an invalid {field}: {path}")
+        if item.get("rights_disposition") not in {"CLEARED", "EXCLUDED", "BLOCKED", "UNRESOLVED"}:
+            errors.append(f"RES-297 hash decision has an invalid disposition: {path}")
+        if item.get("release_inclusion") is True and item.get("rights_disposition") != "CLEARED":
+            errors.append(f"unresolved or excluded bytes are authorized for release: {path}")
+        family = family_map.get(item.get("rights_family"))
+        if not isinstance(family, dict) or family.get("rights_disposition") != item.get(
+            "rights_disposition"
+        ):
+            errors.append(f"RES-297 hash decision lacks matching family rights evidence: {path}")
+        if item.get("rights_disposition") == "CLEARED" and not item.get("license_authority"):
+            errors.append(f"cleared hash decision lacks a license authority: {path}")
+        origin = origins.get(path)
+        if origin is None or any(
+            item.get(field) != origin.get(field)
+            for field in ("origin_class", "license_expression", "owner")
+        ):
+            errors.append(f"RES-297 hash decision differs from the current origin ledger: {path}")
+
+    expected_prediction_paths = {
+        "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/"
+        f"public-native-temporal-expert/{name}": digest
+        for name, digest in RES297_PREDICTIONS.items()
+    }
+    raw_predictions = record.get("prediction_artifacts")
+    predictions = (
+        [item for item in raw_predictions if isinstance(item, dict)]
+        if isinstance(raw_predictions, list)
+        else []
+    )
+    prediction_paths = [item.get("path") for item in predictions]
+    if len(prediction_paths) != len(
+        [path for path in prediction_paths if isinstance(path, str)]
+    ) or set(path for path in prediction_paths if isinstance(path, str)) != set(
+        expected_prediction_paths
+    ):
+        errors.append("RES-297 must disposition all four tracked prediction artifacts")
+    by_path = {item["path"]: item for item in artifacts if isinstance(item.get("path"), str)}
+    for item in predictions:
+        path = item.get("path")
+        digest = expected_prediction_paths.get(path) if isinstance(path, str) else None
+        decision = by_path.get(path)
+        rights = item.get("prediction_rights")
+        if item.get("release_inclusion") is True and item.get("rights_disposition") != "CLEARED":
+            errors.append(f"unresolved or excluded bytes are authorized for release: {path}")
+        if (
+            digest is None
+            or item.get("sha256") != digest
+            or item.get("rights_disposition") != "UNRESOLVED"
+            or item.get("release_inclusion") is not False
+            or not isinstance(rights, dict)
+            or rights.get("license_expression") != "NOASSERTION"
+            or rights.get("copyright_holder") != "Not asserted"
+            or not isinstance(decision, dict)
+            or decision.get("sha256") != digest
+            or decision.get("rights_disposition") != "UNRESOLVED"
+            or decision.get("release_inclusion") is not False
+        ):
+            errors.append("RES-297 prediction rights conflict was cleared or release-included")
+
+    raw_checkpoints = record.get("checkpoint_dispositions")
+    checkpoints = (
+        [item for item in raw_checkpoints if isinstance(item, dict)]
+        if isinstance(raw_checkpoints, list)
+        else []
+    )
+    checkpoint_seeds = [item.get("seed") for item in checkpoints]
+    valid_seeds = {seed for seed in checkpoint_seeds if isinstance(seed, int)}
+    if len(valid_seeds) != len(checkpoint_seeds) or valid_seeds != set(RES297_CHECKPOINTS):
+        errors.append("RES-297 must disposition all three checkpoint hashes")
+    for item in checkpoints:
+        seed = item.get("seed")
+        if (
+            not isinstance(seed, int)
+            or seed not in RES297_CHECKPOINTS
+            or item.get("expected_sha256") != RES297_CHECKPOINTS.get(seed)
+            or item.get("bytes_available") is not False
+            or item.get("weights_release_status") != "NOT_RELEASED"
+            or item.get("rights_disposition") != "EXCLUDED"
+            or item.get("release_inclusion") is not False
+        ):
+            errors.append("RES-297 checkpoint weights must remain NOT_RELEASED and excluded")
+
+    counts = record.get("summary")
+    if isinstance(counts, dict):
+        actual = {
+            key: sum(item.get("rights_disposition") == key for item in artifacts)
+            for key in ("CLEARED", "EXCLUDED", "BLOCKED", "UNRESOLVED")
+        }
+        if any(
+            counts.get(key, 0) != actual.get(key, 0)
+            for key in ("CLEARED", "EXCLUDED", "BLOCKED", "UNRESOLVED")
+        ):
+            errors.append("RES-297 rights summary does not match per-hash decisions")
+    return errors
+
+
+def check_res297_rights_record(tracked: set[str]) -> None:
+    try:
+        record = json.loads((ROOT / RES297_RECORD).read_text(encoding="utf-8"))
+        with (ROOT / "provenance/PUBLIC_FILE_ORIGINS.csv").open(
+            newline="", encoding="utf-8"
+        ) as file:
+            origins = {row["path"]: row for row in csv.DictReader(file)}
+    except (OSError, KeyError, json.JSONDecodeError) as error:
+        fail(f"RES-297 rights record is missing or invalid: {error}")
+        return
+    expected_paths = tracked - {RES297_RECORD}
+    for error in validate_res297_rights_record(record, expected_paths, origins):
+        fail(error)
 
 
 def check_public_files(paths: set[str]) -> None:
@@ -1018,6 +1205,7 @@ def main() -> int:
         check_registry()
         rows = check_ledger(tracked)
         check_public_files(git_files("--cached", "--others", "--exclude-standard"))
+        check_res297_rights_record(tracked)
         for error in verify_gate_c_package():
             fail(error)
         for error in verify_res275_comparator_package():

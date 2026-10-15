@@ -640,3 +640,4 @@ results/corrections/RES-511-v1/SHA256SUMS.txt,GENERATED_PUBLIC_ARTIFACT,MIT,Powe
 studies/corrections/RES-511-v1/deviation-record.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,RES-511 machine-readable protocol deviation bound to all 30 RES-292 fitted instances.
 studies/corrections/RES-511-v1/interpretation.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,Reader-facing RES-292 initialization deviation erratum and scientific claim-impact interpretation.
 tests/test_res511_initialization_erratum.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Regression check for NumPy reconstruction and preservation of the historical RES-292 initialization deviation.
+provenance/RES-297-rights-security-record-v1.json,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Separately versioned RES-297 per-hash rights decisions and sanitized security/history scan receipt.
