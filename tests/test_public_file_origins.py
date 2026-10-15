@@ -6,6 +6,8 @@ import subprocess
 import sys
 from pathlib import Path
 
+import pytest
+
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
 
@@ -13,6 +15,7 @@ from check_repository_integrity import (  # noqa: E402
     RES297_BASELINE,
     RES297_PREDICTION_RIGHTS,
     RES297_RECORD,
+    baseline_paths_from_ledger_prefix,
     derive_res297_release_gate,
     validate_res297_rights_record,
 )
@@ -207,6 +210,16 @@ def test_res297_baseline_hashes_cover_all_641_origin_records() -> None:
             ["git", "show", f"{RES297_BASELINE}:{path}"], cwd=root
         )
         assert hashlib.sha256(baseline_content).hexdigest() == item["sha256"], path
+
+
+def test_res297_shallow_checkout_uses_the_hash_pinned_baseline_ledger_prefix() -> None:
+    baseline = subprocess.check_output(
+        ["git", "show", f"{RES297_BASELINE}:provenance/PUBLIC_FILE_ORIGINS.csv"], cwd=ROOT
+    )
+    paths = baseline_paths_from_ledger_prefix(baseline)
+    assert len(paths) == 641
+    with pytest.raises(ValueError, match="prefix SHA-256"):
+        baseline_paths_from_ledger_prefix(baseline[:-1])
 
 
 def test_res297_accepts_a_complete_owner_authorized_prediction_transition() -> None:

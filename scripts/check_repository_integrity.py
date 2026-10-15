@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import csv
 import hashlib
+import io
 import json
 import os
 import re
@@ -108,6 +109,9 @@ OLD_MODULE_NAMES = {"c21", "c22", "v1", "v2", "t0", "t1"}
 RES297_RECORD = "provenance/RES-297-rights-security-record-v1.json"
 RES297_PREDICTION_RIGHTS = "provenance/RES-297-prediction-rights-resolution-v1.json"
 RES297_BASELINE = "5893b6261b53faa874af6a77e9b04a47ea421777"
+RES297_BASELINE_TREE = "2b116774cfa5ea538eef56a19529b29fb4cd3c2a"
+RES297_BASELINE_LEDGER_SHA256 = "c7775772976ea16ddcd2c6ba6597e77ec74521b9cb7596f734d42ee706705e99"
+RES297_BASELINE_PATH_COUNT = 641
 RES297_PREDICTIONS = {
     "ensemble.predictions.jsonl": (
         "f6fb260feac851845f584bcd96a290ec046234f78a7596221aba5453aecc006d"
@@ -274,6 +278,15 @@ def validate_res297_rights_record(
         errors.append("RES-297 rights record format is invalid")
     if record.get("baseline_commit") != RES297_BASELINE:
         errors.append("RES-297 rights record baseline changed")
+    baseline_inventory = record.get("baseline_inventory")
+    if not isinstance(baseline_inventory, dict) or (
+        record.get("baseline_tree") != RES297_BASELINE_TREE
+        or baseline_inventory.get("path") != "provenance/PUBLIC_FILE_ORIGINS.csv"
+        or baseline_inventory.get("path_count") != RES297_BASELINE_PATH_COUNT
+        or baseline_inventory.get("git_tree_paths") != RES297_BASELINE_PATH_COUNT
+        or baseline_inventory.get("sha256") != RES297_BASELINE_LEDGER_SHA256
+    ):
+        errors.append("RES-297 immutable baseline inventory identity changed")
     recorded_on = record.get("recorded_on")
     try:
         record_date = date.fromisoformat(str(recorded_on))
@@ -822,6 +835,19 @@ def validate_res297_rights_record(
     return errors
 
 
+def baseline_paths_from_ledger_prefix(data: bytes) -> set[str]:
+    """Recover the 641-path baseline from its hash-pinned ledger prefix in shallow CI."""
+    lines = data.splitlines(keepends=True)
+    prefix = b"".join(lines[: RES297_BASELINE_PATH_COUNT + 1])
+    if hashlib.sha256(prefix).hexdigest() != RES297_BASELINE_LEDGER_SHA256:
+        raise ValueError("baseline origin-ledger prefix SHA-256 does not match")
+    rows = list(csv.DictReader(io.StringIO(prefix.decode("utf-8"))))
+    paths = {row.get("path", "") for row in rows}
+    if len(rows) != RES297_BASELINE_PATH_COUNT or len(paths) != RES297_BASELINE_PATH_COUNT:
+        raise ValueError("baseline origin-ledger prefix is incomplete or duplicated")
+    return paths
+
+
 def derive_res297_release_gate(
     artifacts: list[dict],
     prediction_rights: object,
@@ -867,13 +893,36 @@ def check_res297_rights_record(tracked: set[str]) -> None:
         fail(f"RES-297 rights record is missing or invalid: {error}")
         return
     try:
-        baseline_paths = {
-            line.decode("utf-8")
-            for line in subprocess.check_output(
-                ["git", "-C", str(ROOT), "ls-tree", "-r", "--name-only", "-z", RES297_BASELINE]
-            ).split(b"\0")
-            if line
-        }
+        prefix_paths = baseline_paths_from_ledger_prefix(
+            (ROOT / "provenance/PUBLIC_FILE_ORIGINS.csv").read_bytes()
+        )
+        baseline_ref = subprocess.run(
+            ["git", "-C", str(ROOT), "cat-file", "-e", f"{RES297_BASELINE}^{{commit}}"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            check=False,
+        )
+        if baseline_ref.returncode:
+            baseline_paths = prefix_paths
+        else:
+            baseline_paths = {
+                line.decode("utf-8")
+                for line in subprocess.check_output(
+                    [
+                        "git",
+                        "-C",
+                        str(ROOT),
+                        "ls-tree",
+                        "-r",
+                        "--name-only",
+                        "-z",
+                        RES297_BASELINE,
+                    ]
+                ).split(b"\0")
+                if line
+            }
+            if baseline_paths != prefix_paths:
+                fail("RES-297 baseline tree does not match the hash-pinned origin-ledger prefix")
         expected_additions = tracked - baseline_paths - {RES297_RECORD}
         raw_additions = record.get("candidate_inventory", {}).get("new_candidate_files", [])
         recorded_additions = {item.get("path") for item in raw_additions if isinstance(item, dict)}
@@ -1091,6 +1140,7 @@ def check_res297_rights_record(tracked: set[str]) -> None:
         TypeError,
         AttributeError,
         json.JSONDecodeError,
+        ValueError,
     ) as error:
         fail(f"RES-297 candidate inventory could not be checked: {error}")
         baseline_paths = set()

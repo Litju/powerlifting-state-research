@@ -6033,7 +6033,7 @@
       "sha256": "fdfe7bb834c7404c0913ecda3a734a67a61bf4c4cb35cd346c7e416642961515"
     },
     {
-      "candidate_sha256": "1b1b385c0d6949b931c65901f0e1af75860a9c9d4e1622c64908ed630a03db8f",
+      "candidate_sha256": "7b06d42cab1ab7dd1d06bae72325a6c3cf1988d7ac3d62aa0e0d2c578a2c5795",
       "license_authority": [
         {
           "path": "LICENSE",
@@ -6047,7 +6047,7 @@
       "release_inclusion": true,
       "rights_authorization": {
         "artifact_path": "scripts/check_repository_integrity.py",
-        "artifact_sha256": "1b1b385c0d6949b931c65901f0e1af75860a9c9d4e1622c64908ed630a03db8f",
+        "artifact_sha256": "7b06d42cab1ab7dd1d06bae72325a6c3cf1988d7ac3d62aa0e0d2c578a2c5795",
         "authority_type": "PUBLISHED_LICENSE",
         "authorization_scope": "Project-authored software and explicitly MIT-scoped metadata; this exact repository path and SHA-256 only.",
         "evidence": [
@@ -10719,7 +10719,7 @@
       "sha256": "dfe6ab8efd7f5ef7a28e56de57bb0a26fadc6b4b11f8d71eaa0f3b9c08026c1d"
     },
     {
-      "candidate_sha256": "ade4866bd202a83672804b0fe925ba5e7fbd39b258ae604979725c855e3ad22d",
+      "candidate_sha256": "512d3e0cc0a438fcab813d2b0414e99d4d75de232eaa25874b2e7eeccd8b3ede",
       "license_authority": [
         {
           "path": "LICENSE",
@@ -10733,7 +10733,7 @@
       "release_inclusion": true,
       "rights_authorization": {
         "artifact_path": "tests/test_public_file_origins.py",
-        "artifact_sha256": "ade4866bd202a83672804b0fe925ba5e7fbd39b258ae604979725c855e3ad22d",
+        "artifact_sha256": "512d3e0cc0a438fcab813d2b0414e99d4d75de232eaa25874b2e7eeccd8b3ede",
         "authority_type": "PUBLISHED_LICENSE",
         "authorization_scope": "Project-authored software and explicitly MIT-scoped metadata; this exact repository path and SHA-256 only.",
         "evidence": [
@@ -26231,7 +26231,7 @@
     },
     {
       "path": "scripts/check_repository_integrity.py",
-      "sha256": "1b1b385c0d6949b931c65901f0e1af75860a9c9d4e1622c64908ed630a03db8f"
+      "sha256": "7b06d42cab1ab7dd1d06bae72325a6c3cf1988d7ac3d62aa0e0d2c578a2c5795"
     },
     {
       "path": "src/powerlifting_state_research/evaluation/prediction.py",
