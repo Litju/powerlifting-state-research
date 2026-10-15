@@ -1,0 +1,748 @@
+{
+  "contract_audit": {
+    "additional_deviations_identified": [],
+    "architecture": "CONFORMS: 58 inputs, three outputs, 177 parameters; the last parameter row is the bias.",
+    "batch_and_objective": "CONFORMS: 32 observations sampled with replacement; mean-squared-error gradient plus 1e-4 times non-bias weights.",
+    "development_use": "CONFORMS: development predictions are recorded as learning curves; the learner performs no selection or early stopping.",
+    "initialization": "DEVIATION: the executed final bias row is normal-initialized rather than zero-initialized.",
+    "learning_rate": "CONFORMS: 0.01.",
+    "paired_public_batches": "CONFORMS BY SOURCE: public updates use an RNG seeded only by fit_seed + 1000000, so corresponding public phases start from the same sequence.",
+    "qualification_limit": "Static protocol/source comparison and existing fit identity records; no learner refit or full numerical replay.",
+    "update_budgets": "CONFORMS: the 30 fitted-instance records have the frozen 128/256 update counts for their arms."
+  },
+  "correction_id": "psr:erratum:res292-zero-bias-initialization@1.0.0",
+  "executed_initialization": {
+    "interpretation": "Rows 0-57 are the 58 feature weights; row 58 is the three-output bias. All 177 entries, including the bias row, are drawn from N(0, 0.01).",
+    "parameter_shape": [
+      59,
+      3
+    ],
+    "seed_source": "Each fit seed; initialization RNG is separate from public and synthetic update RNGs.",
+    "source_expression": "rng_init = _random.default_rng(fit_seed); weights = rng_init.normal(0.0, 0.01, size=(59, 3)).astype(np.float64)"
+  },
+  "format": "PSR_RES511_INITIALIZATION_DEVIATION_V1",
+  "intended_initialization": "Independent NumPy PCG64 normal weights with mean 0 and standard deviation 0.01 per fit seed; zero biases. Paired arms for each seed start from identical weights.",
+  "intended_initialization_contract": {
+    "bias_shape": [
+      3
+    ],
+    "bias_values": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "paired_arms_share_initial_weights": true,
+    "weight_distribution": {
+      "family": "normal",
+      "mean": 0.0,
+      "standard_deviation": 0.01
+    },
+    "weight_shape": [
+      58,
+      3
+    ]
+  },
+  "no_retraining": true,
+  "optimization_contract": {
+    "batch_sampling": "uniform with replacement",
+    "batch_size": 32,
+    "development_selection": false,
+    "early_stopping": false,
+    "expected_phase_updates_by_arm": {
+      "COMPUTE_MATCHED_PUBLIC_ONLY": {
+        "public_updates": 256,
+        "synthetic_updates": 0
+      },
+      "PUBLIC_ONLY": {
+        "public_updates": 128,
+        "synthetic_updates": 0
+      },
+      "SYNTHETIC_ONLY_BOOTSTRAP": {
+        "public_updates": 0,
+        "synthetic_updates": 128
+      },
+      "SYNTHETIC_ONLY_PSEUDOLABEL": {
+        "public_updates": 0,
+        "synthetic_updates": 128
+      },
+      "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_BOOTSTRAP": {
+        "public_updates": 128,
+        "synthetic_updates": 128
+      },
+      "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_PSEUDOLABEL": {
+        "public_updates": 128,
+        "synthetic_updates": 128
+      }
+    },
+    "expected_updates_by_arm": {
+      "COMPUTE_MATCHED_PUBLIC_ONLY": 256,
+      "PUBLIC_ONLY": 128,
+      "SYNTHETIC_ONLY_BOOTSTRAP": 128,
+      "SYNTHETIC_ONLY_PSEUDOLABEL": 128,
+      "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_BOOTSTRAP": 256,
+      "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_PSEUDOLABEL": 256
+    },
+    "l2_applies_to_bias": false,
+    "l2_coefficient": 0.0001,
+    "learning_rate": 0.01,
+    "objective": "mean squared error",
+    "observed_updates_by_arm": {
+      "COMPUTE_MATCHED_PUBLIC_ONLY": {
+        "expected": 256,
+        "fit_count": 5,
+        "observed_counts": [
+          256
+        ],
+        "observed_phase_counts": [
+          [
+            256,
+            0
+          ]
+        ]
+      },
+      "PUBLIC_ONLY": {
+        "expected": 128,
+        "fit_count": 5,
+        "observed_counts": [
+          128
+        ],
+        "observed_phase_counts": [
+          [
+            128,
+            0
+          ]
+        ]
+      },
+      "SYNTHETIC_ONLY_BOOTSTRAP": {
+        "expected": 128,
+        "fit_count": 5,
+        "observed_counts": [
+          128
+        ],
+        "observed_phase_counts": [
+          [
+            0,
+            128
+          ]
+        ]
+      },
+      "SYNTHETIC_ONLY_PSEUDOLABEL": {
+        "expected": 128,
+        "fit_count": 5,
+        "observed_counts": [
+          128
+        ],
+        "observed_phase_counts": [
+          [
+            0,
+            128
+          ]
+        ]
+      },
+      "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_BOOTSTRAP": {
+        "expected": 256,
+        "fit_count": 5,
+        "observed_counts": [
+          256
+        ],
+        "observed_phase_counts": [
+          [
+            128,
+            128
+          ]
+        ]
+      },
+      "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_PSEUDOLABEL": {
+        "expected": 256,
+        "fit_count": 5,
+        "observed_counts": [
+          256
+        ],
+        "observed_phase_counts": [
+          [
+            128,
+            128
+          ]
+        ]
+      }
+    },
+    "paired_public_rng_seed_offset": 1000000,
+    "target_scale_kg": 10.0
+  },
+  "provenance": {
+    "execution_commit": "de014231569442c7e83d1774877a8b92a9abc314",
+    "frozen_evidence_modified": false,
+    "preservation_parent": "15451032ee75f5e99c728aa44fd1f83f780bacc5",
+    "private_historical_access": false,
+    "protocol_freeze_commit": "63098ca91120d2f31b3926098ffd52da190affbf",
+    "result_artifact_modified": false
+  },
+  "reconstruction": {
+    "draw": "normal(loc=0.0, scale=0.01, size=(59, 3)).astype(float64)",
+    "generator": "numpy.random.default_rng; PCG64",
+    "matrix_hash_encoding": "SHA-256 over C-order little-endian float64 bytes",
+    "numpy_version": "2.4.4",
+    "python_version": "3.12.13"
+  },
+  "scientific_claim_impact": {
+    "interpretation": "Interpret the RES-292 results as conditional evidence about the executed learner, data, seeds, and evaluation design. No zero-bias counterfactual was run.",
+    "numerical_artifacts_preserved": true,
+    "res510_relation": "RES-510 corrects pooled uncertainty for these same fitted instances; its inference does not remove this protocol deviation.",
+    "supported": [
+      "Existing predictions and metrics remain records of the actually executed learner with the reconstructed seed-specific bias starts.",
+      "Within each seed, all six arms share the same initial 59-by-3 matrix, preserving the paired-start design."
+    ],
+    "unsupported": [
+      "Results as evidence from the protocol-conforming zero-bias learner.",
+      "Any causal or quantitative effect of these initial biases on predictions, metrics, or arm contrasts.",
+      "Claims requiring strict conformance to the declared zero-bias initialization."
+    ]
+  },
+  "scope": "RES-292 public-native initialization and bounded optimization contract only",
+  "seeds": [
+    {
+      "fit_seed": 292201,
+      "fitted_instances": [
+        {
+          "arm": "PUBLIC_ONLY",
+          "fit_seed": 292201,
+          "fitted_instance_id": "psr:fitted-instance:res292-public-only-seed-292201@1.0.0~9628c9d70393",
+          "identity_digest": "sha256:9628c9d70393daa701324f9226e0aee64b559332e6a87a56d809d9c675e52b58",
+          "initial_parameter_matrix_sha256": "sha256:8ce67d7c6b7f679538ade330e7fff3134260cb71b7fee2c2f18cf87fae93c4d8",
+          "public_row_presentations": 4096,
+          "public_updates": 128,
+          "state_sha256": "sha256:872eed8685c92ae07aa0615fc938dae99b016c4525bf84b5c743978a73fa833c",
+          "synthetic_row_presentations": 0,
+          "synthetic_updates": 0,
+          "update_count": 128
+        },
+        {
+          "arm": "SYNTHETIC_ONLY_BOOTSTRAP",
+          "fit_seed": 292201,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-only-bootstrap-seed-292201@1.0.0~78b382ed7864",
+          "identity_digest": "sha256:78b382ed7864ea9fb1db53ea4fb6bb5e92bb0182c767f7b1103cfb4be1d48669",
+          "initial_parameter_matrix_sha256": "sha256:8ce67d7c6b7f679538ade330e7fff3134260cb71b7fee2c2f18cf87fae93c4d8",
+          "public_row_presentations": 0,
+          "public_updates": 0,
+          "state_sha256": "sha256:2032bc5993159a82b74e2f8f2f7f730409377b066a974c6b50178471baeacaa4",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 128
+        },
+        {
+          "arm": "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_BOOTSTRAP",
+          "fit_seed": 292201,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-pretrain-public-finetune-bootstrap-seed-292201@1.0.0~3583be4ba28a",
+          "identity_digest": "sha256:3583be4ba28a31ecc12fc8f96a7d6adf4a5ccc0d753561cbd667c515f082d587",
+          "initial_parameter_matrix_sha256": "sha256:8ce67d7c6b7f679538ade330e7fff3134260cb71b7fee2c2f18cf87fae93c4d8",
+          "public_row_presentations": 4096,
+          "public_updates": 128,
+          "state_sha256": "sha256:c1f493d4c4829367a724f96275313207f648621d90c24573670faf7ff4b5f20d",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 256
+        },
+        {
+          "arm": "COMPUTE_MATCHED_PUBLIC_ONLY",
+          "fit_seed": 292201,
+          "fitted_instance_id": "psr:fitted-instance:res292-compute-matched-public-only-seed-292201@1.0.0~4623d2a632af",
+          "identity_digest": "sha256:4623d2a632af3cec8e14667aa6fc42c7fb8340879ac96f86a89488c130bd4e99",
+          "initial_parameter_matrix_sha256": "sha256:8ce67d7c6b7f679538ade330e7fff3134260cb71b7fee2c2f18cf87fae93c4d8",
+          "public_row_presentations": 8192,
+          "public_updates": 256,
+          "state_sha256": "sha256:9a5b79a4eb99dcd6dc9dde8ba2546c7ca85e1672fbbcad0b7f4cc9d760d90ca9",
+          "synthetic_row_presentations": 0,
+          "synthetic_updates": 0,
+          "update_count": 256
+        },
+        {
+          "arm": "SYNTHETIC_ONLY_PSEUDOLABEL",
+          "fit_seed": 292201,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-only-pseudolabel-seed-292201@1.0.0~3b888b6cfcca",
+          "identity_digest": "sha256:3b888b6cfcca3589df72f6964517f512b422bd9c43da0d045a6859dc3348ef45",
+          "initial_parameter_matrix_sha256": "sha256:8ce67d7c6b7f679538ade330e7fff3134260cb71b7fee2c2f18cf87fae93c4d8",
+          "public_row_presentations": 0,
+          "public_updates": 0,
+          "state_sha256": "sha256:ff13930ca1dbc8a053890986506be25d5c06247e4ec738df51312a059f6ca90b",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 128
+        },
+        {
+          "arm": "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_PSEUDOLABEL",
+          "fit_seed": 292201,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-pretrain-public-finetune-pseudolabel-seed-292201@1.0.0~ca4ca42d4dea",
+          "identity_digest": "sha256:ca4ca42d4deaefa9a11bed6f9f7640733e7f3289d8de481bc3c66ab94b417b62",
+          "initial_parameter_matrix_sha256": "sha256:8ce67d7c6b7f679538ade330e7fff3134260cb71b7fee2c2f18cf87fae93c4d8",
+          "public_row_presentations": 4096,
+          "public_updates": 128,
+          "state_sha256": "sha256:8d0e8267e9f9e5332ccb2df51a8c29cdc6b3eba4cab005a2bf14770cf0495397",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 256
+        }
+      ],
+      "initial_bias_parameters": [
+        0.020983372923549896,
+        -0.002813681966121168,
+        -0.016008908525505683
+      ],
+      "initial_matrix_dtype": "float64 little-endian; C-order hash",
+      "initial_matrix_shape": [
+        59,
+        3
+      ],
+      "initial_parameter_matrix_sha256": "sha256:8ce67d7c6b7f679538ade330e7fff3134260cb71b7fee2c2f18cf87fae93c4d8",
+      "paired_arm_count": 6
+    },
+    {
+      "fit_seed": 292202,
+      "fitted_instances": [
+        {
+          "arm": "PUBLIC_ONLY",
+          "fit_seed": 292202,
+          "fitted_instance_id": "psr:fitted-instance:res292-public-only-seed-292202@1.0.0~19ec5ef0acc4",
+          "identity_digest": "sha256:19ec5ef0acc4237c91c77ac26071617602c4622363529cfc58478710607cf4d3",
+          "initial_parameter_matrix_sha256": "sha256:7950eb8e4b509c748d9a043d1214287b2192402ddfc41447c01b27348b2af026",
+          "public_row_presentations": 4096,
+          "public_updates": 128,
+          "state_sha256": "sha256:ed71cec6e8b6e083834d00738b323fc9aa7beab9e4c8c0245a29f76884cf1cde",
+          "synthetic_row_presentations": 0,
+          "synthetic_updates": 0,
+          "update_count": 128
+        },
+        {
+          "arm": "SYNTHETIC_ONLY_BOOTSTRAP",
+          "fit_seed": 292202,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-only-bootstrap-seed-292202@1.0.0~c26c8fca53b9",
+          "identity_digest": "sha256:c26c8fca53b9c92a40bf54589738f2ca326e949a44529f498131eea60339e4c6",
+          "initial_parameter_matrix_sha256": "sha256:7950eb8e4b509c748d9a043d1214287b2192402ddfc41447c01b27348b2af026",
+          "public_row_presentations": 0,
+          "public_updates": 0,
+          "state_sha256": "sha256:9551ea438bd9757b5a2e565a1cc98c92237894c663f3ad21de027d0edeeb978e",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 128
+        },
+        {
+          "arm": "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_BOOTSTRAP",
+          "fit_seed": 292202,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-pretrain-public-finetune-bootstrap-seed-292202@1.0.0~7cd518a51a35",
+          "identity_digest": "sha256:7cd518a51a355beeeef0a11964843c5a53269fbf3dba7fd6a5ff060d02c664cd",
+          "initial_parameter_matrix_sha256": "sha256:7950eb8e4b509c748d9a043d1214287b2192402ddfc41447c01b27348b2af026",
+          "public_row_presentations": 4096,
+          "public_updates": 128,
+          "state_sha256": "sha256:c0f6dab4cfd174f906b0768a6e24d250139c6776073aaf9006871414ae5a2258",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 256
+        },
+        {
+          "arm": "COMPUTE_MATCHED_PUBLIC_ONLY",
+          "fit_seed": 292202,
+          "fitted_instance_id": "psr:fitted-instance:res292-compute-matched-public-only-seed-292202@1.0.0~e4e6b9f434ec",
+          "identity_digest": "sha256:e4e6b9f434ece6d4bf561919f377735fae762171865defda0b1822b5f3d628e1",
+          "initial_parameter_matrix_sha256": "sha256:7950eb8e4b509c748d9a043d1214287b2192402ddfc41447c01b27348b2af026",
+          "public_row_presentations": 8192,
+          "public_updates": 256,
+          "state_sha256": "sha256:9c58e228c1fc4bb1df5dc78ffa96f37acc2b2013861b32a98a51fe55801a3ba3",
+          "synthetic_row_presentations": 0,
+          "synthetic_updates": 0,
+          "update_count": 256
+        },
+        {
+          "arm": "SYNTHETIC_ONLY_PSEUDOLABEL",
+          "fit_seed": 292202,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-only-pseudolabel-seed-292202@1.0.0~032ce40fd68b",
+          "identity_digest": "sha256:032ce40fd68b7e8a0d7f30e2f6e963825803b6d523cee4726484b7fb171ed9f5",
+          "initial_parameter_matrix_sha256": "sha256:7950eb8e4b509c748d9a043d1214287b2192402ddfc41447c01b27348b2af026",
+          "public_row_presentations": 0,
+          "public_updates": 0,
+          "state_sha256": "sha256:20edd2d7f8f4cf895ad8925e428d369242822664858adc170cd28594cd5085f4",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 128
+        },
+        {
+          "arm": "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_PSEUDOLABEL",
+          "fit_seed": 292202,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-pretrain-public-finetune-pseudolabel-seed-292202@1.0.0~a7d0a2b65e21",
+          "identity_digest": "sha256:a7d0a2b65e2171e0a9d178097e09b7c4abdd1f82de7c4a67becea65804fe470c",
+          "initial_parameter_matrix_sha256": "sha256:7950eb8e4b509c748d9a043d1214287b2192402ddfc41447c01b27348b2af026",
+          "public_row_presentations": 4096,
+          "public_updates": 128,
+          "state_sha256": "sha256:2ab8c63ff224545a60c583cc6f86223cf3e1b099139e4f433c52f9431e197c8e",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 256
+        }
+      ],
+      "initial_bias_parameters": [
+        0.016504270989740073,
+        0.02045264695978766,
+        0.006937279225743331
+      ],
+      "initial_matrix_dtype": "float64 little-endian; C-order hash",
+      "initial_matrix_shape": [
+        59,
+        3
+      ],
+      "initial_parameter_matrix_sha256": "sha256:7950eb8e4b509c748d9a043d1214287b2192402ddfc41447c01b27348b2af026",
+      "paired_arm_count": 6
+    },
+    {
+      "fit_seed": 292203,
+      "fitted_instances": [
+        {
+          "arm": "PUBLIC_ONLY",
+          "fit_seed": 292203,
+          "fitted_instance_id": "psr:fitted-instance:res292-public-only-seed-292203@1.0.0~95e9f5da08e5",
+          "identity_digest": "sha256:95e9f5da08e52d656b4a97a4b5769a535367818fe5c84bf03a69f63fc4ad1c38",
+          "initial_parameter_matrix_sha256": "sha256:716caac3c4af9cbcbd60ea276f17c4c73b9e9a329f453e7c7caadaa21bdc0977",
+          "public_row_presentations": 4096,
+          "public_updates": 128,
+          "state_sha256": "sha256:79dbd8d98562a148cc0ceaf0dcbeb3df09ff16e132c4faefbc76dc83540e6626",
+          "synthetic_row_presentations": 0,
+          "synthetic_updates": 0,
+          "update_count": 128
+        },
+        {
+          "arm": "SYNTHETIC_ONLY_BOOTSTRAP",
+          "fit_seed": 292203,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-only-bootstrap-seed-292203@1.0.0~d00257519033",
+          "identity_digest": "sha256:d00257519033fe330f82b06084401d9f5a45027bcbd7d26d4591106a7f1606a4",
+          "initial_parameter_matrix_sha256": "sha256:716caac3c4af9cbcbd60ea276f17c4c73b9e9a329f453e7c7caadaa21bdc0977",
+          "public_row_presentations": 0,
+          "public_updates": 0,
+          "state_sha256": "sha256:34e7c8ebada581b24fd314638a9a73f27a87ef4fe90f3084576586ee20a783d0",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 128
+        },
+        {
+          "arm": "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_BOOTSTRAP",
+          "fit_seed": 292203,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-pretrain-public-finetune-bootstrap-seed-292203@1.0.0~9a465bf26e73",
+          "identity_digest": "sha256:9a465bf26e733222a979611d11a3985b2f33f1134a699d588564ff439c311e42",
+          "initial_parameter_matrix_sha256": "sha256:716caac3c4af9cbcbd60ea276f17c4c73b9e9a329f453e7c7caadaa21bdc0977",
+          "public_row_presentations": 4096,
+          "public_updates": 128,
+          "state_sha256": "sha256:18c11f8e96d15b8635cd9724a2673ba6cfd432a460374b793fb11699f5d17698",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 256
+        },
+        {
+          "arm": "COMPUTE_MATCHED_PUBLIC_ONLY",
+          "fit_seed": 292203,
+          "fitted_instance_id": "psr:fitted-instance:res292-compute-matched-public-only-seed-292203@1.0.0~e1360ca9186c",
+          "identity_digest": "sha256:e1360ca9186c92305bb7a95b6f353eac61020a7df813c86a2395805c342912f4",
+          "initial_parameter_matrix_sha256": "sha256:716caac3c4af9cbcbd60ea276f17c4c73b9e9a329f453e7c7caadaa21bdc0977",
+          "public_row_presentations": 8192,
+          "public_updates": 256,
+          "state_sha256": "sha256:29f514ed39774a547a6fd720ed7df41427d7c99bc77ed72049c4b439b0001f2b",
+          "synthetic_row_presentations": 0,
+          "synthetic_updates": 0,
+          "update_count": 256
+        },
+        {
+          "arm": "SYNTHETIC_ONLY_PSEUDOLABEL",
+          "fit_seed": 292203,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-only-pseudolabel-seed-292203@1.0.0~cb94ab0baba4",
+          "identity_digest": "sha256:cb94ab0baba4b88c33ddeb4431c4a2cd4068b4a8301ac677e6bd0bd09ae3b269",
+          "initial_parameter_matrix_sha256": "sha256:716caac3c4af9cbcbd60ea276f17c4c73b9e9a329f453e7c7caadaa21bdc0977",
+          "public_row_presentations": 0,
+          "public_updates": 0,
+          "state_sha256": "sha256:7b78f2f12b1960c42e5695a234cd7e0c36ef6d3d6dbc5e3a05bf83ffce02cea0",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 128
+        },
+        {
+          "arm": "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_PSEUDOLABEL",
+          "fit_seed": 292203,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-pretrain-public-finetune-pseudolabel-seed-292203@1.0.0~f09fe2a87782",
+          "identity_digest": "sha256:f09fe2a87782d852a7f4d716915890a3b9259b9443c6436fdcced60576c52c3d",
+          "initial_parameter_matrix_sha256": "sha256:716caac3c4af9cbcbd60ea276f17c4c73b9e9a329f453e7c7caadaa21bdc0977",
+          "public_row_presentations": 4096,
+          "public_updates": 128,
+          "state_sha256": "sha256:5049d1b5108ac0c0783e2d83115f90109b8e9891fccf9ec0c01d51dda86f92a0",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 256
+        }
+      ],
+      "initial_bias_parameters": [
+        0.01449867791593493,
+        0.005143104338477398,
+        -0.007726452010622767
+      ],
+      "initial_matrix_dtype": "float64 little-endian; C-order hash",
+      "initial_matrix_shape": [
+        59,
+        3
+      ],
+      "initial_parameter_matrix_sha256": "sha256:716caac3c4af9cbcbd60ea276f17c4c73b9e9a329f453e7c7caadaa21bdc0977",
+      "paired_arm_count": 6
+    },
+    {
+      "fit_seed": 292204,
+      "fitted_instances": [
+        {
+          "arm": "PUBLIC_ONLY",
+          "fit_seed": 292204,
+          "fitted_instance_id": "psr:fitted-instance:res292-public-only-seed-292204@1.0.0~ecdc66079d16",
+          "identity_digest": "sha256:ecdc66079d16ac77d1f4a96463f4b8fb2677c3b5edd38bda32e67a1f9d6a5ace",
+          "initial_parameter_matrix_sha256": "sha256:a5fbddd9ae38357e08ac046d92eaa413ac2fa57dfa31ccad35e00ceb73b0c885",
+          "public_row_presentations": 4096,
+          "public_updates": 128,
+          "state_sha256": "sha256:f969594193c4cdd9d6e220f622790bdd83c3b3d049ee313ceabeda6b1229a640",
+          "synthetic_row_presentations": 0,
+          "synthetic_updates": 0,
+          "update_count": 128
+        },
+        {
+          "arm": "SYNTHETIC_ONLY_BOOTSTRAP",
+          "fit_seed": 292204,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-only-bootstrap-seed-292204@1.0.0~79fa9038528e",
+          "identity_digest": "sha256:79fa9038528e4a2a873a3b82b1720f3dd27e1f9fe8d7a94f1c22b21c22eae3d9",
+          "initial_parameter_matrix_sha256": "sha256:a5fbddd9ae38357e08ac046d92eaa413ac2fa57dfa31ccad35e00ceb73b0c885",
+          "public_row_presentations": 0,
+          "public_updates": 0,
+          "state_sha256": "sha256:0cae6d05cbf4f587e7a56930372ec8db2c3c74185c61e081327fb5362da1cf58",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 128
+        },
+        {
+          "arm": "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_BOOTSTRAP",
+          "fit_seed": 292204,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-pretrain-public-finetune-bootstrap-seed-292204@1.0.0~468b08e22bde",
+          "identity_digest": "sha256:468b08e22bded47323357a2eb9ec14abe74ebe61b081a4bd264bae2afcf9f813",
+          "initial_parameter_matrix_sha256": "sha256:a5fbddd9ae38357e08ac046d92eaa413ac2fa57dfa31ccad35e00ceb73b0c885",
+          "public_row_presentations": 4096,
+          "public_updates": 128,
+          "state_sha256": "sha256:5960f81693893f6834b9f6604c4460258d9e8e330467c9a412a9ecc8ac006a44",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 256
+        },
+        {
+          "arm": "COMPUTE_MATCHED_PUBLIC_ONLY",
+          "fit_seed": 292204,
+          "fitted_instance_id": "psr:fitted-instance:res292-compute-matched-public-only-seed-292204@1.0.0~75fa729aa68b",
+          "identity_digest": "sha256:75fa729aa68be8bb188c0189f2d8079f1d1e2ddc51b35cc0a14062ab1c206028",
+          "initial_parameter_matrix_sha256": "sha256:a5fbddd9ae38357e08ac046d92eaa413ac2fa57dfa31ccad35e00ceb73b0c885",
+          "public_row_presentations": 8192,
+          "public_updates": 256,
+          "state_sha256": "sha256:86e09c8c5f2db8d0174babe352c4bdb54a21e15fc47986b33238f53f20eba4e4",
+          "synthetic_row_presentations": 0,
+          "synthetic_updates": 0,
+          "update_count": 256
+        },
+        {
+          "arm": "SYNTHETIC_ONLY_PSEUDOLABEL",
+          "fit_seed": 292204,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-only-pseudolabel-seed-292204@1.0.0~dcb6636fe2e2",
+          "identity_digest": "sha256:dcb6636fe2e280c1b6f56a8b2d8ac6471faf4968f75872bcf7d997d91eb8750f",
+          "initial_parameter_matrix_sha256": "sha256:a5fbddd9ae38357e08ac046d92eaa413ac2fa57dfa31ccad35e00ceb73b0c885",
+          "public_row_presentations": 0,
+          "public_updates": 0,
+          "state_sha256": "sha256:f6f4bb2106c4120805464317ddb8089bf31c768856378bdec9c6f03d781ec518",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 128
+        },
+        {
+          "arm": "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_PSEUDOLABEL",
+          "fit_seed": 292204,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-pretrain-public-finetune-pseudolabel-seed-292204@1.0.0~89fb68814bf6",
+          "identity_digest": "sha256:89fb68814bf667ca94df464c02eae92fc9871f7f22192c5fc2315bf954d0e3ea",
+          "initial_parameter_matrix_sha256": "sha256:a5fbddd9ae38357e08ac046d92eaa413ac2fa57dfa31ccad35e00ceb73b0c885",
+          "public_row_presentations": 4096,
+          "public_updates": 128,
+          "state_sha256": "sha256:28954c5ecd2f578aacd5a13aa7aeb33152e8bc4140b2e74a01bc44af7382dcf4",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 256
+        }
+      ],
+      "initial_bias_parameters": [
+        0.0048331481796608546,
+        -0.01089157664059558,
+        0.011014555575501617
+      ],
+      "initial_matrix_dtype": "float64 little-endian; C-order hash",
+      "initial_matrix_shape": [
+        59,
+        3
+      ],
+      "initial_parameter_matrix_sha256": "sha256:a5fbddd9ae38357e08ac046d92eaa413ac2fa57dfa31ccad35e00ceb73b0c885",
+      "paired_arm_count": 6
+    },
+    {
+      "fit_seed": 292205,
+      "fitted_instances": [
+        {
+          "arm": "PUBLIC_ONLY",
+          "fit_seed": 292205,
+          "fitted_instance_id": "psr:fitted-instance:res292-public-only-seed-292205@1.0.0~2b9445bb2449",
+          "identity_digest": "sha256:2b9445bb24491e39fa36a3b9dda2b44e45735c5bb04af8d2c1a46c65b93bbecd",
+          "initial_parameter_matrix_sha256": "sha256:12612cd93f735c7a364c5af12cf60a9b73d5fa948d91f4ca7611760b43d11bd3",
+          "public_row_presentations": 4096,
+          "public_updates": 128,
+          "state_sha256": "sha256:b80c1ca436a16ec0c4acc774aa42bc0a927d46c8afb84fe8436c1ab9e27b513c",
+          "synthetic_row_presentations": 0,
+          "synthetic_updates": 0,
+          "update_count": 128
+        },
+        {
+          "arm": "SYNTHETIC_ONLY_BOOTSTRAP",
+          "fit_seed": 292205,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-only-bootstrap-seed-292205@1.0.0~b07c1d8d9bf6",
+          "identity_digest": "sha256:b07c1d8d9bf6f269f55aaff7950f38b6b6320162665a3ed5fcfdc03c74f36a50",
+          "initial_parameter_matrix_sha256": "sha256:12612cd93f735c7a364c5af12cf60a9b73d5fa948d91f4ca7611760b43d11bd3",
+          "public_row_presentations": 0,
+          "public_updates": 0,
+          "state_sha256": "sha256:bfcc1139cdea33968406da8241685c19a78ca0f58826a4e9f128d72e947caf36",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 128
+        },
+        {
+          "arm": "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_BOOTSTRAP",
+          "fit_seed": 292205,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-pretrain-public-finetune-bootstrap-seed-292205@1.0.0~b28de973f098",
+          "identity_digest": "sha256:b28de973f098a8e2399f0386feca722a57742261a5cf0aa90d832e2fe507dfb5",
+          "initial_parameter_matrix_sha256": "sha256:12612cd93f735c7a364c5af12cf60a9b73d5fa948d91f4ca7611760b43d11bd3",
+          "public_row_presentations": 4096,
+          "public_updates": 128,
+          "state_sha256": "sha256:e7dc871fdfc3562091b3d9ea6a0090d1a390cff4a26a32e245e066073663b252",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 256
+        },
+        {
+          "arm": "COMPUTE_MATCHED_PUBLIC_ONLY",
+          "fit_seed": 292205,
+          "fitted_instance_id": "psr:fitted-instance:res292-compute-matched-public-only-seed-292205@1.0.0~1e4662ec317a",
+          "identity_digest": "sha256:1e4662ec317a39060f29ce276b7f42284d1dca33776728e0f2b3b27c94c02c06",
+          "initial_parameter_matrix_sha256": "sha256:12612cd93f735c7a364c5af12cf60a9b73d5fa948d91f4ca7611760b43d11bd3",
+          "public_row_presentations": 8192,
+          "public_updates": 256,
+          "state_sha256": "sha256:710387b2cf9061b86d0a396d598d1777c58c3fda11f727e337a052b2bbbcbb57",
+          "synthetic_row_presentations": 0,
+          "synthetic_updates": 0,
+          "update_count": 256
+        },
+        {
+          "arm": "SYNTHETIC_ONLY_PSEUDOLABEL",
+          "fit_seed": 292205,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-only-pseudolabel-seed-292205@1.0.0~9ea997661e2a",
+          "identity_digest": "sha256:9ea997661e2a1a35e271c1ca695b7bfbe165cf0c558da3baf19d903d2cf4aceb",
+          "initial_parameter_matrix_sha256": "sha256:12612cd93f735c7a364c5af12cf60a9b73d5fa948d91f4ca7611760b43d11bd3",
+          "public_row_presentations": 0,
+          "public_updates": 0,
+          "state_sha256": "sha256:286e6d6f1c578d901409d16bc12796aeac2e0951008949d15be55359e7cb92f7",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 128
+        },
+        {
+          "arm": "SYNTHETIC_PRETRAIN_PUBLIC_FINETUNE_PSEUDOLABEL",
+          "fit_seed": 292205,
+          "fitted_instance_id": "psr:fitted-instance:res292-synthetic-pretrain-public-finetune-pseudolabel-seed-292205@1.0.0~be93bc23da1c",
+          "identity_digest": "sha256:be93bc23da1cf812f7f5a06bbb671fee2969c81344fc2a9639c0d83660637e8f",
+          "initial_parameter_matrix_sha256": "sha256:12612cd93f735c7a364c5af12cf60a9b73d5fa948d91f4ca7611760b43d11bd3",
+          "public_row_presentations": 4096,
+          "public_updates": 128,
+          "state_sha256": "sha256:6aba689a5ec2b066e4bdc5d17b5879169ceb1f9c29e872087670b9e019b182d3",
+          "synthetic_row_presentations": 4096,
+          "synthetic_updates": 128,
+          "update_count": 256
+        }
+      ],
+      "initial_bias_parameters": [
+        -0.0029663849315563324,
+        0.009284113823082613,
+        -0.007894574603355723
+      ],
+      "initial_matrix_dtype": "float64 little-endian; C-order hash",
+      "initial_matrix_shape": [
+        59,
+        3
+      ],
+      "initial_parameter_matrix_sha256": "sha256:12612cd93f735c7a364c5af12cf60a9b73d5fa948d91f4ca7611760b43d11bd3",
+      "paired_arm_count": 6
+    }
+  ],
+  "source_artifacts": {
+    "compute_accounting": {
+      "path": "results/studies/synthetic_pretraining_transfer/public-native/compute-accounting.csv",
+      "sha256": "sha256:d23f46fb0eb05f57495a8a004930a4f03b30413cb058c9047ea5fc3e339e5a71"
+    },
+    "dataset_realization": {
+      "path": "results/studies/synthetic_pretraining_transfer/public-native/dataset-realization.json",
+      "sha256": "sha256:e9a9446174f2e79d6b550f9720bc7689706fd26a6fcf2c77f513bbfdad1eedb4"
+    },
+    "evaluation_results": {
+      "path": "results/studies/synthetic_pretraining_transfer/public-native/evaluation-results.csv",
+      "sha256": "sha256:e13cbc455621d063433b7cb47d507cee2ba466d90ccf02f04e1a51b5b2c65092"
+    },
+    "fitted_instances": {
+      "path": "results/studies/synthetic_pretraining_transfer/public-native/fitted-instance-identities.json",
+      "sha256": "sha256:083884d61de056adeb3edf3a27e836c8e85edc54723ae0f22653d49e3ebdf90a"
+    },
+    "fitted_models": {
+      "path": "results/studies/synthetic_pretraining_transfer/public-native/fitted-models.json",
+      "sha256": "sha256:7f29703b1dc457d99ab6ddbb2a03c17d562d441ef73d1afb337f554906c64265"
+    },
+    "fitting_data": {
+      "path": "results/studies/synthetic_pretraining_transfer/public-native/realizations/fitting.jsonl",
+      "sha256": "sha256:6ff9b30ae2269a7f1fd7073bdd97d5809084778cc65f7dbf128224e3321b8729"
+    },
+    "learner": {
+      "path": "src/powerlifting_state_research/studies/synthetic_pretraining_transfer_learner.py",
+      "sha256": "sha256:98618eb38936d2b29135d00b7ea843b1159ac66349bee2f35ba28f1f277fa698"
+    },
+    "learner_input_audit": {
+      "path": "results/studies/synthetic_pretraining_transfer/public-native/learner-input-audit.json",
+      "sha256": "sha256:26c08fea4a64f4a62ea11d49b9afcb54d273d2f6fed83555629a27c7fb40f94d"
+    },
+    "paired_transfer_effects": {
+      "path": "results/studies/synthetic_pretraining_transfer/public-native/paired-transfer-effects.csv",
+      "sha256": "sha256:c98c1ffbea090e0f5f2eba9ab7f56ca000660a21080ebe9c4b29f09e999546c1"
+    },
+    "predictions": {
+      "path": "results/studies/synthetic_pretraining_transfer/public-native/predictions.jsonl",
+      "sha256": "sha256:6127274287a456fe07fad413066bc6063d343efaf5f93b74f6a93fb05bfafcc2"
+    },
+    "protocol": {
+      "path": "studies/synthetic_pretraining_transfer/protocol.json",
+      "sha256": "sha256:699550a3d48bed34af89953ca3e255796b7f11190731718a524368e3535b0d9e"
+    },
+    "research_report": {
+      "path": "results/studies/synthetic_pretraining_transfer/public-native/report.md",
+      "sha256": "sha256:6c1a1382f1126405701f0149be49f4dfb52648940ceebd4c4f38f651b855e3ef"
+    },
+    "result_checksums": {
+      "path": "results/studies/synthetic_pretraining_transfer/public-native/SHA256SUMS.txt",
+      "sha256": "sha256:830d99ffd072b58c151cf141c9907da341e90a7e8828f148e3c598539594b4b9"
+    },
+    "result_manifest": {
+      "path": "results/studies/synthetic_pretraining_transfer/public-native/manifest.json",
+      "sha256": "sha256:3135ea1c6d7a6a107fce37ec024329825f43fabefa9282839a9e9047ba763810"
+    }
+  },
+  "status": "HISTORICAL_DEVIATION_CONFIRMED",
+  "study_identity": {
+    "benchmark_id": "psr:benchmark-spec:iid-latent-capacity-change-with-transient-expression-forecasting@1.0.0~f99463d55ba0",
+    "dataset_spec_id": "psr:dataset-spec:latent-capacity-transient-iid-sampling-design@1.0.0~1d079eb645ed",
+    "evaluation_id": "res292-public-native-synthetic-pretraining-transfer-v1",
+    "protocol_digest": "sha256:e6209a7185e826e4b041c7b2aac7b313ae10cc98d83496db5edb528fc20d1e96",
+    "realization_id": "psr:dataset-realization:synthetic-pretraining-transfer-public-native@sha256:2162e1085cdd11c5c054b51c410f6ad82882e1739098e3838d486fe912666396",
+    "realization_slug": "synthetic-pretraining-transfer-public-native",
+    "study_id": "psr:study:synthetic-pretraining-transfer-public-native@1.0.0~e6209a7185e8"
+  },
+  "version": "1.0.0"
+}
