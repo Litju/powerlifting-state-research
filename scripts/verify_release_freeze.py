@@ -50,7 +50,7 @@ class FreezeError(RuntimeError):
 
 def _git(root: Path, *args: str) -> bytes:
     proc = subprocess.run(
-        ["git", "--no-replace-objects", "-C", str(root), *args],
+        ["git", "-c", "core.filemode=true", "--no-replace-objects", "-C", str(root), *args],
         capture_output=True,
         check=False,
         env={key: value for key, value in os.environ.items() if not key.startswith("GIT_")},
@@ -319,11 +319,18 @@ def main() -> int:
         while not parent.exists():
             parent = parent.parent
         try:
-            inside_worktree = _git(parent, "rev-parse", "--is-inside-work-tree").strip() == b"true"
+            inside_repository = any(
+                _git(parent, "rev-parse", flag).strip() == b"true"
+                for flag in (
+                    "--is-inside-work-tree",
+                    "--is-inside-git-dir",
+                    "--is-bare-repository",
+                )
+            )
         except FreezeUnavailable:
-            inside_worktree = False
-        if output.is_relative_to(root) or inside_worktree:
-            print("FAIL: evidence output must be outside all Git worktrees")
+            inside_repository = False
+        if output.is_relative_to(root) or inside_repository:
+            print("FAIL: evidence output must be outside Git worktrees and Git metadata")
             return 1
     try:
         result = inspect(root, args.baseline)

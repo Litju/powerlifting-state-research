@@ -127,6 +127,7 @@ def test_execution_bound_source_modification_fails(tmp_path: Path) -> None:
         "hidden_head",
         "hidden_index",
         "mode",
+        "mode_filemode_false",
         "frozen_manifest",
     ],
 )
@@ -135,7 +136,9 @@ def test_preservation_rejects_false_pass(tmp_path: Path, case: str) -> None:
     root.mkdir()
     base = _fixture(root)
     report = root / "results/studies/observation_inversion/report.md"
-    if case == "mode":
+    if case in {"mode", "mode_filemode_false"}:
+        if case == "mode_filemode_false":
+            _git(root, "config", "core.filemode", "false")
         report.chmod(report.stat().st_mode | 0o111)
     elif case == "missing":
         report.unlink()
@@ -259,4 +262,41 @@ def test_output_cannot_modify_other_worktree(tmp_path: Path) -> None:
         check=False,
     )
     assert result.returncode == 1
+    assert output.read_bytes() == original
+
+
+@pytest.mark.parametrize("layout", ["normal", "bare"])
+def test_output_cannot_overwrite_other_git_metadata(tmp_path: Path, layout: str) -> None:
+    root = tmp_path / "checkout"
+    root.mkdir()
+    base = _fixture(root)
+
+    if layout == "normal":
+        other = tmp_path / "other"
+        other.mkdir()
+        _fixture(other)
+        output = other / ".git/config"
+    else:
+        bare = tmp_path / "other.git"
+        subprocess.run(["git", "init", "--bare", "-q", str(bare)], check=True)
+        output = bare / "config"
+
+    original = output.read_bytes()
+    process = subprocess.run(
+        [
+            sys.executable,
+            str(SCRIPT),
+            "--root",
+            str(root),
+            "--baseline",
+            base,
+            "--json-out",
+            str(output),
+        ],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert process.returncode == 1
+    assert "outside Git worktrees and Git metadata" in process.stdout
     assert output.read_bytes() == original
