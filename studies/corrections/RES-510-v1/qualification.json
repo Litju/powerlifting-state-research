@@ -1,0 +1,359 @@
+{
+  "RES-509_dependency": "OPEN; PR27 DRAFT, no final release qualification",
+  "all_original_file_map_sha256": "58dd900b65e927b2949753e2780a5aa9bc77b6c45e20269141c8898c4faa9b64",
+  "baseline_commit": "de014231569442c7e83d1774877a8b92a9abc314",
+  "correction_package_status": "Numerically verified proposed inference correction; pending external scientific approval",
+  "environment": {
+    "compute": "CPU post-seal scoring only; no learner imports",
+    "numpy": "2.4.4",
+    "platform": "Linux-6.18.33.2-microsoft-standard-WSL2-x86_64-with-glibc2.39",
+    "python": "3.12.13 (main, May 10 2026, 19:30:01) [Clang 22.1.3 ]",
+    "thread_limits": {
+      "MKL_NUM_THREADS": 1,
+      "OMP_NUM_THREADS": 1,
+      "OPENBLAS_NUM_THREADS": 1
+    }
+  },
+  "external_scientific_review": "NOT_RUN; reviewer nomination pending",
+  "format": "PSR_RES510_QUALIFICATION_RECEIPT_V1",
+  "frozen_protection": {
+    "g4_execution_source_baseline_mismatches": 0,
+    "g4_execution_source_candidate_changes": 0,
+    "g4_execution_source_paths": 17,
+    "published_baseline_paths": 160,
+    "published_candidate_changes": 0,
+    "status": "PASS",
+    "unexpected_published_candidate_paths": 0,
+    "upstream_baseline_mismatches": 0,
+    "upstream_candidate_changes": 0,
+    "upstream_frozen_paths": 481
+  },
+  "independent_agent_review": {
+    "documentation_clarification_review": "PASS conditional; reviewer rechecked assumptions and final source/output seal",
+    "interpretation": "PASS within scoped assumption-qualified correction",
+    "method": "PASS with explicit assumptions/limitations; reviewed before campaign",
+    "numerical": {
+      "cells": 108,
+      "external_scientific_review": "NOT_RUN",
+      "max_abs_difference_kg": 3.469446951953614e-15,
+      "runs": 324,
+      "scientific_release_qualification": "INCONCLUSIVE",
+      "scope": "independent direct-index numerical verification",
+      "specification_sha256": "sha256:cfa026bdfab6a97cbea2e7a92633339bfc158cd64418bf1000ce9c4f5ac2017c",
+      "status": "PASS"
+    },
+    "post_campaign_documentation_clarification": "Finite-fourth-moment, within-plan exchangeability and growing-seed asymptotic limitations made explicit; no resampling/specification/numerical output changed",
+    "review_type": "Separate agent; not external human scientific approval"
+  },
+  "method_freeze": {
+    "outcomes_seen_before_freeze": "Only previously published highlighted diagnostic cells; no complete correction campaign run",
+    "preexecution_amendment": {
+      "prior_sha256": "32778e1d0e8235f264f093ebd060faeb1afb9fa1977071ebe38bf2f8dc6bc14f",
+      "reason": "Independent reviewer found ECDF inversion requires outer order statistics rather than linear MC envelope interpolation; amended before campaign"
+    },
+    "sha256": "cfa026bdfab6a97cbea2e7a92633339bfc158cd64418bf1000ce9c4f5ac2017c",
+    "status": "FROZEN_BEFORE_COMPLETE_CAMPAIGN",
+    "time_utc": "2026-10-14T00:47:16.318558+00:00"
+  },
+  "no_release_merge_tag_doi": true,
+  "original_scientific_bytes": {
+    "append_only_ledger": 1,
+    "baseline_commit": "de014231569442c7e83d1774877a8b92a9abc314",
+    "byte_identical": 614,
+    "scientific_original_changes": 0,
+    "tracked_original_files": 615
+  },
+  "preservation_commit": "15451032ee75f5e99c728aa44fd1f83f780bacc5",
+  "remaining_blockers": [
+    "Formal RES-509 closure and independent review of PR27",
+    "External scientific approval of correction",
+    "Five-fit nominal random-seed coverage remains INCONCLUSIVE",
+    "Per-cell intervals do not establish family-wise superiority",
+    "Rights/security, locked-environment, documentation/archive/release gates remain unresolved",
+    "Existing verification environment includes SciPy outside lock; pure-lock qualification NOT_RUN"
+  ],
+  "result_sha256": {
+    "SHA256SUMS.txt": "c9b8ef26ad738e1bca457f2dfabc9c2f0bed5d7a1665f8ee61f540bf0460ba40",
+    "bootstrap-runs.csv": "e8176da6abf021869bb9f5087b9709463d3611bdb450dc72fd6a5802a9c5d82a",
+    "changed-classifications.csv": "731194223fcfd36ab6e7bae38db93902bc02ed23169ae110672d8e79c0dfd6cb",
+    "comparison.csv": "929690f5f244d61febf3079afe3971cac7d158be442a9bf86a2d55193ec635f6",
+    "manifest.json": "910631713896cd41f41629080b8fea8be41926aec32be1343144a09a086a6f08"
+  },
+  "scientific_v1_verdict": "NO-GO",
+  "tested_source_sha256": {
+    "scripts/res510_correct_inference.py": "f18f99bfe4727a7678c166815b0bb9092013ebd1099f4c94af15405bedebab8e",
+    "scripts/verify_res510_correction.py": "b7ad4155a3976a1d57e32bcdb6ccca6f6f34b6fa338633da52535cfc188ca3dd",
+    "tests/test_res510_correction.py": "dcfc10197ca037fc61e9cca4beff0b86e21bdd17cf910bb152c24c03595068da",
+    "tests/test_res510_verifier.py": "50a921ff66d36a43f6b823c68f34f21515ae3a66986360274a1812f226fb26cb"
+  },
+  "validation_commands": [
+    {
+      "command": [
+        "<validated-environment-executable>",
+        "scripts/res510_correct_inference.py"
+      ],
+      "command_redaction": "Only local executable/output locators redacted; original exact argv retained in restricted evidence receipts",
+      "cwd": ".",
+      "exit_code": 0,
+      "finished": "2026-10-14T00:51:56.755239+00:00",
+      "log_sha256": "c1174c8751e92d0b509209085cee05b4ae3b3330e9495a3d85c8775dbc70e74b",
+      "name": "campaign",
+      "started": "2026-10-14T00:49:11.337660+00:00",
+      "thread_limits": {
+        "MKL_NUM_THREADS": 1,
+        "OMP_NUM_THREADS": 1,
+        "OPENBLAS_NUM_THREADS": 1
+      }
+    },
+    {
+      "command": [
+        "<validated-environment-executable>",
+        "scripts/res510_correct_inference.py",
+        "--check"
+      ],
+      "command_redaction": "Only local executable/output locators redacted; original exact argv retained in restricted evidence receipts",
+      "cwd": ".",
+      "exit_code": 0,
+      "finished": "2026-10-14T00:57:03.281374+00:00",
+      "log_sha256": "c1174c8751e92d0b509209085cee05b4ae3b3330e9495a3d85c8775dbc70e74b",
+      "name": "correction-replay",
+      "started": "2026-10-14T00:54:22.660835+00:00",
+      "thread_limits": {
+        "MKL_NUM_THREADS": 1,
+        "OMP_NUM_THREADS": 1,
+        "OPENBLAS_NUM_THREADS": 1
+      }
+    },
+    {
+      "command": [
+        "<validated-environment-executable>",
+        "scripts/verify_res510_correction.py",
+        "--root",
+        ".",
+        "--json-out",
+        "<outside-worktree/verification-receipt.json>"
+      ],
+      "command_redaction": "Only local executable/output locators redacted; original exact argv retained in restricted evidence receipts",
+      "cwd": ".",
+      "exit_code": 0,
+      "finished": "2026-10-14T00:56:29.878828+00:00",
+      "log_sha256": "1719e891eaf360bf100c25e10bb44e76d914259a0c6930646b18ec04bbc2839e",
+      "name": "independent-verification",
+      "started": "2026-10-14T00:54:01.917886+00:00",
+      "thread_limits": {
+        "MKL_NUM_THREADS": 1,
+        "OMP_NUM_THREADS": 1,
+        "OPENBLAS_NUM_THREADS": 1
+      }
+    },
+    {
+      "command": [
+        "<validated-environment-executable>",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider",
+        "tests/test_res510_correction.py",
+        "tests/test_res510_verifier.py"
+      ],
+      "command_redaction": "Only local executable/output locators redacted; original exact argv retained in restricted evidence receipts",
+      "cwd": ".",
+      "exit_code": 0,
+      "finished": "2026-10-14T00:54:26.541070+00:00",
+      "log_sha256": "da947c6af27bed0fa3fca3041987d66d707f55dedc9a3e532791c71e520d3ed2",
+      "name": "focused-tests",
+      "started": "2026-10-14T00:54:23.913192+00:00",
+      "thread_limits": {
+        "MKL_NUM_THREADS": 1,
+        "OMP_NUM_THREADS": 1,
+        "OPENBLAS_NUM_THREADS": 1
+      }
+    },
+    {
+      "command": [
+        "<validated-environment-executable>",
+        "-m",
+        "pytest",
+        "-q",
+        "-p",
+        "no:cacheprovider"
+      ],
+      "command_redaction": "Only local executable/output locators redacted; original exact argv retained in restricted evidence receipts",
+      "cwd": ".",
+      "exit_code": 0,
+      "finished": "2026-10-14T00:55:41.088210+00:00",
+      "log_sha256": "10448dbe82c048fc61a0b0963e8dff85027573a07536f8ae769c2c7676597be0",
+      "name": "full-tests",
+      "started": "2026-10-14T00:54:58.337033+00:00",
+      "thread_limits": {
+        "MKL_NUM_THREADS": 1,
+        "OMP_NUM_THREADS": 1,
+        "OPENBLAS_NUM_THREADS": 1
+      }
+    },
+    {
+      "command": [
+        "<validated-environment-executable>",
+        "check",
+        "."
+      ],
+      "command_redaction": "Only local executable/output locators redacted; original exact argv retained in restricted evidence receipts",
+      "cwd": ".",
+      "exit_code": 0,
+      "finished": "2026-10-14T00:54:58.408954+00:00",
+      "log_sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "name": "ruff",
+      "started": "2026-10-14T00:54:58.360243+00:00",
+      "thread_limits": {
+        "MKL_NUM_THREADS": 1,
+        "OMP_NUM_THREADS": 1,
+        "OPENBLAS_NUM_THREADS": 1
+      }
+    },
+    {
+      "command": [
+        "<validated-environment-executable>",
+        "format",
+        "--check",
+        "."
+      ],
+      "command_redaction": "Only local executable/output locators redacted; original exact argv retained in restricted evidence receipts",
+      "cwd": ".",
+      "exit_code": 0,
+      "finished": "2026-10-14T00:54:58.545646+00:00",
+      "log_sha256": "f5e0fe29dfc2d201142550a21657ce32f991da5c51e48495bf92d526b257e2c7",
+      "name": "format",
+      "started": "2026-10-14T00:54:58.470104+00:00",
+      "thread_limits": {
+        "MKL_NUM_THREADS": 1,
+        "OMP_NUM_THREADS": 1,
+        "OPENBLAS_NUM_THREADS": 1
+      }
+    },
+    {
+      "command": [
+        "<validated-environment-executable>"
+      ],
+      "command_redaction": "Only local executable/output locators redacted; original exact argv retained in restricted evidence receipts",
+      "cwd": ".",
+      "exit_code": 0,
+      "finished": "2026-10-14T00:55:23.267878+00:00",
+      "log_sha256": "fdac9028099af3d1af03b385379d26b4edebadf935fa7565d4d0fd38310e6db6",
+      "name": "strict-mypy",
+      "started": "2026-10-14T00:54:58.598292+00:00",
+      "thread_limits": {
+        "MKL_NUM_THREADS": 1,
+        "OMP_NUM_THREADS": 1,
+        "OPENBLAS_NUM_THREADS": 1
+      }
+    },
+    {
+      "command": [
+        "<validated-environment-executable>",
+        "--strict",
+        "scripts/res510_correct_inference.py",
+        "scripts/verify_res510_correction.py"
+      ],
+      "command_redaction": "Only local executable/output locators redacted; original exact argv retained in restricted evidence receipts",
+      "cwd": ".",
+      "exit_code": 0,
+      "finished": "2026-10-14T00:55:23.822826+00:00",
+      "log_sha256": "f9b031e5c45aa702cd4fef028d465551cb20a2c4698e0913c7b00766b20ac4d8",
+      "name": "correction-mypy",
+      "started": "2026-10-14T00:55:23.306615+00:00",
+      "thread_limits": {
+        "MKL_NUM_THREADS": 1,
+        "OMP_NUM_THREADS": 1,
+        "OPENBLAS_NUM_THREADS": 1
+      }
+    },
+    {
+      "command": [
+        "<validated-environment-executable>",
+        "-m",
+        "powerlifting_state_research.exports",
+        "--check"
+      ],
+      "command_redaction": "Only local executable/output locators redacted; original exact argv retained in restricted evidence receipts",
+      "cwd": ".",
+      "exit_code": 0,
+      "finished": "2026-10-14T00:55:24.100524+00:00",
+      "log_sha256": "c36a10561a18bbd06ee4645f895f416a2ab03a78163be43d8704aef872f0c4d1",
+      "name": "exports",
+      "started": "2026-10-14T00:55:23.875799+00:00",
+      "thread_limits": {
+        "MKL_NUM_THREADS": 1,
+        "OMP_NUM_THREADS": 1,
+        "OPENBLAS_NUM_THREADS": 1
+      }
+    },
+    {
+      "command": [
+        "<validated-environment-executable>",
+        "scripts/verify_release_freeze.py",
+        "--baseline",
+        "de014231569442c7e83d1774877a8b92a9abc314",
+        "--json-out",
+        "../psr-res510-evidence/preservation.json"
+      ],
+      "command_redaction": "Only local executable/output locators redacted; original exact argv retained in restricted evidence receipts",
+      "cwd": ".",
+      "exit_code": 0,
+      "finished": "2026-10-14T00:55:28.450056+00:00",
+      "log_sha256": "f3b259437dc569dea4b93555f008e63b8dcca57e92243f131ed552cfc5b3b233",
+      "name": "preservation",
+      "started": "2026-10-14T00:55:24.151864+00:00",
+      "thread_limits": {
+        "MKL_NUM_THREADS": 1,
+        "OMP_NUM_THREADS": 1,
+        "OPENBLAS_NUM_THREADS": 1
+      }
+    },
+    {
+      "command": [
+        "<validated-environment-executable>",
+        "scripts/check_repository_integrity.py"
+      ],
+      "command_redaction": "Only local executable/output locators redacted; original exact argv retained in restricted evidence receipts",
+      "cwd": ".",
+      "exit_code": 0,
+      "finished": "2026-10-14T00:55:44.189825+00:00",
+      "log_sha256": "58c117e0359d58dd402b5b9254c0533db78ff14e1b0e1073eae40bf705bbdb93",
+      "name": "integrity",
+      "started": "2026-10-14T00:55:28.501921+00:00",
+      "thread_limits": {
+        "MKL_NUM_THREADS": 1,
+        "OMP_NUM_THREADS": 1,
+        "OPENBLAS_NUM_THREADS": 1
+      }
+    },
+    {
+      "command": [
+        "python3",
+        "<external-final-seal-script>"
+      ],
+      "command_redaction": "Exact executable/script locator and final-seal script retained outside repository",
+      "cwd": ".",
+      "exit_code": 0,
+      "finished": "2026-10-14T01:00:40.787156+00:00",
+      "log_sha256": "7fa2e8b35f83f003f598d946b4182fbdc0a21c6053793101d64623e60b7c9a19",
+      "name": "final-seal",
+      "started": "2026-10-14T01:00:40.571272+00:00",
+      "thread_limits": {
+        "MKL_NUM_THREADS": 1,
+        "OMP_NUM_THREADS": 1,
+        "OPENBLAS_NUM_THREADS": 1
+      }
+    }
+  ],
+  "validation_summary": {
+    "complete_original_model_refit_replay": "NOT_RUN; prohibited by no-retraining boundary",
+    "correction_numerical_replay": "PASS",
+    "focused_tests": "38 passed",
+    "full_tests": "212 passed, 1 skipped",
+    "independent_numerical_verification": "PASS; maximum absolute difference 3.469446951953614e-15 kg",
+    "lint_format_typing_exports_integrity_preservation": "PASS",
+    "original_postseal_inference_replay": "108 cells PASS"
+  }
+}
