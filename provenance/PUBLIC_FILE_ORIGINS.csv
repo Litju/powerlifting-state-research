@@ -642,3 +642,5 @@ studies/corrections/RES-511-v1/interpretation.md,NEWLY_AUTHORED,CC-BY-4.0,Powerl
 tests/test_res511_initialization_erratum.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Regression check for NumPy reconstruction and preservation of the historical RES-292 initialization deviation.
 provenance/RES-297-rights-security-record-v1.json,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Separately versioned RES-297 per-hash rights decisions and sanitized security/history scan receipt.
 provenance/RES-297-prediction-rights-resolution-v1.json,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Versioned owner decision and evidence trace for the four already-public temporal-expert prediction hashes.
+scripts/verify_res297_security_history.py,NEWLY_AUTHORED,MIT,security-verification,"Scan exact-HEAD Git history and candidate files, parse Gitleaks JSON, and emit a sanitized security receipt."
+tests/test_res297_security_scan.py,NEWLY_AUTHORED,MIT,security-verification-tests,Adversarial checks that Gitleaks JSON findings and malformed reports fail closed.

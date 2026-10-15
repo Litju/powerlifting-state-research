@@ -43,9 +43,77 @@
         "rights_disposition": "CLEARED",
         "rights_family": "project_owned_mit_artifacts",
         "sha256": "a4091b75247770ec86876b3c244f588744682c433e96421d1cd349751ce0f166"
+      },
+      {
+        "license_authority": [
+          {
+            "path": "LICENSE",
+            "sha256": "b19f91b4acf3c2192532cb9840cafc7296b28e9e832676e590d1e9240117786f"
+          }
+        ],
+        "license_expression": "MIT",
+        "origin_class": "NEWLY_AUTHORED",
+        "owner": "security-verification",
+        "path": "scripts/verify_res297_security_history.py",
+        "release_inclusion": true,
+        "rights_authorization": {
+          "artifact_path": "scripts/verify_res297_security_history.py",
+          "artifact_sha256": "aa741863585e1997878e98ae2012d0f7a07e6fbdbde2d9094f7d903d5772c949",
+          "authority_type": "PUBLISHED_LICENSE",
+          "authorization_scope": "This newly authored RES-297 candidate file at this exact path and SHA-256.",
+          "evidence": [
+            {
+              "path": "LICENSE",
+              "role": "license_and_rightsholder",
+              "sha256": "b19f91b4acf3c2192532cb9840cafc7296b28e9e832676e590d1e9240117786f"
+            }
+          ],
+          "license_expression": "MIT",
+          "owner_identity": "Powerlifting State Research contributors",
+          "redistribution_conditions": "Include the copyright and permission notice in copies or substantial portions.",
+          "valid_from": "2026-10-15",
+          "valid_until": null
+        },
+        "rights_disposition": "CLEARED",
+        "rights_family": "project_owned_mit_artifacts",
+        "sha256": "aa741863585e1997878e98ae2012d0f7a07e6fbdbde2d9094f7d903d5772c949"
+      },
+      {
+        "license_authority": [
+          {
+            "path": "LICENSE",
+            "sha256": "b19f91b4acf3c2192532cb9840cafc7296b28e9e832676e590d1e9240117786f"
+          }
+        ],
+        "license_expression": "MIT",
+        "origin_class": "NEWLY_AUTHORED",
+        "owner": "security-verification-tests",
+        "path": "tests/test_res297_security_scan.py",
+        "release_inclusion": true,
+        "rights_authorization": {
+          "artifact_path": "tests/test_res297_security_scan.py",
+          "artifact_sha256": "e6b214815a2f027e48264637a163250b6dbda1b82539756f7f9c019bdad23b16",
+          "authority_type": "PUBLISHED_LICENSE",
+          "authorization_scope": "This newly authored RES-297 candidate file at this exact path and SHA-256.",
+          "evidence": [
+            {
+              "path": "LICENSE",
+              "role": "license_and_rightsholder",
+              "sha256": "b19f91b4acf3c2192532cb9840cafc7296b28e9e832676e590d1e9240117786f"
+            }
+          ],
+          "license_expression": "MIT",
+          "owner_identity": "Powerlifting State Research contributors",
+          "redistribution_conditions": "Include the copyright and permission notice in copies or substantial portions.",
+          "valid_from": "2026-10-15",
+          "valid_until": null
+        },
+        "rights_disposition": "CLEARED",
+        "rights_family": "project_owned_mit_artifacts",
+        "sha256": "e6b214815a2f027e48264637a163250b6dbda1b82539756f7f9c019bdad23b16"
       }
     ],
-    "path_count": 642,
+    "path_count": 644,
     "scope": "All current tracked files except this self-referential record; the 641 baseline paths plus explicitly hashed candidate additions."
   },
   "candidate_release_gate": "NO-GO",
@@ -3548,7 +3616,7 @@
       "sha256": "024907b1d993ecd4e0b3a96a549e76e532ba812d5859d7bb82ee83d36fffd8a2"
     },
     {
-      "candidate_sha256": "8faf3eeacb80eb02ee5c83c5bca917720ca0e91bc50fefb5c58bc4f7f299e9b4",
+      "candidate_sha256": "e836bea09c01ad5530a251af9bcd37aa9d4190caf1f3b245999c76e3b2a486c3",
       "license_authority": [
         {
           "path": "LICENSE",
@@ -3562,7 +3630,7 @@
       "release_inclusion": true,
       "rights_authorization": {
         "artifact_path": "provenance/PUBLIC_FILE_ORIGINS.csv",
-        "artifact_sha256": "8faf3eeacb80eb02ee5c83c5bca917720ca0e91bc50fefb5c58bc4f7f299e9b4",
+        "artifact_sha256": "e836bea09c01ad5530a251af9bcd37aa9d4190caf1f3b245999c76e3b2a486c3",
         "authority_type": "PUBLISHED_LICENSE",
         "authorization_scope": "Project-authored software and explicitly MIT-scoped metadata; this exact repository path and SHA-256 only.",
         "evidence": [
@@ -26095,7 +26163,7 @@
     },
     {
       "path": "provenance/PUBLIC_FILE_ORIGINS.csv",
-      "sha256": "8faf3eeacb80eb02ee5c83c5bca917720ca0e91bc50fefb5c58bc4f7f299e9b4"
+      "sha256": "e836bea09c01ad5530a251af9bcd37aa9d4190caf1f3b245999c76e3b2a486c3"
     },
     {
       "path": "provenance/README.md",
@@ -26185,9 +26253,12 @@
       "No cloud-provider credential validation or independent legal opinion is performed."
     ],
     "exact_head_scan": {
-      "raw_sensitive_outputs": "NOT_PUBLISHED",
-      "scope": "Full reachable history and clean candidate tree will be scanned after the separate security verifier is added.",
-      "status": "PENDING_SECURITY_QUALIFICATION_COMMIT"
+      "command": "uv run python scripts/verify_res297_security_history.py --json-out <private-temp>/res297-security-history.json",
+      "gitleaks_findings_must_equal": 0,
+      "json_findings_are_parsed_and_enforced": true,
+      "receipt_delivery": "Sanitized exact-HEAD receipt is preserved in the PR #32 qualification details; raw Gitleaks outputs stay private.",
+      "scope": "Exact pushed HEAD, all Git objects reachable from that HEAD, commit metadata, historical paths, and the clean candidate tree.",
+      "status": "DELIVERY_VERIFICATION_REQUIRED"
     }
   },
   "source_hashes": [
@@ -26201,7 +26272,7 @@
     },
     {
       "path": "provenance/PUBLIC_FILE_ORIGINS.csv",
-      "sha256": "8faf3eeacb80eb02ee5c83c5bca917720ca0e91bc50fefb5c58bc4f7f299e9b4"
+      "sha256": "e836bea09c01ad5530a251af9bcd37aa9d4190caf1f3b245999c76e3b2a486c3"
     },
     {
       "path": "provenance/README.md",
