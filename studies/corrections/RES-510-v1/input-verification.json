@@ -1,0 +1,44 @@
+[
+  {
+    "name": "independent_res292.py",
+    "sha256": "fe1d8f8b87100e39b17920ff63d40704f984b7938fadd5daffa34bae1d0bea2d",
+    "status": "PASS",
+    "scope": "byte integrity only; restricted ledger contents not published"
+  },
+  {
+    "name": "res292-shared-entity-sensitivity.json",
+    "sha256": "51b0e3adbe1889cfde70b72a81075be8dfa9dcd4d43b565382266dad08628261",
+    "status": "PASS",
+    "scope": "byte integrity only; restricted ledger contents not published"
+  },
+  {
+    "name": "res292-independent.json",
+    "sha256": "16ba6ca819e4f4f108d277ade67e6abb63be469753f3b4571a6de098a1c8907f",
+    "status": "PASS",
+    "scope": "byte integrity only; restricted ledger contents not published"
+  },
+  {
+    "name": "commands.jsonl",
+    "sha256": "dfc30cc0337c03fa7eeffd46fec09707f881035a9b25c793131a4820df2e8edf",
+    "status": "PASS",
+    "scope": "byte integrity only; restricted ledger contents not published"
+  },
+  {
+    "name": "results/studies/synthetic_pretraining_transfer/public-native/predictions.jsonl",
+    "sha256": "sha256:6127274287a456fe07fad413066bc6063d343efaf5f93b74f6a93fb05bfafcc2",
+    "status": "PASS",
+    "baseline_blob_match": true
+  },
+  {
+    "name": "results/studies/synthetic_pretraining_transfer/public-native/realizations/test-population-a-truth.jsonl",
+    "sha256": "sha256:b5c97e65293a76c7c6e6fbf8e4ed0a9e84edb17e4c90fd392a134bf1b704baab",
+    "status": "PASS",
+    "baseline_blob_match": true
+  },
+  {
+    "name": "results/studies/synthetic_pretraining_transfer/public-native/realizations/test-population-b-truth.jsonl",
+    "sha256": "sha256:ba1f5975f58c202b7bc7d16a9d016bd651b7a948d8d51964e44e0f8a92609b42",
+    "status": "PASS",
+    "baseline_blob_match": true
+  }
+]

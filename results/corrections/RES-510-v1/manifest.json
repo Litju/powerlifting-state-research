@@ -1,0 +1,51 @@
+{
+  "baseline_commit": "de014231569442c7e83d1774877a8b92a9abc314",
+  "cells": 108,
+  "correction_id": "psr:correction:res292-crossed-seed-entity@1.0.0",
+  "dependency_status": {
+    "RES-509": "OPEN; PR27 DRAFT, no final scientific qualification"
+  },
+  "external_scientific_review": "NOT_RUN",
+  "format": "PSR_RES510_CORRECTION_MANIFEST_V1",
+  "no_model_training": true,
+  "original_inference": "Superseded for inference only, conditional on independent review; original artifacts preserved",
+  "original_inputs": {
+    "results/studies/synthetic_pretraining_transfer/public-native/dataset-realization.json": "sha256:e9a9446174f2e79d6b550f9720bc7689706fd26a6fcf2c77f513bbfdad1eedb4",
+    "results/studies/synthetic_pretraining_transfer/public-native/fitted-instance-identities.json": "sha256:083884d61de056adeb3edf3a27e836c8e85edc54723ae0f22653d49e3ebdf90a",
+    "results/studies/synthetic_pretraining_transfer/public-native/fitted-models.json": "sha256:7f29703b1dc457d99ab6ddbb2a03c17d562d441ef73d1afb337f554906c64265",
+    "results/studies/synthetic_pretraining_transfer/public-native/learner-input-audit.json": "sha256:26c08fea4a64f4a62ea11d49b9afcb54d273d2f6fed83555629a27c7fb40f94d",
+    "results/studies/synthetic_pretraining_transfer/public-native/manifest.json": "sha256:3135ea1c6d7a6a107fce37ec024329825f43fabefa9282839a9e9047ba763810",
+    "results/studies/synthetic_pretraining_transfer/public-native/paired-transfer-effects.csv": "sha256:c98c1ffbea090e0f5f2eba9ab7f56ca000660a21080ebe9c4b29f09e999546c1",
+    "results/studies/synthetic_pretraining_transfer/public-native/predictions.jsonl": "sha256:6127274287a456fe07fad413066bc6063d343efaf5f93b74f6a93fb05bfafcc2",
+    "results/studies/synthetic_pretraining_transfer/public-native/realizations/development-visible.jsonl": "sha256:96b9e112bf589232c2c8d7d469ac81ad365e45bbb3d717a8e6d9f5af26eec926",
+    "results/studies/synthetic_pretraining_transfer/public-native/realizations/fitting.jsonl": "sha256:6ff9b30ae2269a7f1fd7073bdd97d5809084778cc65f7dbf128224e3321b8729",
+    "results/studies/synthetic_pretraining_transfer/public-native/realizations/split.json": "sha256:7fb2a99225ca0ff5793cad3d92767cbfe610818b5086c7f9c9fd1c02c976368b",
+    "results/studies/synthetic_pretraining_transfer/public-native/realizations/test-population-a-truth.jsonl": "sha256:b5c97e65293a76c7c6e6fbf8e4ed0a9e84edb17e4c90fd392a134bf1b704baab",
+    "results/studies/synthetic_pretraining_transfer/public-native/realizations/test-population-a-visible.jsonl": "sha256:569bb98454642a3ae8f00230480c756b4af2f8a4230f7eb8909acadce7b27a02",
+    "results/studies/synthetic_pretraining_transfer/public-native/realizations/test-population-b-truth.jsonl": "sha256:ba1f5975f58c202b7bc7d16a9d016bd651b7a948d8d51964e44e0f8a92609b42",
+    "results/studies/synthetic_pretraining_transfer/public-native/realizations/test-population-b-visible.jsonl": "sha256:11c7586d05fae69c1d6702812fafe70e184c49e79e8289ddbc5d4ab5d1fb90ce",
+    "studies/synthetic_pretraining_transfer/protocol.json": "sha256:699550a3d48bed34af89953ca3e255796b7f11190731718a524368e3535b0d9e"
+  },
+  "outputs": {
+    "bootstrap-runs.csv": "sha256:e8176da6abf021869bb9f5087b9709463d3611bdb450dc72fd6a5802a9c5d82a",
+    "changed-classifications.csv": "sha256:731194223fcfd36ab6e7bae38db93902bc02ed23169ae110672d8e79c0dfd6cb",
+    "comparison.csv": "sha256:929690f5f244d61febf3079afe3971cac7d158be442a9bf86a2d55193ec635f6"
+  },
+  "practical_margin_kg": 1.0,
+  "random_seed_coverage": "INCONCLUSIVE",
+  "release_gate": "BLOCKED",
+  "runs": 324,
+  "source_hashes": {
+    "scripts/res510_correct_inference.py": "sha256:76f6beec9bdba2e0bcb6d97717dc89b0afe230b63070623c08d7f09abcb49ee9",
+    "scripts/verify_res510_correction.py": "sha256:1cdcb827aba303af19ef54f18db78adf233061279c99f4e0c1bfaefb31d903a3",
+    "studies/corrections/RES-510-v1/analysis-specification.json": "sha256:cfa026bdfab6a97cbea2e7a92633339bfc158cd64418bf1000ce9c4f5ac2017c",
+    "studies/corrections/RES-510-v1/input-verification.json": "sha256:603620bb0ee7c47234a97991ea409ea48af951567fdbb3dc740610d8271b9f4d",
+    "studies/corrections/RES-510-v1/interpretation.md": "sha256:fa31e78e1cc61d3d1385e4d4ebe37f45ee6c88a1ddaa56add87d8cab7376132d",
+    "studies/corrections/RES-510-v1/method-freeze.json": "sha256:aa5d26c48947a6cb4cdf45c11dd5ee300616a465a2a25829a83dd327c577f40a",
+    "studies/corrections/RES-510-v1/methods.md": "sha256:557ce5f4c8193fd6d58902b36be5d38a34607b2bacc641e5b83c59cb476b9bf8",
+    "tests/test_res510_correction.py": "sha256:6120002a81c5e476ae5c2b98c9048b93de214ae0af728565f456a2f3116d25a9",
+    "tests/test_res510_verifier.py": "sha256:13c3465bef80f7475e1423767c1248b049b4ab9bb588b5398e7ddc98c543ab81"
+  },
+  "specification_sha256": "sha256:cfa026bdfab6a97cbea2e7a92633339bfc158cd64418bf1000ce9c4f5ac2017c",
+  "units": "kg"
+}

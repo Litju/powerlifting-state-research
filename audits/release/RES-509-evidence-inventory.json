@@ -1,0 +1,730 @@
+{
+  "status": "RECOVERED",
+  "scope": "top-level regular audit evidence only; no historical private artifacts, environment trees or checkout copied",
+  "command_count": 58,
+  "files": [
+    {
+      "name": "AUDIT_EVIDENCE_SHA256.json",
+      "size": 8147,
+      "sha256": "0fd51064eb9613add0bfa9d6d940a7ab07b9a34e702796c5a1cc7b7688a0300d",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "NOT_INDEXED",
+      "category": "other_evidence"
+    },
+    {
+      "name": "archive-sdistsmoke.log",
+      "size": 278,
+      "sha256": "80f061d9d3a39fa8bbc6466ac960a8ba8545fe8554b204e510dc904a419c304d",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "artifact-paths.json",
+      "size": 1272167,
+      "sha256": "eb7ae139cd0843fb74b8b9708cdea8e3248fe6822bea1542e7b695816617b469",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "other_evidence"
+    },
+    {
+      "name": "artifact-paths.log",
+      "size": 7735,
+      "sha256": "d592db86a26e216cc049d4829d8779c50c67ec536515e5b4d65252971d3c1f34",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "artifact_paths.py",
+      "size": 1164,
+      "sha256": "db11373b6c7fdf96d9813d91cd19375b963a36228ea585cd84df3f9580363cd8",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "scientific_scripts"
+    },
+    {
+      "name": "audit-runner.log",
+      "size": 61,
+      "sha256": "fc592ee06c432d7ee45029a78228c583d0fbf506b88f57a0ee1f313e4f9d54db",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "audit-summary.json",
+      "size": 1591,
+      "sha256": "251f9d972ae5395ee5960d42ff80bb331ad21a6076d9b3396dd734089ccc0282",
+      "classification": "PUBLIC_SAFE_REVIEWED",
+      "original_index_status": "PASS",
+      "category": "other_evidence"
+    },
+    {
+      "name": "build.log",
+      "size": 250,
+      "sha256": "1b7fd25a42fa297cb24fc53a34d9b6c8eae373b12ac64876dd53e6c9649de3a7",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "cff-1.2.0.schema.json",
+      "size": 63763,
+      "sha256": "0b8d22140da702d766df318dcff3a91af2f39521298dcf36d76315fd99cc169b",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "other_evidence"
+    },
+    {
+      "name": "checkpoint-inventory.log",
+      "size": 302,
+      "sha256": "ac5839f33e3c076f319eae62e35686d49eda6c291746300133e66c4c10612fac",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "commands.jsonl",
+      "size": 14606,
+      "sha256": "dfc30cc0337c03fa7eeffd46fec09707f881035a9b25c793131a4820df2e8edf",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "command_ledger"
+    },
+    {
+      "name": "compat_environment.py",
+      "size": 248,
+      "sha256": "6a4b6835af55c124c5429ac5ba56b9efcb087736f71c56f0059c2932d4a8fe64",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "environment_receipts"
+    },
+    {
+      "name": "connected-evidence.json",
+      "size": 50193,
+      "sha256": "e306207caff3fe8a51c2bc528a82f344c317b83cac3bd60c5d5ab10cf215cee0",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "other_evidence"
+    },
+    {
+      "name": "environment311.log",
+      "size": 987,
+      "sha256": "7ccdf62c034460fe9de012bd9ebc6ec88fa05deb1e87b7f2bd38dfaecd2f3c32",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "environment_receipts"
+    },
+    {
+      "name": "environment312.log",
+      "size": 1013,
+      "sha256": "f1db7f16e0b9f4c95c07b3f5646bd5667ede59e76c4ef6b9e65c35cd4060e21d",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "environment_receipts"
+    },
+    {
+      "name": "environment313.log",
+      "size": 1013,
+      "sha256": "71957c88e7e6c11f99327be6ed827067e3d1e38dd8fe86eac560950e475ce1b4",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "environment_receipts"
+    },
+    {
+      "name": "exports.log",
+      "size": 39,
+      "sha256": "c36a10561a18bbd06ee4645f895f416a2ab03a78163be43d8704aef872f0c4d1",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "final-cleanliness.log",
+      "size": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "format.log",
+      "size": 28,
+      "sha256": "820fc55075e3bb6e55758376af2af43d6677e3030b514058a67ea124761e50e1",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "full-production.log",
+      "size": 110,
+      "sha256": "2aa8b62ebdf4bac1caf6bb33be0b672d39dce607402f27159d1bb4c732bbcd13",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "g1.log",
+      "size": 120,
+      "sha256": "36444acfb415aa42c396595e98183092478a544836daebee82f671e62e6b0fc2",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "g2.log",
+      "size": 201,
+      "sha256": "3e1fc577278632803f754ad2d4fa0d8cc21f5550c0e672035fc78dcbbcc526b6",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "g3-noargs.log",
+      "size": 655,
+      "sha256": "97c363fd7fadebe162178431399822dccb7f4f68b168c81b96213f9f9fa0e826",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "g3.log",
+      "size": 108,
+      "sha256": "c90867690526b8650ad21f3107a8fa1d5b800f4cf470f4497751386ef3c815d6",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "g4-noargs.log",
+      "size": 652,
+      "sha256": "a9face3899c1d19751575b65d90dbf88fe07625e3cd337ed600743351f18a106",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "g4.log",
+      "size": 115,
+      "sha256": "75f90963024b7a526d8f112dfddb180412ffa6f298122086da7b22f345f4d99d",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "history-signature-scan.json",
+      "size": 2677,
+      "sha256": "d80fcd398c7cf37fc0ae6617307b1dee702a0182af054674552181ae9254943c",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "security_findings"
+    },
+    {
+      "name": "history-signatures.log",
+      "size": 195,
+      "sha256": "d98d3fc9c85a4ad68253bd34807eeb57e6f5b163d3db92cc0b6b1c43aec40f1e",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "security_findings"
+    },
+    {
+      "name": "history_signature_scan.py",
+      "size": 2844,
+      "sha256": "96eed2fcb8be80341468524339dacbe890d92353417bb662922fd4c261ebd4e3",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "security_findings"
+    },
+    {
+      "name": "iid-expert-rescore.log",
+      "size": 1549,
+      "sha256": "e5399795ff59fe7f41ce552b30fefa3e8a99729c4a883f05345a447e785c690c",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "iid-independent-rescore.json",
+      "size": 1548,
+      "sha256": "659b8d98b7b41e9b7ca3809f0b0d880e22b270b4529e0b88eb3dc469fae9d468",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "other_evidence"
+    },
+    {
+      "name": "iid-independent-rescore.log",
+      "size": 345,
+      "sha256": "887c8fe4f46e65e7e50f88306e25d5e14d841f78ebed37a0026fdd19000160b3",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "iid-production.log",
+      "size": 735,
+      "sha256": "cd2510dc0a98976ae9e7b64ff3bab93a0597d5667ea282f3c6df379b16352275",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "independent-res292.log",
+      "size": 3170,
+      "sha256": "03e2b8c39d009001dce7be7bf06e95b7a495f95341bb5f41af6afb0198cc9f4f",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "g4_sensitivity"
+    },
+    {
+      "name": "independent_res292.py",
+      "size": 5823,
+      "sha256": "fe1d8f8b87100e39b17920ff63d40704f984b7938fadd5daffa34bae1d0bea2d",
+      "classification": "PUBLIC_SAFE_REVIEWED",
+      "original_index_status": "PASS",
+      "category": "g4_sensitivity"
+    },
+    {
+      "name": "integrity.log",
+      "size": 181,
+      "sha256": "06189ff1fc3d4e9426212411ae98884621e8f4feb7787363a45b5dc2e6d1cfe3",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "lineage-check.log",
+      "size": 439,
+      "sha256": "6f35276b8693ca06808d0689b85d96f24d48708792ef4967a802dec602af0c1f",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "lineage_compute_check.py",
+      "size": 3264,
+      "sha256": "e0606aeac438c7fc20c16d34f8d1244659e562411ea4e6c85fe585b25b1b4c63",
+      "classification": "PUBLIC_SAFE_REVIEWED",
+      "original_index_status": "PASS",
+      "category": "scientific_scripts"
+    },
+    {
+      "name": "linear-comments.json",
+      "size": 2258,
+      "sha256": "4e18ff26a97a5e570b454bfaf5e456416fffab55dce6506f456730e0c20e10c8",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "other_evidence"
+    },
+    {
+      "name": "link_reference_scan.py",
+      "size": 2054,
+      "sha256": "c56dc4df54f48899c005d26f901a0163beb1ff03090ff87fbcc8e1ca5d670042",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "scientific_scripts"
+    },
+    {
+      "name": "links-references-figures.json",
+      "size": 5102,
+      "sha256": "09cc1bf80129b4c84a10bb8d2642d3aa5063974de18cfe64f5f71402f85172a5",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "other_evidence"
+    },
+    {
+      "name": "lint.log",
+      "size": 19,
+      "sha256": "82b3e6a6c090a57601d22943bd23fca9218d1031dbe5a7b754092f9a156b4f18",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "markdown-links.json",
+      "size": 83192,
+      "sha256": "98664c1a6b471a0d750ebf178d72e8152260cc1402d19bb022aacee19101a7c2",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "other_evidence"
+    },
+    {
+      "name": "optional-scipy.log",
+      "size": 156,
+      "sha256": "d1f5e7000ca020ad9bbb985aa15d6f7fc822e9db61eb329d81b18a593b6892be",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "package-resources.log",
+      "size": 332,
+      "sha256": "9d8a19d2ecf704fe9c9ea936ab43b5f45776b19a0f9b7334c1ba9bd154f7c935",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "package_resources.py",
+      "size": 1185,
+      "sha256": "9d2019569dce3301dc155ab1e65c92bb8a0e414d3d6d0a802dbbf6d7552202fa",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "scientific_scripts"
+    },
+    {
+      "name": "path-provenance-scan.json",
+      "size": 149234,
+      "sha256": "a8dca3adc7bf95375b4d163052e4fd94927d2f44ba9218f1ccca0e0b92dd1f5a",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "other_evidence"
+    },
+    {
+      "name": "publication-scan.json",
+      "size": 2054,
+      "sha256": "e65d8897bf1070a5e5e84dd8e8c0f2aef265e7e7da6f2b0bb832bb41762073dd",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "other_evidence"
+    },
+    {
+      "name": "publication-scan.log",
+      "size": 2055,
+      "sha256": "38079e438befc596fc446563ece964d3076250b478831b10f7ca5a8329b4d226",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "publication_scan.py",
+      "size": 3058,
+      "sha256": "7b59767ed0d5d302646662af5c22938e93f2f2ec3d6f13aebc1bd250b0a4c2ac",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "scientific_scripts"
+    },
+    {
+      "name": "published-history-fetch.log",
+      "size": 2972,
+      "sha256": "3f17050eae61ed4c5d132f87ff9c115633170a6197e4bba14e6804fd0ce07682",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "pure-locked-sync.log",
+      "size": 747,
+      "sha256": "4515688dabe2b75c5d0d96b97e9c11120e02fa085bea3a26fe907a46404e7c48",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "environment_receipts"
+    },
+    {
+      "name": "pure-locked-tests.log",
+      "size": 1344,
+      "sha256": "86bb0b0f4a45765d536cd4fbbd2941049323786461f28bca83eb5758392d8e4a",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "pure-locked-typing.log",
+      "size": 1360,
+      "sha256": "99027e9995dc6d1c51d57f41aa85ba2f4716c41b68aed16ff05e6cd6a7d06e09",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "references-figures.log",
+      "size": 590,
+      "sha256": "827b0fca73545e649a2427756d7668b1bc0aa8981e3e4a2be65b5b03aee954de",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "res283.log",
+      "size": 61,
+      "sha256": "30f0ff10573a38fd3d31029f2c4ec1e51c78154ece8294173027a4f2174b6240",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "res284-diff.log",
+      "size": 230,
+      "sha256": "db50501c2ab59f9ee5dc5b5e01e33b5572daef983ede3124b28cbf2c77b8354a",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "res284.log",
+      "size": 796,
+      "sha256": "ba3ea62fce75f0874198eb00a41b4fdd8750f21d718cbbdc4c17a9dcf9219963",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "res292-independent.json",
+      "size": 3169,
+      "sha256": "16ba6ca819e4f4f108d277ade67e6abb63be469753f3b4571a6de098a1c8907f",
+      "classification": "PUBLIC_SAFE_REVIEWED",
+      "original_index_status": "PASS",
+      "category": "g4_sensitivity"
+    },
+    {
+      "name": "res292-lineage-check.json",
+      "size": 334,
+      "sha256": "f77d5d9d9c2429f6317a6cead6d2ac7242eee9d58a67094a2a1a1209146f5c1d",
+      "classification": "PUBLIC_SAFE_REVIEWED",
+      "original_index_status": "PASS",
+      "category": "g4_sensitivity"
+    },
+    {
+      "name": "res292-shared-entity-sensitivity.json",
+      "size": 53921,
+      "sha256": "51b0e3adbe1889cfde70b72a81075be8dfa9dcd4d43b565382266dad08628261",
+      "classification": "PUBLIC_SAFE_REVIEWED",
+      "original_index_status": "PASS",
+      "category": "g4_sensitivity"
+    },
+    {
+      "name": "rescore_iid.py",
+      "size": 1763,
+      "sha256": "8668a08373df7f9a4b75b1c94a823dd057f6276684279532e23185027381249a",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "scientific_scripts"
+    },
+    {
+      "name": "run_gate.py",
+      "size": 595,
+      "sha256": "e9a5c9be83d1381df306075fb2866720feebfc338585d38202b119698fdb1b23",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "scientific_scripts"
+    },
+    {
+      "name": "scipy311.log",
+      "size": 229,
+      "sha256": "3b30beb7d950a786507b5f022074c2a918046d5a2ef1af70a345d90dac581801",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "scipy313.log",
+      "size": 304,
+      "sha256": "e677c723d3420736518791326578aea9ad9f3a822483ec3b83b2de1ae8cc8ef1",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "sdist-missing-files.json",
+      "size": 32493,
+      "sha256": "1b8cdd0421b026b6782034997842237b4b2a63a7b5cb331212f656b5c99b7ef1",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "other_evidence"
+    },
+    {
+      "name": "security-api.log",
+      "size": 149,
+      "sha256": "ba8365072fb8384f46e8c61865f1c3377e57e0727aab52e50af3dbec684c8b7c",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "security_findings"
+    },
+    {
+      "name": "security-deps.log",
+      "size": 294,
+      "sha256": "c2f628b376e962d74d05bc97ff0d20db9539ab49bdcd618e23b1339544731d20",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "security_findings"
+    },
+    {
+      "name": "security-scan.json",
+      "size": 183320,
+      "sha256": "3a60f1b0784457367a85cc16a9641ecee2443cb5308b8a6b5690abebcf8daa12",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "security_findings"
+    },
+    {
+      "name": "security-scan.log",
+      "size": 288,
+      "sha256": "3d7fd4f84f7a449f33a1d49d69c7eee9c2785330e49a4ca4636785172b2dd316",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "security_findings"
+    },
+    {
+      "name": "security-triage.json",
+      "size": 118169,
+      "sha256": "8904755363dd3d3d15cc6e4d9d51cced2092731339562b84bb69230930f84235",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "security_findings"
+    },
+    {
+      "name": "security-triage.log",
+      "size": 11579,
+      "sha256": "8f3e0f06259fd1d97cb7dad755cfab12168d0a3a3b35802274037e7fdfc122ad",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "security_findings"
+    },
+    {
+      "name": "security_scan.py",
+      "size": 2855,
+      "sha256": "2d5360faf3ce6027da5c0bc0dcf85e77696ae475aad921d5c700c19b5d099b67",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "security_findings"
+    },
+    {
+      "name": "smoke.py",
+      "size": 875,
+      "sha256": "e5676b940027aef0aab957745ce288be5f51d98657f83c222e7d7f767f81ffe1",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "scientific_scripts"
+    },
+    {
+      "name": "sync.log",
+      "size": 918,
+      "sha256": "1e16ba47e2d23d37bee12add4539f06ca07ccba28e4a271ad39a39c37cd954ba",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "environment_receipts"
+    },
+    {
+      "name": "sync311.log",
+      "size": 725,
+      "sha256": "f32f3a7c87c97dbabf3aa2a9faba055815cff7caf026d6e40f771246c8137cf1",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "environment_receipts"
+    },
+    {
+      "name": "sync313.log",
+      "size": 745,
+      "sha256": "74236ae3fa8d3abbd601989097880770ee01e92d33dfde9b33dd506eb8273f0a",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "environment_receipts"
+    },
+    {
+      "name": "tests311.log",
+      "size": 4468,
+      "sha256": "9eaf73fffcded966a9a10569233d89a0aacb90d8f0fc10a60cf84a6537b0b751",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "tests312.log",
+      "size": 4468,
+      "sha256": "c5700986b01ca4fe123005db90a2a4c11a120c516aec4b08038f5df8703af174",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "tests313.log",
+      "size": 4468,
+      "sha256": "0b662ffd2e92153f4bab433a59e58250d6fa6237b4217793c586c0f5b09b7cfd",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "triage_secrets.py",
+      "size": 1374,
+      "sha256": "260f72312f0028122a611c127af2460242edb32522ae7d20fd1869e0e795c93e",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "security_findings"
+    },
+    {
+      "name": "typing.log",
+      "size": 45,
+      "sha256": "fdac9028099af3d1af03b385379d26b4edebadf935fa7565d4d0fd38310e6db6",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "validator-deps.log",
+      "size": 373,
+      "sha256": "2d8e010ab83d7f234d38fdafff8a35c9a487acfb6fd952797882adf2e6e6351a",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "validator-env.log",
+      "size": 172,
+      "sha256": "be36128f3720835a536b85e953be948fd77d4a085a9a547fe72442eb4d53037c",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "environment_receipts"
+    },
+    {
+      "name": "version-head.log",
+      "size": 143,
+      "sha256": "09b8d485778fd8c1bc56218cc6c276913511282ba797bc0613c2c3e912df6e21",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "wheel-env.log",
+      "size": 170,
+      "sha256": "dc296e76bcda230ff08647f60addd4ed44ded8a9e3c729c363087aaa5ba006c2",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "environment_receipts"
+    },
+    {
+      "name": "wheel-install.log",
+      "size": 2098,
+      "sha256": "813855e399e170eccdaccce1847b05f33efde0a2b57c779873fac075a56f896e",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "wheel-scipy.log",
+      "size": 151,
+      "sha256": "1b940fc0be656a7e0fce834d2a768f10c0d7e72f5c1b04fcd5960d29eda4cbe0",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "wheel-smoke-complete.log",
+      "size": 68,
+      "sha256": "3bfb051bc1f3fb446b1bc6b1a49d25c388efc7fadefe593a04a9843369fdb8ff",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    },
+    {
+      "name": "wheel-smoke.log",
+      "size": 217,
+      "sha256": "1f5ea85d8dbc93fbb6de97aff7507b44458e9d039561253159d78e9a1add833f",
+      "classification": "RESTRICTED_UNREVIEWED",
+      "original_index_status": "PASS",
+      "category": "execution_logs"
+    }
+  ],
+  "original_index_missing": [],
+  "textual_audit_report_status": "NOT_RECOVERED; prior claimed report hash and retention are unverified and withdrawn",
+  "retention": "Owner-only local evidence bundle outside repository; no remote backup established"
+}
