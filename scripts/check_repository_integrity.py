@@ -710,6 +710,7 @@ def validate_res297_rights_record(
                 "path": item.get("checkpoint_id"),
                 "candidate_sha256": item.get("expected_sha256"),
                 "rights_license_expression": item.get("rights_license_expression"),
+                "release_inclusion": item.get("release_inclusion"),
             }
             if checkpoint_family.get("rights_disposition") not in {
                 "CLEARED",

@@ -562,6 +562,23 @@ def test_res297_rejects_owner_grant_without_release_bundle_scope() -> None:
     assert any("valid per-hash owner grant" in error for error in errors)
 
 
+def test_res297_rejects_checkpoint_release_without_release_bundle_scope() -> None:
+    record, prediction_rights, expected_paths, origins = _res297_inputs()
+    _clear_all_predictions(record, prediction_rights)
+    _clear_all_checkpoints(record)
+    record["checkpoint_dispositions"][0]["rights_authorization"]["authorization_scope"] = (
+        "Redistribute this checkpoint publicly."
+    )
+    errors = _validate(
+        record,
+        prediction_rights,
+        expected_paths,
+        origins,
+        _verified_owner_commits(record, prediction_rights),
+    )
+    assert any("cleared checkpoint lacks a valid per-hash owner grant" in error for error in errors)
+
+
 def test_res297_records_already_public_predictions_as_unresolved() -> None:
     record, prediction_rights, expected_paths, origins = _res297_inputs()
     assert _validate(record, prediction_rights, expected_paths, origins) == []
