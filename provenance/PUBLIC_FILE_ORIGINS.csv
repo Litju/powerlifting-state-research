@@ -640,3 +640,6 @@ results/corrections/RES-511-v1/SHA256SUMS.txt,GENERATED_PUBLIC_ARTIFACT,MIT,Powe
 studies/corrections/RES-511-v1/deviation-record.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,RES-511 machine-readable protocol deviation bound to all 30 RES-292 fitted instances.
 studies/corrections/RES-511-v1/interpretation.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,Reader-facing RES-292 initialization deviation erratum and scientific claim-impact interpretation.
 tests/test_res511_initialization_erratum.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Regression check for NumPy reconstruction and preservation of the historical RES-292 initialization deviation.
+provenance/RES-297-prediction-provenance-clarification.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,Clarifies provenance and public GitHub scope for the four existing PUBLIC_NATIVE prediction artifacts.
+scripts/verify_gitleaks.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Enforces zero findings from the parsed Gitleaks JSON report.
+tests/test_res297_portfolio_provenance.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Regression checks for RES-297 prediction provenance, checkpoint exclusion, and Gitleaks findings.
