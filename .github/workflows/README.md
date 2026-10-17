@@ -4,7 +4,7 @@
 
 | Job | Python | Checks |
 |---|---|---|
-| Quality / integrity | 3.12 | Locked sync, Ruff check and format, strict mypy, generated-export drift, repository integrity and rights ledger |
+| Quality / integrity | 3.12 | Full-history Gitleaks JSON scan, locked sync, Ruff check and format, strict mypy, generated-export drift, repository integrity and origin ledger |
 | Compatibility (Python 3.11/3.12/3.13) | 3.11, 3.12, 3.13 | Locked sync, package import, full pytest suite |
 | Package smoke | 3.12 | Build sdist and wheel, install wheel in an isolated environment, verify import, nine benchmark records, frozen historical digest, and distinct public-native identity |
 
@@ -14,6 +14,7 @@ Run from a clean checkout with Python 3.12 and `uv`:
 
 ```sh
 uv sync --locked --all-groups --python 3.12
+uv run --locked python scripts/verify_gitleaks.py  # requires Gitleaks 8.18.4 and complete Git history
 uv run --locked ruff check .
 uv run --locked ruff format --check .
 uv run --locked mypy
