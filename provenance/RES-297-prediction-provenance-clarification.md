@@ -17,21 +17,21 @@ The local prediction bytes were SHA-256 checked against the original [RES-274 so
 | Seed 383002 | `2373889b26646731eafc88907fada38aaf2982d0cfb464b7cfb4f728fb854e89` |
 | Seed 383003 | `472fe8e81648672af3d93e17caaabe433026ab0d1725e384c370eb35f6d45944` |
 
-The run lineage identifies no third-party dataset, pretrained model, or contract restricting these outputs, and no IPF or OpenPowerlifting input. The synthetic IID dataset is itself recorded as a project-generated CC-BY-4.0 artifact. The prediction MIT entries and dataset record name the same project contributor group; confirming the group's authority to license the outputs under MIT also resolves any applicable attribution for that project-generated input. This is a provenance finding, not a legal ownership determination.
+The run lineage identifies no third-party dataset, pretrained model, or contract restricting these outputs, and no IPF or OpenPowerlifting input. The synthetic IID dataset is itself recorded as a project-generated CC-BY-4.0 artifact. The prediction MIT entries and dataset record name the same project contributor group. Authorization to distribute project-owned prediction outputs under MIT is distinct from the attribution requirements of the project-generated CC-BY-4.0 IID dataset; the dataset source, license, and attribution must remain identifiable. This is a provenance finding, not an independent legal ownership determination.
 
 ## Rights and GitHub scope
 
-The existing origin ledger assigns MIT to all four outputs and names “Powerlifting State Research contributors.” The repository LICENSE names that collective as copyright holder. That is the holder supported by the project records; it does not identify a verified natural person or replace owner approval. This evidence set contains no separate approval specific to these prediction bytes.
+The existing origin ledger assigns MIT to all four outputs and names “Powerlifting State Research contributors.” The repository LICENSE names that collective as copyright holder. The GitHub repository owner (`Litju`) confirmed authorization for these exact outputs in [the PR #33 owner comment](https://github.com/Litju/powerlifting-state-research/pull/33#issuecomment-6228183282) on 2026-10-16. This records the project maintainer's confirmation; it is not independent third-party verification of copyright chain of title.
 
-The four files are already in the public GitHub repository, and therefore in GitHub-generated source archives. Their continued inclusion in that scope under MIT is supportable once a person authorized by the relevant copyright holder confirms it. The exact approval requested is:
+The four files are already in the public GitHub repository and included in GitHub-generated source archives. The authorized project maintainer recorded the following approval in PR #33 for that existing publication scope:
 
 > I am authorized by the Powerlifting State Research contributors to confirm that the four prediction artifacts listed above may be distributed under MIT in the public GitHub repository and GitHub-generated source archives, with any required attribution to the project’s CC-BY-4.0 synthetic IID dataset.
 
-This is a proposed approval statement, not an attestation received. The three checkpoint files remain private and absent from Git; their existing hashes and original RES-274 integrity evidence remain in the existing manifests and receipt.
+The statement above was confirmed by the repository owner in PR #33 on 2026-10-16; its scope does not include model-weight distribution or a separate archival package. The three checkpoint files remain private and absent from Git; their existing hashes and original RES-274 integrity evidence remain in the existing manifests and receipt.
 
 ## Readiness boundary
 
-- **PORTFOLIO_READINESS:** Conditional only on the owner confirmation above for the four prediction files. Checkpoint distribution, a DOI, archival packaging, and formal publication are not portfolio prerequisites.
+- **PORTFOLIO_READINESS (RES-297 scope):** Rights/provenance confirmed for the four already-public prediction artifacts. The project remains subject to ordinary scientific, security, and CI checks. Checkpoint distribution, a DOI, archival packaging, and formal publication are not portfolio prerequisites.
 - **FORMAL_ARCHIVAL_RELEASE:** Not qualified by this clarification; it remains a separate future decision.
 
 The frozen EvaluationResults, scientific identities, synthetic-evidence limitations, and existing G1–G4 corrections are unchanged. This clarification does not claim unrelated research or formal-release gates have passed.
