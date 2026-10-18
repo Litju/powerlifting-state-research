@@ -25,4 +25,4 @@ Verify the frozen RES-284 publication and its original execution-era source tree
 uv run --locked python scripts/verify_res284_execution.py
 ```
 
-This verifier reads the original full-file hashes from the checksum index in Git commit `b2b664de6bba6372e61afc1a147255a7daecb8a1`, replays that builder, and checks current publication files separately. It reports append-only changes to the current provenance ledger as current state.
+This verifier reads the original full-file hashes from the checksum index in Git commit `b2b664de6bba6372e61afc1a147255a7daecb8a1`, replays that builder, and checks current publication files separately. Current-source changes are reported as drift; they do not replace historical source bytes or fail the historical replay.

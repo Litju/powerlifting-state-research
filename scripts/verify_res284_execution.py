@@ -176,11 +176,6 @@ def verify(root: Path) -> dict[str, object]:
             _verify_hashes(snapshot, output_hashes, "execution-era publication")
             _verify_current_outputs(root, index_bytes, output_hashes)
             changes = _current_source_changes(root, snapshot, source_hashes)
-            unexpected = [change for change in changes if change[1] != "APPENDED_AFTER_EXECUTION"]
-            if unexpected:
-                raise VerificationError(
-                    f"current source files differ from execution era: {unexpected}"
-                )
 
             environment = dict(os.environ)
             environment["PYTHONPATH"] = os.pathsep.join(
@@ -244,6 +239,7 @@ def main(argv: list[str] | None = None) -> int:
         f"execution={result['historical_ledger_sha256']}; "
         f"current={result['current_ledger_sha256']}"
     )
+    print(f"Current-source drift: {len(result['current_source_changes'])} path(s); reported only")
     for path, status, observed in result["current_source_changes"]:
         print(f"Current source state: {path} {status} {observed or ''}".rstrip())
     print(result["replay_output"])
