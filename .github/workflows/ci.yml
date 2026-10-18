@@ -86,7 +86,7 @@ jobs:
         run: uv build --sdist --wheel --no-build-isolation --out-dir "$RUNNER_TEMP/psr-dist"
       - name: Install the wheel in an isolated environment
         run: |
-          UV_PROJECT_ENVIRONMENT="$RUNNER_TEMP/psr-wheel" uv sync --locked --only-group research --no-install-project --python 3.12
+          UV_PROJECT_ENVIRONMENT="$RUNNER_TEMP/psr-wheel" uv sync --locked --no-default-groups --group research --no-install-project --python 3.12
           uv pip install --no-deps --python "$RUNNER_TEMP/psr-wheel/bin/python" "$RUNNER_TEMP/psr-dist"/*.whl
       - name: Import and verify the installed wheel
         run: |
@@ -95,7 +95,14 @@ jobs:
           import sys
           from pathlib import Path
 
+          import numpy
+          import scipy
+          import torch
           import powerlifting_state_research
+          from powerlifting_state_research.models.temporal_expert import (
+              LiftSharedTemporalExpert,
+              parameter_count,
+          )
           from powerlifting_state_research.studies.target_sufficient_structural_reconstruction import model_with_jacobian
           from powerlifting_state_research.studies.target_sufficient_structural_reconstruction_protocol import STUDY_ID
           from powerlifting_state_research.benchmarks.latent_capacity_change_with_transient_expression_forecasting.prediction import PREDICTION_CONTRACT
@@ -107,6 +114,12 @@ jobs:
           assert Path(powerlifting_state_research.__file__).resolve().is_relative_to(
               Path(sys.prefix).resolve()
           ), powerlifting_state_research.__file__
+          assert numpy.__version__ == "2.4.4"
+          assert scipy.__version__ == "1.18.1"
+          assert torch.__version__.startswith("2.9.1")
+          model = LiftSharedTemporalExpert()
+          assert isinstance(model, torch.nn.Module)
+          assert parameter_count(model) > 0
           assert STUDY_ID == (
               "psr:study:target-sufficient-structural-reconstruction-public-native"
               "@1.0.0~12aafcbac716"
