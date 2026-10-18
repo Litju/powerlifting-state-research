@@ -4,9 +4,9 @@
 
 | Job | Python | Checks |
 |---|---|---|
-| Quality / integrity | 3.12 | Full-history Gitleaks JSON scan, locked sync, Ruff check and format, strict mypy, generated-export drift, repository integrity and origin ledger |
-| Compatibility (Python 3.11/3.12/3.13) | 3.11, 3.12, 3.13 | Locked sync, package import, full pytest suite |
-| Package smoke | 3.12 | Build sdist and wheel, install wheel in an isolated environment, verify import, nine benchmark records, frozen historical digest, and distinct public-native identity |
+| Quality / integrity | 3.12 | Full-history Gitleaks JSON scan, locked all-group sync, Ruff check and format, strict mypy, generated-export drift, repository integrity, and execution-era RES-284 replay |
+| Compatibility (Python 3.11/3.12/3.13) | 3.11, 3.12, 3.13 | Locked all-group sync, package import, full pytest suite |
+| Package smoke | 3.12 | Build sdist and wheel, install the wheel with locked project and research dependencies in an isolated environment, verify NumPy/SciPy/Torch, a temporal model, nine benchmark records, frozen historical digest, and distinct public-native identity |
 
 ## Local parity
 
@@ -43,4 +43,4 @@ PY
 )
 ```
 
-The integrity command uses public repository rules only. `PUBLIC_CI_SAFETY_SCAN != PRIVATE_HISTORICAL_FINGERPRINT_SCAN`; private historical fingerprint comparison remains local/pre-release and is reserved for M7 hardening. M7 will add release-grade packaging, archival verification, and heavy artifact validation. CI does not consume private fingerprint data.
+The locked `research` dependency group contains the SciPy versions and stubs required by research tests and typing checks, with Python 3.11 and 3.12+ pins. The integrity command uses public repository rules only. `PUBLIC_CI_SAFETY_SCAN != PRIVATE_HISTORICAL_FINGERPRINT_SCAN`; private historical fingerprint comparison remains local/pre-release and is reserved for M7 hardening. M7 will add release-grade packaging, archival verification, and heavy artifact validation. CI does not consume private fingerprint data.

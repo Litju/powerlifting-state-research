@@ -643,3 +643,4 @@ tests/test_res511_initialization_erratum.py,NEWLY_AUTHORED,MIT,Powerlifting Stat
 provenance/RES-297-prediction-provenance-clarification.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,Clarifies provenance and public GitHub scope for the four existing PUBLIC_NATIVE prediction artifacts.
 scripts/verify_gitleaks.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Enforces zero findings from the parsed Gitleaks JSON report.
 tests/test_res297_portfolio_provenance.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Regression checks for RES-297 prediction provenance, checkpoint exclusion, and Gitleaks findings.
+scripts/verify_res284_execution.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Separately identified RES-284 replay verifier for execution-era source hashes and current publication bytes.
