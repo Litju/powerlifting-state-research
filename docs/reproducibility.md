@@ -18,3 +18,11 @@ The SciPy pins and stubs used by research checks are in the development-only `re
 The verifier writes deterministic JSONL to a fresh temporary destination and fails unless its manifest matches the tracked canonical manifest. The source identity hashes the fixed public executable source set and generation configuration; documentation and tests do not participate. Population, intervention/history allocation, split membership, observation noise, and serialization order each have explicit seed ownership. The serialization seed cannot alter scientific row content.
 
 The opt-in full-production pytest gate performs two complete generations and compares train and validation bytes and both manifests with the checked-in expectation. Full generation is intentionally excluded from ordinary PR CI.
+
+Verify the frozen RES-284 publication and its original execution-era source tree with:
+
+```sh
+uv run --locked python scripts/verify_res284_execution.py
+```
+
+This verifier reads the original full-file hashes from the checksum index in Git commit `b2b664de6bba6372e61afc1a147255a7daecb8a1`, replays that builder, and checks current publication files separately. It reports append-only changes to the current provenance ledger as current state.

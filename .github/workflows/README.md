@@ -4,7 +4,7 @@
 
 | Job | Python | Checks |
 |---|---|---|
-| Quality / integrity | 3.12 | Full-history Gitleaks JSON scan, locked all-group sync, Ruff check and format, strict mypy, generated-export drift, repository integrity and origin ledger |
+| Quality / integrity | 3.12 | Full-history Gitleaks JSON scan, locked all-group sync, Ruff check and format, strict mypy, generated-export drift, repository integrity, and execution-era RES-284 replay |
 | Compatibility (Python 3.11/3.12/3.13) | 3.11, 3.12, 3.13 | Locked all-group sync, package import, full pytest suite |
 | Package smoke | 3.12 | Build sdist and wheel, install the wheel with the locked research group in an isolated environment, verify import, nine benchmark records, frozen historical digest, and distinct public-native identity |
 
