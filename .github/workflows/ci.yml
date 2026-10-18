@@ -40,8 +40,6 @@ jobs:
           echo "$RUNNER_TEMP" >> "$GITHUB_PATH"
       - run: uv sync --locked --all-groups --python 3.12
       - run: uv run --locked --no-sync python scripts/verify_gitleaks.py
-      - name: Install optional RES-289 research tools
-        run: uv pip install --python .venv/bin/python scipy==1.18.1 scipy-stubs==1.18.1.1
       - run: uv run --locked --no-sync ruff check .
       - run: uv run --locked --no-sync ruff format --check .
       - run: uv run --locked --no-sync mypy
@@ -67,12 +65,6 @@ jobs:
           version: "0.12.2"
           enable-cache: false
       - run: uv sync --locked --all-groups --python "${{ matrix.python-version }}"
-      - name: Install optional RES-289 research tools (Python 3.11)
-        if: ${{ matrix.python-version == '3.11' }}
-        run: uv pip install --python .venv/bin/python scipy==1.16.3 scipy-stubs==1.16.3.3
-      - name: Install optional RES-289 research tools (Python 3.12+)
-        if: ${{ matrix.python-version != '3.11' }}
-        run: uv pip install --python .venv/bin/python scipy==1.18.1 scipy-stubs==1.18.1.1
       - run: uv run --locked --no-sync python -c "import powerlifting_state_research"
       - run: uv run --locked --no-sync pytest
 
@@ -93,9 +85,8 @@ jobs:
         run: uv build --sdist --wheel --no-build-isolation --out-dir "$RUNNER_TEMP/psr-dist"
       - name: Install the wheel in an isolated environment
         run: |
-          python -m venv "$RUNNER_TEMP/psr-wheel"
+          UV_PROJECT_ENVIRONMENT="$RUNNER_TEMP/psr-wheel" uv sync --locked --only-group research --no-install-project --python 3.12
           uv pip install --no-deps --python "$RUNNER_TEMP/psr-wheel/bin/python" "$RUNNER_TEMP/psr-dist"/*.whl
-          uv pip install --python "$RUNNER_TEMP/psr-wheel/bin/python" numpy==2.4.4 scipy==1.18.1
       - name: Import and verify the installed wheel
         run: |
           cd "$RUNNER_TEMP"

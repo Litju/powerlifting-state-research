@@ -32,6 +32,12 @@ dev = [
   "pytest>=8.3",
   "ruff>=0.8",
 ]
+research = [
+  "scipy==1.16.3 ; python_version < '3.12'",
+  "scipy==1.18.1 ; python_version >= '3.12'",
+  "scipy-stubs==1.16.3.3 ; python_version < '3.12'",
+  "scipy-stubs==1.18.1.1 ; python_version >= '3.12'",
+]
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/powerlifting_state_research"]
