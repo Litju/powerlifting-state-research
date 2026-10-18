@@ -644,3 +644,5 @@ provenance/RES-297-prediction-provenance-clarification.md,NEWLY_AUTHORED,CC-BY-4
 scripts/verify_gitleaks.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Enforces zero findings from the parsed Gitleaks JSON report.
 tests/test_res297_portfolio_provenance.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Regression checks for RES-297 prediction provenance, checkpoint exclusion, and Gitleaks findings.
 scripts/verify_res284_execution.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Separately identified RES-284 replay verifier for execution-era source hashes and current publication bytes.
+docs/studies/g4-reader-corrections-v1.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,Current G4 navigation and cell-denominator correction; links immutable RES-510 and RES-511 evidence.
+docs/res299-validation.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,RES-299 documentation and evidence validation record; executed checks and no-regeneration limits.
