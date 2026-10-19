@@ -1,15 +1,13 @@
 # RES-299 documentation verification
 
-Scope: research portfolio documentation from main `b6ac38adc866ee36c829841d6a39ce87053ab691`, on `docs/res299-research-portfolio`, 2026-10-18. The draft PR's checks provide candidate CI results; this record distinguishes local checks from historical receipts and numerical replays. No independent scientific approval is asserted.
+Scope: research portfolio documentation from main `b6ac38adc866ee36c829841d6a39ce87053ab691`, on `docs/res299-research-portfolio`, 2026-10-18; final documentation repair verified 2026-10-19. The draft PR's checks provide candidate CI results; this record distinguishes local checks from historical receipts and numerical replays. No independent scientific approval is asserted.
 
 ## Local engineering verification
 
-The following commands were executed successfully on Linux, Python 3.12.13, uv 0.12.2:
+The following commands were recorded for the original 2026-10-18 portfolio verification on Linux, Python 3.12.13, uv 0.12.2:
 
 ```sh
 uv sync --locked --all-groups --python 3.12
-clean_env="$(mktemp -d)"
-UV_PROJECT_ENVIRONMENT="$clean_env" uv sync --locked --all-groups --python 3.12
 uv run --locked --no-sync ruff check .
 uv run --locked --no-sync ruff format --check .
 uv run --locked --no-sync mypy
@@ -20,13 +18,26 @@ uv run --locked --no-sync python scripts/verify_release_freeze.py
 uv run --locked --no-sync python scripts/verify_res284_execution.py
 ```
 
-The isolated clean environment installation used an absent destination. Ruff and format checks passed; strict mypy checked 111 source files; 23 generated exports were current. Preservation verified 481 frozen upstream files, 17 G4 source files, and 160 publication files with no changes. RES-284 replay verified 184 execution-era source files and 41 builder outputs, then the current 42-file bundle. Its reported current-source drift includes the mutable audit documentation and appended origin ledger; no historical hash was replaced.
+The locked environment installation passed. The commands above do not select an isolated environment for pytest; the explicit isolated rerun is recorded below. Ruff and format checks passed; strict mypy checked 111 source files; 23 generated exports were current. Preservation verified 481 frozen upstream files, 17 G4 source files, and 160 publication files with no changes. RES-284 replay verified 184 execution-era source files and 41 builder outputs, then the current 42-file bundle. Its reported current-source drift includes the mutable audit documentation and appended origin ledger; no historical hash was replaced.
 
 The [CI local-parity wheel block](../.github/workflows/README.md#local-parity) was executed verbatim: sdist/wheel build, locked isolated runtime/research dependency installation, package and NumPy/SciPy/Torch imports, model instantiation, nine registry records, historical digest, and independent public-native identities passed. The build outputs stayed under a temporary directory and were not published.
 
 Gitleaks 8.18.4 was downloaded from the workflow's release URL, checked against its pinned archive SHA-256 `ba6dbb656933921c775ee5a2d1c13a91046e7952e9d919f9bac4cec61d628e7d`, and used by `scripts/verify_gitleaks.py`; its full-history JSON report had zero findings.
 
-Final full pytest in the isolated locked research environment: **226 passed, 1 skipped** (53.56 s). The skip is the opt-in full-production regeneration gate. Repository integrity passed for nine benchmark records and 647 origin-ledger rows, including RES-275 validation isolation and artifact hashes. During drafting, preservation/tests rejected an edit to the hash-bound roadmap and the incomplete new-document inventory; the roadmap was restored and the two new prose files registered before the final passing run. No frozen verifier or scientific hash was relaxed.
+The original reported full pytest result was **226 passed, 1 skipped** (53.56 s). The explicit isolated-environment execution below supersedes the earlier ambiguous environment description. The skip is the opt-in full-production regeneration gate. Repository integrity passed for nine benchmark records and 647 origin-ledger rows, including RES-275 validation isolation and artifact hashes. During drafting, preservation/tests rejected an edit to the hash-bound roadmap and the incomplete new-document inventory; the roadmap was restored and the two new prose files registered before the final passing run. No frozen verifier or scientific hash was relaxed.
+
+## 2026-10-19 isolated pytest verification
+
+A fresh empty temporary environment was created, populated solely from the lock, and selected explicitly for both setup and pytest in the same shell:
+
+```sh
+set -e
+clean_env="$(mktemp -d)"
+UV_PROJECT_ENVIRONMENT="$clean_env" uv sync --locked --all-groups --python 3.12
+UV_PROJECT_ENVIRONMENT="$clean_env" uv run --locked --no-sync pytest
+```
+
+The isolated rerun completed on Linux with Python 3.12.13 and uv 0.12.2: **226 passed, 1 skipped** (41.40 s). The skipped test is the opt-in full-production regeneration gate. Local documentation checks, `scripts/verify_release_freeze.py`, and `scripts/check_repository_integrity.py` were rerun successfully within their documented scopes; the two frozen G4 report link defects remain disclosed below. No numerical evidence was regenerated, and no frozen artifact was modified.
 
 ## Link, figure, and scientific evidence checks
 
