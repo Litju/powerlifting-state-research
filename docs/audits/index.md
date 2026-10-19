@@ -2,6 +2,27 @@
 
 RES-277 defines a versioned benchmark-of-benchmarks methodology. It separates validity questions from the benchmark's own prediction metrics and from the results of any future audit run. Each benchmark version gets its own axis and attack states. The suite has no overall validity score.
 
+
+## Evidence reading guide
+
+Start with the [RES-284 report](../../results/audits/res284-publication/report.md) and [methods and limitations](../../results/audits/res284-publication/methods-limitations.md), then follow the evidence stages below. Each version retains its own profile. No axis, attack state, or coverage fraction is an overall universal benchmark-validity score.
+
+| Work item | Evidence in this repository | Reading boundary |
+| --- | --- | --- |
+| RES-277 · Contracts | [Ten validity axes](../../artifacts/registries/validity-axis-registry.json), [fourteen attack contracts](../../artifacts/registries/attack-contract-registry.json), [baseline profiles](../../artifacts/registries/version-validity-profiles.json) | Pre-execution coverage snapshot; not later results |
+| RES-278 · Harness | [First execution](../../results/audits/res278/audit-results.json), [hash manifest](../../results/audits/res278/audit-results.manifest.json) | Supported attacks and explicit unsupported states; no automatic applicability to every historical world |
+| RES-279 / RES-280 | No dedicated Powerlifting audit execution bundle | Current Linear titles refer to recovery-benchmark reconstruction/model work in another repository; do not infer missing Powerlifting audit results from issue numbering |
+| RES-281 · Common battery | [Execution](../../results/audits/res281/audit-results.json), [analysis report](../../results/audits/res281-analysis/res281-validity-analysis.md), [axis matrix](../../results/audits/res281-analysis/version-by-axis-evidence.csv) | Later run, separate from RES-277 snapshot; historical row-level evidence often unavailable |
+| RES-282 | No dedicated Powerlifting audit execution bundle | Current Linear title concerns recovery-benchmark headroom/system-identification reconstruction; Powerlifting G1/G2 evidence is separately linked in the [study overview](../studies/index.md) |
+| RES-283 · Ranking sensitivity | [Report](../../results/audits/res283-analysis/res283-model-ranking-stability.md), [metric sensitivity](../../results/audits/res283-analysis/metric-dependent-ranking-summary.csv), [historical evidence gaps](../../results/audits/res283-analysis/historical-evidence-gap-report.md) | One admissible IID panel; absent historical comparisons are not observed rank reversals |
+| RES-284 · Synthesis | [Report](../../results/audits/res284-publication/report.md), [evidence-to-claim table](../../results/audits/res284-publication/tables/evidence-to-claim.csv), [figures](../../results/audits/res284-publication/figures/) | Frozen publication; current rights/replay guidance below supersedes dated operational notices |
+
+RES-277 defines `PASS`, `FAIL`, `INCONCLUSIVE`, `NOT_APPLICABLE`, `NOT_RUN`, and `UNSUPPORTED_BY_EVIDENCE`. A missing adapter or unavailable truth is an evidence gap, not a pass or a measured failure. Named key/canary passes apply to the registered inference adapter; plan/history/noise diagnostics remain inconclusive. Chronology does not prove improved validity.
+
+The admissible IID panel contains seven families, 22 fitted-instance/ensemble candidates, three targets, and 3,072 shared prediction keys. Metric and Pareto comparisons are descriptive. The expert ensemble's 11/12 lead count does not establish practical superiority; the three saved fit seeds do not establish general rank stability. **All 264 paired-uncertainty cells remain unsupported** because validation truth and entity mapping were unavailable to that analysis. **All 36 historical cross-version numeric comparisons are rejected**; the historical scrambled-Sobol and public-native IID designs retain distinct identities and evaluation semantics. See [comparability](../benchmarks/comparability.md).
+
+The frozen publication retains its execution-era prediction-rights `NOASSERTION` field. The later [RES-297 clarification](../../provenance/RES-297-prediction-provenance-clarification.md) records owner authorization for the four already-public expert prediction artifacts without changing frozen metadata. Use `scripts/verify_res284_execution.py` for historical publication replay; the current builder's old source-hash check is not the canonical preservation command. See [reproducibility](../reproducibility.md#historical-res-284-publication-replay).
+
 ## Machine-readable contracts
 
 The typed Python declarations are authoritative. Generated exports are:
@@ -118,4 +139,4 @@ The [historical evidence-gap report](../../results/audits/res283-analysis/histor
 
 The [research-facing report](../../results/audits/res284-publication/report.md) publishes nine version-specific validity profiles, separate RES-278 and RES-281 audit-state coverage, the admissible public-native IID target-wise model panel, and the rejected historical comparisons. The [executive summary](../../results/audits/res284-publication/executive-summary.md), [methods and limitations](../../results/audits/res284-publication/methods-limitations.md), [version profiles](../../results/audits/res284-publication/profiles/), source-hashed [tables](../../results/audits/res284-publication/tables/), accessible SVG [figures](../../results/audits/res284-publication/figures/), and [publication checksum index](../../results/audits/res284-publication/checksum-index.json) accompany it.
 
-Run `uv run --locked python -m powerlifting_state_research.audits.res284_publication` to regenerate the publication artifacts, or add `--check` to verify deterministic replay and source hashes. This reuses the frozen RES-278/281 audit ledgers and RES-283 evaluation tables. It does not train models, generate data, regenerate predictions, execute attacks, rescore models, or estimate uncertainty.
+For current verification, run `uv run --locked --no-sync python scripts/verify_res284_execution.py`. It replays the execution-era builder from Git and verifies the current publication separately. The frozen report's direct-builder instructions predate source/ledger changes; current-source drift is reported without replacing historical hashes. This replay builds publication documents from saved evidence; it does not train, generate datasets, or rerun statistical inference.
