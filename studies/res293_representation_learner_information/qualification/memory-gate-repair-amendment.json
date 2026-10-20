@@ -1,0 +1,33 @@
+{
+  "format": "PSR_RES293_PREFREEZE_ENGINEERING_AMENDMENT_V1",
+  "amendment": 1,
+  "scope": "memory admission only; no scientific or experimental protocol change",
+  "original_source_file": "scripts/run_res293.py",
+  "original_source_line": 148,
+  "original_predicate": "MemAvailable_bytes >= 16 * 1024**3",
+  "original_failure": "attempt-5 rejected 17,154,805,760 bytes available RAM before the F probe",
+  "interpretation": "failed an arbitrary free-RAM threshold; this was not an OOM or observed workload failure",
+  "replacement": {
+    "preliminary_E": "record available RAM, WSL guest MemTotal, cgroup ancestors, and limits; memory admission stays PENDING until F",
+    "F_projection_max_bytes": 12884901888,
+    "F_projection_max_display": "12 GiB",
+    "host_OS_reserve_bytes": 2147483648,
+    "admission_rule": "projected_peak_RSS <= 12 GiB; MemAvailable and effective WSL/cgroup headroom after current cgroup use each >= projected_peak_RSS + 2 GiB",
+    "hard_process_RSS_cap_bytes": 17179869184,
+    "missing_F_projection": "NOT_QUALIFIED",
+    "runtime_monitoring": "measure process peak RSS after each fit; enforce 16 GiB RSS, cgroup cap if finite, and 2 GiB MemAvailable reserve",
+    "pre_fit_recheck": "repeat memory admission immediately before execution from the frozen F projection and current WSL/cgroup snapshot"
+  },
+  "frozen_constraints_unchanged": {
+    "configurations": 6,
+    "paired_seeds": 5,
+    "fits": 30,
+    "epochs": 60,
+    "updates_per_fit": 2340,
+    "cpu_only": true,
+    "scientific_claim_scope_changed": false
+  },
+  "attempt_5_environment_receipt": "attempt-5/environment.json",
+  "attempt_5_prefit_receipt": "attempt-5/pre-fit-qualification.json",
+  "attempt_5_receipts_preserved": true
+}

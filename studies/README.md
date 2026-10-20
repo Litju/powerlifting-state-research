@@ -4,11 +4,11 @@
 
 Studies are independent of benchmark identity.
 
-This home is classified as **future research study**. Evidence status at bootstrap: **not yet conducted**. A study is not a benchmark version.
+This directory contains frozen study protocols and lineage records. The bounded public-native RES-293 study is frozen and executed; see its [protocol](res293_representation_learner_information/protocol.json), [qualification receipts](res293_representation_learner_information/qualification/pre-fit-qualification.json), and [result report](../results/studies/res293_representation_learner_information/report.md). The [RES-294 Definition B synthesis](../results/studies/res294-definition-b-final-synthesis.md) integrates it with the existing evidence. A study is not a benchmark version.
 
 ## Research record
 
-Future documentation should identify the scientific question, inputs, benchmark and realization identities, methods, changes and held-fixed axes, results, limitations, and any negative findings.
+Study documentation identifies the scientific question, inputs, benchmark and realization identities, methods, changes and held-fixed axes, results, limitations, and negative findings.
 
 ## Bootstrap boundary
 
