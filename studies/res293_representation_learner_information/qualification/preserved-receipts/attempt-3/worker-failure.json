@@ -1,0 +1,1 @@
+{"command":"probe","elapsed_wall_seconds":0.011329823999403743,"exit_code":1,"format":"PSR_RES293_ISOLATED_WORKER_FAILURE_V1","stderr":"bwrap: Can't mkdir /venv: Read-only file system\n","stdout":""}

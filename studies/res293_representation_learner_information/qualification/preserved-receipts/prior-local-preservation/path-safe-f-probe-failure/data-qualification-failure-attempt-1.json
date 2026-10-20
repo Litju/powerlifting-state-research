@@ -1,0 +1,1 @@
+{"elapsed_wall_seconds":0.00017652099995757453,"error":"canonical IID bytes are unavailable: [Errno 2] No such file or directory: '<redacted-local-machine-path>'","error_type":"QualificationError","format":"PSR_RES293_DATA_QUALIFICATION_FAILURE_V1","status":"FAILED"}
