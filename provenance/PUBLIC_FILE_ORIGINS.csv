@@ -642,13 +642,16 @@ studies/corrections/RES-511-v1/interpretation.md,NEWLY_AUTHORED,CC-BY-4.0,Powerl
 tests/test_res511_initialization_erratum.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Regression check for NumPy reconstruction and preservation of the historical RES-292 initialization deviation.
 provenance/RES-297-prediction-provenance-clarification.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,Clarifies provenance and public GitHub scope for the four existing PUBLIC_NATIVE prediction artifacts.
 scripts/verify_gitleaks.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Enforces zero findings from the parsed Gitleaks JSON report.
+scripts/verify_res293_public.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Read-only RES-293 public artifact verification entry point.
 tests/test_res297_portfolio_provenance.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Regression checks for RES-297 prediction provenance, checkpoint exclusion, and Gitleaks findings.
 scripts/verify_res284_execution.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Separately identified RES-284 replay verifier for execution-era source hashes and current publication bytes.
 docs/studies/g4-reader-corrections-v1.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,Current G4 navigation and cell-denominator correction; links immutable RES-510 and RES-511 evidence.
+docs/studies/res293-public-verification.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,Clean-clone RES-293 verification command and limitations.
 docs/res299-validation.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,RES-299 documentation and evidence validation record; executed checks and no-regeneration limits.
 scripts/res293_fit_worker.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,RES-293 Definition B implementation and pre-fit qualification tests.
 scripts/run_res293.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,RES-293 Definition B implementation and pre-fit qualification tests.
 src/powerlifting_state_research/studies/res293_representation_information.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,RES-293 Definition B implementation and pre-fit qualification tests.
+src/powerlifting_state_research/studies/res293_public_verification.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Read-only RES-293 public artifact and saved metric verification.
 studies/res293_representation_learner_information/protocol-freeze.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,"RES-293 Definition B protocol, qualification receipt, or preserved evidence artifact."
 studies/res293_representation_learner_information/protocol.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,"RES-293 Definition B protocol, qualification receipt, or preserved evidence artifact."
 studies/res293_representation_learner_information/qualification/data-qualification.json,GENERATED_PUBLIC_ARTIFACT,MIT,Powerlifting State Research contributors,"RES-293 Definition B protocol, qualification receipt, or preserved evidence artifact."
