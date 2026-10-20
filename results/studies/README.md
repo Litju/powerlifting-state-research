@@ -8,6 +8,6 @@ Independent study outputs, including negative results.
 
 A result bundle should reference the study, benchmark specifications, data realizations, model/evaluation records, source files, checksums, and claim scope that produced it.
 
-## Bootstrap state
+## Current Definition B evidence
 
-No historical study report or result artifact is reproduced here. Negative and null results should be retained with the same provenance as positive findings.
+RES-293 has a complete [execution and analysis bundle](res293_representation_learner_information/), including the 30-fit seal, canonical metrics, all 21 primary contrasts, per-seed results, prediction hashes, and limitations. RES-294's [final synthesis](res294-definition-b-final-synthesis.md) traces the bounded program and its exclusions. These are new public-native evidence, not recovered historical G1–G4 results. Negative, null, inconclusive, unsupported, and not-run states remain explicit.

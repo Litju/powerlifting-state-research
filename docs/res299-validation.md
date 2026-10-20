@@ -1,5 +1,7 @@
 # RES-299 documentation verification
 
+**Point-in-time note:** This record predates the authorized RES-293/RES-294 campaign. The current study results and closeout limits are in the [Definition B final synthesis](../results/studies/res294-definition-b-final-synthesis.md); the checks below remain the record of the earlier 2026-10-18/19 verification.
+
 Scope: research portfolio documentation from main `b6ac38adc866ee36c829841d6a39ce87053ab691`, on `docs/res299-research-portfolio`, 2026-10-18; final documentation repair verified 2026-10-19. The draft PR's checks provide candidate CI results; this record distinguishes local checks from historical receipts and numerical replays. No independent scientific approval is asserted.
 
 ## Local engineering verification

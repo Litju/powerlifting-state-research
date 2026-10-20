@@ -2,7 +2,7 @@
 
 Research on what can be inferred about an athlete's **latent capacity** from noisy performance observations, and how benchmark design changes the meaning of a successful forecast. All experimental evidence here is synthetic; real-athlete validity has not been demonstrated.
 
-Start with the [G1–G4 studies](docs/studies/index.md), [benchmark audit evidence](docs/audits/index.md#evidence-reading-guide), or [reproducibility guide](docs/reproducibility.md). Read the [current G4 correction notice](docs/studies/g4-reader-corrections-v1.md) before interpreting its original report.
+Start with the [Definition B final synthesis](results/studies/res294-definition-b-final-synthesis.md), [G1–G4 studies](docs/studies/index.md), [benchmark audit evidence](docs/audits/index.md#evidence-reading-guide), or [reproducibility guide](docs/reproducibility.md). Read the [current G4 correction notice](docs/studies/g4-reader-corrections-v1.md) before interpreting its original report.
 
 ## Research problem
 
@@ -20,7 +20,7 @@ Partial observability matters because several channels can carry information abo
 
 ## What is implemented
 
-The repository provides typed scientific contracts; a nine-entry benchmark registry; independently authored public dynamics, observation and IID data generation; prediction alignment and four-metric evaluation; saved model/comparator evidence; version-specific audit contracts and results; and four completed public-native studies. Scientific identities separately bind benchmark semantics, data realizations, models, predictions, and evaluations. See the [public contract](docs/contracts/public-benchmark-contract.md) and [source package](src/powerlifting_state_research/).
+The repository provides typed scientific contracts; a nine-entry benchmark registry; independently authored public dynamics, observation and IID data generation; prediction alignment and four-metric evaluation; saved model/comparator evidence; version-specific audit contracts and results; and five completed public-native studies, including the bounded six-configuration RES-293 campaign. RES-294 integrates that campaign with the frozen G1–G4 and audit evidence. Scientific identities separately bind benchmark semantics, data realizations, models, predictions, and evaluations. See the [public contract](docs/contracts/public-benchmark-contract.md) and [source package](src/powerlifting_state_research/).
 
 ### Historical reconstruction and public-native research
 
@@ -48,6 +48,8 @@ The historical capacity-change production design used scrambled Sobol sampling. 
 | G2 · Structural reconstruction (RES-289) | Known-law reconstruction and local sensitivity do not prove global identification. Most noisy full-MLE starts did not converge. | [Report and convergence diagnostics](results/studies/target_sufficient_structural_reconstruction/report.md), [protocol](studies/target_sufficient_structural_reconstruction/protocol.json) |
 | G3 · Public-surrogate reconstruction (RES-290) | Finite donor copying and predictive approximation do not establish source-mechanism recovery; the tested structural non-identification comparison remains inconclusive. | [Report](results/studies/public_surrogate_reconstruction/public-native/report.md), [protocol](studies/public_surrogate_reconstruction/protocol.json) |
 | G4 · Synthetic-pretraining transfer (RES-292) | Corrected guarded inference did not demonstrate a >1 kg bootstrap-pretraining advantage over the compute-matched public-only control in the declared cells. | [Current correction notice](docs/studies/g4-reader-corrections-v1.md), [protocol](studies/synthetic_pretraining_transfer/protocol.json) |
+| RES-293 · Representation, learner, and information | The six fixed finite-budget procedures produced different target-wise point estimates; the descriptive uncertainty is not coverage-qualified and does not establish nonlinear necessity. | [Final report and all 21 contrasts](results/studies/res293_representation_learner_information/report.md), [frozen protocol](studies/res293_representation_learner_information/protocol.json) |
+| RES-294 · Definition B synthesis | Integrates the selected bounded program with historical genealogy, G1–G4, model comparisons, audit gaps, corrections, exclusions, and unresolved questions. | [Final synthesis](results/studies/res294-definition-b-final-synthesis.md) |
 
 G4's original pooled classifications were **98 equivalence, 9 inconclusive, 1 benefit**. RES-510's proposed Monte Carlo-guarded correction gives **97 equivalence, 11 inconclusive, 0 benefit** across 108 cells. Primary percentile and fixed-five-fit conditional interpretations remain separate. RES-511 confirms nonzero initial biases despite the frozen zero-bias specification: the results describe the executed learner. Independent scientific approval of the corrections remains pending.
 
@@ -78,7 +80,7 @@ The [reproducibility guide](docs/reproducibility.md) separates artifact preserva
 
 ## Scientific limitations
 
-All evidence is synthetic, with no demonstrated real-athlete validity or causal training-prescription claim. G2 uncertainty is approximate and excludes optimization uncertainty; noisy retained fits often failed convergence. G3 distribution intervals condition on the fixed donor sample. G4 intervals are approximate per-cell intervals, without family-wise scientific coverage, and use five fitting seeds conditional on fixed upstream data. Unavailable validation truth/entity mapping prevents RES-284 paired inference. Historical numeric comparisons are inadmissible. RES-293 information/representation ablations and RES-294 synthesis remain uncompleted; handoffs are not results. See [study limitations](docs/studies/index.md) and [benchmark claim boundaries](docs/benchmarks/claim-boundaries.md).
+All evidence is synthetic, with no demonstrated real-athlete validity or causal training-prescription claim. G2 uncertainty is approximate and excludes optimization uncertainty; noisy retained fits often failed convergence. G3 distribution intervals condition on the fixed donor sample. G4 intervals are approximate per-cell intervals, without family-wise scientific coverage, and use five fitting seeds conditional on fixed upstream data. RES-284 paired uncertainty remains unsupported, and historical numeric comparisons remain inadmissible. RES-293 is exploratory on one inspected realization and five analyzed fits; its multiplier envelope is not coverage-qualified. RES-294 closes only the selected Definition B program, not the broader deferred frontier, global-identification, real-athlete, or causal questions. See [study limitations](docs/studies/index.md) and [benchmark claim boundaries](docs/benchmarks/claim-boundaries.md).
 
 ## Licensing and publication status
 
