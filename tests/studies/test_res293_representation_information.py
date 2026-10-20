@@ -21,6 +21,11 @@ from powerlifting_state_research.models.temporal_expert import (
     _raw_history,
     prepare_batch,
 )
+from powerlifting_state_research.studies.res293_public_verification import (
+    PublicVerificationError,
+    verify_public_run,
+    verify_published_artifacts,
+)
 from powerlifting_state_research.studies.res293_representation_information import (
     EXPECTED_TARGETS,
     _ordered_features,
@@ -664,3 +669,33 @@ def test_memory_admission_host_limit_below_projection_plus_reserve_fails() -> No
     decision = run_res293.memory_admission(10 * gib, 20 * gib, 12 * gib - 1)
     assert decision["status"] == "FAIL"
     assert decision["checks"]["host_container_limit_covers_projection_plus_host_reserve"] is False
+
+
+def test_public_res293_verification_recomputes_saved_validation_evidence() -> None:
+    receipt = verify_public_run()
+    assert receipt["published_artifacts_verified"] == 102
+    assert receipt["fit_records_verified"] == 30
+    assert receipt["validation_metrics_recomputed"] == 90
+    assert receipt["per_seed_contrasts_recomputed"] == 105
+    assert receipt["primary_contrasts_recomputed"] == 21
+    assert receipt["checkpoint_files_read"] == 0
+
+
+def test_public_res293_verification_rejects_missing_published_artifacts(tmp_path: Path) -> None:
+    receipt_path = (
+        STUDY_ROOT
+        / "results/studies/res293_representation_learner_information/analysis-receipt.json"
+    )
+    (tmp_path / receipt_path.name).write_bytes(receipt_path.read_bytes())
+    with pytest.raises(PublicVerificationError, match="missing published artifact"):
+        verify_published_artifacts(tmp_path)
+
+
+def test_public_res293_verification_rejects_altered_published_artifact(tmp_path: Path) -> None:
+    result_root = STUDY_ROOT / "results/studies/res293_representation_learner_information"
+    for name in ("analysis-receipt.json", "report.md", "canonical-metrics.csv"):
+        (tmp_path / name).write_bytes((result_root / name).read_bytes())
+    metrics_path = tmp_path / "canonical-metrics.csv"
+    metrics_path.write_bytes(metrics_path.read_bytes() + b"altered")
+    with pytest.raises(PublicVerificationError, match="hash/size mismatch"):
+        verify_published_artifacts(tmp_path)
