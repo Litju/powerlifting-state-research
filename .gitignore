@@ -20,4 +20,5 @@ htmlcov/
 *.safetensors
 *.ckpt
 *.pt
+!models/published/**/*.pt
 /results/**/*.parquet

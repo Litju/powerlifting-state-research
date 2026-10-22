@@ -237,12 +237,51 @@ def check_ledger(tracked: set[str]) -> int:
     return len(rows)
 
 
-def check_public_files(paths: set[str]) -> None:
+def published_model_binary_paths() -> set[str]:
+    inventory_path = ROOT / "models/published/model-artifact-inventory.json"
+    try:
+        inventory = json.loads(inventory_path.read_text(encoding="utf-8"))
+        manifests = inventory["published_model_artifact_manifests"]
+        allowed: set[str] = set()
+        for relative in manifests:
+            manifest = json.loads((ROOT / relative).read_text(encoding="utf-8"))
+            for record in [*manifest.get("artifacts", ()), *manifest.get("source_evidence", ())]:
+                artifact_path = record["path"]
+                artifact = record["artifact_manifest"]
+                path = Path(artifact_path)
+                binary = path.suffix.lower() in BINARY_SUFFIXES
+                if (
+                    path.is_absolute()
+                    or ".." in path.parts
+                    or (binary and path.parts[:2] != ("models", "published"))
+                ):
+                    fail(f"invalid published model artifact path: {artifact_path}")
+                    continue
+                target = ROOT / path
+                digest = hashlib.sha256(target.read_bytes()).hexdigest() if target.is_file() else ""
+                if (
+                    digest != record.get("sha256")
+                    or target.stat().st_size != record.get("bytes")
+                    or artifact.get("sha256") != digest
+                    or artifact.get("license_expression") != "MIT"
+                    or not artifact.get("copyright_holder")
+                    or not artifact.get("redistribution_status")
+                ):
+                    fail(f"published model artifact rights/hash mismatch: {artifact_path}")
+                if binary:
+                    allowed.add(path.as_posix())
+        return allowed
+    except (OSError, KeyError, TypeError, json.JSONDecodeError) as error:
+        fail(f"published model artifact inventory is missing or invalid: {error}")
+        return set()
+
+
+def check_public_files(paths: set[str], allowed_model_binaries: set[str]) -> None:
     for name in paths:
         path, parts = ROOT / name, Path(name).parts
         if ".git" in parts:
             fail(f"nested Git metadata: {name}")
-        if path.suffix.lower() in BINARY_SUFFIXES:
+        if path.suffix.lower() in BINARY_SUFFIXES and name not in allowed_model_binaries:
             fail(f"forbidden archive or binary class: {name}")
         if parts[0] in {"src", "tests", "docs"} and not ({"provenance", "history"} & set(parts)):
             for part in parts:
@@ -254,6 +293,8 @@ def check_public_files(paths: set[str]) -> None:
         if PRIVATE_REPO.lower() in name.lower() or PRIVATE_RUN.search(name):
             fail(f"private repository or execution ID: {name}")
         if not path.is_file():
+            continue
+        if name in allowed_model_binaries:
             continue
         data = path.read_bytes()
         if b"\0" in data or data.startswith((b"PK\x03\x04", b"\x1f\x8b", b"Rar!\x1a\x07")):
@@ -674,13 +715,16 @@ def verify_gate_c_package(root: Path = ROOT) -> list[str]:
         except (OSError, UnicodeDecodeError) as error:
             errors.append(f"Gate-C public artifact is unreadable: {relative}: {error}")
     tracked = subprocess.check_output(["git", "-C", str(root), "ls-files", "-z"]).split(bytes([0]))
+    allowed_model_bytes = published_model_binary_paths()
+    tracked_model_bytes = {
+        item.decode()
+        for item in tracked
+        if item
+        and Path(item.decode()).suffix.lower() in {".pt", ".pth", ".npz", ".ckpt", ".safetensors"}
+    }
     check(
-        not any(
-            Path(item.decode()).suffix.lower() in {".pt", ".pth", ".ckpt", ".safetensors"}
-            for item in tracked
-            if item
-        ),
-        "tracked checkpoint bytes are forbidden",
+        tracked_model_bytes == allowed_model_bytes,
+        "tracked model bytes must exactly match the published artifact manifests",
     )
     return errors
 
@@ -1017,7 +1061,11 @@ def main() -> int:
         tracked = git_files()
         check_registry()
         rows = check_ledger(tracked)
-        check_public_files(git_files("--cached", "--others", "--exclude-standard"))
+        allowed_model_binaries = published_model_binary_paths()
+        check_public_files(
+            git_files("--cached", "--others", "--exclude-standard"),
+            allowed_model_binaries,
+        )
         for error in verify_gate_c_package():
             fail(error)
         for error in verify_res275_comparator_package():

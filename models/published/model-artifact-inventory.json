@@ -1,0 +1,104 @@
+{
+  "format": "PSR_MODEL_ARTIFACT_RECOVERY_INVENTORY_V1",
+  "frozen_main_commit": "3b833b627714fb4f788d4d61de6efa52453dafa5",
+  "historical_world_v2_rights_reference": "artifacts/model-cards/public-native-temporal-capacity-change.md",
+  "published_model_artifact_manifests": [
+    "models/published/public-native-temporal-expert/artifact-manifest.json",
+    "models/published/res293-definition-b/artifact-manifest.json"
+  ],
+  "published_model_files": {
+    "mismatched": 0,
+    "public_native_temporal_expert_checkpoints": 3,
+    "public_native_temporal_expert_missing": 0,
+    "public_native_temporal_expert_mismatched": 0,
+    "res293_definition_b_missing": 0,
+    "res293_definition_b_mismatched": 0,
+    "res293_definition_b_fitted_states": 30
+  },
+  "recovery_branch": "recovery/model-artifact-recovery",
+  "redistribution_authority_path": "provenance/model-artifact-redistribution.md",
+  "local_search_summary": {
+    "preserved_powerlifting_checkpoint_inventory": {
+      "source_file_records": 24,
+      "unique_sha256_values": 18,
+      "source_integrity": "All indexed source files present and matching size and SHA-256",
+      "redistribution_status": "Unresolved for the non-PUBLIC_NATIVE task artifacts"
+    },
+    "e_drive_powerlifting_checkpoint_tree": {
+      "model_or_prediction_candidate_files": 64,
+      "unique_sha256_values": 52,
+      "file_types": [".pt", ".pkl", ".npz"],
+      "redistribution_status": "Unresolved; preserved privately",
+      "count_overlap": "These records overlap with the preserved checkpoint inventory and task archives; counts are not additive."
+    },
+    "windows_downloads_documents_desktops": "No matching checkpoint or model archive found in the scoped user folders.",
+    "d_drive_powerlifting_project": "No matching checkpoint or model archive found in the scoped project folder.",
+    "google_drive": "RES-274 bundle found and SHA-verified; no matches for the three historical World-V2 checkpoint hashes, RES-293 state files, or ALI-177 checkpoint keywords."
+  },
+  "unpublished_recovered_candidates": [
+    {
+      "count": 3,
+      "integrity_status": "SHA-256 matches the historical model card and local preservation index",
+      "redistribution_status": "UNRESOLVED; retained privately",
+      "scientific_identity": "World-V2 historical temporal expert, seeds 383001-383003"
+    },
+    {
+      "associated_validation_prediction_arrays": 4,
+      "count": 8,
+      "integrity_status": "All checkpoint hashes and sizes match the archived ALI-177 checkpoint digest receipt",
+      "redistribution_status": "UNRESOLVED; private task artifacts retained privately",
+      "scientific_identity": "ALI-177 GPU training candidates: causal transformer and decay GRU, two seeds each, best and last checkpoints"
+    },
+    {
+      "count": 8,
+      "integrity_status": "Archive CRC passed; each original member was hashed",
+      "redistribution_status": "UNRESOLVED; private task artifacts retained privately",
+      "scientific_identity": "ALI-557 archived checkpoint candidates"
+    },
+    {
+      "checkpoint_or_fitted_model_files": 27,
+      "cache_files": 1,
+      "count": 40,
+      "integrity_status": "All model, prediction, and cache artifact bytes in the two preserved R10 trees were hashed directly; no pickle objects were loaded",
+      "prediction_arrays": 12,
+      "redistribution_status": "UNRESOLVED; private task artifacts retained privately",
+      "scientific_identity": "ALI4-R10 imported authority and V2-R10 final-reference candidates",
+      "unique_sha256_values": 40
+    },
+    {
+      "count": 2,
+      "integrity_status": "Original files copied and hashed",
+      "redistribution_status": "UNRESOLVED; retained privately",
+      "scientific_identity": "Legacy Shadeform checkpoint candidates"
+    },
+    {
+      "count": 15,
+      "integrity_status": "SHA-256 and byte lengths verified against original local bytes and preserved inventory",
+      "redistribution_status": "UNRESOLVED; retained privately",
+      "scientific_identity": "Additional Powerlifting model candidates in the preserved checkpoint hash inventory, after removing the three World-V2 seed checkpoints"
+    }
+  ],
+  "unresolved_requested_families": [
+    {
+      "identity": "ALI-159",
+      "status": "No source-bound model checkpoint located in the indexed local Powerlifting archives"
+    },
+    {
+      "identity": "ALI-199",
+      "status": "No source-bound model checkpoint located in the indexed local Powerlifting archives"
+    },
+    {
+      "identity": "ALI-213",
+      "status": "No source-bound model checkpoint located in the indexed local Powerlifting archives"
+    },
+    {
+      "identity": "ALI-254",
+      "status": "No source-bound model checkpoint located in the indexed local Powerlifting archives"
+    },
+    {
+      "identity": "ALI-382",
+      "status": "A traceability record was found, but no source-bound model checkpoint was located"
+    }
+  ],
+  "verification_receipt": "models/published/model-artifact-recovery-verification.json"
+}
