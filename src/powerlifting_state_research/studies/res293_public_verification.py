@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 import csv
+import importlib.util
 import json
 import math
+import sys
 import tempfile
 from pathlib import Path
 from typing import Any, cast
@@ -33,6 +35,7 @@ from .res293_representation_information import (
     VALIDATION_SHA256,
     QualificationError,
     _truth_target,
+    prepare_fit_payload,
     qualify_canonical_data,
     sha256_file,
 )
@@ -526,3 +529,83 @@ def verify_public_run(
         "primary_contrasts_recomputed": len(expected_primary),
         "checkpoint_files_read": 0,
     }
+
+
+def replay_saved_predictions(
+    results_root: Path = RESULTS_ROOT, data_root: Path = DEFAULT_DATA_ROOT
+) -> dict[str, int]:
+    """Replay all sealed RES-293 predictions from released final states, without fitting."""
+    import torch
+
+    evidence = verify_published_artifacts(results_root)
+    qualified, _ = _read_truth(data_root)
+    worker_path = ROOT / "models/published/res293-definition-b/source-evidence/res293_fit_worker.py"
+    spec = importlib.util.spec_from_file_location("res293_replay_worker", worker_path)
+    if spec is None or spec.loader is None:
+        raise PublicVerificationError("frozen RES-293 worker is unavailable")
+    worker = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = worker
+    spec.loader.exec_module(worker)
+    if torch.cuda.is_available():
+        raise PublicVerificationError("RES-293 prediction replay requires CPU-only PyTorch")
+    torch.set_num_threads(1)
+
+    release_path = ROOT / "models/published/res293-definition-b/artifact-manifest.json"
+    release = _json(release_path)
+    states_by_source = {item["source_member"]: item for item in release.get("artifacts", ())}
+    fit_records = evidence["seal"]["fits"]
+    replayed = 0
+    with tempfile.TemporaryDirectory(prefix="psr-res293-replay-") as temporary:
+        payload_info = prepare_fit_payload(qualified, Path(temporary))
+        payload = worker._load_payload(Path(str(payload_info["payload"])))
+        for fit in fit_records:
+            config = fit["config"]
+            seed = int(fit["initialization_seed"])
+            state_ref = fit["state_artifact"]
+            state_record = states_by_source.get(state_ref["file"])
+            if (
+                state_record is None
+                or state_record["sha256"] != state_ref["sha256"]
+                or state_record["bytes"] != state_ref["bytes"]
+                or state_record["scientific_identity"]["configuration"] != config
+                or state_record["scientific_identity"]["initialization_seed"] != seed
+                or state_record["scientific_identity"]["final_state_sha256"]
+                != fit["final_state_sha256"]
+            ):
+                raise PublicVerificationError(
+                    f"published RES-293 state identity mismatch: {config}/{seed}"
+                )
+            state_path = ROOT / state_record["path"]
+            _check_hash(state_path, state_ref["sha256"], int(state_ref["bytes"]))
+            model = worker._new_model(fit["learner"])
+            with np.load(state_path, allow_pickle=False) as archive:
+                arrays = {name: archive[name] for name in archive.files}
+            model.load_state_dict(
+                {name: torch.from_numpy(array.copy()) for name, array in arrays.items()},
+                strict=True,
+            )
+            if worker._state_digest(model) != fit["final_state_sha256"]:
+                raise PublicVerificationError(f"RES-293 state digest mismatch: {config}/{seed}")
+
+            summary = _json(results_root / "fits" / f"{config}-seed-{seed}.fit.json")
+            mean = torch.tensor(summary["target_mean_kg"], dtype=torch.float64)
+            scale = torch.tensor(summary["target_scale_kg"], dtype=torch.float64)
+            for split in ("development", "validation"):
+                representation = fit["representation"]
+                features = payload[f"{split}_{'s' if representation.startswith('S') else 'o'}"]
+                if representation.startswith("S"):
+                    features = worker._config_features(config, features)
+                prediction_bytes = worker._canonical_predictions(
+                    payload[f"{split}_row_ids"], worker._predict(model, features, mean, scale)
+                )
+                prediction_path = (
+                    results_root / "predictions" / fit["prediction_artifacts"][split]["file"]
+                )
+                if prediction_bytes != prediction_path.read_bytes():
+                    raise PublicVerificationError(
+                        f"RES-293 {split} prediction replay differs: {config}/{seed}"
+                    )
+                replayed += 1
+    if replayed != 60:
+        raise PublicVerificationError(f"expected 60 RES-293 prediction replays, found {replayed}")
+    return {"prediction_files_replayed": replayed, "byte_identical_prediction_files": replayed}

@@ -78,22 +78,23 @@ def test_prediction_rights_fallback_matches_the_origin_ledger() -> None:
         assert origins[prediction_path]["owner"] == "Powerlifting State Research contributors"
 
 
-def test_public_native_checkpoint_bytes_remain_excluded_from_git() -> None:
+def test_only_manifested_public_model_weights_are_tracked() -> None:
+    inventory = json.loads((ROOT / "models/published/model-artifact-inventory.json").read_text())
+    expected = set()
+    for manifest_path in inventory["published_model_artifact_manifests"]:
+        manifest = json.loads((ROOT / manifest_path).read_text())
+        expected.update(
+            record["path"]
+            for record in [*manifest.get("artifacts", ()), *manifest.get("source_evidence", ())]
+            if Path(record["path"]).suffix.lower() in {".pt", ".npz"}
+        )
     tracked = subprocess.check_output(
-        ["git", "ls-files", "-z", "*.pt", "*.pth", "*.ckpt", "*.safetensors"],
+        ["git", "ls-files", "-z", "*.pt", "*.pth", "*.npz", "*.ckpt", "*.safetensors"],
         cwd=ROOT,
     )
-    assert not tracked
-    checkpoints = [
-        f"models/checkpoints/public-native-temporal-expert/seed-{seed}.pt"
-        for seed in (383001, 383002, 383003)
-    ]
-    assert not any((ROOT / path).exists() for path in checkpoints)
-    for path in checkpoints:
-        assert (
-            subprocess.check_output(["git", "check-ignore", path], cwd=ROOT, text=True).strip()
-            == path
-        )
+    assert {item.decode() for item in tracked.split(b"\0") if item} == expected
+    assert all(path.startswith("models/published/") for path in expected)
+    assert "/models/checkpoints/" in (ROOT / ".gitignore").read_text()
 
 
 def test_gitleaks_json_findings_fail_even_when_cli_exit_code_is_zero() -> None:
