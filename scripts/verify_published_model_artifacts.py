@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import importlib.util
 import json
@@ -38,6 +39,8 @@ from powerlifting_state_research.models.temporal_expert import (  # noqa: E402
 )
 
 INVENTORY_PATH = ROOT / "models/published/model-artifact-inventory.json"
+RES274_CPU_PREDICTION_TOLERANCE_KG = 0.0167
+RES274_CPU_METRIC_TOLERANCE = 0.000280
 dataset = benchmark.dataset
 interventions = benchmark.interventions
 observations = benchmark.observations
@@ -100,6 +103,26 @@ def _verify_records(manifest: dict[str, Any]) -> set[str]:
                 raise ValueError(f"model bytes are outside the published model layout: {relative}")
             binaries.add(relative)
     return binaries
+
+
+def _verify_checkpoint_identity(
+    model_id: str,
+    parameter_total: int,
+    identity: dict[str, Any],
+    record: dict[str, Any],
+    expert: dict[str, Any],
+    source_manifest: dict[str, Any],
+) -> None:
+    if (
+        model_id != expert["model_id"]
+        or parameter_total != 118_571
+        or identity.get("checkpoint_sha256") != record["sha256"]
+        or source_manifest.get("checkpoint_sha256") != record["sha256"]
+        or source_manifest.get("model_id") != expert["model_id"]
+        or source_manifest.get("normalization_stats_id")
+        != expert["normalization"]["normalization_stats_id"]
+    ):
+        raise ValueError(f"PUBLIC_NATIVE checkpoint identity mismatch: {record['path']}")
 
 
 def verify() -> dict[str, Any]:
@@ -179,16 +202,14 @@ def verify() -> dict[str, Any]:
             / "models/checkpoint-manifests/public-native-temporal-expert"
             / f"seed-{identity['seed']}.checkpoint-manifest.json"
         )
-        if (
-            model.model_spec_id != expert["model_id"]
-            or parameter_count(model) != 118_571
-            or identity["checkpoint_sha256"] != record["sha256"]
-            or source_manifest["checkpoint_sha256"] != record["sha256"]
-            or source_manifest["model_id"] != expert["model_id"]
-            or source_manifest["normalization_stats_id"]
-            != expert["normalization"]["normalization_stats_id"]
-        ):
-            raise ValueError(f"PUBLIC_NATIVE checkpoint identity mismatch: {record['path']}")
+        _verify_checkpoint_identity(
+            model.model_spec_id,
+            parameter_count(model),
+            identity,
+            record,
+            expert,
+            source_manifest,
+        )
         result = predict(model, smoke_input, stats)
         if len(result) != 1 or not all(np.isfinite(result[0].values)):
             raise ValueError(f"PUBLIC_NATIVE inference smoke failed: {record['path']}")
@@ -270,5 +291,157 @@ def verify() -> dict[str, Any]:
     }
 
 
+def verify_res274_cpu_replay() -> dict[str, Any]:
+    """Replay the released GRU checkpoints on CPU within the recorded tolerances."""
+    from powerlifting_state_research.evaluation.metrics import canonical_target_metrics
+    from powerlifting_state_research.evaluation.prediction import parse_prediction_jsonl
+    from powerlifting_state_research.studies.res293_public_verification import (
+        DEFAULT_DATA_ROOT,
+        _read_truth,
+        _truth_target,
+    )
+
+    qualified, _ = _read_truth(DEFAULT_DATA_ROOT)
+    validation = tuple(sorted(qualified.validation_rows, key=lambda row: row.row_id))
+    inputs = tuple(
+        TemporalModelInput.from_forecast_inputs(row.row_id, row.inputs) for row in validation
+    )
+    truth_by_id = {row.row_id: _truth_target(row) for row in validation}
+    expert_manifest = _json(
+        ROOT / "models/published/public-native-temporal-expert/artifact-manifest.json"
+    )
+    normalization_record = expert_manifest["normalization"]
+    normalization = _json(ROOT / normalization_record["path"])
+    stats = NormalizationStats.from_dict(normalization["stats"])
+    if normalization["normalization_stats_id"] != normalization_record["normalization_stats_id"]:
+        raise ValueError("PUBLIC_NATIVE replay normalization identity mismatch")
+
+    checkpoint_records = [
+        item for item in expert_manifest["artifacts"] if item["kind"] == "trained checkpoint"
+    ]
+    checkpoint_records.sort(key=lambda item: item["scientific_identity"]["seed"])
+    models: list[LiftSharedTemporalExpert] = []
+    for record in checkpoint_records:
+        model = load_weights(ROOT / record["path"], LiftSharedTemporalExpert())
+        identity = record["scientific_identity"]
+        source_manifest = _json(
+            ROOT
+            / "models/checkpoint-manifests/public-native-temporal-expert"
+            / f"seed-{identity['seed']}.checkpoint-manifest.json"
+        )
+        _verify_checkpoint_identity(
+            model.model_spec_id,
+            parameter_count(model),
+            identity,
+            record,
+            expert_manifest,
+            source_manifest,
+        )
+        models.append(model)
+    if len(models) != 3:
+        raise ValueError("RES-274 CPU replay requires all three released seed checkpoints")
+
+    labels = [f"seed-{seed}" for seed in (383001, 383002, 383003)] + ["ensemble"]
+    replay_rows: dict[str, list[Any]] = {label: [] for label in labels}
+    for start in range(0, len(inputs), 256):
+        batch = inputs[start : start + 256]
+        for label, model in zip(labels[:3], models, strict=True):
+            replay_rows[label].extend(predict(model, batch, stats))
+        replay_rows["ensemble"].extend(predict_three_seed_ensemble(models, batch, stats))
+
+    prediction_root = (
+        ROOT
+        / "results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting"
+        / "public-native-temporal-expert"
+    )
+    target_names = (
+        "squat_delta_capacity_kg",
+        "bench_press_delta_capacity_kg",
+        "deadlift_delta_capacity_kg",
+    )
+    maximum_prediction_delta = 0.0
+    prediction_absolute_deltas: list[float] = []
+    maximum_metric_delta = 0.0
+    for label, actual_rows in replay_rows.items():
+        expected_rows = parse_prediction_jsonl(
+            (prediction_root / f"{label}.predictions.jsonl").read_bytes()
+        )
+        expected_by_id = {row.row_id: row.values for row in expected_rows}
+        actual_by_id = {row.row_id: row.values for row in actual_rows}
+        if set(expected_by_id) != set(actual_by_id):
+            raise ValueError(f"PUBLIC_NATIVE replay row identity mismatch: {label}")
+        row_ids = sorted(expected_by_id)
+        deltas = np.abs(
+            np.asarray([actual_by_id[row_id] for row_id in row_ids], dtype=np.float64)
+            - np.asarray([expected_by_id[row_id] for row_id in row_ids], dtype=np.float64)
+        )
+        prediction_absolute_deltas.extend(deltas.ravel().tolist())
+        maximum_prediction_delta = max(maximum_prediction_delta, float(deltas.max()))
+
+        saved_evaluation = _json(prediction_root / f"{label}.evaluation-result.json")["result"]
+        saved_targets = {item["target"]: item for item in saved_evaluation["targets"]}
+        for index, target in enumerate(target_names):
+            result = canonical_target_metrics(
+                target,
+                [truth_by_id[row_id][index] for row_id in row_ids],
+                [actual_by_id[row_id][index] for row_id in row_ids],
+                unit="kg",
+            )
+            expected_metrics = {
+                item["metric"]: item["value"] for item in saved_targets[target]["metrics"]
+            }
+            for metric in result.metrics:
+                if metric.value is None or expected_metrics[metric.metric.value] is None:
+                    if metric.value != expected_metrics[metric.metric.value]:
+                        raise ValueError(
+                            f"PUBLIC_NATIVE replay metric status mismatch: {label}/{target}"
+                        )
+                    continue
+                maximum_metric_delta = max(
+                    maximum_metric_delta,
+                    abs(metric.value - expected_metrics[metric.metric.value]),
+                )
+
+    mean_prediction_delta = float(np.mean(prediction_absolute_deltas))
+    if maximum_prediction_delta > RES274_CPU_PREDICTION_TOLERANCE_KG:
+        raise ValueError(
+            f"PUBLIC_NATIVE CPU prediction delta exceeds tolerance: {maximum_prediction_delta}"
+        )
+    if maximum_metric_delta > RES274_CPU_METRIC_TOLERANCE:
+        raise ValueError(
+            f"PUBLIC_NATIVE CPU metric delta exceeds tolerance: {maximum_metric_delta}"
+        )
+    return {
+        "prediction_files_compared": len(replay_rows),
+        "maximum_absolute_prediction_difference_kg": maximum_prediction_delta,
+        "mean_absolute_prediction_difference_kg": mean_prediction_delta,
+        "maximum_absolute_metric_difference": maximum_metric_delta,
+        "prediction_tolerance_kg": RES274_CPU_PREDICTION_TOLERANCE_KG,
+        "metric_tolerance": RES274_CPU_METRIC_TOLERANCE,
+        "saved_predictions_and_evaluations_modified": False,
+    }
+
+
 if __name__ == "__main__":
-    print(json.dumps({"status": "PASS", **verify()}, sort_keys=True))
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--replay-res293",
+        action="store_true",
+        help="replay all 60 saved RES-293 predictions from the released states (no fitting)",
+    )
+    parser.add_argument(
+        "--replay-res274-cpu",
+        action="store_true",
+        help="replay RES-274 PUBLIC_NATIVE GRU predictions on CPU and enforce recorded tolerances",
+    )
+    args = parser.parse_args()
+    report: dict[str, Any] = {"status": "PASS", **verify()}
+    if args.replay_res293:
+        from powerlifting_state_research.studies.res293_public_verification import (
+            replay_saved_predictions,
+        )
+
+        report["res293_prediction_replay"] = replay_saved_predictions()
+    if args.replay_res274_cpu:
+        report["res274_cpu_replay"] = verify_res274_cpu_replay()
+    print(json.dumps(report, sort_keys=True))

@@ -40,6 +40,23 @@ PSR_FULL_PRODUCTION=1 uv run --locked --no-sync pytest tests/benchmarks/iid_late
 
 It compares both full generations and manifests with the canonical expectation. This heavier check is excluded from ordinary PR CI and was not run for RES-299's no-regeneration scope. The [RES-281 reproduction receipt](../results/audits/res281/reproducibility-execution.json) records an earlier two-generation execution; it is not a fresh RES-299 result.
 
+## Published model artifacts and optional replays
+
+The [current model release](../models/published/CURRENT_RELEASE.md) includes three RES-274 PUBLIC_NATIVE temporal-expert GRU checkpoints and all 30 original RES-293 Definition B fitted states. The [public artifact verifier](../scripts/verify_published_model_artifacts.py) checks their hashes, rights records, model identities, and safe CPU loading:
+
+```sh
+uv run --locked --no-sync python scripts/verify_published_model_artifacts.py
+```
+
+Separate opt-in checks replay existing outputs without fitting or modifying frozen evidence:
+
+```sh
+uv run --locked --no-sync python scripts/verify_published_model_artifacts.py --replay-res293
+uv run --locked --no-sync python scripts/verify_published_model_artifacts.py --replay-res274-cpu
+```
+
+The RES-293 replay rebuilds fit-only features in a temporary directory and requires byte-identical output for all 60 saved development/validation files. The RES-274 CPU replay uses 256-row batches and permits a maximum 0.0167 kg prediction delta and 0.000280 evaluation-metric delta from the original GPU outputs; measured maxima were 0.0166435 kg and 0.000279797. Neither replay retrains or rewrites predictions, evaluations, model states, or scientific receipts. The default RES-293 public verifier remains prediction/metric verification and reads no model states.
+
 ## Historical RES-284 publication replay
 
 ```sh
@@ -73,4 +90,4 @@ RES-510's standalone verifier recomputes its bootstrap campaign; it is not a has
 
 ## Rights and interpretation
 
-Preserve source identities, per-artifact notices, and the public origin ledger. Code and explicitly authorized machine-readable outputs are MIT; authored Markdown and the public-native IID dataset are CC BY 4.0. See the [RES-297 provenance clarification](../provenance/RES-297-prediction-provenance-clarification.md) for prediction-byte authorization and dataset attribution. Checkpoint bytes remain private. Passing engineering checks does not constitute independent scientific approval, real-athlete validity, or formal archival qualification.
+Preserve source identities, per-artifact notices, and the public origin ledger. Code and explicitly authorized machine-readable outputs are MIT; authored Markdown and the public-native IID dataset are CC BY 4.0. See the [RES-297 provenance clarification](../provenance/RES-297-prediction-provenance-clarification.md) for prediction-byte authorization and dataset attribution. The release excludes historical World-V2 checkpoints and other recovered task artifacts whose redistribution rights remain unresolved. Passing engineering checks does not constitute independent scientific approval, real-athlete validity, or formal archival qualification.

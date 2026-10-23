@@ -50,7 +50,7 @@ Use `predict` for one seed or `predict_three_seed_ensemble` for the recorded ens
 
 ## Numerical replay
 
-The source run used PyTorch 2.9.1+cu128 on an NVIDIA RTX PRO 6000 Blackwell. A replay with PyTorch 2.9.1+cpu, the original 256-row inference batching, the exact normalization, and the original RES-271 evaluator reproduced the saved predictions numerically but not byte-for-byte. Across the three seeds and ensemble, the maximum absolute prediction difference was 0.0167 kg and the mean absolute difference was 0.00069 kg. The largest change in any saved evaluation metric was 0.000280. The saved GPU prediction and EvaluationResult files remain unchanged. The verification receipt records per-seed details.
+The source run used PyTorch 2.9.1+cu128 on an NVIDIA RTX PRO 6000 Blackwell. A replay with PyTorch 2.9.1+cpu, the original 256-row inference batching, the exact normalization, and the original RES-271 evaluator reproduced the saved predictions numerically but not byte-for-byte. Across the three seeds and ensemble, the maximum absolute prediction difference was 0.0166435 kg and the mean absolute difference was 0.0006899 kg. The largest change in any saved evaluation metric was 0.000279797. `uv run python scripts/verify_published_model_artifacts.py --replay-res274-cpu` exposes that CPU replay separately and enforces tolerances of 0.0167 kg per prediction and 0.000280 per metric. The command run at this revision measured a mean absolute prediction difference of 0.0006126 kg; the earlier recovery receipt remains unchanged. The saved GPU prediction and EvaluationResult files remain unchanged.
 
 ## Rights and scope
 

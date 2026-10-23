@@ -13,4 +13,10 @@ Success exits with status `0` and prints `RES-293 public verification: PASS` wit
 
 The verifier checks the published report, receipts, fit summaries, 60 development/validation prediction files, analysis outputs, and their protocol, realization, split, fit, and prediction identities. If the ignored canonical IID data directory is absent, it reconstructs the same realization with the repository's deterministic public generator in a temporary directory and verifies the frozen manifest and train/validation hashes. A partial local data directory fails closed. The repository and published results are not written by verification.
 
-No model is fitted and no GPU is used. The private 30 checkpoint files are not required or read; their recorded hashes are cross-checked among the public receipts, but the checkpoint bytes themselves cannot be independently checked from a clean clone. The verifier recomputes canonical validation metrics and point contrasts from saved predictions. It does not rerun the 20,000-draw descriptive uncertainty calculation, qualify its coverage, or independently validate the scientific claims.
+The default command fits no model, uses no GPU, and does not read the 30 released model states. To replay the original 60 development/validation prediction files from the released states, run the separate optional replay:
+
+```sh
+uv run --locked --no-sync python scripts/verify_published_model_artifacts.py --replay-res293
+```
+
+It rebuilds the frozen fit-only feature inputs in a temporary directory, strictly loads each original state with `allow_pickle=False`, and requires byte-identical predictions. It does not fit, use development/validation labels as features, or write to results. The default verifier recomputes canonical validation metrics and point contrasts from saved predictions; neither command reruns the 20,000-draw descriptive uncertainty calculation, qualifies its coverage, or independently validates the scientific claims.

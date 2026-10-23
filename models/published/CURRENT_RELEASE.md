@@ -11,4 +11,13 @@ uv sync --locked
 uv run python scripts/verify_published_model_artifacts.py
 ```
 
+Optional CPU-only numerical replays are separate from the hash and loading check:
+
+```sh
+uv run python scripts/verify_published_model_artifacts.py --replay-res293
+uv run python scripts/verify_published_model_artifacts.py --replay-res274-cpu
+```
+
+RES-293 requires byte-identical replay of all 60 original prediction files and performs no fitting. RES-274 compares its three seeds and ensemble with the saved GPU outputs; CPU differences are allowed up to 0.0167 kg per prediction and 0.000280 per evaluation metric. The measured maxima were 0.0166435 kg and 0.000279797. Frozen prediction and evaluation files are read-only inputs.
+
 The release covers only project-owned PUBLIC_NATIVE artifacts. The authorization record is in [model-artifact-redistribution.md](../../provenance/model-artifact-redistribution.md); dataset attribution remains CC-BY-4.0.

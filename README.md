@@ -55,7 +55,7 @@ G4's original pooled classifications were **98 equivalence, 9 inconclusive, 1 be
 
 ## Models and benchmark audits
 
-The saved IID panel contains seven model families: context mean, Ridge, histogram boosted stumps, mechanistic midpoint, compact neural, mechanistic plus Ridge residual, and a lift-shared temporal GRU expert. [Model documentation](docs/models/reference-models.md) links their protocols, fitted identities, predictions, and evaluations. The temporal expert's three checkpoints are private; saved prediction evaluation does not imply inference from published checkpoints is available.
+The saved IID panel contains seven model families: context mean, Ridge, histogram boosted stumps, mechanistic midpoint, compact neural, mechanistic plus Ridge residual, and a lift-shared temporal GRU expert. [Model documentation](docs/models/reference-models.md) links their protocols, fitted identities, predictions, and evaluations. The [current model artifact release](models/published/CURRENT_RELEASE.md) publishes the three RES-274 PUBLIC_NATIVE GRU checkpoints and all 30 original RES-293 Definition B fitted states. The [public artifact verifier](scripts/verify_published_model_artifacts.py) checks their hashes, identities, and safe loading; optional commands replay the 60 RES-293 predictions or the original GRU inference on CPU.
 
 The [RES-284 synthesis](results/audits/res284-publication/report.md) reports 22 candidate fit/ensemble identities on 3,072 shared prediction keys and three targets. The temporal-expert ensemble leads 11 of 12 target/metric point-estimate comparisons; one expert seed leads squat MAE. This is a bounded descriptive result. All **264 paired-uncertainty cells are unsupported**, and all **36 historical cross-version numeric comparisons are rejected**. No universal model ranking or practical superiority follows. [Audit navigation](docs/audits/index.md#evidence-reading-guide) distinguishes validity axes, attack contracts, execution states, metric sensitivity, and missing evidence; it defines no universal validity score.
 
@@ -75,7 +75,7 @@ The [reproducibility guide](docs/reproducibility.md) separates artifact preserva
 | [docs](docs/README.md) | Scientific overview, cards, claim boundaries, and navigation |
 | [studies](studies/README.md), [results/studies](results/studies/README.md) | Frozen protocols, lineage, reports, diagnostics, and results |
 | [audits](audits/README.md), [results/audits](results/audits/README.md) | Audit contracts, executions, and publication evidence |
-| [data](data/README.md), [models](models/README.md) | Dataset and model specifications/manifests; no historical private data or weights |
+| [data](data/README.md), [models](models/README.md) | Dataset and model specifications/manifests, authorized model releases; historical private material excluded |
 | [artifacts](artifacts/README.md), [provenance](provenance/README.md) | Generated registries/schemas, rights, and origin records |
 
 ## Scientific limitations
@@ -84,4 +84,4 @@ All evidence is synthetic, with no demonstrated real-athlete validity or causal 
 
 ## Licensing and publication status
 
-Code is [MIT](LICENSE); project-authored Markdown is [CC BY 4.0](LICENSE-DOCS). Per-artifact notices govern data/results; the public-native IID dataset requires attribution. The [RES-297 clarification](provenance/RES-297-prediction-provenance-clarification.md) records authorization for the four already-public expert prediction artifacts and explains the frozen evaluator's `NOASSERTION` fallback. It does not authorize checkpoint distribution or clear historical private material. This repository is a research portfolio, with independent scientific review pending; it is not a qualified formal archival release.
+Code is [MIT](LICENSE); project-authored Markdown is [CC BY 4.0](LICENSE-DOCS). Per-artifact notices govern data/results; the public-native IID dataset requires attribution. The [RES-297 clarification](provenance/RES-297-prediction-provenance-clarification.md) records authorization for the four already-public expert prediction artifacts and explains the frozen evaluator's `NOASSERTION` fallback; it does not itself authorize checkpoint distribution. Separate authorization for the currently released checkpoints and fitted states is recorded in [model-artifact-redistribution.md](provenance/model-artifact-redistribution.md). Historical World-V2 and other recovered task artifacts remain private. This repository is a research portfolio, with independent scientific review pending; it is not a qualified formal archival release.
