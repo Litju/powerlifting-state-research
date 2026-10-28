@@ -1,0 +1,391 @@
+{
+  "baseline": "b751cf4c9d44301b03861127ed94158d7c93fa3a",
+  "check_status": {
+    "density_normalization": "NOT_RUN",
+    "finite_difference_gradients": "NOT_RUN",
+    "independent_numerical_review": "NOT_RUN",
+    "independent_scientific_review": "NOT_RUN",
+    "profile_coverage": "NOT_RUN",
+    "profile_optimization": "NOT_RUN",
+    "resource_enforcement": "NOT_RUN",
+    "solver_comparison": "NOT_RUN",
+    "stationarity": "NOT_RUN",
+    "support_and_gradient_algebra": "NOT_RUN"
+  },
+  "cohort": {
+    "assessment_count_per_case": 96,
+    "cases": 16,
+    "eligible_split": "development",
+    "entity_count": 8,
+    "key_manifest": "sentinel-keys.json",
+    "lifts": [
+      "squat",
+      "bench_press",
+      "deadlift"
+    ],
+    "noise_scales": [
+      1,
+      2
+    ],
+    "per_cell_selection": "minimum key among exactly two eligible entities",
+    "plan_index_rule": "p in {h,(h+1) mod 4}",
+    "plan_order": [
+      "continue",
+      "step_up",
+      "step_down",
+      "cessation"
+    ],
+    "selection_encoding": "UTF-8",
+    "selection_order": [
+      "sha256_hex",
+      "entity_id"
+    ],
+    "selection_prefix": "RES-552/sentinel/v1|",
+    "squat_template_indices": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "untouched_confirmation": false
+  },
+  "execution_authorized": false,
+  "independent_review_status": "NOT_RUN",
+  "inputs": {
+    "allowed": [
+      "entity keys",
+      "lift identity",
+      "32 assessment observations per lift at days 6,13,...,223",
+      "known past schedules",
+      "declared future schedules"
+    ],
+    "forbidden": [
+      "latent truth",
+      "true coordinates or parameters",
+      "test labels",
+      "target errors",
+      "future realized outcomes or observations",
+      "prescribed loads",
+      "velocity",
+      "posterior modes",
+      "residual model outputs"
+    ],
+    "mount_rule": "separate allowlisted read-only inputs; no truth/test/result-output mount; access log required"
+  },
+  "limitations": [
+    "known synthetic law and zero initial states",
+    "eight of sixteen schedule-plan cells only",
+    "already inspected numerical development evidence",
+    "finite multimodal search",
+    "support nonregularity",
+    "finite precision",
+    "prior dependence belongs to original Bayesian study",
+    "no calibrated likelihood intervals",
+    "no real-athlete or causal transfer"
+  ],
+  "mission": "PSR_G2_NUMERICAL_ADEQUACY_PROTOCOL_PLANNING",
+  "normative_mathematics": "protocol-review.md#exact-likelihood-and-derivatives",
+  "objective": {
+    "acceptance_normalizer": "integral_b^c (Phi((1/f-1)/sigma)-Phi((0.4/f-1)/sigma)) df / (c-b)",
+    "baseline_objective": "ell0",
+    "bounds": [
+      0,
+      "nextafter(1,0)"
+    ],
+    "candidate_objective": "ell0/96",
+    "coordinates": 16,
+    "ell0": "nll minus the q-independent Gaussian and acceptance constants",
+    "initial_state": {
+      "A_minus1": 0,
+      "R_minus1": 0
+    },
+    "kind": "exact_accepted_assessment_conditional_marginal_negative_log_likelihood",
+    "load_fraction": [
+      0.68,
+      0.71
+    ],
+    "nll": "sum(log(P)+(a/P-1)^2/(2*sigma^2)-log(w(a/P))+log(sigma)+0.5*log(2*pi)+log(Zacc))",
+    "noise_cv": {
+      "bench_press": 0.04,
+      "deadlift": 0.05,
+      "squat": 0.05
+    },
+    "noise_zero": "EXCLUDED_DEGENERATE_LIKELIHOOD",
+    "out_of_support_exact_nll": "positive infinity",
+    "penalized_terminal_eligible": false,
+    "priors": null,
+    "ratio_knots": [
+      "0.4/0.71",
+      "0.4/0.68",
+      "1/0.71",
+      "1/0.68"
+    ],
+    "ratio_support_open": [
+      "0.4/0.71",
+      "1/0.68"
+    ],
+    "relative_load_domain": [
+      0.4,
+      1
+    ],
+    "search_penalty": 1000000,
+    "search_penalty_use": "original quadratic guidance only, divided by 96 for candidates"
+  },
+  "phase_a_pass": {
+    "all_cases_required": 16,
+    "both_candidates_required": true,
+    "global_identification_claim": false,
+    "requirements": [
+      "exact objective/support/gradient consistency",
+      "finite exact feasible smooth terminal",
+      "projected and box-sign KKT stationarity",
+      "five-iterate objective and step stabilization",
+      "two original starts per candidate within objective band",
+      "cross-candidate best objective agreement",
+      "no lower feasible unqualified terminal beyond agreement band",
+      "full denominators and boundary/mode reports"
+    ],
+    "target_uniqueness_required": false,
+    "terminal_checks": "all 12 procedure/start terminals plus four starting points when feasible/smooth; failed terminals remain unqualified, not excluded from records"
+  },
+  "phase_a_status": "NOT_RUN",
+  "phase_b": {
+    "additional_target_profiles": "require prospective amendment before outcomes",
+    "anchor": "Candidate S best qualified Phase A vector; ties within tau_eval resolved by lexicographic full coordinate vector",
+    "confidence_level": null,
+    "constraint": "(C_223_kg-t)/1kg = 0",
+    "constraint_jacobian": "analytic, independently finite-difference checked with shared probes",
+    "corroborating_starts": 2,
+    "coverage_claim": false,
+    "definition": "L_T(t)=inf{ell0(q):q in Q, all weights positive,T(q)=t}; D_T(t)=2*(L_T(t)-inf ell0)",
+    "descriptive_twice_nll_band": 2,
+    "entity_rule": "first two sentinels by fixed selection hash order",
+    "equality_gradient_rank_floor": 1e-08,
+    "equality_residual_kg": 1e-05,
+    "ftol": 1e-10,
+    "grid_offsets_kg": [
+      -10,
+      -5,
+      -2,
+      -1,
+      0,
+      1,
+      2,
+      5,
+      10
+    ],
+    "kkt_lagrangian_residual": 1e-06,
+    "legacy_numerical_equivalence": {
+      "absolute_nll_difference": 1e-06,
+      "exact_algebraic_proof": false,
+      "history_rmse_kg": 1e-06,
+      "min_coordinate_infinity_separation": 0.001
+    },
+    "maxiter": 400,
+    "method": "SLSQP",
+    "near_optimal_alternative": {
+      "max_reference_summed_nll_increase": 0.0001,
+      "min_target_separation_kg": 1,
+      "required_evidence": "two stored feasible independently qualified vectors, exact same entity/noise/schedules; finite reference only"
+    },
+    "nll_agreement": 0.0001,
+    "noise_scale": 1,
+    "objective": "ell0/96",
+    "primary_target": "squat.C_223_kg",
+    "reference_improvement_stop": 0.0001,
+    "starts": [
+      "Phase A anchor",
+      "all 0.25",
+      "all 0.50",
+      "all 0.75"
+    ],
+    "status": "NOT_ADMITTED",
+    "twice_nll_numerical_allowance": 0.0004,
+    "unfound_alternative_or_failed_grid_point": "INCONCLUSIVE_FOR_IDENTIFICATION"
+  },
+  "phase_b_requires": [
+    "Phase A PASS",
+    "independent profile review",
+    "separate explicit owner Phase B authorization"
+  ],
+  "phase_b_status": "NOT_ADMITTED",
+  "preservation_manifest": "baseline-files.json",
+  "procedures": [
+    {
+      "ftol": 1e-10,
+      "gtol": 1e-06,
+      "historical_outputs": "READ_ONLY_UNCHANGED",
+      "id": "original",
+      "jac": "analytic",
+      "maxcor": 10,
+      "maxfun": 3000,
+      "maxiter": 100,
+      "maxls": 20,
+      "method": "L-BFGS-B",
+      "objective": "ell0",
+      "prospective_rerun_status": "NOT_RUN",
+      "selection": "original converged-first then lowest finite feasible, flagged nonconverged if none; compare lowest feasible separately"
+    },
+    {
+      "ftol": 1e-13,
+      "gtol": 1e-07,
+      "id": "candidate_L",
+      "jac": "analytic",
+      "maxcor": 10,
+      "maxfun": 800,
+      "maxiter": 800,
+      "maxls": 20,
+      "method": "L-BFGS-B",
+      "objective": "ell0/96"
+    },
+    {
+      "external_max_calls": 800,
+      "ftol": 1e-10,
+      "id": "candidate_S",
+      "jac": "analytic",
+      "maxiter": 400,
+      "method": "SLSQP",
+      "objective": "ell0/96"
+    }
+  ],
+  "prohibited": [
+    "scientific execution in RES-552",
+    "training",
+    "inference replay",
+    "data generation",
+    "model fitting",
+    "editing existing protocols/results/source/models",
+    "manuscript/license edits",
+    "merge",
+    "publication",
+    "new research issues"
+  ],
+  "protocol_id": "res552-g2-numerical-adequacy-draft-0.1.0",
+  "reporting": [
+    "all cases and starts including failures",
+    "raw solver status and separate independent qualification",
+    "exact objective and omitted constant",
+    "bound modes and multiple modes separately",
+    "support margins and knot distances",
+    "projected and sign KKT residuals",
+    "objective agreement",
+    "target separation without truth error",
+    "function/gradient/model/transition/time/memory counters",
+    "no population or global uniqueness claims"
+  ],
+  "required_authorization": "GO_FOR_G2_NUMERICAL_EXECUTION",
+  "resources": {
+    "abort": "earliest call/wall/CPU/process-tree memory cap wins; stop process tree, retain partial logs, INCONCLUSIVE_RESOURCE, no replacement or extension",
+    "accounting": "all requested evaluations, including rejected/penalty/constraint/finite difference/independent checks; fused requests count F and G; target and likelihood perturbation checks share trajectory evaluations",
+    "combined": {
+      "total_cpu_seconds": 9360,
+      "total_daily_transition_equivalents": 320544000,
+      "total_function_calls": 381600,
+      "total_gradient_calls": 381600,
+      "total_model_passes": 381600,
+      "total_wall_seconds": 9360
+    },
+    "cpu_threads_including_blas": 1,
+    "gpu": false,
+    "hard_counter_admission_test": "inert non-scientific functions only, later authorized stage",
+    "memory_bytes_process_tree": 2147483648,
+    "phase_a": {
+      "baseline_per_start_calls": 3000,
+      "candidate_per_start_calls": 800,
+      "candidate_procedures": 2,
+      "cases": 16,
+      "diagnostics_per_case_calls": 1400,
+      "diagnostics_per_case_wall_seconds": 90,
+      "function_calls_per_case": 19800,
+      "gradient_calls_per_case": 19800,
+      "model_passes_per_case": 19800,
+      "per_start_wall_seconds": 30,
+      "starts_per_procedure": 4,
+      "total_cpu_seconds": 7200,
+      "total_daily_transition_equivalents": 266112000,
+      "total_function_calls": 316800,
+      "total_gradient_calls": 316800,
+      "total_model_passes": 316800,
+      "total_wall_seconds": 7200
+    },
+    "phase_b": {
+      "diagnostics_per_grid_point_calls": 400,
+      "diagnostics_per_grid_point_wall_seconds": 40,
+      "entities": 2,
+      "grid_points_per_entity": 9,
+      "noise_scales": [
+        1
+      ],
+      "per_start_calls": 800,
+      "per_start_wall_seconds": 20,
+      "starts_per_grid_point": 4,
+      "total_cpu_seconds": 2160,
+      "total_daily_transition_equivalents": 54432000,
+      "total_function_calls": 64800,
+      "total_gradient_calls": 64800,
+      "total_model_passes": 64800,
+      "total_wall_seconds": 2160
+    },
+    "precision": "IEEE-754 binary64",
+    "processes": 1
+  },
+  "review_checklist": "review-checklist.md",
+  "review_readiness": "READY_FOR_INDEPENDENT_PROTOCOL_REVIEW",
+  "source_identity_manifest": "source-identities.json",
+  "starts": {
+    "count": 4,
+    "fixed_coordinate_values": [
+      0.25,
+      0.5,
+      0.75
+    ],
+    "fourth": "original stored entity/noise-keyed Python random.Random uniform(0.1,0.9) vector",
+    "reuse": "same four original starts for every Phase A procedure; no warm starts",
+    "seed_rule": "289303 + 10*entity_index + int(noise_scale)"
+  },
+  "status": "DRAFT_NON_OPERATIVE",
+  "stop_states": [
+    "FAILED",
+    "INCONCLUSIVE",
+    "BLOCKED",
+    "NOT_RUN"
+  ],
+  "tolerances": {
+    "active_bound_coordinate_distance": "64*epsilon",
+    "bounds_violation": 0,
+    "box_kkt_sign_residual_on_mean_nll": 1e-06,
+    "complementarity": 1e-06,
+    "epsilon": "2^-52",
+    "final_step_coordinate_infinity": 1e-05,
+    "final_step_summed_nll_change": 1e-06,
+    "gradient_error": "1e-7 + 1e-5*max(abs(analytic),abs(difference))",
+    "gradient_steps": [
+      "epsilon^(1/3)",
+      "epsilon^(1/3)/2"
+    ],
+    "last_accepted_iterates": 5,
+    "multistart_and_cross_method_summed_nll": 0.0001,
+    "nonpositive_weight_allowed": false,
+    "normalizer_absolute": 1e-12,
+    "normalizer_quadrature_settings": [
+      1e-12,
+      1e-13
+    ],
+    "objective_evaluation_absolute": "1e-8 + 256*epsilon*sum(abs(ell0_terms))",
+    "projected_gradient_infinity_on_mean_nll": 1e-06,
+    "qualified_starts_per_candidate": 2,
+    "ratio_knot_guard": "64*sqrt(epsilon)*max(1,abs(z))",
+    "stationarity_gradient_absolute_error_max": 2.5e-07,
+    "stationarity_gradient_interstep_max": 2.5e-07,
+    "target_meaningful_separation": {
+      "coordinate_infinity": 0.001,
+      "kg": 1,
+      "state": 0.01
+    },
+    "target_numerical_agreement": {
+      "kg": 0.0001,
+      "state": 1e-06
+    }
+  },
+  "version": "0.1.0"
+}

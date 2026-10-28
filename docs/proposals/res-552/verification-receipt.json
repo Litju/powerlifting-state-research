@@ -1,0 +1,107 @@
+{
+  "approved_or_frozen_execution_protocol": false,
+  "baseline": "b751cf4c9d44301b03861127ed94158d7c93fa3a",
+  "baseline_file_count": 896,
+  "change_scope": "only new public-safe proposal/manifest/static-check files; no existing tracked file changed",
+  "changed_files": [
+    "docs/proposals/res-552/baseline-files.json",
+    "docs/proposals/res-552/draft-protocol.json",
+    "docs/proposals/res-552/proposal-checksums.json",
+    "docs/proposals/res-552/protocol-review.md",
+    "docs/proposals/res-552/review-checklist.md",
+    "docs/proposals/res-552/sentinel-keys.json",
+    "docs/proposals/res-552/source-identities.json",
+    "docs/proposals/res-552/verification-receipt.json",
+    "docs/proposals/res-552/verify-static.py"
+  ],
+  "checks": {
+    "baseline_file_bytes": "PASS_896",
+    "baseline_modes_and_additions_scope": "PASS",
+    "canonical_protocol_source_split_realization_digests": "PASS",
+    "g1_g4_res293_studies_match_original_science_freeze": "PASS",
+    "g2_execution_source_hashes": "PASS_WITH_TWO_DOCUMENTED_DEPENDENCY_DRIFTS",
+    "g2_manifest_artifact_hashes": "PASS_26",
+    "git_diff_whitespace": "PASS",
+    "metadata_only_sentinels": "PASS_8_ENTITIES_16_CASES",
+    "negative_static_budget_mutation": "REJECTED_AS_EXPECTED_AND_RESTORED",
+    "original_optimizer_counts": "PASS_STATIC_CSV_ONLY",
+    "remote_main_exact": "PASS",
+    "res551_archive_and_selected_tables": "PASS",
+    "resource_arithmetic": "PASS",
+    "static_script_ast_import_allowlist": "PASS",
+    "static_script_compile": "PASS",
+    "static_script_ruff_check": "PASS",
+    "static_script_ruff_format": "PASS"
+  },
+  "checksum_scope": "proposal-checksums.json binds all other top-level proposal files; it excludes itself to avoid recursion; commit and final handoff bind its identity",
+  "created_at_utc": "2026-10-28T11:09:15.220419+00:00",
+  "detached_inspection_clean": true,
+  "draft_pr_execution_firewall": {
+    "automatic_events": [
+      "push main",
+      "pull_request main"
+    ],
+    "commit_marker": "[skip ci]",
+    "reason": "automatic pull_request workflow runs scientific pytest generation/fits; this task authorizes planning only",
+    "reference": "https://docs.github.com/en/actions/how-tos/manage-workflow-runs/skip-workflow-runs",
+    "workflow_modified": false,
+    "workflow_run_verification": "to be checked after draft PR creation and reported in issue handoff",
+    "workflow_sha256": "sha256:c01615a7486927fae3c2503063620bc34adcd609fe55e06bb17beee551e0bda5"
+  },
+  "isolated_branch": "codex/res-552-g2-protocol-planning",
+  "issue": "RES-552",
+  "mission": "PSR_G2_NUMERICAL_ADEQUACY_PROTOCOL_PLANNING",
+  "not_run": [
+    "optimizer/model/likelihood/gradient evaluations",
+    "training",
+    "inference replay",
+    "data generation",
+    "truth scoring",
+    "model loading",
+    "scientific pytest or replay --check",
+    "binary/runtime environment qualification",
+    "Phase A",
+    "Phase B",
+    "independent review"
+  ],
+  "original_workspace_clean": true,
+  "original_workspace_head": "207e5c1fa3abd5271e2f0e94a46fc12fe1406636",
+  "publication_or_merge_authorized": false,
+  "readiness": "READY_FOR_INDEPENDENT_PROTOCOL_REVIEW",
+  "review_required": [
+    "independent numerical/inverse-problem signoff",
+    "independent scientific signoff",
+    "owner GO_FOR_G2_NUMERICAL_EXECUTION"
+  ],
+  "separate_manuscript_preservation": {
+    "local_before_and_after": {
+      "head": "eed87a751330bc28a25adec429e0c14d784f520f",
+      "status": "",
+      "tracked_count": 89,
+      "tree": "1c71181db3e5448911688d8b08e152adc8cd20ad",
+      "working_sha256": "19fd8e783f773dd03db7e37c26d62fe5984ac6e6c661204164601baef82eb257"
+    },
+    "local_tracked_before_equals_after": true,
+    "private": true,
+    "remote_anonymous_default_master_before_equals_after": true,
+    "remote_attributed_pr_before_equals_after": true,
+    "remote_pr": {
+      "base": "2a7f1a0686d4d6835cf9f8a4dbbbd5b26b825cce",
+      "draft": true,
+      "head": "089372d1cf25783b3d556eb4bba7e51bbe664ca9",
+      "merged": false,
+      "state": "open"
+    },
+    "scope_limit": "local checkout differs from remote attributed head; remote refs/status checked, no remote manuscript bytes fetched or validated",
+    "tracked_file_coverage": "all 89 local tracked files, including manuscript PDF/TeX and research evidence; no contents copied here"
+  },
+  "verification_commands": [
+    "git ls-remote origin refs/heads/main",
+    "python3 docs/proposals/res-552/verify-static.py",
+    "/home/litju/powerlifting-state-research/.venv/bin/ruff check docs/proposals/res-552/verify-static.py",
+    "/home/litju/powerlifting-state-research/.venv/bin/ruff format --check docs/proposals/res-552/verify-static.py",
+    "git diff --check",
+    "git diff --name-status b751cf4c9d44301b03861127ed94158d7c93fa3a",
+    "git diff --name-only 3b833b627714fb4f788d4d61de6efa52453dafa5 b751cf4c9d44301b03861127ed94158d7c93fa3a -- results/studies studies src/powerlifting_state_research/studies/target_sufficient_structural_reconstruction.py src/powerlifting_state_research/studies/target_sufficient_structural_reconstruction_protocol.py"
+  ]
+}

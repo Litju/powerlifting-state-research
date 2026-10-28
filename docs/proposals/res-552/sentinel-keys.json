@@ -1,0 +1,98 @@
+{
+  "entities": [
+    {
+      "declared_plan": "continue",
+      "entity_id": "entity-000016",
+      "entity_index": 16,
+      "history_template_by_lift": {
+        "bench_press": 1,
+        "deadlift": 2,
+        "squat": 0
+      },
+      "selection_sha256": "b2a9e4f1dca5896a7014b10c089a10ab49732ebedab1f1ac86e2ef9fb5924b03"
+    },
+    {
+      "declared_plan": "step_up",
+      "entity_id": "entity-000001",
+      "entity_index": 1,
+      "history_template_by_lift": {
+        "bench_press": 1,
+        "deadlift": 2,
+        "squat": 0
+      },
+      "selection_sha256": "6ead047a0f785563cbe625bac33b8b625bc537e62b30d37b426f46c93f563cf8"
+    },
+    {
+      "declared_plan": "step_up",
+      "entity_id": "entity-000021",
+      "entity_index": 21,
+      "history_template_by_lift": {
+        "bench_press": 2,
+        "deadlift": 3,
+        "squat": 1
+      },
+      "selection_sha256": "e009b7a5486c56dd4487f0cddb8128ea6d152e7337dc30784c0dfaa68c42d5c1"
+    },
+    {
+      "declared_plan": "step_down",
+      "entity_id": "entity-000022",
+      "entity_index": 22,
+      "history_template_by_lift": {
+        "bench_press": 2,
+        "deadlift": 3,
+        "squat": 1
+      },
+      "selection_sha256": "0a08f179ed3f7010f399138fc0feb7e442c1ecb88c5ecffdc8f27727c091ec5a"
+    },
+    {
+      "declared_plan": "step_down",
+      "entity_id": "entity-000010",
+      "entity_index": 10,
+      "history_template_by_lift": {
+        "bench_press": 3,
+        "deadlift": 0,
+        "squat": 2
+      },
+      "selection_sha256": "190e0a418a242ddea1c2f061df1d732c7b2c453d18d7e94cb04ac2c38439996c"
+    },
+    {
+      "declared_plan": "cessation",
+      "entity_id": "entity-000027",
+      "entity_index": 27,
+      "history_template_by_lift": {
+        "bench_press": 3,
+        "deadlift": 0,
+        "squat": 2
+      },
+      "selection_sha256": "7adff22e89751e2bbb070f3f74cf67fb950abb19e44ea6a51170d119681ad9e8"
+    },
+    {
+      "declared_plan": "cessation",
+      "entity_id": "entity-000031",
+      "entity_index": 31,
+      "history_template_by_lift": {
+        "bench_press": 0,
+        "deadlift": 1,
+        "squat": 3
+      },
+      "selection_sha256": "9e4aa430d8b71009974a88d0d842d12c5163b0bb248a4838781f6c7018dd3844"
+    },
+    {
+      "declared_plan": "continue",
+      "entity_id": "entity-000028",
+      "entity_index": 28,
+      "history_template_by_lift": {
+        "bench_press": 0,
+        "deadlift": 1,
+        "squat": 3
+      },
+      "selection_sha256": "53e2222ea13a3cef98c22e8d42d6c736aa157527545c33a79a219c19ca5e944e"
+    }
+  ],
+  "metadata_only": true,
+  "phase_b_entity_ids": [
+    "entity-000022",
+    "entity-000010"
+  ],
+  "selection_version": "RES-552/sentinel/v1"
+}
