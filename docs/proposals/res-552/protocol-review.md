@@ -1,6 +1,6 @@
-# RES-552 — G2 numerical adequacy protocol, draft 0.1.0
+# RES-552 — G2 numerical adequacy protocol, draft 0.1.1
 
-Status: **READY_FOR_INDEPENDENT_PROTOCOL_REVIEW**. This is a prospective,
+Status: **READY_FOR_INDEPENDENT_RE_REVIEW**. This is a prospective,
 non-operative proposal, not an approved or frozen execution protocol. All
 numerical checks and phases below are **NOT_RUN**. Phase B is **NOT_ADMITTED**.
 Independent numerical/inverse-problem review and explicit owner
@@ -127,8 +127,31 @@ error bars. If they cannot be resolved within the ceilings, stop; no tuning.
    the frozen formula at the same feasible coordinates. Tolerance is
    tau_eval=1e-8+256 epsilon sum_j abs(ell0_j) in summed NLL units.
    Check full ell differs from ell0 by exactly the declared constant within
-   tau_eval; Zacc absolute error <=1e-12 under two fixed integration settings
-   (absolute/relative tolerances 1e-12 and 1e-13). Failure is FAILED_OBJECTIVE.
+   tau_eval. Freeze the following two independent Zacc procedures for each
+   sigma in {0.04,0.05,0.08,0.10}; neither is run in this repair.
+   A: adaptive 21-point Gauss-Kronrod (`scipy.integrate.quad`) of the Gaussian
+   density times piecewise w(z), separately on [d/c,d/b], [d/b,e/c], [e/c,e/b].
+   Each piece uses epsabs=1e-12/3, epsrel=1e-12, limit=200; compensated sum,
+   summed reported absolute error <=1e-12, no integration warnings.
+   B: composite 32-point Gauss-Legendre on f in [0.68,0.71], using independently
+   written [Phi((1/f-1)/sigma)-Phi((0.4/f-1)/sigma)]/0.03,
+   Phi(x)=0.5 erfc(-x/sqrt(2)) from math.erfc. Obtain nodes/weights from
+   numpy.polynomial.legendre.leggauss(32), map to equal-width panels and use
+   compensated summation. Compute exactly 1,2,4 panels; require both
+   |B2-B1|<=1e-13 and |B4-B2|<=1e-13; return B4.
+   B shares neither A's integrand/weight helper nor its integration algorithm.
+   All estimates must be finite in (0,1]; require |A-B4|<=1e-12 and
+   |A-original_Zacc|<=1e-12. Also require the induced full-NLL constant change
+   |sum_l 32 log(Zacc_A(sigma_l)/Zacc_B(sigma_l))|<=tau_eval for each checked
+   case/vector. These are error estimates and agreement tests, not a rigorous
+   absolute-error bound. Resolved disagreement is FAILED_OBJECTIVE; warnings,
+   unresolved precision/error or exhausted diagnostics are INCONCLUSIVE_NORMALIZER.
+   No adaptive setting changes beyond A's fixed algorithm and B's fixed levels.
+   Compute each unique sigma once in listed order, charging it to the first
+   four frozen Phase A cases (sentinel list order, noise 1 then 2), respectively,
+   before solving. Each integrand request consumes that case's diagnostic F;
+   cache immutable results for reuse across all cases. No counter borrowing.
+   Fixed ceilings can censor these checks; no numerical sufficiency is assumed.
 4. Gradient checks use f=ell0/96 and h=epsilon^(1/3), h/2, about 6e-6 and
    3e-6 of a full coordinate range. Central differences when allowed;
    second-order inward one-sided differences at box boundaries. No clipping
@@ -153,11 +176,32 @@ error bars. If they cannot be resolved within the ceilings, stop; no tuning.
    for observation support at a qualified smooth terminal, since support is
    strict. Equivalent bound multipliers must be nonnegative and satisfy
    complementarity within 1e-6; record raw gradients and both residuals.
-7. In each candidate run require five final accepted iterates, each with
+7. In each candidate run require five final accepted moves, each with
    summed ell0 change <=1e-6 and coordinate step infinity norm <=1e-5,
    as well as terminal feasibility, differentiability, gradient and KKT gates.
-   A solver success flag alone never qualifies. A budget-terminated candidate
-   may meet these independent checks; preserve its raw failure flag.
+   Instrument L-BFGS-B at source-confirmed NEW_X events after line-search
+   acceptance, and SLSQP at source-confirmed completed major iterations after
+   its line search, with strictly increasing major counters. A callback is
+   only an observation hook: before execution, audit the pinned driver/adapter
+   to prove these event semantics; absent proof is BLOCKED_INSTRUMENTATION.
+   Store copied unrounded q, method/start, unique iteration/event token and
+   counters. Independently recheck exact finite NLL/support/smoothness at each
+   observed endpoint and predecessor, plus Phase B equality when applicable.
+   Trial evaluations and duplicate event tokens never count; repeated identical
+   coordinates are logged but do not count as a new move. Five consecutive
+   accepted nonzero moves require six checked states; the initial state may
+   be their predecessor but is not itself an accepted iteration. Infeasible,
+   nonsmooth or equality-violating states break the certified history.
+   Fewer than five qualifying final moves, including zero-iteration/early
+   success, is INCONCLUSIVE_INSUFFICIENT_HISTORY. No padding, repeated-point
+   manufacture, extra iteration or restart is allowed. Returned coordinates
+   must match the final source-confirmed state; missing evidence/mismatch is
+   INCONCLUSIVE_INSTRUMENTATION. Recheck the terminal independently.
+   All external iteration checks consume the diagnostic F/G/model counters
+   for actual requested work; cache reuse is recorded, never an exemption.
+   A solver success flag alone never qualifies. Preserve all raw solver flags;
+   a solver-limit termination can qualify only with complete history/checks
+   already certified within the hard caps. Unfinished checks cannot qualify.
    The mean-gradient threshold implies a first-order summed NLL change below
    9.6e-8 for a 1e-3 single-coordinate displacement, below the 1e-6 iterate
    band. Binary64 accumulation allowance is separate from optimizer tolerance.
@@ -261,9 +305,31 @@ model trajectory evaluation separately, including cache misses and target probes
 Report accepted versus rejected work and daily-transition equivalents (at most
 840 per full three-lift/280-day trajectory pass).
 
-Phase A per case: baseline 4×3000=12000 F/G; each candidate 4×800=3200 F/G;
+The resources object in draft-protocol.json is the sole hard-budget authority.
+The table below is its statically checked rendering, not a second authority.
+F, G and model passes are independent counters with the same respective limits.
+Before work begins, atomically reserve every affected start/diagnostic bucket
+and enclosing case/phase counter; refuse any request exceeding any limit.
+Solver requests use their own start bucket; external checks (including accepted
+iterate, terminal and normalizer verification) use diagnostics, and all work
+also consumes enclosing counters. No transfer, reset or borrowing is allowed.
+Fused F/G/model evaluation increments each once. Separate target/constraint/model
+passes increment the model counter. Pure normalizer quadrature uses one diagnostic
+F per integrand request, no G/model unless requested. Cache hits avoid model
+passes but requested F/G still count. Incomplete checks at any cap give
+INCONCLUSIVE_RESOURCE. Diagnostic ceilings may be insufficient; no exemption.
+
+<!-- phase-a-budget-table -->
+| Counter | Per case | Phase A total | Daily-transition ceiling |
+| --- | ---: | ---: | ---: |
+| Function | 19800 | 316800 | — |
+| Gradient | 19800 | 316800 | — |
+| Model passes | 19800 | 316800 | 266112000 |
+<!-- /phase-a-budget-table -->
+
+Phase A per case: baseline 4×3000=12000 F/G/model; each candidate 4×800=3200 F/G/model;
 shared diagnostic allowance 1400 F/G/model passes. Total per case <=19800
-function, 19000 gradient, 19000 model passes. Sixteen cases <=316800 each,
+function, 19800 gradient, 19800 model passes. Sixteen cases <=316800 each,
 <=266112000 daily-transition equivalents. No counter resets between methods.
 Diagnostics include terminal checks, gradient probes, support/normalization
 work and baseline's extra terminal evaluations; a cache can reduce cost but
@@ -335,16 +401,26 @@ cannot be established on the active box face, report INCONCLUSIVE_KKT.
 Two distinct starts must corroborate each profile point within 1e-4 summed
 NLL. Require five final iterate objective/step checks as in Phase A and
 constraint feasibility. If profile finds ell0 lower than the Phase A anchor
-by >1e-4, invalidate the reference and stop INCONCLUSIVE_REFERENCE; do not
+by >max(tau_eval(reference),tau_eval(candidate)), invalidate the reference and
+stop INCONCLUSIVE_REFERENCE; do not
 recenter or silently improve/restart Phase A.
 
 Report estimated objective differences 2(ell_profile-ell_anchor) with numerical
 allowance 4e-4; negative values inside this allowance are numerical zero,
 not improved evidence. A **conditional near-optimal target alternative** needs
 two explicitly stored feasible, qualified vectors q0,q1 for the same entity,
-noise and schedules with |C_223(q1)-C_223(q0)|>=1 kg and
-ell0(q1)-ell0(q0)<=1e-4. State that this comparison is relative to the qualified
-finite reference, not the unknown global optimum. Separately flag exact
+noise and schedules with |C_223(q1)-C_223(q0)|>=1 kg. Freeze one common
+ell_ref=ell0(the qualified Phase A Candidate S anchor) for both vectors.
+For EACH i in {0,1}, independently require
+ell_ref-max(tau_eval(reference),tau_eval(qi)) <= ell0(qi) <= ell_ref+1e-4.
+A vector below its lower bound invalidates the reference and stops the case as
+INCONCLUSIVE_REFERENCE; do not recenter. A vector above the upper bound is
+REJECT_ALTERNATIVE and remains a profile record, never near-optimal evidence.
+Each vector separately passes exact feasibility, smoothness, derivative and
+applicable stationarity/KKT checks at its own target. A pairwise difference
+alone cannot qualify either vector. The numerical reporting allowance for D
+never overrides this reference check. This comparison is relative to a
+qualified finite common reference, not the unknown global optimum. Separately flag exact
 numerical-equivalence candidates only if abs(ell0 difference)<=1e-6,
 P-history RMSE<=1e-6 kg and max coordinate separation>1e-3, the old RES-289
 criterion; this remains numerical evidence, not an exact algebraic proof.

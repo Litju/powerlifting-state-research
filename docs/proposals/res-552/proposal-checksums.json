@@ -2,12 +2,12 @@
   "algorithm": "SHA-256",
   "files": {
     "baseline-files.json": "sha256:5a70703c44049c236ab3b15ddb9274f63d3634429201ba3402a921d7f3986123",
-    "draft-protocol.json": "sha256:8d6a94bbf9558e5d54c284da1bb9e8a600bd407194b0ec62a457d257a75abb70",
-    "protocol-review.md": "sha256:35e83a2ec6528cb57b82413f85d5e3fa47519ed72b1f5651830b6ae831b46354",
-    "review-checklist.md": "sha256:bb5aa44f34e6a015db6b7dac2a7160fbafd1d17e094d8003b5af79c6e11f5822",
+    "draft-protocol.json": "sha256:769a7bf382f0e4ecef747f41bae7bd337926b58a05f557e57bf0d16ab5107dfc",
+    "protocol-review.md": "sha256:ae698307a867cfaa7bb7cc816cff5fea68270d08030ffcc792b5b9bbc77264d3",
+    "review-checklist.md": "sha256:8be8ff55e625862d70f335b0950bca45779b26e9466caa49ca5df190ef67b546",
     "sentinel-keys.json": "sha256:86bd763aceada6956d346b2c77fba3e6358e94e44ed14e6a50da8b683b47712f",
     "source-identities.json": "sha256:0f12685281c98209017e6cb2c81d9f7c8ab3ad30b6a57b4980960ece7a221145",
-    "verification-receipt.json": "sha256:a67aaade111056c4305d955dac8e1c5a6270c30a88323933e663e9a0c4e589b6",
-    "verify-static.py": "sha256:d0485c3bd74ccf6c3b7c841f63e187eb997c4e487c23f326be4793eef9d97112"
+    "verification-receipt.json": "sha256:e9f54a21f5a18919c19e26b713348971e11641e2944fe6173b632040c306af5a",
+    "verify-static.py": "sha256:7206844310312a94fb5eeeb8411fe8188acfe5343c914921e74bcbfda3c823b7"
   }
 }

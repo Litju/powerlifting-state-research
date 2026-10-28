@@ -1,7 +1,7 @@
 # RES-552 independent review checklist
 
-Planning status: READY_FOR_INDEPENDENT_PROTOCOL_REVIEW. No signoff has been
-provided. Every unchecked item is pending; the static receipt is not a
+Planning status: READY_FOR_INDEPENDENT_RE_REVIEW. AI-assisted desk review requested five bounded repairs; external human signoff
+and independent re-review remain pending. Every unchecked item is pending; the static receipt is not a
 scientific/numerical review or an execution authorization.
 
 ## Mathematical and numerical reviewer
@@ -10,10 +10,17 @@ scientific/numerical review or an execution authorization.
   normalizer, 1/P term, omission of constants only, and finite-rejection semantics.
 - [ ] Confirm population coordinate ordering/transforms, zero initial states,
   ratio support, all four knots, piecewise derivatives and fail-closed kink rule.
+- [ ] Verify independent z-domain piecewise Gauss-Kronrod (epsabs=1e-12/3,
+  epsrel=1e-12, limit=200 per piece) and f-domain CDF composite 32-point
+  Gauss-Legendre (1/2/4 panels, both differences <=1e-13); cross/original
+  agreement <=1e-12 and full-NLL constant agreement within tau_eval.
 - [ ] Judge independent normalization/gradient tests, binary64 step sizes,
   objective summation error allowance and stationarity error floor adequate.
 - [ ] Check projected stationarity plus box-sign KKT and complementarity;
   confirm near-bound coordinates cannot evade the gate through projection alone.
+- [ ] Verify source-confirmed accepted-event instrumentation, six checked states
+  for five final nonzero moves, callback/trial/duplicate exclusions, diagnostic
+  accounting and INCONCLUSIVE_INSUFFICIENT_HISTORY for <5 moves/zero iterations.
 - [ ] Assess the five-iterate stop rule and two-start/two-method objective
   agreement thresholds. Are they stringent and resolvable without empirical tuning?
 - [ ] Confirm the two candidates test numerical procedures on the identical MLE,
@@ -34,6 +41,10 @@ scientific/numerical review or an execution authorization.
 - [ ] Review Phase B's constrained infimum, finite-reference distinction,
   anchor/grid/tie rules, exact target equality, independent Lagrangian KKT and
   rank/constraint-qualification checks, and feasible distinct-vector evidence.
+- [ ] Require EACH alternative vector in [ell_ref-max(tau_eval(reference),
+  tau_eval(candidate)), ell_ref+1e-4] against ONE immutable same-case Phase A
+  reference; lower solutions invalidate it, worse vectors are rejected, and
+  pairwise-only comparison is forbidden. Check each vector's own target KKT.
 - [ ] Check numerical near-equivalence versus descriptive likelihood-drop bands;
   no calibrated interval or global uniqueness claim follows from a finite profile.
 - [ ] Confirm every failure denominator, NOT_RUN/BLOCKED/FAILED/INCONCLUSIVE
@@ -47,6 +58,18 @@ scientific/numerical review or an execution authorization.
   option documentation does not qualify the SciPy 1.18.1 binary.
 - [ ] Verify original four starts, settings, converged-first selection and raw
   outputs remain unchanged; any prospective watchdog-censored rerun is labeled.
+- [ ] Confirm resources JSON is the sole budget authority, all three independent
+  per-case limits are 19800, and both prose/checklist tables are checked against
+  JSON by the static validator. No diagnostic exemptions or bucket transfers.
+
+<!-- phase-a-budget-table -->
+| Counter | Per case | Phase A total | Daily-transition ceiling |
+| --- | ---: | ---: | ---: |
+| Function | 19800 | 316800 | — |
+| Gradient | 19800 | 316800 | — |
+| Model passes | 19800 | 316800 | 266112000 |
+<!-- /phase-a-budget-table -->
+
 - [ ] Review 316800 Phase A and 64800 Phase B F/G/model-pass caps, one CPU
   thread, 2 GiB memory and 7200/2160-second CPU/wall ceilings; counters include
   diagnostic and unsuccessful work and cannot reset or borrow phase budgets.
@@ -55,6 +78,8 @@ scientific/numerical review or an execution authorization.
 - [ ] Check all baseline files, G1–G4/RES-293/model artifacts and licenses remain
   unchanged. Confirm separate anonymous/attributed preprint preservation and
   private draft/unmerged paper PR gate without publishing manuscript material.
+- [ ] Confirm public receipt commands use repository-relative paths; raw host
+  paths remain private and a static guard rejects machine-specific paths.
 - [ ] Record independent reviewer identities, conflicts, verdicts and exact draft
   hashes in a later authority record. No AI self-check substitutes for signoff.
 - [ ] Obtain explicit owner GO_FOR_G2_NUMERICAL_EXECUTION for Phase A only

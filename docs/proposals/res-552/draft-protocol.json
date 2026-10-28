@@ -1,4 +1,27 @@
 {
+  "accepted_iterate_instrumentation": {
+    "admission": "audit pinned solver driver source and adapter event semantics before scientific execution; callbacks alone are not proof; unavailable acceptance evidence is BLOCKED_INSTRUMENTATION",
+    "callback_role": "observation hook only; reject trial evaluations and duplicate event tokens; no manufactured or terminal-only callback entries",
+    "diagnostic_accounting": "all external iterate checks consume diagnostic F/G/model allowances as requested; cache reuse logged, no exemption or budget extension",
+    "duplicate_coordinates": "record but do not count exact repeated coordinate vectors as new accepted moves",
+    "early_termination": "INCONCLUSIVE_INSUFFICIENT_HISTORY if fewer than five qualifying final moves, including zero iterations; preserve solver flag, no padding or restart",
+    "events": {
+      "L-BFGS-B": "one source-confirmed NEW_X event after line-search acceptance per solver iteration",
+      "SLSQP": "one source-confirmed completed major-iteration event after its line search; major counter strictly increases"
+    },
+    "history": "five consecutive source-confirmed accepted nonzero moves with exact-feasible smooth endpoints and predecessor; six checked states, initial point may be predecessor only",
+    "invalid_event": "break certified history on infeasible/nonsmooth state or Phase B equality violation; retain raw log",
+    "record": [
+      "method/start/solver iteration and event token",
+      "copied unrounded coordinates",
+      "counter snapshot",
+      "independent exact support/finite-NLL check",
+      "Phase B equality residual when applicable"
+    ],
+    "scope": "both Phase A candidates and Phase B; baseline logging never changes original solver settings or historical classification",
+    "status": "NOT_RUN",
+    "terminal": "returned coordinates must equal final source-confirmed state; independently recheck terminal; mismatch or missing evidence is INCONCLUSIVE_INSTRUMENTATION"
+  },
   "baseline": "b751cf4c9d44301b03861127ed94158d7c93fa3a",
   "check_status": {
     "density_normalization": "NOT_RUN",
@@ -84,6 +107,64 @@
     "no real-athlete or causal transfer"
   ],
   "mission": "PSR_G2_NUMERICAL_ADEQUACY_PROTOCOL_PLANNING",
+  "normalizer_verification": {
+    "constant_agreement": "abs(sum_l 32*log(Zacc_A(sigma_l)/Zacc_B(sigma_l))) <= tau_eval at each checked case/vector",
+    "cross_procedure_absolute_max": 1e-12,
+    "diagnostic_assignment": "compute once per unique sigma, assigned in listed sigma order to the first four frozen Phase A cases (sentinel list order, noise 1 then 2); charge each integrand request to that case diagnostic bucket before solving; cache immutable results for all cases, no counter borrowing",
+    "error_scope": "reported integration estimates and cross-method agreement, not a rigorous absolute-error proof; no numerical checks performed here",
+    "failure": "FAILED_OBJECTIVE for resolved disagreement; INCONCLUSIVE_NORMALIZER for quadrature warning, unresolved error/precision or budget exhaustion; no refinement beyond fixed settings",
+    "noise_sigmas": [
+      0.04,
+      0.05,
+      0.08,
+      0.1
+    ],
+    "procedure_A": {
+      "algorithm": "adaptive 21-point Gauss-Kronrod via scipy.integrate.quad, separately on each smooth z-support piece",
+      "domains": [
+        [
+          "0.4/0.71",
+          "0.4/0.68"
+        ],
+        [
+          "0.4/0.68",
+          "1/0.71"
+        ],
+        [
+          "1/0.71",
+          "1/0.68"
+        ]
+      ],
+      "epsabs_per_piece": 3.3333333333333334e-13,
+      "epsrel_per_piece": 1e-12,
+      "integrand": "exp(-0.5*((z-1)/sigma)^2)/(sigma*sqrt(2*pi))*piecewise_w(z)",
+      "limit_per_piece": 200,
+      "sum_error_estimates_max": 1e-12,
+      "summation": "compensated"
+    },
+    "procedure_A_vs_original_absolute_max": 1e-12,
+    "procedure_B": {
+      "absolute_successive_difference_max": 1e-13,
+      "algorithm": "composite 32-point Gauss-Legendre; independent load-fraction CDF integrand",
+      "both_successive_differences_required": true,
+      "cdf": "Phi(x)=0.5*erfc(-x/sqrt(2)) using math.erfc; no procedure-A density/weight helper",
+      "domain": [
+        0.68,
+        0.71
+      ],
+      "integrand": "[Phi((1/f-1)/sigma)-Phi((0.4/f-1)/sigma)]/0.03",
+      "nodes_weights": "numpy.polynomial.legendre.leggauss(32), affine map to each equal-width panel",
+      "panel_counts": [
+        1,
+        2,
+        4
+      ],
+      "returned_value": "4-panel value",
+      "summation": "compensated"
+    },
+    "status": "NOT_RUN",
+    "valid_range": "finite and 0 < Zacc <= 1 for every estimate"
+  },
   "normative_mathematics": "protocol-review.md#exact-likelihood-and-derivatives",
   "objective": {
     "acceptance_normalizer": "integral_b^c (Phi((1/f-1)/sigma)-Phi((0.4/f-1)/sigma)) df / (c-b)",
@@ -184,15 +265,21 @@
     "maxiter": 400,
     "method": "SLSQP",
     "near_optimal_alternative": {
+      "above_upper_bound_action": "REJECT_ALTERNATIVE; retain profile record, no near-optimal evidence",
+      "below_reference_action": "INCONCLUSIVE_REFERENCE; invalidate reference and stop, no recentering",
+      "common_reference": "same-case qualified Phase A Candidate S anchor; immutable for both vectors",
       "max_reference_summed_nll_increase": 0.0001,
       "min_target_separation_kg": 1,
-      "required_evidence": "two stored feasible independently qualified vectors, exact same entity/noise/schedules; finite reference only"
+      "pairwise_only_comparison_allowed": false,
+      "per_vector_lower_bound": "ell_ref - max(tau_eval(reference),tau_eval(candidate))",
+      "per_vector_upper_bound": "ell_ref + 1e-4",
+      "required_evidence": "each of two stored vectors separately passes exact feasibility, smoothness, derivative and applicable stationarity/KKT checks for its own target; same entity/noise/schedules and one common qualified Phase A reference"
     },
     "nll_agreement": 0.0001,
     "noise_scale": 1,
     "objective": "ell0/96",
     "primary_target": "squat.C_223_kg",
-    "reference_improvement_stop": 0.0001,
+    "reference_improvement_stop": "max(tau_eval(reference),tau_eval(candidate))",
     "starts": [
       "Phase A anchor",
       "all 0.25",
@@ -260,7 +347,7 @@
     "publication",
     "new research issues"
   ],
-  "protocol_id": "res552-g2-numerical-adequacy-draft-0.1.0",
+  "protocol_id": "res552-g2-numerical-adequacy-draft-0.1.1",
   "reporting": [
     "all cases and starts including failures",
     "raw solver status and separate independent qualification",
@@ -287,6 +374,24 @@
     },
     "cpu_threads_including_blas": 1,
     "gpu": false,
+    "hard_budget_contract": {
+      "atomic_admission": "before any work reserve every affected bucket and enclosing start/case/phase counter; refuse the request if any would exceed its limit",
+      "authority": "resources object in draft-protocol.json; prose/checklist tables must match it exactly",
+      "bucket_rule": "solver requests consume own start bucket; external checks including callbacks/terminal/normalizer consume diagnostics; both consume case/phase counters; no transfers, resets or borrowing",
+      "ceiling_state": "INCONCLUSIVE_RESOURCE; no later qualification from unfinished checks",
+      "independent_counters": [
+        "function",
+        "gradient",
+        "model_pass"
+      ],
+      "model_accounting": "a fused F/G/model evaluation increments each once; separate model/target/constraint passes increment model counter; pure normalizer quadrature consumes diagnostic F per integrand request, no G/model absent such work; cache hits cause no model pass but requested F/G still count",
+      "phase_a_diagnostics_per_case_each": 1400,
+      "phase_a_per_start_each": {
+        "candidate_L": 800,
+        "candidate_S": 800,
+        "original": 3000
+      }
+    },
     "hard_counter_admission_test": "inert non-scientific functions only, later authorized stage",
     "memory_bytes_process_tree": 2147483648,
     "phase_a": {
@@ -330,7 +435,7 @@
     "processes": 1
   },
   "review_checklist": "review-checklist.md",
-  "review_readiness": "READY_FOR_INDEPENDENT_PROTOCOL_REVIEW",
+  "review_readiness": "READY_FOR_INDEPENDENT_RE_REVIEW",
   "source_identity_manifest": "source-identities.json",
   "starts": {
     "count": 4,
@@ -367,10 +472,6 @@
     "multistart_and_cross_method_summed_nll": 0.0001,
     "nonpositive_weight_allowed": false,
     "normalizer_absolute": 1e-12,
-    "normalizer_quadrature_settings": [
-      1e-12,
-      1e-13
-    ],
     "objective_evaluation_absolute": "1e-8 + 256*epsilon*sum(abs(ell0_terms))",
     "projected_gradient_infinity_on_mean_nll": 1e-06,
     "qualified_starts_per_candidate": 2,
@@ -387,5 +488,5 @@
       "state": 1e-06
     }
   },
-  "version": "0.1.0"
+  "version": "0.1.1"
 }
