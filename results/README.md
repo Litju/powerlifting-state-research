@@ -17,3 +17,7 @@ This evidence is separate from the historical scrambled-Sobol track. Do not rank
 ## RES-275 standardized comparators
 
 `results/benchmarks/iid_latent_capacity_change_with_transient_expression_forecasting/public-native-comparator-suite/` contains the fit seal, internal split identity, canonical predictions, and RES-271 EvaluationResults for six newly trained comparators. `results/tables/public-native-comparator-frontier.csv` preserves per-seed and target-wise metrics, model complexity, and measured runtime. The checked-in RES-274 temporal-expert files remain immutable and are referenced by the comparator registry and checksum index.
+
+## Probabilistic forecasting studies
+
+[Conditional scale, group calibration, support restriction and controlled shifts](../docs/studies/probabilistic-capacity-forecasting.md) describe the completed later synthetic program, including both failed point corrections, small score gains, absolute shift degradation and conditional undercoverage. Methods are public; private scoring adapters, fitted uncertainty parameters and test evidence remain restricted.

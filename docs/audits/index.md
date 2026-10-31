@@ -1,6 +1,6 @@
 # Benchmark validity audit contracts
 
-RES-277 defines a versioned benchmark-of-benchmarks methodology. It separates validity questions from the benchmark's own prediction metrics and from the results of any future audit run. Each benchmark version gets its own axis and attack states. The suite has no overall validity score.
+The benchmark audit methodology separates versioned scientific validity questions. It separates validity questions from the benchmark's own prediction metrics and from the results of any future audit run. Each benchmark version gets its own axis and attack states. The suite has no overall validity score.
 
 
 ## Evidence reading guide
@@ -11,9 +11,7 @@ Start with the [RES-284 report](../../results/audits/res284-publication/report.m
 | --- | --- | --- |
 | RES-277 · Contracts | [Ten validity axes](../../artifacts/registries/validity-axis-registry.json), [fourteen attack contracts](../../artifacts/registries/attack-contract-registry.json), [baseline profiles](../../artifacts/registries/version-validity-profiles.json) | Pre-execution coverage snapshot; not later results |
 | RES-278 · Harness | [First execution](../../results/audits/res278/audit-results.json), [hash manifest](../../results/audits/res278/audit-results.manifest.json) | Supported attacks and explicit unsupported states; no automatic applicability to every historical world |
-| RES-279 / RES-280 | No dedicated Powerlifting audit execution bundle | Current Linear titles refer to recovery-benchmark reconstruction/model work in another repository; do not infer missing Powerlifting audit results from issue numbering |
 | RES-281 · Common battery | [Execution](../../results/audits/res281/audit-results.json), [analysis report](../../results/audits/res281-analysis/res281-validity-analysis.md), [axis matrix](../../results/audits/res281-analysis/version-by-axis-evidence.csv) | Later run, separate from RES-277 snapshot; historical row-level evidence often unavailable |
-| RES-282 | No dedicated Powerlifting audit execution bundle | Current Linear title concerns recovery-benchmark headroom/system-identification reconstruction; Powerlifting G1/G2 evidence is separately linked in the [study overview](../studies/index.md) |
 | RES-283 · Ranking sensitivity | [Report](../../results/audits/res283-analysis/res283-model-ranking-stability.md), [metric sensitivity](../../results/audits/res283-analysis/metric-dependent-ranking-summary.csv), [historical evidence gaps](../../results/audits/res283-analysis/historical-evidence-gap-report.md) | One admissible IID panel; absent historical comparisons are not observed rank reversals |
 | RES-284 · Synthesis | [Report](../../results/audits/res284-publication/report.md), [evidence-to-claim table](../../results/audits/res284-publication/tables/evidence-to-claim.csv), [figures](../../results/audits/res284-publication/figures/) | Frozen publication; current rights/replay guidance below supersedes dated operational notices |
 
@@ -74,7 +72,7 @@ The applicability sets below use `ALL-9`, `PLAN-4`, `OBSERVATION-2`, and `NATIVE
 | `sparse_missing_history_sensitivity` | OOD robustness | ALL-9 | Apply predeclared history thinning or masks; distinguish in-support missingness from stress extensions. |
 | `distributional_shift_sensitivity` | OOD robustness | NATIVE-1 | Apply one predeclared, supported native-generator shift at a time and report each shift separately. |
 | `parameter_seed_sensitivity` | Seed stability | NATIVE-1 | Separate predeclared fit seeds/settings on fixed data and split; do not tune on final evaluation. |
-| `baseline_domination` | Simple-model frontier | NATIVE-1 | Compare existing matched results target-wise and retain Pareto trade-offs; do not train or rescore for RES-277. |
+| `baseline_domination` | Simple-model frontier | NATIVE-1 | Compare existing matched results target-wise and retain Pareto trade-offs; retain the original matched comparison. |
 | `model_ranking_instability` | Seed stability | NATIVE-1 | Estimate within-version paired ranking variation from eligible per-row or per-seed outputs. |
 | `reconstruction_provenance_gaps` | Reconstructability | ALL-9 | Verify provenance edges, identities, rights, and artifact hashes; report missing links. |
 | `hidden_test_fairness` | Hidden-test fairness | ALL-9, conditional | Check split identity, access chronology, group separation, model sealing, and score coverage only if a hidden test is claimed. |

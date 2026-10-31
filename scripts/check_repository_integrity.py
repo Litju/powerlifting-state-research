@@ -202,6 +202,9 @@ def check_ledger(tracked: set[str]) -> int:
             fail("origin ledger has unexpected columns")
             return 0
         rows = list(reader)
+    if any(None in row or any(value is None for value in row.values()) for row in rows):
+        fail("origin ledger contains a malformed CSV row")
+        return 0
     paths = [row.get("path") or "" for row in rows]
     if any(not path or Path(path).is_absolute() or ".." in Path(path).parts for path in paths):
         fail("origin ledger contains an invalid repository path")

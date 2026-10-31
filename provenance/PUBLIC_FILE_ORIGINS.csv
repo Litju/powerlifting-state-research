@@ -117,7 +117,7 @@ results/studies/public_surrogate_reconstruction/README.md,NEWLY_AUTHORED,CC-BY-4
 results/studies/synthetic_pretraining_transfer/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-result-home,Distinct result/manifest home for this retrospective study.
 results/studies/target_sufficient_structural_reconstruction/README.md,NEWLY_AUTHORED,CC-BY-4.0,study-result-home,Distinct result/manifest home for this retrospective study.
 results/tables/README.md,NEWLY_AUTHORED,CC-BY-4.0,results,Tables derived from identified result inputs.
-schemas/README.md,NEWLY_AUTHORED,CC-BY-4.0,schema-policy,JSON Schemas for benchmark, evaluation, and RES-277 audit interchange generated from typed Python.
+schemas/README.md,NEWLY_AUTHORED,CC-BY-4.0,schema-policy,"JSON Schemas for benchmark, evaluation, and RES-277 audit interchange generated from typed Python."
 artifacts/schemas/audit-result.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,python-export,RES-277 execution/non-execution result structure generated from the typed AuditResult.
 artifacts/schemas/audit-execution.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,python-export,RES-278 execution context and detached result identity generated from typed Python.
 artifacts/schemas/audit-spec.schema.json,GENERATED_PUBLIC_ARTIFACT,MIT,python-export,RES-277 axis audit protocol structure generated from the typed AuditSpec.
@@ -141,7 +141,7 @@ src/powerlifting_state_research/artifacts/manifests.py,NEWLY_AUTHORED,MIT,artifa
 src/powerlifting_state_research/audits/__init__.py,NEWLY_AUTHORED,MIT,audits,Public typed exports for validity axes; attack contracts; results; and profiles.
 src/powerlifting_state_research/audits/profiles.py,NEWLY_AUTHORED,MIT,audits,Version-scoped evidence states using existing public-safe artifacts and explicit historical gaps.
 src/powerlifting_state_research/audits/res283_analysis.py,NEWLY_AUTHORED,MIT,audits,Deterministic identity-checked RES-283 ranking analysis and artifact writer; no model fitting or prediction generation.
-src/powerlifting_state_research/audits/runner.py,NEWLY_AUTHORED,MIT,audits,Deterministic RES-278/RES-281 evidence reconciliation, native M4 diagnostics, metadata-only historical provenance audits, and execution records.
+src/powerlifting_state_research/audits/runner.py,NEWLY_AUTHORED,MIT,audits,"Deterministic RES-278/RES-281 evidence reconciliation, native M4 diagnostics, metadata-only historical provenance audits, and execution records."
 src/powerlifting_state_research/audits/specifications.py,NEWLY_AUTHORED,MIT,audits,"Typed RES-277 AuditSpec, ValidityAxis, AttackSpec, AuditResult, and VersionValidityProfile contracts."
 src/powerlifting_state_research/benchmarks/__init__.py,NEWLY_AUTHORED,MIT,package,Typed package namespace/home; no benchmark mechanics at bootstrap.
 src/powerlifting_state_research/benchmarks/class_normalized_cross_lift_five_target_performance_forecasting/README.md,PUBLIC_PROJECTION_OF_FROZEN_SPEC,CC-BY-4.0,research-card,Concise benchmark-specific research card.
@@ -250,7 +250,7 @@ tests/benchmarks/seasonal_five_target_load_velocity_performance_forecasting/test
 tests/benchmarks/four_target_load_velocity_and_competition_performance_forecasting/test_spec.py,NEWLY_AUTHORED,MIT,benchmark-tests,Benchmark-specific descriptor/status/naming smoke check.
 tests/audits/test_contracts.py,NEWLY_AUTHORED,MIT,audit-tests,RES-277 axis/attack applicability; profile identities; status; and provenance contract checks.
 tests/audits/test_res283_analysis.py,NEWLY_AUTHORED,MIT,audit-tests,RES-283 comparison admissibility metric ranks entity pairing checksums replay and frozen-evidence tests.
-tests/audits/test_runner.py,NEWLY_AUTHORED,MIT,audit-tests,RES-278/RES-281 identity binding, six-state consistency, rights, historical metadata-only scope, immutable artifact, and replay checks.
+tests/audits/test_runner.py,NEWLY_AUTHORED,MIT,audit-tests,"RES-278/RES-281 identity binding, six-state consistency, rights, historical metadata-only scope, immutable artifact, and replay checks."
 tests/fixtures/README.md,NEWLY_AUTHORED,CC-BY-4.0,tests,Small repository-authored deterministic fixtures only.
 tests/models/test_temporal_expert.py,NEWLY_AUTHORED,MIT,model-tests,Public model input firewall; preprocessing; inference; identity; and ensemble checks.
 tests/test_component_homes.py,NEWLY_AUTHORED,MIT,tests,Required shared scientific module homes.
@@ -643,7 +643,7 @@ tests/test_res511_initialization_erratum.py,NEWLY_AUTHORED,MIT,Powerlifting Stat
 provenance/RES-297-prediction-provenance-clarification.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,Clarifies provenance and public GitHub scope for the four existing PUBLIC_NATIVE prediction artifacts.
 scripts/verify_gitleaks.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Enforces zero findings from the parsed Gitleaks JSON report.
 scripts/verify_res293_public.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Read-only RES-293 public artifact verification entry point.
-tests/test_res297_portfolio_provenance.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Regression checks for RES-297 prediction provenance, checkpoint exclusion, and Gitleaks findings.
+tests/test_res297_portfolio_provenance.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,"Regression checks for RES-297 prediction provenance, checkpoint exclusion, and Gitleaks findings."
 scripts/verify_res284_execution.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,Separately identified RES-284 replay verifier for execution-era source hashes and current publication bytes.
 docs/studies/g4-reader-corrections-v1.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,Current G4 navigation and cell-denominator correction; links immutable RES-510 and RES-511 evidence.
 docs/studies/res293-public-verification.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,Clean-clone RES-293 verification command and limitations.
@@ -895,3 +895,12 @@ models/published/res293-definition-b/states/C6-seed-293205.state.npz,GENERATED_P
 provenance/model-artifact-redistribution.md,NEWLY_AUTHORED,CC-BY-4.0,Powerlifting State Research contributors,Model artifact release card or redistribution authority documentation.
 scripts/verify_published_model_artifacts.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,"Hash, rights, tensor-structure, and safe inference verification for the released model artifacts."
 tests/test_published_model_artifacts.py,NEWLY_AUTHORED,MIT,Powerlifting State Research contributors,"Hash, rights, tensor-structure, and safe inference verification for the released model artifacts."
+REPOSITORY_ENGINEERING_CLOSEOUT_REPORT.md,NEWLY_AUTHORED,CC-BY-4.0,repository,Owner-authorized scientific methods integration and evidence-preserving engineering qualification; no restricted payloads.
+docs/current-research-state.md,NEWLY_AUTHORED,CC-BY-4.0,repository,Owner-authorized scientific methods integration and evidence-preserving engineering qualification; no restricted payloads.
+docs/science/research-positioning.md,NEWLY_AUTHORED,CC-BY-4.0,repository,Owner-authorized scientific methods integration and evidence-preserving engineering qualification; no restricted payloads.
+docs/studies/probabilistic-capacity-forecasting.md,NEWLY_AUTHORED,CC-BY-4.0,repository,Owner-authorized scientific methods integration and evidence-preserving engineering qualification; no restricted payloads.
+provenance/normalization-and-rights-clarification.md,NEWLY_AUTHORED,CC-BY-4.0,repository,Owner-authorized scientific methods integration and evidence-preserving engineering qualification; no restricted payloads.
+provenance/repository-cleanup-inventory.csv,NEWLY_AUTHORED,MIT,repository,Owner-authorized scientific methods integration and evidence-preserving engineering qualification; no restricted payloads.
+scripts/check_documentation_links.py,NEWLY_AUTHORED,MIT,repository,Owner-authorized scientific methods integration and evidence-preserving engineering qualification; no restricted payloads.
+tests/test_documentation_links.py,NEWLY_AUTHORED,MIT,repository,Owner-authorized scientific methods integration and evidence-preserving engineering qualification; no restricted payloads.
+tests/test_probabilistic_reference_formulas.py,NEWLY_AUTHORED,MIT,repository,Owner-authorized scientific methods integration and evidence-preserving engineering qualification; no restricted payloads.

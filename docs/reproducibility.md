@@ -91,3 +91,26 @@ RES-510's standalone verifier recomputes its bootstrap campaign; it is not a has
 ## Rights and interpretation
 
 Preserve source identities, per-artifact notices, and the public origin ledger. Code and explicitly authorized machine-readable outputs are MIT; authored Markdown and the public-native IID dataset are CC BY 4.0. See the [RES-297 provenance clarification](../provenance/RES-297-prediction-provenance-clarification.md) for prediction-byte authorization and dataset attribution. The release excludes historical World-V2 checkpoints and other recovered task artifacts whose redistribution rights remain unresolved. Passing engineering checks does not constitute independent scientific approval, real-athlete validity, or formal archival qualification.
+
+## Public and restricted reproduction
+
+**Level A** means public scientific and software inspection. **Level B** means reproduction of numerical findings from the relevant original artifacts and implementation. These are access levels, not scientific-validity grades.
+
+| Surface | Level A: public clone | Level B: numerical reproduction |
+| --- | --- | --- |
+| Equations, generator and point evaluation | Public code, contracts and small fixtures | Fixed original IID regeneration available through the optional verifier |
+| Original model release | Hashes, safe loading, identities and smoke inference | Optional saved-output replays above; GRU CPU/GPU tolerances apply |
+| Earlier public studies and corrections | Protocols, all negative findings, original artifacts and current notices | Study-specific checks; distinguish hash preservation from numerical replay and new fitting |
+| Conditional uncertainty H | Newly written public methods, aggregate gains and regressions | Restricted fitted parameters, cohorts, predictions and scoring adapters |
+| Group calibration and cessation truncation H_GT | Equations, six-arm design, limitations and reference toy checks | Restricted original development factors, test evidence and numerical implementation |
+| Controlled within-support shifts | Shift definitions, pairing, aggregate degradation and undercoverage | Restricted scenario evidence and original paired-bootstrap outputs/adapters |
+| Private computational audit | Index digest and scoped summary | Owner-authorized original evidence and compatible environment required; not a public executable replay |
+
+```sh
+uv run --locked --no-sync pytest tests/test_probabilistic_reference_formulas.py
+uv run --locked --no-sync python scripts/check_documentation_links.py
+```
+
+Reference formula tests validate mathematics on synthetic toy values, not the private scoring code or reported study scores. No public command here reproduces the restricted probabilistic experiments. The original adapters contain transient source-path dependencies; private numerical replay is not presently portable from a public clone. Do not run old campaign generators to repair missing evidence or recreate inspected test cohorts.
+
+The [methods and claims index](studies/probabilistic-capacity-forecasting.md) gives original evidence digests and all principal negative findings. The [normalization notice](../provenance/normalization-and-rights-clarification.md) resolves actual model-byte identity while preserving frozen metadata inconsistencies. Source distributions and wheels provide software; the repository's evidence checks require a full Git clone and its tracked evidence/history. Packaging alone does not confer Level B access.

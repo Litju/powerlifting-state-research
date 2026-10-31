@@ -24,3 +24,7 @@ G1–G4 estimators have separate protocols and evaluation surfaces; see the [stu
 ## Availability and rights
 
 Saved predictions, fitted comparator states, model identities, and aggregate evaluations are linked above. The [current artifact release](../../models/published/CURRENT_RELEASE.md) includes three RES-274 PUBLIC_NATIVE GRU checkpoints and all 30 RES-293 Definition B fitted states; the [public verifier](../../scripts/verify_published_model_artifacts.py) checks their hashes and identities. CPU inference differs numerically from the original GPU RES-274 run within the recorded tolerance. The [RES-297 provenance clarification](../../provenance/RES-297-prediction-provenance-clarification.md) records authorization for the four already-public expert prediction files and explains their frozen `NOASSERTION` fallback. Dataset attribution and per-artifact notices remain applicable; historical World-V2 checkpoints and other private task artifacts remain excluded.
+
+## Probabilistic forecasting studies
+
+[Conditional scale, group calibration, support restriction and controlled shifts](../studies/probabilistic-capacity-forecasting.md) describe the completed later synthetic program, including both failed point corrections, small score gains, absolute shift degradation and conditional undercoverage. Methods are public; private scoring adapters, fitted uncertainty parameters and test evidence remain restricted.

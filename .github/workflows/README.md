@@ -4,7 +4,7 @@
 
 | Job | Python | Checks |
 | --- | --- | --- |
-| Quality / integrity | 3.12 | Gitleaks JSON full-history scan, locked sync, Ruff, strict mypy, exports, repository integrity, frozen-source preservation, execution-era RES-284 publication replay |
+| Quality / integrity | 3.12 | Gitleaks JSON full-history scan, locked sync, Ruff, strict mypy, exports, repository integrity, Markdown links/anchors, published model hashes/loading, frozen-source preservation, execution-era RES-284 publication replay |
 | Compatibility (three jobs) | 3.11, 3.12, 3.13 | Locked sync, package import, pytest; opt-in full IID production skipped |
 | Package smoke | 3.12 | Build sdist/wheel, isolated wheel install with locked runtime/research dependencies, dependency imports, model instantiation, nine registry records and distinct historical/public-native identities |
 
@@ -21,6 +21,8 @@ uv run --locked --no-sync mypy
 uv run --locked --no-sync pytest
 uv run --locked --no-sync python -m powerlifting_state_research.exports --check
 uv run --locked --no-sync python scripts/check_repository_integrity.py
+uv run --locked --no-sync python scripts/check_documentation_links.py
+uv run --locked --no-sync python scripts/verify_published_model_artifacts.py
 uv run --locked --no-sync python scripts/verify_release_freeze.py
 uv run --locked --no-sync python scripts/verify_res284_execution.py
 ```
@@ -119,4 +121,4 @@ PY
 
 The locked `research` group supplies SciPy/stubs with Python-version conditions; no ad-hoc dependency install is needed. CI verifies Linux Python 3.11/3.12/3.13. Other platforms and original G1–G4 numerical replay are not covered. See [reproducibility](../../docs/reproducibility.md) for public IID regeneration and G3/G4 `--check` semantics, and the [RES-299 verification record](../../docs/res299-validation.md) for commands actually run.
 
-The public Gitleaks/integrity checks do not consume private historical fingerprints. RES-297/298 portfolio completion does not imply formal archival release qualification, checkpoint availability, or scientific approval. No new release workflow is introduced here.
+The public Gitleaks/integrity checks do not consume private historical fingerprints. Engineering checks do not imply formal archival release qualification or scientific approval. Authorized checkpoints are available in the [current model release](../../models/published/CURRENT_RELEASE.md); private uncertainty parameters remain excluded. No new release workflow is introduced here.
