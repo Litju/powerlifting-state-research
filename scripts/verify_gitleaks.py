@@ -40,6 +40,16 @@ def verify_gitleaks() -> None:
     if version.returncode or version.stdout.strip() != GITLEAKS_VERSION:
         raise SecurityScanError(f"Gitleaks {GITLEAKS_VERSION} is required")
 
+    history = subprocess.run(
+        ["git", "rev-parse", "--is-shallow-repository"],
+        capture_output=True,
+        check=False,
+        cwd=ROOT,
+        text=True,
+    )
+    if history.returncode or history.stdout.strip() != "false":
+        raise SecurityScanError("full candidate history is required; shallow clones are rejected")
+
     with tempfile.TemporaryDirectory(prefix="psr-gitleaks-") as temporary_directory:
         report_path = Path(temporary_directory) / "report.json"
         result = subprocess.run(
@@ -47,6 +57,7 @@ def verify_gitleaks() -> None:
                 "gitleaks",
                 "detect",
                 f"--source={ROOT}",
+                "--log-opts=HEAD",  # All candidate ancestors, excluding unrelated branch histories.
                 "--redact=100",
                 "--report-format=json",
                 f"--report-path={report_path}",

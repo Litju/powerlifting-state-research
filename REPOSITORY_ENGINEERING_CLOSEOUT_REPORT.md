@@ -1,6 +1,8 @@
 # Repository engineering closeout
 
-This candidate integrates a public scientific-methods presentation with explicitly restricted probabilistic-study reproduction. It preserves original scientific source, identifiers, negative findings, model weights and frozen evidence. The exact terminal commit and final CI receipts are recorded in the draft pull request and the delivered final closeout receipt; a document cannot embed the hash of its own containing commit without a circular identity.
+**Terminal qualification: `LEVEL_A_REVIEW_READY_WITH_RESTRICTED_REPRODUCTION`.**
+
+This candidate integrates a public scientific-methods presentation with explicitly restricted probabilistic-study reproduction. It preserves original scientific source, identifiers, negative findings, model weights and frozen evidence. The exact terminal commit and final CI receipts are recorded in [draft PR #39](https://github.com/Litju/powerlifting-state-research/pull/39) and the delivered final closeout receipt; a document cannot embed the hash of its own containing commit without a circular identity.
 
 ## Architecture and research positioning
 
@@ -16,7 +18,7 @@ Independently fetched public baseline: `b751cf4c9d44301b03861127ed94158d7c93fa3a
 
 | Class | Before | After / disposition |
 | --- | --- | --- |
-| Tracked public repository | 896 paths | Original scientific bytes retained; current documentation and verification changes listed in the PR |
+| Tracked public repository | 896 paths | 905 paths: nine additions, no deletions; original scientific bytes retained |
 | Disposable ignored tool caches, bytecode and stale distributions | 1,102 files; 68,300,345 bytes | Removed after recording per-file hashes/dispositions |
 | Original local virtual environment | 21,934 files | Retained; excluded from candidate |
 | Other ignored generated data, checkpoints and qualification/restart evidence | 99 files | Retained in original checkout; excluded from candidate |
@@ -38,25 +40,29 @@ New source/tests are MIT; authored Markdown is CC BY 4.0. The per-file [origin l
 
 The frozen model manifest's top-level normalizer hash conflicts with its artifact entry and actual bytes. The [clarification](provenance/normalization-and-rights-clarification.md) records both exact values and distinguishes the internal structured-statistics digest. The verifier now reports this known conflict and rejects other conflicts. Original manifest, normalization, weights and predictions are unchanged. Private MIT-for-dataset shorthand does not override artifact-specific attribution or authorize new uncertainty parameters, cohorts, predictions or raw score release.
 
-The original audit/dossier and primary study indexes were rehashed without executing scientific code. The dossier's integrity check verifies 306 external evidence files and 32 pinned Git objects. These checks establish preservation, not a new numerical replay or a redistribution grant. Original private paths and payloads are absent from the public diff.
+A supplementary byte-preservation inventory verifies 759 original scientific-source/artifact paths against the public baseline. The original audit/dossier and primary study indexes were rehashed without executing scientific code. The dossier's integrity check verifies 306 external evidence files and 32 pinned Git objects. These checks establish preservation, not a new numerical replay or a redistribution grant. Original private paths and payloads are absent from the public diff.
 
 ## Qualification receipts
 
-The final receipt identifies the exact terminal SHA, commands, exit codes, clean-clone state and CI job URLs. The maintained [local-parity commands](.github/workflows/README.md#local-parity) and [reproducibility guide](docs/reproducibility.md) specify the verification surfaces.
+The initial clean-clone qualification at `178e1c58f18bdb7f787b7cf0c60f49569189f19b` passed 269 tests with one optional full-IID skip, all local integrity/security checks and packaging. The final receipt identifies the exact terminal SHA after the scanner-scope fix and prose refinements, commands, exit codes, clean-clone state and CI job URLs. [Final PR checks](https://github.com/Litju/powerlifting-state-research/pull/39/checks) bind the terminal candidate without a circular self-hash in this file. The maintained [local-parity commands](.github/workflows/README.md#local-parity) and [reproducibility guide](docs/reproducibility.md) specify the verification surfaces.
 
 | Check | Candidate result |
 | --- | --- |
-| Locked Python 3.12 install, Ruff check/format and strict mypy | Qualification recorded in final receipt |
-| Ordinary pytest, including numerical reference toys and model loading | Qualification recorded in final receipt; optional full IID test skipped |
-| Canonical exports, origin ledger and public-path/security scan | Qualification recorded in final receipt |
-| Full-history Gitleaks, checksum-pinned version | Qualification recorded in final receipt |
-| Frozen-source/publication preservation and execution-era publication replay | Qualification recorded in final receipt |
-| Published model hashes, identities and safe CPU loading | Qualification recorded in final receipt; frozen normalizer metadata conflict explicitly disclosed |
-| Local Markdown links, anchors and figure destinations | Qualification recorded in final receipt; two original frozen report links use the existing correction notice |
-| Source/wheel build and isolated installed-wheel smoke | Qualification recorded in final receipt |
-| Final-head Linux CI | Quality/integrity, Python 3.11/3.12/3.13 compatibility and package smoke; URLs in final receipt |
+| Locked Python 3.12 install, Ruff check/format and strict mypy | PASS; exact terminal command receipts delivered separately |
+| Ordinary pytest, including numerical reference toys and model loading | PASS; optional full IID test skipped; exact final count in receipt |
+| Canonical exports, origin ledger and public-path/security scan | PASS; exact terminal command receipts delivered separately |
+| Full candidate-ancestry Gitleaks, checksum-pinned version | PASS; exact terminal command receipts delivered separately |
+| Frozen-source/publication preservation and execution-era publication replay | PASS; exact terminal command receipts delivered separately |
+| Published model hashes, identities and safe CPU loading | PASS; frozen normalizer metadata conflict explicitly disclosed |
+| Local Markdown links, anchors and figure destinations | PASS: 158 Markdown files; two original frozen report links use the existing correction notice |
+| Source/wheel build and isolated installed-wheel smoke | PASS; exact terminal command receipts delivered separately |
+| Final-head Linux CI | Five required jobs: quality/integrity, Python 3.11/3.12/3.13 compatibility and package smoke; exact terminal results/URLs in PR checks and final receipt |
 
 The link checker validates inline local destinations and heading/image targets. It does not fetch external URLs or parse reference-style destinations. Two frozen transfer-report link errors already have a current correction notice; their original bytes are preserved and the checker validates the disclosed correct destinations. SVG evidence remains original; no figures are fabricated or replaced.
+
+An initial working-tree test run reported eight preservation failures while the six old overview files were being edited. Restoring those files and adding a separate current-state notice resolved the failures; the subsequent full clean-clone suite passed. No frozen baseline or expected scientific value was changed.
+
+The scanner now explicitly scans HEAD and every ancestor and rejects shallow clones. The initial CI all-ref scan also traversed an unrelated deferred draft branch and flagged an authorization-policy field outside candidate ancestry. The correction defines the intended candidate-history scope; it adds no secret allowlist and leaves the deferred branch untouched.
 
 New formula tests compare Gaussian and upper-truncated CRPS with independent CDF integrals and log densities across 18 location/scale/family fixtures. They check mathematics only; no private implementation or reported score is claimed reproduced. Source inspection of contracts, generator, observation law, inference and scoring found no demonstrated need to alter frozen scientific code. Verification changes are confined to engineering scripts/tests and CI.
 
@@ -71,7 +77,7 @@ New formula tests compare Gaussian and upper-truncated CRPS with independent CDF
 | Controlled shifts | Public shift definitions, pairing, screen and undercoverage | Private scenarios and paired-bootstrap evidence/adapters required |
 | Independent internal numerical audit | Hash-bound summary and identity | Restricted evidence and original environment; no portable public replay |
 
-A clean-clone reader can follow README → equations/inputs → benchmark contract → public model algorithms → study reports/corrections → probabilistic methods/claims → reproduction and rights boundaries without workspace conversations. This is a deterministic navigation/content inspection by the engineering agent, not a user study or external human review.
+A clean-clone reader can follow README → equations/inputs → benchmark contract → public model algorithms → study reports/corrections → probabilistic methods/claims → reproduction and rights boundaries without workspace conversations. This is a deterministic navigation/content inspection by automated inspection, not a user study or external human review.
 
 ## Remaining limitations and acceptance scope
 
@@ -79,4 +85,4 @@ Conditional nominal 90% undercoverage reaches 81.25% and 79.296875% under adapta
 
 No universal OOD, real-athlete, physiological-identification, causal prescription, trained cross-family stacking, confirmed conditional-reliability or external human peer-review claim is established. Sequential hypothesis selection, shared fitted models, limited cohorts and descriptive bootstrap uncertainty restrict interpretation. Current hashes, seals and timestamps cannot prove adversarial first-truth-access isolation or immutable historical preregistration.
 
-Private numerical reproduction and redistribution remain restricted. Historical adapters contain transient path dependencies; no one-command public replay is claimed. The frozen summary-hash conflict remains in its original file with explicit correction guidance. The ordinary suite skips optional full IID regeneration; model training, probabilistic test regeneration, private publication, reviewer outreach, merging and formal release are outside this campaign. The terminal category is limited to public inspection with restricted reproduction if all final engineering checks pass.
+Private numerical reproduction and redistribution remain restricted. Historical adapters contain transient path dependencies; no one-command public replay is claimed. The frozen summary-hash conflict remains in its original file with explicit correction guidance. The ordinary suite skips optional full IID regeneration; model training, probabilistic test regeneration, private publication, reviewer outreach, merging and formal release are outside this campaign. The terminal category is limited to public inspection with restricted reproduction; it grants no rights to private artifacts.

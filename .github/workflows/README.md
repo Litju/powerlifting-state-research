@@ -122,3 +122,5 @@ PY
 The locked `research` group supplies SciPy/stubs with Python-version conditions; no ad-hoc dependency install is needed. CI verifies Linux Python 3.11/3.12/3.13. Other platforms and original G1–G4 numerical replay are not covered. See [reproducibility](../../docs/reproducibility.md) for public IID regeneration and G3/G4 `--check` semantics, and the [RES-299 verification record](../../docs/res299-validation.md) for commands actually run.
 
 The public Gitleaks/integrity checks do not consume private historical fingerprints. Engineering checks do not imply formal archival release qualification or scientific approval. Authorized checkpoints are available in the [current model release](../../models/published/CURRENT_RELEASE.md); private uncertainty parameters remain excluded. No new release workflow is introduced here.
+
+The full-history secret scan explicitly scans `HEAD` and every ancestor, rejects shallow history and excludes unrelated branch histories from candidate qualification. An initial all-ref scan found an authorization-policy string on a separate deferred draft branch; no candidate-history finding was suppressed or allowlisted.

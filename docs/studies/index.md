@@ -28,7 +28,7 @@ All studies concern synthetic systems. None demonstrates real-athlete validity, 
 
 Use [reproducibility instructions](../reproducibility.md#study-verification-and-fresh-generation). G3/G4 `--check` verifies existing artifacts and performs an in-memory numerical replay; no-argument generation refuses an existing immutable result directory. Frozen report reproduction instructions must be read with the current guide.
 
-RES-293 and the selected RES-294 Definition B synthesis are complete with the limitations stated above. The [G4-to-RES-293 handoff](../../results/studies/synthetic_pretraining_transfer/public-native/RES-293-handoff.md) is historical planning context, not the execution evidence; use the frozen RES-293 protocol and report instead. Formal archive/DOI and next-benchmark design remain deferred. Other [retrospective study homes](../../studies/README.md) are navigation/metadata, not additional completed experiments.
+The representation study and selected bounded program synthesis are complete with the limitations stated above. The [transfer-to-representation handoff](../../results/studies/synthetic_pretraining_transfer/public-native/RES-293-handoff.md) is historical planning context, not the execution evidence; use the frozen representation-study protocol and report instead. Formal archive/DOI and next-benchmark design remain deferred. Other [retrospective study homes](../../studies/README.md) are navigation/metadata, not additional completed experiments.
 
 ## Probabilistic forecasting studies
 
