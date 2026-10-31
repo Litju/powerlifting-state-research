@@ -125,6 +125,26 @@ def _verify_checkpoint_identity(
         raise ValueError(f"PUBLIC_NATIVE checkpoint identity mismatch: {record['path']}")
 
 
+def _normalization_discrepancy(expert: dict[str, Any]) -> dict[str, str]:
+    normalization = expert["normalization"]
+    actual = _sha256(ROOT / normalization["path"])
+    record = next(item for item in expert["artifacts"] if item["path"] == normalization["path"])
+    expected = "f5aade7089c5bd962140501f842d9aacd39a34df45928077c1228fbbbf6d21ca"
+    frozen_summary = "f5aade7089c5bd962140501f842d9aacd39d34af45928077c1228fbbbf6d21ca"
+    if (
+        actual != expected
+        or record["sha256"] != actual
+        or normalization["sha256"] != frozen_summary
+    ):
+        raise ValueError("unrecognized normalization hash discrepancy")
+    return {
+        "status": "KNOWN_FROZEN_METADATA_CONFLICT",
+        "actual_file_sha256": actual,
+        "frozen_summary_sha256": normalization["sha256"],
+        "notice": "provenance/normalization-and-rights-clarification.md",
+    }
+
+
 def verify() -> dict[str, Any]:
     inventory = _json(INVENTORY_PATH)
     if inventory.get("format") != "PSR_MODEL_ARTIFACT_RECOVERY_INVENTORY_V1":
@@ -186,6 +206,7 @@ def verify() -> dict[str, Any]:
         or final_receipt["bundle_excludes_historical_private_artifacts"] is not True
     ):
         raise ValueError("RES-274 final run receipt binding mismatch")
+    normalization_discrepancy = _normalization_discrepancy(expert)
     normalization = _json(ROOT / expert["normalization"]["path"])
     stats = NormalizationStats.from_dict(normalization["stats"])
     if normalization["normalization_stats_id"] != expert["normalization"]["normalization_stats_id"]:
@@ -285,6 +306,7 @@ def verify() -> dict[str, Any]:
     if states != 30:
         raise ValueError(f"expected 30 sealed RES-293 states, found {states}")
     return {
+        "normalization_metadata": normalization_discrepancy,
         "public_native_checkpoints": len(models),
         "res293_states": states,
         "binary_paths": sorted(binaries),

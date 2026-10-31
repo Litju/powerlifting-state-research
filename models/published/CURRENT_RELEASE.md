@@ -1,6 +1,8 @@
 # Current model artifact release
 
-The recovery branch publishes 33 original model files: three RES-274 PUBLIC_NATIVE temporal expert checkpoints and all 30 RES-293 Definition B fitted states. The per-file SHA-256 values, model identities, source evidence, and rights records are in the [model artifact inventory](model-artifact-inventory.json).
+This repository publishes 33 original model files: three public-native temporal GRU checkpoints and all 30 representation-study fitted states. Historical study identifiers below locate the exact original artifacts. The per-file SHA-256 values, model identities, source evidence, and rights records are in the [model artifact inventory](model-artifact-inventory.json).
+
+Read the [normalization metadata clarification](../../provenance/normalization-and-rights-clarification.md) for the conflicting frozen summary hash and verified byte identity. The private uncertainty-head parameters and later probabilistic scoring adapters are outside this release.
 
 For loading details, GPU-to-CPU replay limits, and the RES-293 configuration/seed mapping, see the [RES-274 card](public-native-temporal-expert/MODEL_CARD.md) and [RES-293 card](res293-definition-b/MODEL_CARD.md). Historical World-V2 checkpoints and other task candidates remain private while their redistribution rights are unresolved.
 

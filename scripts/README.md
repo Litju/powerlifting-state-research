@@ -15,3 +15,7 @@ To regenerate and verify the frozen IID files, run `uv run --locked python scrip
 `python -m powerlifting_state_research.models.train_temporal_expert verify-existing` checks the preserved RES-274 Gate-B run against regenerated IID data. It requires separate artifact and verifier commit SHAs and writes its PASS receipt under the Drive `res274/verifications/<RUN_ID>/` directory, outside the run and ZIP.
 
 This directory intentionally has no general command-line framework. Build, test, type-check, and lint commands are provided by the development toolchain in pyproject.toml.
+
+## Scientific documentation and model qualification
+
+`check_documentation_links.py` checks local Markdown destinations, images and anchors, with the two frozen transfer-report navigation errors resolved through the existing correction notice. It does not fetch external URLs or parse reference-style destinations. `verify_published_model_artifacts.py` reports the known frozen normalization metadata conflict while verifying actual bytes against the original inventory. See the [clarification](../provenance/normalization-and-rights-clarification.md).

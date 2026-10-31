@@ -105,3 +105,42 @@ def test_gitleaks_json_findings_fail_even_when_cli_exit_code_is_zero() -> None:
         require_clean_gitleaks_report(finding, 0)
     with pytest.raises(SecurityScanError, match="invalid JSON"):
         require_clean_gitleaks_report("not JSON", 0)
+
+
+def test_gitleaks_scans_complete_candidate_history(monkeypatch: pytest.MonkeyPatch) -> None:
+    from types import SimpleNamespace
+
+    import verify_gitleaks as scanner
+
+    calls: list[list[str]] = []
+
+    def run(command: list[str], **kwargs):
+        calls.append(command)
+        if command[:2] == ["gitleaks", "version"]:
+            return SimpleNamespace(returncode=0, stdout="8.18.4")
+        if command[0] == "git":
+            return SimpleNamespace(returncode=0, stdout="false")
+        report = next(arg.split("=", 1)[1] for arg in command if arg.startswith("--report-path="))
+        Path(report).write_text("[]")
+        return SimpleNamespace(returncode=0)
+
+    monkeypatch.setattr(scanner.subprocess, "run", run)
+    scanner.verify_gitleaks()
+    assert "--log-opts=HEAD" in calls[-1]
+    assert calls[1] == ["git", "rev-parse", "--is-shallow-repository"]
+
+
+def test_gitleaks_rejects_shallow_history(monkeypatch: pytest.MonkeyPatch) -> None:
+    from types import SimpleNamespace
+
+    import verify_gitleaks as scanner
+
+    monkeypatch.setattr(
+        scanner.subprocess,
+        "run",
+        lambda command, **kwargs: SimpleNamespace(
+            returncode=0, stdout="8.18.4" if command[0] == "gitleaks" else "true"
+        ),
+    )
+    with pytest.raises(SecurityScanError, match="shallow clones are rejected"):
+        scanner.verify_gitleaks()

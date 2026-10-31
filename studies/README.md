@@ -13,3 +13,7 @@ Study documentation identifies the scientific question, inputs, benchmark and re
 ## Bootstrap boundary
 
 No private reports, historical code, datasets, models, or results are copied into this directory. Historical study aliases are retained only in the study registry's provenance fields.
+
+## Probabilistic forecasting studies
+
+[Conditional scale, group calibration, support restriction and controlled shifts](../docs/studies/probabilistic-capacity-forecasting.md) describe the completed later synthetic program, including both failed point corrections, small score gains, absolute shift degradation and conditional undercoverage. Methods are public; private scoring adapters, fitted uncertainty parameters and test evidence remain restricted.

@@ -1,4 +1,4 @@
-# G4 reader corrections v1 · RES-299
+# Synthetic-pretraining transfer: reader corrections v1
 
 This separately identified current reader notice accompanies the frozen [RES-292 public-native report](../../results/studies/synthetic_pretraining_transfer/public-native/report.md). It corrects navigation and the cell denominator, and directs readers to the immutable RES-510/511 evidence. It does not amend the original report, protocols, scientific identities, predictions, fitted states, or numerical results. Historical G4 metadata and this new public-native experiment remain separate.
 

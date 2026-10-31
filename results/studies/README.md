@@ -11,3 +11,7 @@ A result bundle should reference the study, benchmark specifications, data reali
 ## Current Definition B evidence
 
 RES-293 has a complete [execution and analysis bundle](res293_representation_learner_information/), including the 30-fit seal, canonical metrics, all 21 primary contrasts, per-seed results, prediction hashes, and limitations. RES-294's [final synthesis](res294-definition-b-final-synthesis.md) traces the bounded program and its exclusions. These are new public-native evidence, not recovered historical G1–G4 results. Negative, null, inconclusive, unsupported, and not-run states remain explicit.
+
+## Probabilistic forecasting studies
+
+[Conditional scale, group calibration, support restriction and controlled shifts](../../docs/studies/probabilistic-capacity-forecasting.md) describe the completed later synthetic program, including both failed point corrections, small score gains, absolute shift degradation and conditional undercoverage. Methods are public; private scoring adapters, fitted uncertainty parameters and test evidence remain restricted.

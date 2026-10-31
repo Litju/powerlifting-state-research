@@ -6,5 +6,7 @@ version: 0.1.0
 url: "https://github.com/Litju/powerlifting-state-research"
 abstract: >
   Open research on latent powerlifting capacity, performance expression,
-  and forecast evaluation in synthetic dynamical systems.
+  mechanistic simulation, scientific machine learning and probabilistic
+  forecast evaluation in synthetic dynamical systems. No real-athlete
+  validity or external human peer review is established.
 license: MIT

@@ -26,6 +26,7 @@ def test_published_model_artifacts_hash_and_load() -> None:
     assert result["public_native_checkpoints"] == 3
     assert result["res293_states"] == 30
     assert len(result["binary_paths"]) == 33
+    assert result["normalization_metadata"]["status"] == "KNOWN_FROZEN_METADATA_CONFLICT"
 
 
 def test_published_model_artifact_verifier_rejects_corrupted_state(
@@ -60,3 +61,15 @@ def test_published_model_artifact_verifier_rejects_mismatched_model_identity() -
         verifier._verify_checkpoint_identity(
             "expected-model", 118_571, identity, record, expert, source_manifest
         )
+
+
+def test_normalization_discrepancy_rejects_unrecognized_metadata() -> None:
+    expert = json.loads(
+        (ROOT / "models/published/public-native-temporal-expert/artifact-manifest.json").read_text()
+    )
+    assert verifier._normalization_discrepancy(expert)["actual_file_sha256"] == (
+        "f5aade7089c5bd962140501f842d9aacd39a34df45928077c1228fbbbf6d21ca"
+    )
+    expert["normalization"]["sha256"] = "0" * 64
+    with pytest.raises(ValueError, match="unrecognized normalization"):
+        verifier._normalization_discrepancy(expert)

@@ -1,87 +1,66 @@
 # Powerlifting State Research
 
-Research on what can be inferred about an athlete's **latent capacity** from noisy performance observations, and how benchmark design changes the meaning of a successful forecast. All experimental evidence here is synthetic; real-athlete validity has not been demonstrated.
+Scientific software for studying **latent capacity forecasts from noisy performance histories** in a specified synthetic dynamical system. The research connects mechanistic simulation, scientific machine learning, probabilistic forecasting and benchmark validity. All experimental evidence is synthetic; real-athlete validity has not been demonstrated.
 
-Start with the [Definition B final synthesis](results/studies/res294-definition-b-final-synthesis.md), [G1–G4 studies](docs/studies/index.md), [benchmark audit evidence](docs/audits/index.md#evidence-reading-guide), or [reproducibility guide](docs/reproducibility.md). Read the [current G4 correction notice](docs/studies/g4-reader-corrections-v1.md) before interpreting its original report.
+Start with the [system equations](docs/science/system-model.md), [research findings and claims](docs/studies/probabilistic-capacity-forecasting.md), [public study evidence](docs/studies/index.md), and [reproduction boundaries](docs/reproducibility.md). The [current model release](models/published/CURRENT_RELEASE.md) identifies the available weights. Independent external human methodological review remains pending.
 
-## Research problem
+## Scientific question
 
-A strong performance can reflect lasting capacity, transient readiness, or measurement noise. These quantities need different targets and different evidence. Forecasting an observed lift accurately does not establish that a model has recovered the athlete's latent state or the mechanism of adaptation.
+Observed strength can reflect lasting capacity, transient suppression and measurement noise. A good observed-performance forecast does not establish recovery of latent capacity or individual physiological parameters. The state-space question is
 
-In state-space notation, the research problem is:
+$$x_{t+1}=f_\theta(x_t,u_t),\qquad y_t=g_\theta(x_t,u_t,\epsilon_t).$$
 
-$$
-x_{t+1}=f_\theta(x_t,u_t),\qquad y_t=g_\theta(x_t,u_t,\epsilon_t).
-$$
+Hidden state $x_t$, exposure $u_t$, athlete-specific parameters $\theta$ and observations $y_t$ have distinct roles. The executable task predicts $C_{t_0+h-1}-C_{t_0-1}$ for squat, bench press and deadlift, with origin day 224 and horizons 14, 28 and 56 days. Inputs contain histories through day 223, observed schedules and a declared future plan. Latent capacity, true time constants and future realized observations are excluded. See the [dataset card](artifacts/dataset-cards/iid-latent-capacity-change-with-transient-expression-forecasting.md) and [information contract](docs/contracts/public-benchmark-contract.md).
 
-Here $x_t$ is hidden state, $u_t$ is training exposure, $\theta$ contains athlete-specific parameters, and $y_t$ is the recorded observation. A task fixes the observed history, forecast origin, visible future plan, target, and scoring rule. In the executable capacity-change world, adaptation contributes to capacity $C_t$ and transient suppression separates it from expressed performance $P_t$. Assessment, prescribed load, and velocity observe that expression through a shared observation process. The forecast target is $\Delta C=C_{t_0+h}-C_{t_0}$ for each lift, rather than an observed-performance difference. See the [system model](docs/science/system-model.md), [implemented dynamics](src/powerlifting_state_research/benchmarks/latent_capacity_change_with_transient_expression_forecasting/dynamics.py), and [dataset contract](artifacts/dataset-cards/iid-latent-capacity-change-with-transient-expression-forecasting.md).
+## Software and methods
 
-Partial observability matters because several channels can carry information about the same expressed quantity without independently revealing all latent coordinates. Known-generator inversion, parameter identification, participant-visible prediction, and causal intervention claims therefore require separate tests.
+Typed contracts bind world, population, observation, intervention, task, quantity of interest, realization, model and evaluation identities. Public algorithms include a deterministic simulator, noisy assessment/load/velocity observations, an IID generator, strict prediction alignment and four point-score metrics. Six standard comparator families accompany a three-seed lift-shared temporal GRU. Source and executable examples are indexed in the [reproducibility guide](docs/reproducibility.md).
 
-## What is implemented
+The GRU is an ordinary data-driven predictor: it has no differential-equation residual loss, learned physical identification or physics-constrained training. Mechanistic knowledge enters the simulator, the declared mechanistic comparators and the later cessation-support restriction. That last probabilistic operation enforces a known synthetic support law after fitting. This is a bounded science-informed forecasting component, not evidence that the entire learning system is a physics-informed neural network. [Research positioning and references](docs/science/research-positioning.md) explain the distinction.
 
-The repository provides typed scientific contracts; a nine-entry benchmark registry; independently authored public dynamics, observation and IID data generation; prediction alignment and four-metric evaluation; saved model/comparator evidence; version-specific audit contracts and results; and five completed public-native studies, including the bounded six-configuration RES-293 campaign. RES-294 integrates that campaign with the frozen G1–G4 and audit evidence. Scientific identities separately bind benchmark semantics, data realizations, models, predictions, and evaluations. See the [public contract](docs/contracts/public-benchmark-contract.md) and [source package](src/powerlifting_state_research/).
+## Research findings
 
-### Historical reconstruction and public-native research
-
-The [registry](docs/benchmarks/index.md) contains **eight historical specimens across six shared worlds, plus one independent public-native variant**:
-
-| Entry | Evidence status |
+| Study | Finding and limitation |
 | --- | --- |
-| [Class-normalized cross-lift five-target forecasting](docs/benchmarks/class-normalized-cross-lift-five-target-performance-forecasting.md) | Partial historical reconstruction |
-| [Four-target load–velocity and competition forecasting](docs/benchmarks/four-target-load-velocity-and-competition-performance-forecasting.md) | Partial historical reconstruction |
-| [Held-out final-origin five-target evaluation](docs/benchmarks/held-out-final-origin-five-target-performance-evaluation.md) | Partial historical reconstruction |
-| [Capacity change with transient expression](docs/benchmarks/latent-capacity-change-with-transient-expression-forecasting.md) | Reproducible historical specification; historical production remains unimplemented publicly |
-| [Latent-origin capacity change](docs/benchmarks/latent-origin-capacity-change-forecasting.md) | Partial historical reconstruction |
-| [Observed-origin-referenced capacity change](docs/benchmarks/observed-origin-referenced-capacity-change-forecasting.md) | Partial historical reconstruction |
-| [Seasonal five-target forecasting](docs/benchmarks/seasonal-five-target-load-velocity-performance-forecasting.md) | Partial historical reconstruction |
-| [Schedule, exposure, and reporting heterogeneity](docs/benchmarks/performance-forecasting-under-schedule-exposure-reporting-heterogeneity.md) | Partial historical reconstruction |
-| [IID capacity change with transient expression](docs/benchmarks/iid-latent-capacity-change-with-transient-expression-forecasting.md) | Independent executable PUBLIC_NATIVE benchmark |
+| [Observation inversion](results/studies/observation_inversion/report.md) | Exact expressed-performance inversion is insufficient for latent-capacity recovery; averaging can mix changing states. |
+| [Structural reconstruction](results/studies/target_sufficient_structural_reconstruction/report.md) | Local sensitivity does not prove global identification. Most noisy full maximum-likelihood starts did not converge. |
+| [Public-surrogate reconstruction](results/studies/public_surrogate_reconstruction/public-native/report.md) | Donor copying and predictive approximation do not establish mechanism recovery; the tested non-identification comparison is inconclusive. |
+| [Synthetic-pretraining transfer](docs/studies/g4-reader-corrections-v1.md) | Corrected guarded inference finds no demonstrated >1 kg bootstrap-pretraining advantage over the compute-matched public-only control. Original findings and initialization deviations remain preserved. |
+| [Representation, learner and information ablations](results/studies/res293_representation_learner_information/report.md) | Six fixed procedures differ descriptively; uncertainty is not coverage-qualified and does not establish nonlinear necessity. [Bounded synthesis](results/studies/res294-definition-b-final-synthesis.md). |
+| [Conditional uncertainty and support restriction](docs/studies/probabilistic-capacity-forecasting.md) | Conditional scale H improves macro CRPS over a calibrated plan/horizon baseline by 2.75%/2.96% on two same-law tests. Group calibration and truncation H_GT add small gains of 0.358%/0.313% over H on two subsequent tests. Both point-correction attempts failed. |
+| [Controlled distribution shifts](docs/studies/probabilistic-capacity-forecasting.md#controlled-shifts) | Relative H_GT score gains survive two prescribed shifts within original parameter support. Absolute error increases; worst nominal 90% subgroup coverage is **81.25%/79.30%**. Conditional reliability is not established. |
 
-The historical capacity-change production design used scrambled Sobol sampling. The public-native variant uses IID pseudorandom sampling and separate DatasetSpec, evaluation, and BenchmarkSpec identities. Shared mechanics do not make their numeric scores comparable. Historical G1–G4 names survive as metadata; the completed public-native studies are new experiments, not recovered historical results. [Naming provenance](docs/provenance/scientific-naming-decisions.md) records the retained aliases and scientific references.
+The last two rows summarize restricted studies; their raw evidence, fitted uncertainty parameters and scoring adapters are **not distributed here**. [Public versus restricted reproduction](docs/reproducibility.md#public-and-restricted-reproduction) separates method inspection from numerical reproduction. They use two independent test parents per stage and shared fitted models, not independent training replications. Sequential hypothesis selection and incomplete historical chronology limit confirmatory interpretation.
 
-## Studies and major findings
+## Benchmarks, model comparisons and availability
 
-| Study | Bounded finding | Evidence |
-| --- | --- | --- |
-| G1 · Observation inversion (RES-287) | Exact expressed-performance inversion is insufficient for latent-capacity recovery; longer history averages can mix changing states. | [Report and negative findings](results/studies/observation_inversion/report.md), [protocol](studies/observation_inversion/protocol.json) |
-| G2 · Structural reconstruction (RES-289) | Known-law reconstruction and local sensitivity do not prove global identification. Most noisy full-MLE starts did not converge. | [Report and convergence diagnostics](results/studies/target_sufficient_structural_reconstruction/report.md), [protocol](studies/target_sufficient_structural_reconstruction/protocol.json) |
-| G3 · Public-surrogate reconstruction (RES-290) | Finite donor copying and predictive approximation do not establish source-mechanism recovery; the tested structural non-identification comparison remains inconclusive. | [Report](results/studies/public_surrogate_reconstruction/public-native/report.md), [protocol](studies/public_surrogate_reconstruction/protocol.json) |
-| G4 · Synthetic-pretraining transfer (RES-292) | Corrected guarded inference did not demonstrate a >1 kg bootstrap-pretraining advantage over the compute-matched public-only control in the declared cells. | [Current correction notice](docs/studies/g4-reader-corrections-v1.md), [protocol](studies/synthetic_pretraining_transfer/protocol.json) |
-| RES-293 · Representation, learner, and information | The six fixed finite-budget procedures produced different target-wise point estimates; the descriptive uncertainty is not coverage-qualified and does not establish nonlinear necessity. | [Final report and all 21 contrasts](results/studies/res293_representation_learner_information/report.md), [frozen protocol](studies/res293_representation_learner_information/protocol.json) |
-| RES-294 · Definition B synthesis | Integrates the selected bounded program with historical genealogy, G1–G4, model comparisons, audit gaps, corrections, exclusions, and unresolved questions. | [Final synthesis](results/studies/res294-definition-b-final-synthesis.md) |
+The [nine-entry registry](docs/benchmarks/index.md) contains eight historical specimens across six shared worlds and one independent executable IID variant. Historical scrambled-Sobol production and public IID sampling have different identities; shared mechanics do not make their scores comparable. [Naming provenance](docs/provenance/scientific-naming-decisions.md) retains original aliases without treating them as current scientific names.
 
-G4's original pooled classifications were **98 equivalence, 9 inconclusive, 1 benefit**. RES-510's proposed Monte Carlo-guarded correction gives **97 equivalence, 11 inconclusive, 0 benefit** across 108 cells. Primary percentile and fixed-five-fit conditional interpretations remain separate. RES-511 confirms nonzero initial biases despite the frozen zero-bias specification: the results describe the executed learner. Independent scientific approval of the corrections remains pending.
+The [model comparison](docs/models/reference-models.md) contains seven families and 22 candidate fit/ensemble identities on one canonical IID realization. The GRU ensemble leads 11 of 12 target/metric point comparisons; one seed leads squat MAE. All 264 paired-uncertainty cells are unsupported, and all 36 historical cross-version numerical comparisons are rejected. No universal ranking or statistical superiority follows. No trained cross-family model-of-models or learned stacking system is present; three-seed averaging is the demonstrated ensemble.
 
-## Models and benchmark audits
-
-The saved IID panel contains seven model families: context mean, Ridge, histogram boosted stumps, mechanistic midpoint, compact neural, mechanistic plus Ridge residual, and a lift-shared temporal GRU expert. [Model documentation](docs/models/reference-models.md) links their protocols, fitted identities, predictions, and evaluations. The [current model artifact release](models/published/CURRENT_RELEASE.md) publishes the three RES-274 PUBLIC_NATIVE GRU checkpoints and all 30 original RES-293 Definition B fitted states. The [public artifact verifier](scripts/verify_published_model_artifacts.py) checks their hashes, identities, and safe loading; optional commands replay the 60 RES-293 predictions or the original GRU inference on CPU.
-
-The [RES-284 synthesis](results/audits/res284-publication/report.md) reports 22 candidate fit/ensemble identities on 3,072 shared prediction keys and three targets. The temporal-expert ensemble leads 11 of 12 target/metric point-estimate comparisons; one expert seed leads squat MAE. This is a bounded descriptive result. All **264 paired-uncertainty cells are unsupported**, and all **36 historical cross-version numeric comparisons are rejected**. No universal model ranking or practical superiority follows. [Audit navigation](docs/audits/index.md#evidence-reading-guide) distinguishes validity axes, attack contracts, execution states, metric sensitivity, and missing evidence; it defines no universal validity score.
+The [authorized artifact release](models/published/CURRENT_RELEASE.md) contains three original GRU checkpoints and 30 representation-study fitted states. [Artifact verification](scripts/verify_published_model_artifacts.py) checks hashes, identities and safe loading. Read the [normalization metadata clarification](provenance/normalization-and-rights-clarification.md): an inconsistent frozen summary hash is disclosed alongside the verified file hash. Historical private checkpoints remain excluded.
 
 ## Reproduce and inspect
-
-For a clean locked environment and the ordinary test suite:
 
 ```sh
 uv sync --locked --all-groups --python 3.12
 uv run --locked --no-sync pytest
+uv run --locked --no-sync python scripts/verify_published_model_artifacts.py
+uv run --locked --no-sync python scripts/check_documentation_links.py
 ```
 
-The [reproducibility guide](docs/reproducibility.md) separates artifact preservation from numerical replay and links the [CI local-parity commands](.github/workflows/README.md#local-parity). G3/G4 `--check` verifies existing evidence by rebuilding in memory; fresh generation requires a separate, untracked copy and must never overwrite frozen evidence. The [RES-299 verification record](docs/res299-validation.md) states what was actually executed.
+Use a full Git clone for frozen-history checks. The [reproducibility guide](docs/reproducibility.md) distinguishes byte preservation, numerical replay and fresh generation; the [CI commands](.github/workflows/README.md#local-parity) cover Linux Python 3.11–3.13, strict typing, lint, security, exports and isolated wheel loading. No training or new probabilistic-study test generation is required for repository qualification.
 
 | Location | Contents |
 | --- | --- |
-| [docs](docs/README.md) | Scientific overview, cards, claim boundaries, and navigation |
-| [studies](studies/README.md), [results/studies](results/studies/README.md) | Frozen protocols, lineage, reports, diagnostics, and results |
-| [audits](audits/README.md), [results/audits](results/audits/README.md) | Audit contracts, executions, and publication evidence |
-| [data](data/README.md), [models](models/README.md) | Dataset and model specifications/manifests, authorized model releases; historical private material excluded |
-| [artifacts](artifacts/README.md), [provenance](provenance/README.md) | Generated registries/schemas, rights, and origin records |
+| [Science and studies](docs/README.md) | Equations, literature, methods, evidence, negative findings and claim limits |
+| [Models](docs/models/reference-models.md), [data](data/README.md) | Specifications, rights and available artifacts |
+| [Study protocols](studies/README.md), [results](results/README.md), [audits](docs/audits/index.md) | Frozen evidence and correction notices |
+| [Provenance](provenance/README.md) | Per-file origins, artifact authorization and metadata discrepancies |
+| [Engineering qualification](REPOSITORY_ENGINEERING_CLOSEOUT_REPORT.md) | Cleanup dispositions, verification receipts and remaining limitations |
 
-## Scientific limitations
+## Rights and scientific limits
 
-All evidence is synthetic, with no demonstrated real-athlete validity or causal training-prescription claim. G2 uncertainty is approximate and excludes optimization uncertainty; noisy retained fits often failed convergence. G3 distribution intervals condition on the fixed donor sample. G4 intervals are approximate per-cell intervals, without family-wise scientific coverage, and use five fitting seeds conditional on fixed upstream data. RES-284 paired uncertainty remains unsupported, and historical numeric comparisons remain inadmissible. RES-293 is exploratory on one inspected realization and five analyzed fits; its multiplier envelope is not coverage-qualified. RES-294 closes only the selected Definition B program, not the broader deferred frontier, global-identification, real-athlete, or causal questions. See [study limitations](docs/studies/index.md) and [benchmark claim boundaries](docs/benchmarks/claim-boundaries.md).
+Code is [MIT](LICENSE); authored Markdown is [CC BY 4.0](LICENSE-DOCS). The public generated dataset requires CC BY 4.0 attribution; individual manifests govern model/data/result artifacts. [Model redistribution authority](provenance/model-artifact-redistribution.md) covers named public artifacts only. The [public/private boundary](docs/current-research-state.md#artifact-access-and-rights) excludes restricted cohorts, truth, predictions, uncertainty parameters and manuscripts.
 
-## Licensing and publication status
-
-Code is [MIT](LICENSE); project-authored Markdown is [CC BY 4.0](LICENSE-DOCS). Per-artifact notices govern data/results; the public-native IID dataset requires attribution. The [RES-297 clarification](provenance/RES-297-prediction-provenance-clarification.md) records authorization for the four already-public expert prediction artifacts and explains the frozen evaluator's `NOASSERTION` fallback; it does not itself authorize checkpoint distribution. Separate authorization for the currently released checkpoints and fitted states is recorded in [model-artifact-redistribution.md](provenance/model-artifact-redistribution.md). Historical World-V2 and other recovered task artifacts remain private. This repository is a research portfolio, with independent scientific review pending; it is not a qualified formal archival release.
+No real-athlete validation, universal out-of-distribution guarantee, confirmed conditional reliability, causal training prescription, physiological identification or external human peer review has been established. Engineering qualification is separate from scientific acceptance and formal archival release; no DOI or publication claim is made.

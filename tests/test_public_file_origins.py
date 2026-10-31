@@ -17,6 +17,7 @@ def test_every_repository_file_has_an_origin_and_license_record() -> None:
         ).split(b"\0")
         if item
     )
+    assert all(None not in row and all(value is not None for value in row.values()) for row in rows)
     assert len(paths) == len(rows)
     assert paths == tracked
     assert all((root / path).is_file() for path in paths)
@@ -38,3 +39,27 @@ def test_every_repository_file_has_an_origin_and_license_record() -> None:
             else "MIT"
         )
         assert row["license_expression"] == expected
+
+
+def test_integrity_rejects_unquoted_csv_fields(tmp_path: Path) -> None:
+    import importlib.util
+
+    import pytest
+
+    root = Path(__file__).resolve().parents[1]
+    spec = importlib.util.spec_from_file_location(
+        "check_repository_integrity", root / "scripts/check_repository_integrity.py"
+    )
+    assert spec is not None and spec.loader is not None
+    checker = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(checker)
+    (tmp_path / "provenance").mkdir()
+    ledger = tmp_path / "provenance/PUBLIC_FILE_ORIGINS.csv"
+    ledger.write_text(
+        "path,origin_class,license_expression,owner,purpose\n"
+        "example.py,NEWLY_AUTHORED,MIT,repository,one,two\n"
+    )
+    with pytest.MonkeyPatch.context() as patch:
+        patch.setattr(checker, "ROOT", tmp_path)
+        assert checker.check_ledger({"example.py"}) == 0
+    assert checker.ERRORS == ["origin ledger contains a malformed CSV row"]

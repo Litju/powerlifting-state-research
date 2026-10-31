@@ -5,3 +5,5 @@ Use scientific terms for all canonical paths, Python names, test names, and docu
 Describe the evidence class behind each research question and distinguish it from the original motivation. State the data and information boundary before interpreting a score. Keep synthetic prediction claims within the declared synthetic world.
 
 Every change to data, model, results, schemas, or documentation must have a clear identity, origin, license, and regeneration story. Do not commit private historical bytes or artifacts without documented rights.
+
+For executable checks, frozen-evidence preservation and restricted probabilistic-study boundaries, use the maintained [repository contribution guide](../CONTRIBUTING.md) and [reproduction instructions](reproducibility.md).
