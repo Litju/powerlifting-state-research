@@ -935,3 +935,8 @@ results/references/public-probabilistic-latent-capacity-change-v1/full/manifest.
 results/references/public-probabilistic-latent-capacity-change-v1/full/point_forecast.csv,GENERATED_PUBLIC_ARTIFACT,MIT,probabilistic-reference,RES-615 public reference full-profile output on newly generated synthetic cohorts; not historical results.
 results/references/public-probabilistic-latent-capacity-change-v1/full/scores.csv,GENERATED_PUBLIC_ARTIFACT,MIT,probabilistic-reference,RES-615 public reference full-profile output on newly generated synthetic cohorts; not historical results.
 results/references/public-probabilistic-latent-capacity-change-v1/full/stratum_diagnostics.csv,GENERATED_PUBLIC_ARTIFACT,MIT,probabilistic-reference,RES-615 public reference full-profile output on newly generated synthetic cohorts; not historical results.
+src/powerlifting_state_research/observable/__init__.py,NEWLY_AUTHORED,MIT,observable-study,RES-616 observable assessment forecasting study package.
+src/powerlifting_state_research/observable/contract.py,NEWLY_AUTHORED,MIT,observable-study,RES-616 frozen task observation protocol identities seeds and disposition rules.
+src/powerlifting_state_research/observable/data.py,NEWLY_AUTHORED,MIT,observable-study,RES-616 cohort generation with separate future-assessment stream and paired shifts.
+tests/test_observable_contract_and_data.py,NEWLY_AUTHORED,MIT,observable-study,RES-616 contract identity target indexing leakage independence and pairing tests.
+results/studies/observable_strength_forecasting/protocol.json,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 frozen protocol written before fitting or TEST access.
