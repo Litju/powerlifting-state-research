@@ -940,3 +940,22 @@ src/powerlifting_state_research/observable/contract.py,NEWLY_AUTHORED,MIT,observ
 src/powerlifting_state_research/observable/data.py,NEWLY_AUTHORED,MIT,observable-study,RES-616 cohort generation with separate future-assessment stream and paired shifts.
 tests/test_observable_contract_and_data.py,NEWLY_AUTHORED,MIT,observable-study,RES-616 contract identity target indexing leakage independence and pairing tests.
 results/studies/observable_strength_forecasting/protocol.json,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 frozen protocol written before fitting or TEST access.
+src/powerlifting_state_research/observable/__main__.py,NEWLY_AUTHORED,MIT,observable-study,Command line entry point for the RES-616 observable forecasting study.
+src/powerlifting_state_research/observable/models.py,NEWLY_AUTHORED,MIT,observable-study,RES-616 persistence ridge GRU models and sigma calibration chain.
+src/powerlifting_state_research/observable/study.py,NEWLY_AUTHORED,MIT,observable-study,RES-616 freeze seal score bootstrap and report orchestration.
+tests/test_observable_models_and_study.py,NEWLY_AUTHORED,MIT,observable-study,RES-616 model calibration statistics firewall and fail-closed tests.
+results/studies/observable_strength_forecasting/smoke/cessation_audit.csv,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/smoke/figure-1-primary-difference.svg,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/smoke/figure-2-crps-by-scenario.svg,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/smoke/figure-3-coverage-by-scenario.svg,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/smoke/freeze-seal.json,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/smoke/frozen-parameters.json,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/smoke/group_calibration.csv,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/smoke/group_summary.csv,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/smoke/integrity.csv,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/smoke/manifest.json,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/smoke/paired_contrasts.csv,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/smoke/prediction-seal.json,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/smoke/scores.csv,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/smoke/shift_degradation.csv,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/smoke/summary.json,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
