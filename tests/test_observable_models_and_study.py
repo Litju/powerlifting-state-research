@@ -520,3 +520,40 @@ def test_study_does_not_use_restricted_or_historical_artifacts() -> None:
     ):
         assert forbidden not in text
     assert C.PROTOCOL["rights"]["historical_checkpoints"].startswith("not loaded")
+
+
+@pytest.mark.skipif(
+    os.environ.get("PSR_RUN_FULL_OBSERVABLE") != "1",
+    reason="opt-in ~8 CPU-minute reproduction; set PSR_RUN_FULL_OBSERVABLE=1",
+)
+def test_full_study_reproduces_committed_values(tmp_path: Path) -> None:
+    result = S.run("full", tmp_path / "out")
+    assert result["receipt"]["resources"]["peak_rss_bytes"] < S.MAX_RSS
+    S.compare_to_expected(
+        tmp_path / "out", ROOT / S.EXPECTED_RELATIVE / "full", same_environment=False
+    )
+
+
+def test_committed_full_results_are_complete_and_internally_consistent() -> None:
+    import csv
+    import hashlib
+
+    full = ROOT / S.EXPECTED_RELATIVE / "full"
+    manifest = json.loads((full / "manifest.json").read_text())
+    for name, digest in manifest["output_sha256"].items():
+        assert hashlib.sha256((full / name).read_bytes()).hexdigest() == digest
+    assert manifest["study_id"] == C.STUDY_ID and manifest["profile"] == "full"
+    assert manifest["disposition"] == "OBSERVABLE_FORECASTING_NOT_QUALIFIED"
+    assert (
+        all(v["rows"] == 3072 for v in manifest["cohorts"].values())
+        and len(manifest["cohorts"]) == 6
+    )
+    with (full / "scores.csv").open() as handle:
+        rows = list(csv.DictReader(handle))
+    assert len(rows) == 2 * 3 * 5 * 4 and all(r["n"] == "3072" for r in rows)
+    summary = json.loads((full / "summary.json").read_text())
+    assert summary["criteria"]["nonfinite_predictions"] == 0
+    assert not any(p["screen"] for p in summary["primary"].values())
+    receipt = json.loads((full / "execution-receipt.json").read_text())["resources"]
+    assert receipt["cpu_seconds"] < 5400 and receipt["wall_seconds"] < 7200
+    assert receipt["gru_fit_cpu_seconds"] < 2400 and receipt["peak_rss_bytes"] < 2 * 1024**3

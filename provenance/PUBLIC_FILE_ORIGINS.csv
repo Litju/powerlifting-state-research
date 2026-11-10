@@ -959,3 +959,21 @@ results/studies/observable_strength_forecasting/smoke/prediction-seal.json,GENER
 results/studies/observable_strength_forecasting/smoke/scores.csv,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
 results/studies/observable_strength_forecasting/smoke/shift_degradation.csv,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
 results/studies/observable_strength_forecasting/smoke/summary.json,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 smoke-profile expected output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/full/cessation_audit.csv,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 full-profile output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/full/execution-receipt.json,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 full-profile output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/full/figure-1-primary-difference.svg,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 full-profile output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/full/figure-2-crps-by-scenario.svg,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 full-profile output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/full/figure-3-coverage-by-scenario.svg,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 full-profile output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/full/freeze-seal.json,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 full-profile output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/full/frozen-parameters.json,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 full-profile output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/full/group_calibration.csv,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 full-profile output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/full/group_summary.csv,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 full-profile output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/full/integrity.csv,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 full-profile output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/full/manifest.json,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 full-profile output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/full/paired_contrasts.csv,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 full-profile output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/full/prediction-seal.json,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 full-profile output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/full/scores.csv,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 full-profile output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/full/shift_degradation.csv,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 full-profile output on newly generated synthetic cohorts.
+results/studies/observable_strength_forecasting/full/summary.json,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 full-profile output on newly generated synthetic cohorts.
+docs/studies/observable-strength-forecasting.md,NEWLY_AUTHORED,CC-BY-4.0,observable-study,Integrated RES-616 report with positive and negative findings.
+results/studies/observable_strength_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,observable-study,Reading guide for RES-616 outputs.
