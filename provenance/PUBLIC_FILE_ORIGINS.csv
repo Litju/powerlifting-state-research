@@ -935,3 +935,6 @@ results/references/public-probabilistic-latent-capacity-change-v1/full/manifest.
 results/references/public-probabilistic-latent-capacity-change-v1/full/point_forecast.csv,GENERATED_PUBLIC_ARTIFACT,MIT,probabilistic-reference,RES-615 public reference full-profile output on newly generated synthetic cohorts; not historical results.
 results/references/public-probabilistic-latent-capacity-change-v1/full/scores.csv,GENERATED_PUBLIC_ARTIFACT,MIT,probabilistic-reference,RES-615 public reference full-profile output on newly generated synthetic cohorts; not historical results.
 results/references/public-probabilistic-latent-capacity-change-v1/full/stratum_diagnostics.csv,GENERATED_PUBLIC_ARTIFACT,MIT,probabilistic-reference,RES-615 public reference full-profile output on newly generated synthetic cohorts; not historical results.
+docs/studies/g2-identifiability-decision.md,NEWLY_AUTHORED,CC-BY-4.0,g2-decision,RES-617 G2 identifiability decision memo with evidence matrix.
+provenance/RES-617-g2-evidence-provenance.md,NEWLY_AUTHORED,CC-BY-4.0,g2-decision,RES-617 verified evidence identities and Linear pointer correction record.
+tests/test_g2_decision_provenance.py,NEWLY_AUTHORED,MIT,g2-decision,RES-617 memo provenance and public-evidence consistency tests.
