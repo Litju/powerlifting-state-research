@@ -72,3 +72,18 @@ Optimizer success is not identifiability. Even the best case (M1 L-BFGS-B) verif
 | Observed-style performance is estimable in the tested synthetic conditions | Supported, conditional | RES-289 `P_223` RMSE vs reduced estimator |
 | G2 is a valid forward simulator and sensitivity probe | Supported | model code and RES-592 forward sensitivities |
 | Real-athlete, physiological or causal claims | **Not supported** | no experiment addresses them |
+
+## 8. Mechanistic-use contract
+
+The binding statement of permitted and unsupported uses is the [G2 mechanistic-use contract](../science/g2-mechanistic-use-contract.md). In short, G2 may be used for synthetic simulation, mechanistic hypothesis exploration, controlled forward-model sensitivity and forecasting comparisons within validated conditions. It may not be used to claim recovery of an athlete's adaptation or suppression state, to report nonstationary point estimates as identified parameters, to claim unique recovery without adequate evidence, or for real-athlete prescription or causal claims.
+
+## 9. Remaining scientific limitations
+
+- The preserved results come from eight selected synthetic sentinel entities at two noise levels (16 cases), not an untouched test cohort. Held-out comparisons have unequal denominators (16, 15 and 13).
+- Profiles cover two preselected entities and two quantities, with feasible upper-bound values only.
+- The linearized weakest-direction reading in section 2 uses mostly nonstationary points and is not a confidence set.
+- No structural identifiability theorem is established or refuted for the canonical templates; the question remains open but is not pursued here.
+- The RES-289 public study assumes the known equations and zero initial states, and its failures are retained.
+- Different studies (RES-289, RES-557, RES-592) use different source and observation laws and are not pooled.
+- All results are synthetic. No real-athlete validity, physiological identification or causal training claim follows.
+

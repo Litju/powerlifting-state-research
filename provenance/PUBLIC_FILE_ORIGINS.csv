@@ -938,3 +938,5 @@ results/references/public-probabilistic-latent-capacity-change-v1/full/stratum_d
 docs/studies/g2-identifiability-decision.md,NEWLY_AUTHORED,CC-BY-4.0,g2-decision,RES-617 G2 identifiability decision memo with evidence matrix.
 provenance/RES-617-g2-evidence-provenance.md,NEWLY_AUTHORED,CC-BY-4.0,g2-decision,RES-617 verified evidence identities and Linear pointer correction record.
 tests/test_g2_decision_provenance.py,NEWLY_AUTHORED,MIT,g2-decision,RES-617 memo provenance and public-evidence consistency tests.
+docs/science/g2-mechanistic-use-contract.md,NEWLY_AUTHORED,CC-BY-4.0,g2-decision,RES-617 G2 mechanistic-use contract with permitted and unsupported uses.
+tests/test_g2_mechanistic_use_contract.py,NEWLY_AUTHORED,MIT,g2-decision,RES-617 contract link claim-scan and frozen-evidence consistency tests.
