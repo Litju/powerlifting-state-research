@@ -24,7 +24,7 @@ _INV_SQRT_PI = 1.0 / math.sqrt(math.pi)
 
 
 def _t(value: npt.ArrayLike) -> torch.Tensor:
-    return torch.as_tensor(np.asarray(value, dtype=np.float64))
+    return torch.as_tensor(np.array(value, dtype=np.float64))
 
 
 def _check(mu: torch.Tensor, sigma: torch.Tensor, y: torch.Tensor | None = None) -> None:
@@ -156,7 +156,7 @@ def truncated_ppf(mu: npt.ArrayLike, sigma: npt.ArrayLike, p: npt.ArrayLike) -> 
 
 
 def central_interval(
-    mu: npt.ArrayLike, sigma: npt.ArrayLike, level: float, *, truncated: FloatArray | bool
+    mu: npt.ArrayLike, sigma: npt.ArrayLike, level: float, *, truncated: npt.ArrayLike
 ) -> tuple[FloatArray, FloatArray]:
     """Central ``level`` interval; ``truncated`` may be a bool or a per-row boolean mask."""
     if not 0.0 < level < 1.0:
@@ -181,7 +181,11 @@ def positive_mass(mu: npt.ArrayLike, sigma: npt.ArrayLike) -> FloatArray:
 
 
 def central_coverage_and_width(
-    mu: FloatArray, sigma: FloatArray, y: FloatArray, truncated: FloatArray, levels: Sequence[float]
+    mu: FloatArray,
+    sigma: FloatArray,
+    y: FloatArray,
+    truncated: npt.ArrayLike,
+    levels: Sequence[float],
 ) -> dict[float, tuple[FloatArray, FloatArray]]:
     """Per-row inclusion (0/1) and width for every central level."""
     out: dict[float, tuple[FloatArray, FloatArray]] = {}

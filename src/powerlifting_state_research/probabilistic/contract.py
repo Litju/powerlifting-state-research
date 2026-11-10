@@ -66,7 +66,7 @@ RESOURCE_LIMITS = {
 # 1-Lipschitz in the location, so no mean CRPS can move by more than that (hard bound). The
 # tighter score tolerances are frozen engineering expectations, not proven bounds; the measured
 # differences are reported in the closeout, and a violation is reported, never silently widened.
-TOLERANCES = {
+TOLERANCES: dict[str, Any] = {
     "same_environment": "tables byte-identical",
     "crps_hard_bound_kg_abs": 0.0167,
     "cross_environment_crps_kg_abs": 1.0e-3,

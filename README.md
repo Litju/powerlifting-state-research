@@ -2,7 +2,7 @@
 
 Scientific software for studying **latent capacity forecasts from noisy performance histories** in a specified synthetic dynamical system. The research connects mechanistic simulation, scientific machine learning, probabilistic forecasting and benchmark validity. All experimental evidence is synthetic; real-athlete validity has not been demonstrated.
 
-Start with the [system equations](docs/science/system-model.md), [research findings and claims](docs/studies/probabilistic-capacity-forecasting.md), [public study evidence](docs/studies/index.md), and [reproduction boundaries](docs/reproducibility.md). The [current model release](models/published/CURRENT_RELEASE.md) identifies the available weights. Independent external human methodological review remains pending.
+Start with the [system equations](docs/science/system-model.md), [research findings and claims](docs/studies/probabilistic-capacity-forecasting.md), [public study evidence](docs/studies/index.md), and [reproduction boundaries](docs/reproducibility.md). The [current model release](models/published/CURRENT_RELEASE.md) identifies the available weights. A one-command [public probabilistic reference](docs/probabilistic-reference.md) (new, not a reproduction of the restricted studies) runs on CPU from a clean clone. Independent external human methodological review remains pending.
 
 ## Scientific question
 

@@ -1,0 +1,3 @@
+# Public reference experiments
+
+`public-probabilistic-latent-capacity-change-v1/` holds the frozen protocol and the expected outputs of the RES-615 reference experiment (`smoke/` and `full/`). These are **new** results from newly generated synthetic cohorts, not the restricted historical M10–M12 results. See [the reference documentation](../../docs/probabilistic-reference.md) and the [rights audit](../../provenance/RES-615-probabilistic-reference-rights-audit.md). Generated cohort rows are not committed; the expected files are aggregate tables, fitted parameters of this reference, figures and manifests.

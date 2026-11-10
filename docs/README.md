@@ -4,6 +4,7 @@
 - [Public benchmark contract](contracts/public-benchmark-contract.md)
 - [Nine benchmark entries: eight historical and one public-native](benchmarks/index.md), [comparability](benchmarks/comparability.md), and [claim boundaries](benchmarks/claim-boundaries.md)
 - [Data](data/index.md), [models](models/reference-models.md), [audits](audits/index.md), [studies](studies/index.md), and [artifacts](../models/published/CURRENT_RELEASE.md)
+- [Public probabilistic reference](probabilistic-reference.md) (new CPU-only reference experiment),
 - [Reproducibility](reproducibility.md), [public/private firewall](current-research-state.md#artifact-access-and-rights), [roadmap](current-research-state.md#completed-and-deferred-work), and [contribution guidance](contributing.md)
 
 Start with the [probabilistic methods and claims](studies/probabilistic-capacity-forecasting.md), [research positioning and references](science/research-positioning.md), and [engineering qualification](../REPOSITORY_ENGINEERING_CLOSEOUT_REPORT.md).
