@@ -904,3 +904,10 @@ provenance/repository-cleanup-inventory.csv,NEWLY_AUTHORED,MIT,repository,Owner-
 scripts/check_documentation_links.py,NEWLY_AUTHORED,MIT,repository,Owner-authorized scientific methods integration and evidence-preserving engineering qualification; no restricted payloads.
 tests/test_documentation_links.py,NEWLY_AUTHORED,MIT,repository,Owner-authorized scientific methods integration and evidence-preserving engineering qualification; no restricted payloads.
 tests/test_probabilistic_reference_formulas.py,NEWLY_AUTHORED,MIT,repository,Owner-authorized scientific methods integration and evidence-preserving engineering qualification; no restricted payloads.
+src/powerlifting_state_research/probabilistic/__init__.py,NEWLY_AUTHORED,MIT,probabilistic-reference,RES-615 public probabilistic reference package.
+src/powerlifting_state_research/probabilistic/contract.py,NEWLY_AUTHORED,MIT,probabilistic-reference,"RES-615 frozen protocol identity, rights register and released-asset verification."
+src/powerlifting_state_research/probabilistic/scoring.py,NEWLY_AUTHORED,MIT,probabilistic-reference,Gaussian and upper-truncated CRPS NLL quantile and interval mathematics.
+tests/test_probabilistic_scoring.py,NEWLY_AUTHORED,MIT,probabilistic-reference,Numerical checks of predictive scores against independent scipy references.
+tests/test_probabilistic_reference_contract.py,NEWLY_AUTHORED,MIT,probabilistic-reference,Identity leakage rights and safe-failure checks for the RES-615 contract.
+provenance/RES-615-probabilistic-reference-rights-audit.md,NEWLY_AUTHORED,CC-BY-4.0,probabilistic-reference,Per-artifact rights audit and Route B decision for RES-615.
+results/references/public-probabilistic-latent-capacity-change-v1/protocol.json,GENERATED_PUBLIC_ARTIFACT,MIT,probabilistic-reference,Frozen RES-615 protocol and rights register written before any scientific run.
