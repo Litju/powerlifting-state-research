@@ -5,7 +5,7 @@
 | Job | Python | Checks |
 | --- | --- | --- |
 | Quality / integrity | 3.12 | Gitleaks JSON full-history scan, locked sync, Ruff, strict mypy, exports, repository integrity, Markdown links/anchors, published model hashes/loading, frozen-source preservation, execution-era RES-284 publication replay |
-| Compatibility (three jobs) | 3.11, 3.12, 3.13 | Locked sync, package import, pytest; opt-in full IID production skipped |
+| Compatibility (three jobs) | 3.11, 3.12, 3.13 | Locked sync, package import, pytest (includes the ~15 s probabilistic reference smoke); opt-in full IID production and full probabilistic reference skipped |
 | Package smoke | 3.12 | Build sdist/wheel, isolated wheel install with locked runtime/research dependencies, dependency imports, model instantiation, nine registry records and distinct historical/public-native identities |
 
 ## Local parity

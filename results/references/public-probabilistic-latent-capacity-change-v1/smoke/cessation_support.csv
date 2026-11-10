@@ -1,0 +1,4 @@
+horizon_days,n_cessation,truth_nonpositive_fraction,mean_gaussian_positive_mass_B1,mean_gaussian_positive_mass_H,truncated_positive_mass
+14,5,1.000000000,0.096061951,0.057889037,0.000000000
+28,5,1.000000000,0.096830782,0.034209771,0.000000000
+56,5,1.000000000,0.056031820,0.024265389,0.000000000
