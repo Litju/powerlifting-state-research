@@ -262,7 +262,18 @@ PROTOCOL: dict[str, Any] = {
         "frozen": True,
         "never_refit_on_new_populations": True,
         "reconstruction": "regenerate RES-616 FIT and DEV from their published seeds; "
-        "observable.models.fit_ridge; require alpha, DEV RMSE per alpha and beta SHA-256 to match",
+        "observable.models.fit_ridge; verify the replay against the published identity",
+        "verification_tiers": {
+            "tier_1_exact": "selected alpha, FIT/DEV row-id hashes and the published beta SHA-256 "
+            "all match (pinned single-thread BLAS)",
+            "tier_2_cross_environment": "only with the explicit --cross-environment flag: alpha "
+            "and row-id hashes match and DEV RMSE for every alpha agrees within 1e-6 kg; the "
+            "published digest hashes round(beta, 9) bytes and the sign of numerically zero "
+            "coefficients depends on the CPU kernel (observed on CI), so it can differ without "
+            "any change to the predictor; the tier used is recorded in every output",
+            "companion": "a sign-normalized beta digest is always recorded; it cannot be compared "
+            "with the published value because only the raw digest was published",
+        },
         "reference": RIDGE_REFERENCE,
         "replay_source_sha256_pinned_in_tests": True,
         "if_unverifiable": "BLOCKED_TECHNICAL_RIGHTS_OR_RESOURCE; no substitute Ridge is allowed",

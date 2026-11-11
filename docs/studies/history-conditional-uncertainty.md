@@ -3,7 +3,7 @@
 **Status: DESIGN AND IMPLEMENTATION COMPLETE; THE SCIENTIFIC EXPERIMENT HAS NOT BEEN RUN.** No new population has been generated, no scale model has been fitted, and no TEST truth has been opened. This page contains no results. Execution needs separate owner authorization of the frozen protocol digest below.
 
 - Mission: `PSR_OBSERVABLE_HISTORY_CONDITIONAL_UNCERTAINTY_ONE_SHOT`
-- Frozen protocol: [`protocol.json`](../../results/studies/history_conditional_uncertainty/protocol.json), study id `psr:study:history-conditioned-assessment-uncertainty@1.0.0~18650c7858f4`, digest `sha256:18650c7858f4707b32afc90bc02be40416b10bf4214cc510589346e0561987b4`
+- Frozen protocol: [`protocol.json`](../../results/studies/history_conditional_uncertainty/protocol.json), study id `psr:study:history-conditioned-assessment-uncertainty@1.0.0~3402d80af3db`, digest `sha256:3402d80af3db1ecf79682a6683a1f603f288010fe1dc486513f28ee587129c52`
 - Baseline mainline: `6696bebe61adbc57abf406445acfe92e008d2fcf`
 - Unchanged prior dispositions: RES-616 `OBSERVABLE_FORECASTING_NOT_QUALIFIED`; RES-617 `FULL_G2_IDENTIFICATION_UNSUPPORTED`. G2 fitting, identification and mechanistic reconstruction are not reopened.
 
@@ -30,7 +30,7 @@ The target is `Y_t = E_t(1 + ε_t)`, the future noisy assessment, not latent cap
 
 - Ridge depends only on public MIT code, the public synthetic generator and published FIT/DEV seeds (616101, 616201). No private bytes, uncommitted checkpoint or nondeterministic training is involved. The GRU is neither retrained nor loaded.
 - The fit is a deterministic least-squares solve (`numpy.linalg.lstsq`) after SD-floored standardization. Its recorded digest rounds to 9 decimals, but BLAS differences across machines can in principle alter low-order bits. Recorded RES-616 environment: Python 3.12.13, NumPy 2.4.4, PyTorch 2.9.1+cpu, Linux x86_64, one thread.
-- **Undocumented-runtime risk:** only the β digest, not the coefficients, is published. A mismatch cannot be localized. The replay therefore requires an exact β digest in the recorded environment. Outside it, a pre-declared cross-environment path accepts α = 0.01 and DEV RMSE for every α within 1e-6 kg, and records that the digest was not matched. If neither holds the run is `BLOCKED_TECHNICAL_RIGHTS_OR_RESOURCE`. A newly optimized Ridge is never substituted.
+- **Undocumented-runtime risk:** only the β digest, not the coefficients, is published. A mismatch cannot be localized. The replay therefore requires an exact β digest in the recorded environment. Outside it, the explicit tier-2 path accepts α = 0.01 and DEV RMSE for every α within 1e-6 kg and records that the digest was not matched. If neither holds the run is `BLOCKED_TECHNICAL_RIGHTS_OR_RESOURCE`. A newly optimized Ridge is never substituted.
 - Expected replay cost, from RES-616 receipts: about 60 s generation plus 3 s fit, charged to the same 2,400 s campaign.
 
 ## Frozen design
@@ -105,7 +105,8 @@ The smoke profile (240/120/60/60 rows, seeds 639811 to 639841, 50 bootstrap repl
 
 ### Findings made during implementation
 
-- **Digest fragility.** The published `beta_sha256` hashes `round(beta, 9)` bytes. Many coefficients belong to degenerate (constant) columns and are numerically zero; their sign depends on BLAS threading, so the same fit gave two different digests with one versus several BLAS threads. The study entry point pins one thread before importing NumPy, as RES-616 did, and requires the exact published digest in that mode. A sign-normalized companion digest (invariant to this effect) is recorded for every replay; it cannot be compared with the published value because only the raw digest was published. The explicit `--cross-environment` path accepts only matching α and DEV RMSE within 1e-6 kg and records that the digest was not matched.
+- **Digest fragility (confirmed on CI).** The published `beta_sha256` hashes `round(beta, 9)` bytes. Many coefficients belong to degenerate (constant) columns and are numerically zero; their sign depends on the BLAS kernel. The same smoke fit gave different digests with one versus several BLAS threads on the development machine, and the exact published smoke digest did **not** reproduce on the GitHub runner even with one thread, while the sign-normalized digest did. The exact digest is therefore machine-dependent evidence, not a universal test. The protocol states two tiers: tier 1 demands the exact published digest; tier 2 (explicit `--cross-environment` only) accepts matching α, row-id hashes and DEV RMSE for every α within 1e-6 kg, and the tier used is recorded in all outputs. A sign-normalized companion digest is always recorded; it cannot be compared with the published value because only the raw digest was published.
+- **Protocol revision before authorization.** The protocol digest changed from `…18650c7858f4` (first commit) to `…3402d80af3db` solely to state these two tiers, after CI evidence and with no TEST information. Only the current digest can be authorized.
 - **Constant-offset invariance.** A constant shift of the log-variance prediction is removed exactly by the calibration constant (tested), so the known log-χ² bias needs no explicit correction. Expect fitted c near 1.9 for B_MAG and H_HISTORY; that is the bias, not a defect, and a clipped c would be reported.
 
 ## Rights and provenance audit
@@ -118,7 +119,7 @@ Checked by the implementing agent, not independent human review: heads match an 
 
 ## Execution procedure (NOT executed; requires owner authorization)
 
-1. The owner creates an authorization record, for example `authorization.json`: `{"protocol_digest": "sha256:18650c7858f4707b32afc90bc02be40416b10bf4214cc510589346e0561987b4", "owner_authorized_full_run": true}`.
+1. The owner creates an authorization record, for example `authorization.json`: `{"protocol_digest": "sha256:3402d80af3db1ecf79682a6683a1f603f288010fe1dc486513f28ee587129c52", "owner_authorized_full_run": true}`.
 2. From a clean locked checkout of the authorized commit: `uv sync --locked --all-groups --python 3.12`.
 3. Run once, with independent resource observation:
 
