@@ -977,3 +977,8 @@ results/studies/observable_strength_forecasting/full/shift_degradation.csv,GENER
 results/studies/observable_strength_forecasting/full/summary.json,GENERATED_PUBLIC_ARTIFACT,MIT,observable-study,RES-616 full-profile output on newly generated synthetic cohorts.
 docs/studies/observable-strength-forecasting.md,NEWLY_AUTHORED,CC-BY-4.0,observable-study,Integrated RES-616 report with positive and negative findings.
 results/studies/observable_strength_forecasting/README.md,NEWLY_AUTHORED,CC-BY-4.0,observable-study,Reading guide for RES-616 outputs.
+docs/studies/g2-identifiability-decision.md,NEWLY_AUTHORED,CC-BY-4.0,g2-decision,RES-617 G2 identifiability decision memo with evidence matrix.
+provenance/RES-617-g2-evidence-provenance.md,NEWLY_AUTHORED,CC-BY-4.0,g2-decision,RES-617 verified evidence identities and Linear pointer correction record.
+tests/test_g2_decision_provenance.py,NEWLY_AUTHORED,MIT,g2-decision,RES-617 memo provenance and public-evidence consistency tests.
+docs/science/g2-mechanistic-use-contract.md,NEWLY_AUTHORED,CC-BY-4.0,g2-decision,RES-617 G2 mechanistic-use contract with permitted and unsupported uses.
+tests/test_g2_mechanistic_use_contract.py,NEWLY_AUTHORED,MIT,g2-decision,RES-617 contract link claim-scan and frozen-evidence consistency tests.

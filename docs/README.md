@@ -4,6 +4,7 @@
 - [Public benchmark contract](contracts/public-benchmark-contract.md)
 - [Nine benchmark entries: eight historical and one public-native](benchmarks/index.md), [comparability](benchmarks/comparability.md), and [claim boundaries](benchmarks/claim-boundaries.md)
 - [Data](data/index.md), [models](models/reference-models.md), [audits](audits/index.md), [studies](studies/index.md), and [artifacts](../models/published/CURRENT_RELEASE.md)
+- [G2 identifiability decision](studies/g2-identifiability-decision.md) and [mechanistic-use contract](science/g2-mechanistic-use-contract.md)
 - [Public probabilistic reference](probabilistic-reference.md) (new CPU-only reference experiment),
 - [Reproducibility](reproducibility.md), [public/private firewall](current-research-state.md#artifact-access-and-rights), [roadmap](current-research-state.md#completed-and-deferred-work), and [contribution guidance](contributing.md)
 
