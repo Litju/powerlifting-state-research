@@ -634,3 +634,32 @@ def test_failure_after_truth_is_preserved_not_rescored(
     marker = json.loads((out / "FAILED-AFTER-TEST-TRUTH.json").read_text())
     assert "never adjust and rescore" in marker["note"]
     assert not (out / "manifest.json").exists()
+
+
+EXPECTED_SMOKE = ROOT / S.EXPECTED_RELATIVE / "smoke"
+
+
+def test_smoke_matches_the_committed_expectation(tmp_path: Path) -> None:
+    out = tmp_path / "fresh"
+    S.run("smoke", out, cross_environment_ridge=True)
+    worst = S.compare_to_expected(out, EXPECTED_SMOKE, same_environment=False)
+    assert max(worst.values()) <= max(S.CROSS_ENVIRONMENT_TOLERANCE.values())
+    expected = json.loads((EXPECTED_SMOKE / "manifest.json").read_text())
+    assert expected["profile"] == "smoke" and expected["authorization_record_sha256"] is None
+    assert expected["protocol_digest"] == K.PROTOCOL_DIGEST
+
+
+def test_committed_smoke_directory_contains_no_scientific_claims() -> None:
+    names = {p.name for p in EXPECTED_SMOKE.iterdir()}
+    assert "execution-receipt.json" not in names  # nondeterministic timing is not committed
+    assert not (ROOT / S.EXPECTED_RELATIVE / "full").exists()  # no scientific result exists yet
+
+
+@pytest.mark.skipif(
+    "PSR_RUN_FULL_HISTORY_UNCERTAINTY" not in os.environ,
+    reason="owner-authorized one-shot run; set PSR_RUN_FULL_HISTORY_UNCERTAINTY=<record path>",
+)
+def test_full_profile_is_only_runnable_with_the_owner_record(tmp_path: Path) -> None:
+    record = Path(os.environ["PSR_RUN_FULL_HISTORY_UNCERTAINTY"])
+    result = S.run("full", tmp_path / "full", authorization=record)
+    assert result["summary"]["disposition"] in K.DISPOSITIONS

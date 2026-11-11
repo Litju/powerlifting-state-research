@@ -1,6 +1,6 @@
 # History-conditioned predictive uncertainty (RES-639)
 
-**Status: DESIGN AND IMPLEMENTATION ONLY. The scientific experiment has not been run.** No new population has been generated, no scale model has been fitted, and no TEST truth has been opened. This page contains no results. Execution needs separate owner authorization of the frozen protocol digest below.
+**Status: DESIGN AND IMPLEMENTATION COMPLETE; THE SCIENTIFIC EXPERIMENT HAS NOT BEEN RUN.** No new population has been generated, no scale model has been fitted, and no TEST truth has been opened. This page contains no results. Execution needs separate owner authorization of the frozen protocol digest below.
 
 - Mission: `PSR_OBSERVABLE_HISTORY_CONDITIONAL_UNCERTAINTY_ONE_SHOT`
 - Frozen protocol: [`protocol.json`](../../results/studies/history_conditional_uncertainty/protocol.json), study id `psr:study:history-conditioned-assessment-uncertainty@1.0.0~18650c7858f4`, digest `sha256:18650c7858f4707b32afc90bc02be40416b10bf4214cc510589346e0561987b4`
@@ -90,9 +90,47 @@ This is a self-review by the implementing agent against the cited sources; **no 
 
 **Literature support.** Crossref confirmed the bibliographic records (title, journal, volume, pages, authors) of both references; the full texts were **not** re-read in this session, so the statements below rest on the author's prior knowledge of these papers. Strict propriety of the CRPS and logarithmic score: Gneiting & Raftery (2007), JASA 102, 359–378, DOI 10.1198/016214506000001437. Probabilistic calibration versus sharpness and PIT diagnostics: Gneiting, Balabdaoui & Raftery (2007), JRSS B 69, 243–268, DOI 10.1111/j.1467-9868.2007.00587.x. The ε, λ, guardrail and 1% values are **implementation assumptions**, not literature results. The CRPS closed form is checked numerically by the existing scoring tests.
 
-## Execution procedure (not executed)
+## Implementation (verified with non-scientific fixtures only)
 
-See [reproducibility](../reproducibility.md#history-conditioned-uncertainty-res-639) for the gated command. The full run is refused unless an owner authorization record names this protocol digest.
+`src/powerlifting_state_research/history_uncertainty/` reuses the RES-616 cohort generator, Ridge code and shift transforms and the RES-615 scoring library without modifying them (their SHA-256 values are pinned in tests).
+
+| Module | Role |
+| --- | --- |
+| `contract.py` | Frozen protocol, identities, seeds, Ridge reference, resource limits, guardrails and the pure `decide()` disposition |
+| `replay.py` | Ridge-only replay of RES-616 FIT/DEV and identity verification (no GRU) |
+| `heads.py` | B_GROUP, B_MAG, H_HISTORY on one estimator path; role guards; RMS-scale calibration |
+| `study.py` | Authorization gate, freeze and prediction seals, single truth opening, scoring, paired bootstrap, diagnostics, resource budget, CLI |
+
+The smoke profile (240/120/60/60 rows, seeds 639811 to 639841, 50 bootstrap replicates) is **non-scientific**. It verifies the machinery, including that the replayed smoke Ridge reproduces the committed RES-616 smoke digest. Its smoke "disposition" has no scientific meaning. Committed expected outputs: [`smoke/`](../../results/studies/history_conditional_uncertainty/smoke).
+
+### Findings made during implementation
+
+- **Digest fragility.** The published `beta_sha256` hashes `round(beta, 9)` bytes. Many coefficients belong to degenerate (constant) columns and are numerically zero; their sign depends on BLAS threading, so the same fit gave two different digests with one versus several BLAS threads. The study entry point pins one thread before importing NumPy, as RES-616 did, and requires the exact published digest in that mode. A sign-normalized companion digest (invariant to this effect) is recorded for every replay; it cannot be compared with the published value because only the raw digest was published. The explicit `--cross-environment` path accepts only matching α and DEV RMSE within 1e-6 kg and records that the digest was not matched.
+- **Constant-offset invariance.** A constant shift of the log-variance prediction is removed exactly by the calibration constant (tested), so the known log-χ² bias needs no explicit correction. Expect fitted c near 1.9 for B_MAG and H_HISTORY; that is the bias, not a defect, and a clipped c would be reported.
+
+## Rights and provenance audit
+
+All new code, tests and documents are project-authored (MIT, docs CC-BY-4.0) and registered in `provenance/PUBLIC_FILE_ORIGINS.csv`. Inputs are only the public generator, new seeds and public RES-616 reference identities. No athlete data, private bytes, checkpoints or historical parameters are read. Outputs committed are aggregate tables, SVG figures and hashes; cohort rows, Ridge coefficients and scale-head coefficients are not written (only SHA-256 digests). Reuse of RES-615/616 code is within the same repository and licence.
+
+## Implementation self-review
+
+Checked by the implementing agent, not independent human review: heads match an independent normal-equation solution; H_HISTORY columns extend the B_MAG columns exactly; features are unchanged under a different future-assessment stream; fitting/calibration reject TEST and forged roles; TEST truth is opened only after the prediction seal (spy test) and a mutated prediction cannot open it; a failure after truth opening is preserved and never rescored; every guardrail boundary is exercised; the full profile is refused without an owner record naming the digest; each CPU, wall and memory ceiling stops the run.
+
+## Execution procedure (NOT executed; requires owner authorization)
+
+1. The owner creates an authorization record, for example `authorization.json`: `{"protocol_digest": "sha256:18650c7858f4707b32afc90bc02be40416b10bf4214cc510589346e0561987b4", "owner_authorized_full_run": true}`.
+2. From a clean locked checkout of the authorized commit: `uv sync --locked --all-groups --python 3.12`.
+3. Run once, with independent resource observation:
+
+   ```bash
+   /usr/bin/time -v uv run --locked --no-sync python -m powerlifting_state_research.history_uncertainty \
+     --profile full --authorization-record authorization.json \
+     --out results/studies/history_conditional_uncertainty/full
+   ```
+
+4. The run verifies the Ridge replay first (blocking on mismatch), then fits and calibrates, writes the freeze and prediction seals, opens truth once, scores and writes the manifest. On any ceiling the run exits 3 with `BLOCKED_TECHNICAL_RIGHTS_OR_RESOURCE` and is not retried or extended. Compare `/usr/bin/time -v` maximum resident size and CPU times with the in-process `execution-receipt.json`.
+
+Expected cost: about 250 CPU s (generation of roughly 30,000 entity-scenarios plus a 1,000-replicate bootstrap) against hard limits of 2,400 CPU s, 3,600 wall s and 2 GiB; this is an estimate extrapolated from RES-616 receipts and the smoke timings, not a measurement of the full run.
 
 ## Limits
 
