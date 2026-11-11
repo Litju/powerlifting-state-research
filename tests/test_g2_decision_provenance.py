@@ -75,12 +75,15 @@ def test_target_table_covers_every_requested_target_with_a_class() -> None:
         "U",
         "U",
         "U",
-        "P",
+        "U",
         "U",
         "U",
         "U",
     ]
     assert "Optimizer success is not identifiability" in MEMO
+    assert "observable-style `P` is estimable descriptively" in MEMO
+    assert "requires matched-case comparison" in MEMO
+    assert "unequal available-case sets prohibit" in MEMO
 
 
 def test_public_res289_numbers_cited_in_the_memo_match_the_repository_results() -> None:
