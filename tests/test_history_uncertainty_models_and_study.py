@@ -655,7 +655,6 @@ def test_smoke_matches_the_committed_expectation(tmp_path: Path) -> None:
 def test_committed_smoke_directory_contains_no_scientific_claims() -> None:
     names = {p.name for p in EXPECTED_SMOKE.iterdir()}
     assert "execution-receipt.json" not in names  # nondeterministic timing is not committed
-    assert not (ROOT / S.EXPECTED_RELATIVE / "full").exists()  # no scientific result exists yet
 
 
 @pytest.mark.skipif(
@@ -666,3 +665,49 @@ def test_full_profile_is_only_runnable_with_the_owner_record(tmp_path: Path) -> 
     record = Path(os.environ["PSR_RUN_FULL_HISTORY_UNCERTAINTY"])
     result = S.run("full", tmp_path / "full", authorization=record)
     assert result["summary"]["disposition"] in K.DISPOSITIONS
+
+
+FULL = ROOT / S.EXPECTED_RELATIVE / "full"
+
+
+def test_committed_full_evidence_is_hash_consistent_and_rights_safe() -> None:
+    manifest = json.loads((FULL / "manifest.json").read_text())
+    assert manifest["profile"] == "full" and manifest["study_id"] == K.STUDY_ID
+    assert manifest["protocol_digest"] == K.PROTOCOL_DIGEST
+    for name, digest in manifest["output_sha256"].items():
+        assert S._sha((FULL / name).read_bytes()) == digest
+    frozen = json.loads((FULL / "frozen-parameters.json").read_text())
+    assert frozen["ridge_replay"]["beta_sha256"] == K.RIDGE_REFERENCE["beta_sha256"]
+    assert frozen["ridge_replay"]["beta_digest_matched"] is True
+    assert frozen["ridge_replay"]["cross_environment_path_used"] is False
+    assert frozen["source_sha256"] == S._source_digests()
+    assert manifest["authorization_record_sha256"] == (
+        "18957b6e14b13fd78bbf873c86d1daa45c4e72332b4284426754aa40240bfce0"
+    )
+    assert manifest["disposition"] == json.loads((FULL / "summary.json").read_text())["disposition"]
+    text = "".join(p.read_text() for p in FULL.glob("*.json")) + "".join(
+        p.read_text() for p in FULL.glob("*.csv")
+    )
+    assert "entity-" not in text and "TEST_A-" not in text  # no cohort rows
+
+
+def test_committed_full_evidence_passes_the_independent_audit_script() -> None:
+    import subprocess
+    import sys
+
+    result = subprocess.run(
+        [
+            sys.executable,
+            str(ROOT / "scripts/audit_history_uncertainty_results.py"),
+            str(FULL),
+            str(ROOT / S.EXPECTED_RELATIVE / "protocol.json"),
+        ],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    audit = json.loads(result.stdout)
+    assert audit["failed_audit_checks"] == []
+    assert audit == json.loads((FULL / "independent-audit/evidence-audit.json").read_text())
+    summary = json.loads((FULL / "summary.json").read_text())
+    assert audit["independent_disposition"] == summary["disposition"] in K.DISPOSITIONS

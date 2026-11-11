@@ -1,0 +1,24 @@
+{
+ "cpu_generate_fit": 61.05,
+ "alpha": 0.01,
+ "beta_sha256": "e360665d7c568dffc7e076072bf34d6fb286bbf7ecece0fbb97e358a0781f9d9",
+ "tier1_exact_digest_match": true,
+ "sign_normalized": "b89010466225065011752a59a526280f2c0ee0195518e519c9959d3ab23a8073",
+ "dev_rmse_max_abs_diff": 0.0,
+ "row_id_match": {
+  "FIT": true,
+  "DEV": true
+ },
+ "max_abs_beta_diff_lstsq_vs_normal_eq": 7.965295090173186e-13,
+ "max_abs_dev_prediction_diff_kg": 3.943512183468556e-13,
+ "degenerate_columns_per_lift": [
+  24,
+  24,
+  24
+ ],
+ "n_beta_abs_lt_1e-12": 72,
+ "replayed_M1_C_TEST_A_CONTROL_macro_crps": 6.637830247,
+ "published_M1_C_TEST_A_CONTROL_macro_crps": 6.637830247,
+ "abs_diff_vs_published": 0.0,
+ "cpu_total": 84.4
+}

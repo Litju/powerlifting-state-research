@@ -1,0 +1,23 @@
+	Command being timed: "uv run --locked --no-sync python -m powerlifting_state_research.history_uncertainty --profile full --authorization-record <local-noncommitted authorization.json> --out results/studies/history_conditional_uncertainty/full"
+	User time (seconds): 135.02
+	System time (seconds): 5.11
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:21.14
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 679444
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 12
+	Minor (reclaiming a frame) page faults: 464824
+	Voluntary context switches: 50
+	Involuntary context switches: 908
+	Swaps: 0
+	File system inputs: 49336
+	File system outputs: 616
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0
