@@ -118,3 +118,7 @@ The [methods and claims index](studies/probabilistic-capacity-forecasting.md) gi
 ## Observable-assessment study (RES-616)
 
 `python -m powerlifting_state_research.observable --profile {smoke,full}` regenerates the [observable forecasting study](studies/observable-strength-forecasting.md) from public code and new seeds (smoke in CI; full about 8 CPU minutes, opt-in). It retrains its own GRU; it does not use the restricted historical artifacts.
+
+## History-conditioned uncertainty (RES-639)
+
+The [RES-639 study](studies/history-conditional-uncertainty.md) was executed once under owner authorization (disposition `MIXED_OR_NOT_QUALIFIED`); its aggregate outputs and receipts are in `results/studies/history_conditional_uncertainty/full/`. `python -m powerlifting_state_research.history_uncertainty --profile smoke --out <new empty dir> --expected results/studies/history_conditional_uncertainty/smoke` regenerates the non-scientific smoke fixture in seconds. Re-running `--profile full` requires an owner authorization record naming the protocol digest and writes to a new empty directory; the study is defined as one-shot, so a repeat is a reproducibility check only and must not replace the committed evidence. Verify the committed evidence without re-running with `python scripts/audit_history_uncertainty_results.py results/studies/history_conditional_uncertainty/full results/studies/history_conditional_uncertainty/protocol.json`. Exact Ridge digest equality is machine-dependent; see the study page.

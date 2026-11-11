@@ -1,0 +1,3 @@
+# RES-639 history-conditioned uncertainty results
+
+`protocol.json` is the protocol frozen before fitting (digest `3402d80af3db…`). `smoke/` is the non-scientific CI expectation. `full/` holds the single owner-authorized run: aggregate score, contrast, calibration, PIT, shift and integrity tables, seals, manifest, receipt, two figures, and `independent-audit/` (resource receipts from `/usr/bin/time -v`, the Ridge preflight and the 135-check evidence audit). Disposition: `MIXED_OR_NOT_QUALIFIED`. Read the [study page](../../../docs/studies/history-conditional-uncertainty.md). Cohort rows, Ridge coefficients and scale-head coefficients are not committed.
