@@ -1,0 +1,99 @@
+# History-conditioned predictive uncertainty (RES-639)
+
+**Status: DESIGN AND IMPLEMENTATION ONLY. The scientific experiment has not been run.** No new population has been generated, no scale model has been fitted, and no TEST truth has been opened. This page contains no results. Execution needs separate owner authorization of the frozen protocol digest below.
+
+- Mission: `PSR_OBSERVABLE_HISTORY_CONDITIONAL_UNCERTAINTY_ONE_SHOT`
+- Frozen protocol: [`protocol.json`](../../results/studies/history_conditional_uncertainty/protocol.json), study id `psr:study:history-conditioned-assessment-uncertainty@1.0.0~18650c7858f4`, digest `sha256:18650c7858f4707b32afc90bc02be40416b10bf4214cc510589346e0561987b4`
+- Baseline mainline: `6696bebe61adbc57abf406445acfe92e008d2fcf`
+- Unchanged prior dispositions: RES-616 `OBSERVABLE_FORECASTING_NOT_QUALIFIED`; RES-617 `FULL_G2_IDENTIFICATION_UNSUPPORTED`. G2 fitting, identification and mechanistic reconstruction are not reopened.
+
+## Question
+
+Does participant-visible training history give incremental information about the uncertainty of a future noisy synthetic strength assessment, beyond the forecast magnitude and the lift × plan × horizon stratum? The location forecast μ is the unchanged RES-616 Ridge (M1). Because μ is itself history-dependent, the answer is **incremental to the frozen point forecast**, not the total influence of history.
+
+The target is `Y_t = E_t(1 + ε_t)`, the future noisy assessment, not latent capacity. Origin day 224, history through day 223, horizons 14/28/56 days (assessment days 237/251/279), three lifts, four plans. No truncation is applied anywhere.
+
+## Baseline audit (verified at design time)
+
+| Check | Result |
+| --- | --- |
+| `origin/main` | `6696beb` (matches the stated mainline) |
+| Study id / protocol digest (RES-616) | code, `protocol.json`, `manifest.json`, `frozen-parameters.json` all agree (`…~de8b63092417`) |
+| `frozen-parameters.json` SHA-256 | `18caaf9c…` equals `freeze-seal.json` and the manifest output hash |
+| Ridge α, β identity | α = 0.01; `beta_sha256 = e360665d…f9d9` (recorded; **coefficients themselves are not published**) |
+| Replay-relevant source drift since RES-616 evaluation commit `978fa53` | none (empty `git diff` over generator, feature, ridge, scoring modules, `pyproject.toml`, `uv.lock`); 12 files byte-pinned in tests |
+| RES-616 CONTROL macro CRPS (TEST_A / TEST_B) | Ridge 6.6378 / 6.6281 kg; GRU 6.7481 / 6.7197 kg (read from committed `scores.csv`) |
+
+**Source-level identity** (above) is verified now. **Numerical replay has not been performed**: the pre-fit Ridge needs the regenerated RES-616 FIT (12,288 rows) and DEV (3,072 rows) populations, and regenerating them is deferred to the execution gate.
+
+### Reproducibility assessment
+
+- Ridge depends only on public MIT code, the public synthetic generator and published FIT/DEV seeds (616101, 616201). No private bytes, uncommitted checkpoint or nondeterministic training is involved. The GRU is neither retrained nor loaded.
+- The fit is a deterministic least-squares solve (`numpy.linalg.lstsq`) after SD-floored standardization. Its recorded digest rounds to 9 decimals, but BLAS differences across machines can in principle alter low-order bits. Recorded RES-616 environment: Python 3.12.13, NumPy 2.4.4, PyTorch 2.9.1+cpu, Linux x86_64, one thread.
+- **Undocumented-runtime risk:** only the β digest, not the coefficients, is published. A mismatch cannot be localized. The replay therefore requires an exact β digest in the recorded environment. Outside it, a pre-declared cross-environment path accepts α = 0.01 and DEV RMSE for every α within 1e-6 kg, and records that the digest was not matched. If neither holds the run is `BLOCKED_TECHNICAL_RIGHTS_OR_RESOURCE`. A newly optimized Ridge is never substituted.
+- Expected replay cost, from RES-616 receipts: about 60 s generation plus 3 s fit, charged to the same 2,400 s campaign.
+
+## Frozen design
+
+**Populations** (new seeds, disjoint from RES-615/616 and each other, checked against the historical registries; each balanced over the 12 plan × horizon strata):
+
+| Role | Rows | Seed base |
+| --- | ---: | ---: |
+| SCALE_FIT | 6,144 | 639101 |
+| SCALE_CAL | 3,072 | 639201 |
+| TEST_A | 3,072 | 639301 |
+| TEST_B | 3,072 | 639401 |
+
+Each TEST parent has CONTROL, VELOCITY_NOISE_SHIFT and ADAPTATION_TIMESCALE_SHIFT. These are six dependent scenario sets from two independent parents.
+
+**Uncertainty models** (location always μ = frozen Ridge forecast; Gaussian predictive law):
+
+- **B_GROUP**: σ_raw = per lift × stratum RMS of SCALE_FIT residuals.
+- **B_MAG** (primary comparator): per-lift ridge on `z = log((Y−μ)² + ε²)` with columns μ, log max(μ, 1 kg) and 12 stratum indicators.
+- **H_HISTORY**: the same columns plus the 127 RES-616 participant-visible summaries. Family, ε, λ, standardization, calibration and clipping are identical, so the contrast isolates the added information.
+
+With ε = 0.25 kg, λ = 0.05 (penalty on the mean squared error scale, intercept unpenalized, design standardized with SCALE_FIT statistics):
+
+σ_raw = clip(exp(ẑ/2), 0.25, 100); c_l = clip(√mean_SCALE_CAL[(Y−μ)²/σ_raw²], 0.25, 4); σ_final = clip(c_l σ_raw, 0.25, 100).
+
+This calibrates a **per-lift RMS scale only**; it does not prove conditional distributional calibration.
+
+**Primary endpoint:** paired macro CRPS difference ΔCRPS = CRPS(H_HISTORY) − CRPS(B_MAG) on CONTROL for each parent, 1,000 stratified entity-cluster bootstrap replicates per parent. Screen: relative improvement ≥ 1% and 95% interval upper bound < 0 on **both** parents. The 1% value is a pragmatic screen, not a validated meaningful difference.
+
+**Dispositions** (exact rules in `history_uncertainty.contract.decide`):
+
+- `HISTORY_UNCERTAINTY_QUALIFIED_WITHIN_SYNTHETIC_WORLD`: screen met on both parents, H_HISTORY CRPS below B_GROUP, and every guardrail passes.
+- `SCORE_GAIN_ONLY_CONDITIONAL_RELIABILITY_UNSUPPORTED`: screen met but a guardrail failed.
+- `MIXED_OR_NOT_QUALIFIED`: every other completed outcome.
+- `BLOCKED_TECHNICAL_RIGHTS_OR_RESOURCE`: Ridge unverifiable, a ceiling or rights failure, nonfinite values or an identity/denominator mismatch.
+
+Guardrails (CONTROL, both parents unless stated; none are tunable after results): NLL deterioration vs B_MAG ≤ 0.005 nats; pooled and per-lift 90% coverage within [0.85, 0.95]; no lift × stratum cell with 90% coverage outside [0.80, 0.97]; 90% coverage within [0.84, 0.96] in each per-lift predicted-scale quintile; mean 90% width ≤ 1.10 × B_MAG; on all four shifted parent × scenario sets no CRPS reversal against B_MAG and pooled 90% coverage within [0.80, 0.97]; zero nonfinite values.
+
+**Resources (hard, one shot):** one worker and thread, CPU only, ≤ 2,400 charged CPU s, ≤ 3,600 wall s, ≤ 2 GiB, zero retries, no automatic increase. Estimated about 250 CPU s (estimate, not a bound).
+
+## Scientific review before execution
+
+This is a self-review by the implementing agent against the cited sources; **no independent human peer review has occurred.**
+
+1. **Ridge as fixed location.** It is the best RES-616 forecaster on CONTROL (6.64 vs 6.75 GRU, 9.02 persistence) and is deterministic, public and cheap. This is a design choice, not a claim that Ridge is optimal. A history effect on σ may differ under another μ.
+2. **Magnitude control (repair applied).** Because `Y = E(1+ε)`, measurement SD is proportional to E, i.e. log σ is linear in log μ. A linear-in-μ term alone would understate the comparator and inflate any H_HISTORY benefit, so `log max(μ, 1 kg)` was added to B_MAG before freeze. This reason is design-based; no TEST data informed it.
+3. **Interpretability.** H_HISTORY and B_MAG share one code path; only columns differ. The 127 summaries add 127 parameters per lift, so some gain may reflect capacity rather than "history"; the single λ and the independent calibration limit but do not remove that.
+4. **Sample size and a sensitivity ceiling.** Gaussian oracle calculation: if the true log-scale heterogeneity left after magnitude has SD 0.10 / 0.15 / 0.20 / 0.25, even a perfect scale model improves CRPS by only about 0.25 / 0.56 / 0.99 / 1.54%. The 1% screen therefore demands large unexplained heterogeneity and near-perfect recovery. For scale, RES-616's Ridge-vs-GRU paired CRPS difference had a bootstrap half-width of about 0.04 kg on 3,072 entities. Uncertainty-model differences are expected to be smaller, so power is plausible but a negative result is likely and informative. Per-cell subgroup diagnostics (256 entities, coverage SE about 0.019) are exploratory.
+5. **Gaussian approximation.** Conditional on E the noise is Gaussian with CV 4–5%; given x the predictive law is a convolution with a forecast error of unknown shape. PIT histograms and scale-conditional coverage are reported to expose misfit. P(Y<0) is reported, not imposed.
+6. **Leakage.** Inputs are μ, log μ, plan indicators and the RES-616 visible summaries of days ≤ 223. Entity ids, E, C, parameters and future draws are excluded; tests perturb the future stream and assert identical features.
+7. **Shifts.** The velocity shift changes only history velocity (targets identical); the adaptation shift changes the population distribution within the simulator's support. Neither refits anything.
+8. **Decision statistics.** The intersection of two independent parent tests is conservative (each parent: 95% two-sided percentile interval upper bound below zero) and needs no multiplicity correction for the primary. Guardrails are descriptive and unadjusted.
+9. **Resource enforcement.** CPU is limited by `RLIMIT_CPU`, a SIGXCPU handler, in-process budget checks (CPU, wall, peak RSS) and an independent `/usr/bin/time -v` wrapper command.
+10. **Claims.** All conclusions are confined to this synthetic generator and these two parents.
+
+**Statistical estimator note.** `E[log χ²₁] = −1.2704`, so exp(ẑ/2) is biased low for Gaussian errors. A constant shift in ẑ is absorbed exactly by c (unless c hits a clip, which is recorded), so no explicit correction is applied.
+
+**Literature support.** Crossref confirmed the bibliographic records (title, journal, volume, pages, authors) of both references; the full texts were **not** re-read in this session, so the statements below rest on the author's prior knowledge of these papers. Strict propriety of the CRPS and logarithmic score: Gneiting & Raftery (2007), JASA 102, 359–378, DOI 10.1198/016214506000001437. Probabilistic calibration versus sharpness and PIT diagnostics: Gneiting, Balabdaoui & Raftery (2007), JRSS B 69, 243–268, DOI 10.1111/j.1467-9868.2007.00587.x. The ε, λ, guardrail and 1% values are **implementation assumptions**, not literature results. The CRPS closed form is checked numerically by the existing scoring tests.
+
+## Execution procedure (not executed)
+
+See [reproducibility](../reproducibility.md#history-conditioned-uncertainty-res-639) for the gated command. The full run is refused unless an owner authorization record names this protocol digest.
+
+## Limits
+
+Synthetic assessment measurements only; no real-athlete validity, causation, physiological identification or G2 claim; no general robustness claim; statistical distinguishability is not practical significance.

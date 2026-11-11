@@ -35,3 +35,4 @@ The representation study and selected bounded program synthesis are complete wit
 [Conditional scale, group calibration, support restriction and controlled shifts](probabilistic-capacity-forecasting.md) describe the completed later synthetic program, including both failed point corrections, small score gains, absolute shift degradation and conditional undercoverage. Methods are public; private scoring adapters, fitted uncertainty parameters and test evidence remain restricted.
 
 - [Observable strength-assessment forecasting (RES-616)](observable-strength-forecasting.md): new synthetic observed-assessment task; GRU beats persistence but not ridge; `NOT_QUALIFIED`.
+- [History-conditioned predictive uncertainty (RES-639)](history-conditional-uncertainty.md): frozen design for testing whether participant-visible histories improve the scale of the unchanged Ridge assessment forecast; **not yet executed, no results**.

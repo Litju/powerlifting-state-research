@@ -118,3 +118,7 @@ The [methods and claims index](studies/probabilistic-capacity-forecasting.md) gi
 ## Observable-assessment study (RES-616)
 
 `python -m powerlifting_state_research.observable --profile {smoke,full}` regenerates the [observable forecasting study](studies/observable-strength-forecasting.md) from public code and new seeds (smoke in CI; full about 8 CPU minutes, opt-in). It retrains its own GRU; it does not use the restricted historical artifacts.
+
+## History-conditioned uncertainty (RES-639)
+
+The [RES-639 design](studies/history-conditional-uncertainty.md) is frozen in `results/studies/history_conditional_uncertainty/protocol.json`. At this stage only the contract and its tests exist; the experiment has **not** been run and the full profile is not executable until the implementation and an owner authorization record are in place. Check the frozen contract with `pytest tests/test_history_uncertainty_contract.py`.

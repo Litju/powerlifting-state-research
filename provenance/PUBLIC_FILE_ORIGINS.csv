@@ -982,3 +982,9 @@ provenance/RES-617-g2-evidence-provenance.md,NEWLY_AUTHORED,CC-BY-4.0,g2-decisio
 tests/test_g2_decision_provenance.py,NEWLY_AUTHORED,MIT,g2-decision,RES-617 memo provenance and public-evidence consistency tests.
 docs/science/g2-mechanistic-use-contract.md,NEWLY_AUTHORED,CC-BY-4.0,g2-decision,RES-617 G2 mechanistic-use contract with permitted and unsupported uses.
 tests/test_g2_mechanistic_use_contract.py,NEWLY_AUTHORED,MIT,g2-decision,RES-617 contract link claim-scan and frozen-evidence consistency tests.
+src/powerlifting_state_research/history_uncertainty/__init__.py,NEWLY_AUTHORED,MIT,history-uncertainty,RES-639 history-conditioned uncertainty study package.
+src/powerlifting_state_research/history_uncertainty/contract.py,NEWLY_AUTHORED,MIT,history-uncertainty,RES-639 frozen protocol identities seeds Ridge reference and decision rules.
+tests/test_history_uncertainty_contract.py,NEWLY_AUTHORED,MIT,history-uncertainty,RES-639 contract seed Ridge-reference source-pin and decision-rule tests.
+results/studies/history_conditional_uncertainty/protocol.json,GENERATED_PUBLIC_ARTIFACT,MIT,history-uncertainty,RES-639 frozen protocol written before any fitting.
+results/studies/history_conditional_uncertainty/README.md,NEWLY_AUTHORED,CC-BY-4.0,history-uncertainty,Reading guide for RES-639 outputs.
+docs/studies/history-conditional-uncertainty.md,NEWLY_AUTHORED,CC-BY-4.0,history-uncertainty,RES-639 design baseline audit and scientific review.
