@@ -988,3 +988,8 @@ tests/test_history_uncertainty_contract.py,NEWLY_AUTHORED,MIT,history-uncertaint
 results/studies/history_conditional_uncertainty/protocol.json,GENERATED_PUBLIC_ARTIFACT,MIT,history-uncertainty,RES-639 frozen protocol written before any fitting.
 results/studies/history_conditional_uncertainty/README.md,NEWLY_AUTHORED,CC-BY-4.0,history-uncertainty,Reading guide for RES-639 outputs.
 docs/studies/history-conditional-uncertainty.md,NEWLY_AUTHORED,CC-BY-4.0,history-uncertainty,RES-639 design baseline audit and scientific review.
+src/powerlifting_state_research/history_uncertainty/__main__.py,NEWLY_AUTHORED,MIT,history-uncertainty,Command line entry point for the RES-639 study.
+src/powerlifting_state_research/history_uncertainty/heads.py,NEWLY_AUTHORED,MIT,history-uncertainty,RES-639 B_GROUP B_MAG and H_HISTORY scale models and calibration.
+src/powerlifting_state_research/history_uncertainty/replay.py,NEWLY_AUTHORED,MIT,history-uncertainty,RES-639 bounded Ridge-only replay and identity verification.
+src/powerlifting_state_research/history_uncertainty/study.py,NEWLY_AUTHORED,MIT,history-uncertainty,RES-639 gated freeze seal score bootstrap decision and report orchestration.
+tests/test_history_uncertainty_models_and_study.py,NEWLY_AUTHORED,MIT,history-uncertainty,RES-639 estimator firewall seal authorization resource and statistics tests.
