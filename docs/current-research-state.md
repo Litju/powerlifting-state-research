@@ -15,7 +15,7 @@ This notice supersedes operational statements in six early overview documents th
 
 The public IID world, point comparator panel, benchmark audits, observation/reconstruction/transfer studies and representation ablations are complete within their declared scope. The later conditional-scale, group-calibration/support and controlled-shift studies are also complete, with [public methods and aggregate findings](studies/probabilistic-capacity-forecasting.md) and restricted numerical evidence. Both failed point corrections, local score regressions, absolute shift degradation and conditional undercoverage are retained.
 
-Independent external human methodological review has not occurred. Formal archive/DOI, broader structural reconstruction, new-world benchmarking and cross-family trained stacking remain deferred or unestablished. No further model training, recalibration, cohort generation, private publication or reviewer outreach is part of engineering qualification. A qualified repository does not establish real-athlete validity or scientific publication acceptance.
+Independent external human methodological review has not occurred. Full 16-parameter G2 parameter recovery is closed as [unsupported](studies/g2-identifiability-decision.md). Formal archive/DOI, broader structural reconstruction, new-world benchmarking and cross-family trained stacking remain deferred or unestablished. No further model training, recalibration, cohort generation, private publication or reviewer outreach is part of engineering qualification. A qualified repository does not establish real-athlete validity or scientific publication acceptance.
 
 ## Artifact access and rights
 
