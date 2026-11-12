@@ -50,8 +50,8 @@ export function LabExplorer() {
 
       <div className={ui.grid2} style={{ marginTop: 24 }}>
         <div>
-          <h3>Equations (public simulator)</h3>
-          <div className={ui.eq} role="group" aria-label="Capacity and expression equations">
+          <h2>Equations (public simulator)</h2>
+          <div className={ui.eq} role="group" tabIndex={0} aria-label="Capacity and expression equations">
             <div>
               <var>s</var>
               <sub>t</sub> = <var>d</var>
@@ -168,7 +168,7 @@ export function LabExplorer() {
         />
       </div>
 
-      <h3 style={{ marginTop: 32 }}>Future assessments under plan: {PLAN_LABELS[params.plan]}</h3>
+      <h2 style={{ marginTop: 32 }}>Future assessments under plan: {PLAN_LABELS[params.plan]}</h2>
       <DataTable
         caption={`Illustrative values; C at day ${LAST_HISTORY_DAY} is ${lastC.C.toFixed(2)}`}
         rows={futureRows}

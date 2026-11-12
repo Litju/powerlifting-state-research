@@ -95,8 +95,30 @@
 .footer p {
   max-width: 48ch;
 }
-@media (max-width: 640px) {
+@media (max-width: 720px) {
+  .headerInner {
+    gap: 0 12px;
+    min-height: 0;
+  }
   .brand {
-    padding: 10px 0 0;
+    padding: 10px 0 4px;
+    order: 1;
+  }
+  .toggle {
+    order: 2;
+    min-height: 32px;
+    padding: 4px 10px;
+  }
+  .headerInner > nav {
+    order: 3;
+    flex: 0 0 100%;
+    overflow-x: auto;
+  }
+  .nav {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+  }
+  .nav a {
+    padding: 8px 8px;
   }
 }

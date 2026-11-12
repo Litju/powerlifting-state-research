@@ -1,7 +1,7 @@
 .layout {
   display: grid;
   gap: 32px;
-  grid-template-columns: minmax(220px, 280px) 1fr;
+  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
   align-items: start;
 }
 .rail {
@@ -62,7 +62,7 @@
 }
 @media (max-width: 820px) {
   .layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .rail {
     position: static;
