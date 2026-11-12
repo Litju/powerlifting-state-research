@@ -25,4 +25,4 @@ npx playwright test  # starts `next start` on :3100; projects: desktop, mobile, 
 
 ## Rights boundary
 
-The private manuscript, its PDF, LaTeX, evidence archive and declarations are under a publication hold and are never copied, linked or bundled. `/publication` states "manuscript under review, release pending", has no DOI, no peer-review claim and no download. Restricted M10 to M12 evidence appears only as the public aggregate summary and is labelled as such.
+The private manuscript, its PDF, LaTeX, evidence archive and declarations are under a publication hold and are never copied, linked or bundled. `/publication` states "Manuscript in private preparation — public release pending.", has no DOI, no peer-review claim and no download. Restricted M10 to M12 evidence appears only as the public aggregate summary and is labelled as such.

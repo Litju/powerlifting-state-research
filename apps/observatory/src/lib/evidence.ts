@@ -17,15 +17,4 @@ export type StudyRecord = Evidence["studies"][number];
 
 export const evidence = raw as unknown as Evidence;
 
-export const REPO_URL = `https://github.com/${evidence.source_repository}`;
-export const REVISION = evidence.source_revision;
-export const REVISION_SHORT = REVISION.slice(0, 7);
-
-/** Permalink to a tracked public file at the pinned revision (main@41191d6). */
-export function sourceUrl(path: string): string {
-  return `${REPO_URL}/blob/${REVISION}/${path}`;
-}
-
-export function shortHash(hash: string): string {
-  return `${hash.slice(0, 8)}…${hash.slice(-4)}`;
-}
+export { REPO_URL, REVISION, REVISION_SHORT, shortHash, sourceUrl } from "./source";

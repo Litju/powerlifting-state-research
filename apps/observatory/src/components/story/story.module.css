@@ -80,7 +80,6 @@
 .question {
   font-size: clamp(1.9rem, 3.6vw, 3rem);
   font-weight: 400;
-  font-style: italic;
   line-height: 1.08;
   letter-spacing: -0.02em;
   margin: 8px 0 24px;

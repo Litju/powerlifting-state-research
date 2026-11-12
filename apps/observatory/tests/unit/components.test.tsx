@@ -92,8 +92,9 @@ describe("Journey", () => {
   it("keeps G2 as unsupported, not impossible, and flags restricted aggregates", async () => {
     const user = userEvent.setup();
     render(<JourneyExplorer data={{ facts: evidence.facts, studies: evidence.studies, sources: evidence.sources }} />);
+    expect(screen.getAllByRole("heading", { level: 2 })).toHaveLength(9);
     await user.click(screen.getByTestId("stage-G2"));
-    const panel = screen.getByTestId("stage-panel");
+    const panel = screen.getByTestId("stage-panel-G2");
     expect(panel).toHaveTextContent("FULL_G2_IDENTIFICATION_UNSUPPORTED");
     expect(panel).toHaveTextContent(/not a proof of impossibility/);
     await user.click(screen.getByTestId("stage-RES-615"));

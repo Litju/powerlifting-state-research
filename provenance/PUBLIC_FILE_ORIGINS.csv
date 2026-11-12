@@ -1098,3 +1098,6 @@ apps/observatory/src/components/story/figure.module.css,NEWLY_AUTHORED,MIT,obser
 apps/observatory/src/components/story/panels.module.css,NEWLY_AUTHORED,MIT,observatory,"Scroll-linked 3D story, scene and semantic diagram fallback."
 apps/observatory/src/lib/inverse.ts,NEWLY_AUTHORED,MIT,observatory,Illustrative grid-search inverse problem inside the public simulator law (not research evidence).
 apps/observatory/src/lib/story-evidence.ts,NEWLY_AUTHORED,MIT,observatory,Trimmed source-bound evidence payload for the landing story; fails on missing records.
+apps/observatory/scripts/source-env.mjs,NEWLY_AUTHORED,MIT,observatory,Build-time public repository and revision constants for client source links (keeps the evidence file out of client bundles).
+apps/observatory/src/lib/source.ts,NEWLY_AUTHORED,MIT,observatory,Client-safe permalinks to tracked public files at the pinned evidence revision.
+apps/observatory/tests/e2e/layout.spec.ts,NEWLY_AUTHORED,MIT,observatory,"Observatory unit, component and end-to-end tests."

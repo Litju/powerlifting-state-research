@@ -1,7 +1,7 @@
 .page {
   max-width: var(--max);
   margin: 0 auto;
-  padding: 48px var(--gutter) 0;
+  padding: clamp(40px, 7vh, 88px) max(var(--gutter), var(--safe-r)) 0 max(var(--gutter), var(--safe-l));
 }
 .eyebrow {
   font-family: var(--font-mono);
@@ -12,13 +12,14 @@
   margin: 0 0 12px;
 }
 .lede {
-  font-size: 1.2rem;
+  font-size: clamp(1.08rem, 1.5vw, 1.25rem);
+  line-height: 1.55;
   color: var(--fg-muted);
   max-width: 62ch;
 }
 .section {
   border-top: 1px solid var(--rule);
-  margin-top: 56px;
+  margin-top: clamp(56px, 9vh, 104px);
   padding-top: 32px;
 }
 .grid2 {
@@ -32,20 +33,18 @@
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
 }
 .card {
-  background: var(--bg-raised);
-  border: 1px solid var(--rule);
-  padding: 20px;
+  border-top: 2px solid var(--fg);
+  padding: 16px 0 0;
 }
 .card h3 {
   margin-top: 0;
 }
+/* Notes are set off by a single rule, not boxed. */
 .banner {
-  border: 1px solid var(--rule-strong);
-  border-left: 6px solid var(--warn);
-  background: var(--bg-sunken);
-  padding: 14px 18px;
-  margin: 20px 0;
-  max-width: 90ch;
+  border-left: 3px solid var(--warn);
+  padding: 2px 0 2px 18px;
+  margin: 24px 0;
+  max-width: 80ch;
 }
 .banner p {
   margin: 0 0 0.5em;
@@ -68,7 +67,9 @@
   border-radius: 999px;
   color: var(--fg-muted);
   background: var(--bg);
-  white-space: nowrap;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 /* Identity is carried by a coloured dot and border; chip text always uses text tokens (never the series colour). */
 .chipC,
@@ -276,4 +277,105 @@
 }
 .eq var {
   font-style: italic;
+}
+
+.note {
+  font-size: 0.92rem;
+  color: var(--fg-muted);
+  max-width: 90ch;
+}
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 4px;
+  border-bottom: 1px solid var(--rule);
+  margin: 32px 0 0;
+}
+.tabs button {
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  min-height: 44px;
+  padding: 0 14px;
+  cursor: pointer;
+  font-size: 0.92rem;
+  color: var(--fg-muted);
+}
+.tabs button:hover {
+  color: var(--fg);
+}
+.tabs button[aria-selected="true"] {
+  color: var(--fg);
+  border-bottom-color: var(--c-latent);
+  font-weight: 500;
+}
+.tabpanel {
+  padding-top: 28px;
+}
+.verdictRow {
+  display: grid;
+  gap: 32px 48px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+  margin-top: 40px;
+}
+.verdict {
+  border-top: 2px solid var(--fg);
+  padding-top: 16px;
+}
+.verdict h2 {
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  margin-bottom: 10px;
+}
+.verdict dl {
+  margin: 12px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+}
+.verdict dl div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.verdict dt {
+  min-width: 5.5em;
+  color: var(--fg-muted);
+}
+.verdict dd {
+  margin: 0;
+}
+.steps {
+  list-style: none;
+  padding: 0;
+  margin: 28px 0 0;
+  display: grid;
+  gap: 0 32px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+  counter-reset: step;
+}
+.steps li {
+  counter-increment: step;
+  border-top: 1px solid var(--rule-strong);
+  padding: 14px 0 18px;
+}
+.steps li::before {
+  content: counter(step, decimal-leading-zero);
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--fg-muted);
+  margin-bottom: 6px;
+}
+.steps strong {
+  display: block;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 1.15rem;
+  margin-bottom: 4px;
+}
+.steps span {
+  color: var(--fg-muted);
+  font-size: 0.92rem;
 }

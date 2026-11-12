@@ -161,3 +161,13 @@ describe("story evidence binding", () => {
     expect(JSON.stringify(s).length).toBeLessThan(6000);
   });
 });
+
+describe("client source links", () => {
+  it("inline the pinned public revision without importing the evidence file", async () => {
+    const src = await import("@/lib/source");
+    expect(src.REVISION).toBe(evidence.source_revision);
+    expect(src.sourceUrl("README.md")).toBe(`https://github.com/${evidence.source_repository}/blob/${evidence.source_revision}/README.md`);
+    const text = readFileSync(resolve(__dirname, "../../src/lib/source.ts"), "utf8");
+    expect(text).not.toMatch(/evidence\.v1\.json"/);
+  });
+});

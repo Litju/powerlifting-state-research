@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { sourceUrl, shortHash } from "@/lib/evidence";
+import { shortHash, sourceUrl } from "@/lib/source";
 import styles from "./ui.module.css";
 
 export function PageHeader({ eyebrow, title, children }: { eyebrow: string; title: string; children?: ReactNode }) {

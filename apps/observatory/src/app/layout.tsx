@@ -38,7 +38,9 @@ export const viewport: Viewport = {
 };
 
 // Fonts are fetched at build time and self-hosted by Next.js (no runtime third-party request; no font files committed).
-const serif = Newsreader({ subsets: ["latin"], variable: "--font-newsreader", display: "swap", axes: ["opsz"], style: ["normal", "italic"] });
+// The display serif is not preloaded and ships only the two static weights in use (no optical-size axis, no italic
+// files): measured on mobile Lighthouse, the variable opsz + italic files (274 KB) delayed the first render.
+const serif = Newsreader({ subsets: ["latin"], variable: "--font-newsreader", display: "swap", weight: ["400", "500"], style: ["normal"], preload: false });
 const sans = IBM_Plex_Sans({ subsets: ["latin"], variable: "--font-plex-sans", display: "swap", weight: ["400", "500", "600"] });
 const mono = IBM_Plex_Mono({ subsets: ["latin"], variable: "--font-plex-mono", display: "swap", weight: ["400", "500"], preload: false });
 

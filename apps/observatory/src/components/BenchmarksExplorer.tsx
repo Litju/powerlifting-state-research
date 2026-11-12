@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { FrontierRecord, RegistryRecord } from "@/lib/evidence";
-import { sourceUrl } from "@/lib/evidence";
+import { sourceUrl } from "@/lib/source";
 import { LIFT_LABELS, fmt } from "@/lib/format";
 import { Banner, Chip, Provenance, TargetChip } from "./Ui";
 import { DataTable } from "./DataTable";

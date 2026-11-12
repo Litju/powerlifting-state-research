@@ -6,6 +6,7 @@ import ui from "@/components/ui.module.css";
 import { evidence, sourceUrl } from "@/lib/evidence";
 import { signed } from "@/lib/format";
 import { historyContrasts, ridgeVersusGru } from "@/lib/forecast";
+import { HISTORY_FEATURES } from "@/lib/story-evidence";
 
 export const metadata: Metadata = {
   title: "Forecasting and uncertainty lab",
@@ -29,24 +30,61 @@ export default function ForecastPage() {
   const primary = hist.filter((c) => c.status === "PRIMARY");
   return (
     <div className={ui.page}>
-      <PageHeader eyebrow="Forecasting and uncertainty" title="Does the more complex model forecast better, and how sure is it?">
+      <PageHeader eyebrow="Forecasting lab" title="Added complexity did not improve the forecasts">
         <p>
-          Two completed synthetic studies forecast the <em>future noisy strength assessment</em>, not latent capacity. Both returned negative primary findings. Every value below is read from a hashed
-          aggregate table; nothing is simulated in the browser on this page.
+          Two completed synthetic studies forecast the <em>future noisy strength assessment Y</em>, not latent capacity. In both, the primary contrast favoured the simpler model on both independent
+          test parents. Every value on this page is read from a hashed aggregate table; nothing is simulated in the browser.
         </p>
       </PageHeader>
-      <p style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-        <TargetChip target="Y" />
-      </p>
+
+      <div className={ui.verdictRow} data-testid="forecast-verdicts">
+        <article className={ui.verdict} aria-labelledby="v-616">
+          <p className={ui.eyebrow}>RES-616 · point and distributional forecast</p>
+          <h2 id="v-616">The GRU was slightly worse than Ridge</h2>
+          <p>Paired macro CRPS, GRU minus Ridge, control scenario. Positive means the GRU is worse.</p>
+          <dl>
+            {ridge.map((c) => (
+              <div key={c.parent}>
+                <dt>{c.parent}</dt>
+                <dd>
+                  {signed(c.diff)} kg [{signed(c.ci_lo)}, {signed(c.ci_hi)}]
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <p className={ui.prov}>
+            <a href="#h-ridge-gru">Primary result and interval scope</a> · disposition {s616.disposition}
+          </p>
+        </article>
+        <article className={ui.verdict} aria-labelledby="v-639">
+          <p className={ui.eyebrow}>RES-639 · predictive uncertainty</p>
+          <h2 id="v-639">Adding history features made the uncertainty slightly worse</h2>
+          <p>Paired macro CRPS, H_HISTORY minus B_MAG, control scenario. Positive means the histories are worse.</p>
+          <dl>
+            {primary.map((c) => (
+              <div key={c.parent}>
+                <dt>{c.parent}</dt>
+                <dd>
+                  {signed(c.diff, 4)} kg [{signed(c.ci_lo, 4)}, {signed(c.ci_hi, 4)}]
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <p className={ui.prov}>
+            <a href="#h-history">Primary result and interval scope</a> · disposition {s639.disposition}
+          </p>
+        </article>
+      </div>
+
       <Banner kind="info" title="What this page can and cannot show">
         <p>
-          Only aggregate tables that are tracked in the public repository are plotted. Per-athlete prediction distributions, per-row scores, weights and test truth are not public, so none is shown or
-          reconstructed. Intervals are plotted only where the tables supply them (pooled macro contrasts).
+          Only aggregate tables tracked in the public repository are plotted. Per-athlete prediction distributions, per-row scores, weights and test truth are not public, so none is shown or
+          reconstructed. Intervals appear only where the tables supply them (pooled macro contrasts). <TargetChip target="Y" />
         </p>
       </Banner>
 
       <section className={ui.section} aria-labelledby="h-ridge-gru">
-        <h2 id="h-ridge-gru">Headline 1 · Ridge versus GRU on the observed assessment</h2>
+        <h2 id="h-ridge-gru">Ridge versus GRU on the observed assessment</h2>
         <p>
           Disposition <code>{s616.disposition}</code>. The GRU beats persistence but is slightly <em>worse</em> than Ridge on both independent test parents. Control scenario, macro CRPS, kg.
         </p>
@@ -61,9 +99,9 @@ export default function ForecastPage() {
       </section>
 
       <section className={ui.section} aria-labelledby="h-history">
-        <h2 id="h-history">Headline 2 · Do participant-visible histories improve the predictive scale?</h2>
+        <h2 id="h-history">Do participant-visible histories improve the predictive scale?</h2>
         <p>
-          Disposition <code>{s639.disposition}</code>. Relative to forecast magnitude alone (<code>B_MAG</code>), adding histories (<code>H_HISTORY</code>) is slightly worse:{" "}
+          Disposition <code>{s639.disposition}</code>. Relative to forecast magnitude alone (<code>B_MAG</code>), adding {HISTORY_FEATURES.count} participant-visible history summaries (<code>H_HISTORY</code>) is slightly worse:{" "}
           {primary.map((c) => `${c.parent} ${signed(c.diff, 6)} kg`).join(" and ")}, both intervals above zero. The frozen screen needed an improvement of at least 1% on both parents.
         </p>
         <ForestPlot
@@ -78,7 +116,7 @@ export default function ForecastPage() {
           }))}
           unit="kg"
           ariaLabel="Forest plot of paired CRPS differences. H_HISTORY minus B_MAG is above zero on both parents (worse). H_HISTORY and B_MAG are both below B_GROUP."
-          caption={`Primary contrast highlighted in red. Descriptive contrasts against B_GROUP do not isolate magnitude from group-RMS estimation. ${hist[0]?.ci_scope ?? ""}`}
+          caption={`Primary contrast highlighted in red. Descriptive contrasts against B_GROUP do not isolate magnitude: the scale-fitting procedures also differ, so B_MAG's gain over B_GROUP is not attributable to magnitude alone. ${hist[0]?.ci_scope ?? ""}`}
         />
         {hist[0] ? <Provenance path={hist[0].source_path} sha={hist[0].source_sha256} studyId={hist[0].study_id} /> : null}
         <p>

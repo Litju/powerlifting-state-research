@@ -1,3 +1,5 @@
+import { SOURCE_ENV } from "./scripts/source-env.mjs";
+
 const isDev = process.env.NODE_ENV !== "production";
 
 // Static-first app: every route is prerendered. No third-party origins, no telemetry.
@@ -19,6 +21,7 @@ const csp = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  env: SOURCE_ENV,
   poweredByHeader: false,
   async headers() {
     return [

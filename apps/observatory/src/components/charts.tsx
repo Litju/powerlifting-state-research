@@ -115,9 +115,11 @@ export function HBarChart({
   ariaLabel: string;
 }) {
   const [ref, width] = useWidth();
-  const labelW = width < 480 ? Math.round(width * 0.38) : 220;
+  // Narrow screens stack each full label above its bar instead of truncating identities into ambiguous stubs.
+  const narrow = width < 480;
+  const labelW = narrow ? 4 : 220;
   const margin = { top: 8, right: 64, bottom: 28, left: labelW };
-  const rowH = 30;
+  const rowH = narrow ? 42 : 30;
   const h = margin.top + margin.bottom + rows.length * rowH;
   const x = (v: number) => margin.left + ((v - domain[0]) / (domain[1] - domain[0])) * (width - margin.left - margin.right);
   const ticks = niceTicks(domain[0], domain[1], width < 480 ? 3 : 5);
@@ -143,15 +145,22 @@ export function HBarChart({
             </g>
           ))}
           {rows.map((r, i) => {
-            const y = margin.top + i * rowH;
+            const y = margin.top + i * rowH + (narrow ? 14 : 0);
+            const barH = narrow ? 16 : rowH - 12;
             const w = Math.max(1, x(r.value) - x(domain[0]));
             return (
               <g key={r.id}>
-                <text className={styles.label} x={margin.left - 8} y={y + rowH / 2 + 4} textAnchor="end">
-                  {r.label.length > (width < 480 ? 18 : 32) ? `${r.label.slice(0, width < 480 ? 17 : 31)}…` : r.label}
-                </text>
-                <rect x={x(domain[0])} y={y + 5} width={w} height={rowH - 12} fill={r.color} />
-                <text className={styles.tick} x={x(r.value) + 6} y={y + rowH / 2 + 4} style={{ fill: "var(--fg)" }}>
+                {narrow ? (
+                  <text className={styles.label} x={margin.left} y={y + 1}>
+                    {r.label}
+                  </text>
+                ) : (
+                  <text className={styles.label} x={margin.left - 8} y={y + rowH / 2 + 4} textAnchor="end">
+                    {r.label.length > 32 ? `${r.label.slice(0, 31)}…` : r.label}
+                  </text>
+                )}
+                <rect x={x(domain[0])} y={y + 5} width={w} height={barH} fill={r.color} />
+                <text className={styles.tick} x={x(r.value) + 6} y={y + 5 + barH / 2 + 4} style={{ fill: "var(--fg)" }}>
                   {r.value.toFixed(digits)}
                 </text>
               </g>
@@ -200,9 +209,11 @@ export function ForestPlot({
   digits?: number;
 }) {
   const [ref, width] = useWidth();
-  const labelW = width < 480 ? Math.round(width * 0.36) : 250;
-  const margin = { top: 22, right: 20, bottom: 44, left: labelW };
-  const rowH = 34;
+  // Narrow screens stack each full label above its interval instead of truncating it into an ambiguous stub.
+  const narrow = width < 480;
+  const labelW = narrow ? 12 : 250;
+  const margin = { top: 22, right: 20, bottom: narrow ? 58 : 44, left: labelW };
+  const rowH = narrow ? 50 : 34;
   const h = margin.top + margin.bottom + rows.length * rowH;
   const lo = Math.min(0, ...rows.map((r) => r.lo));
   const hi = Math.max(0, ...rows.map((r) => r.hi));
@@ -230,7 +241,7 @@ export function ForestPlot({
           {ticks.map((t) => (
             <g key={t}>
               <line className={styles.grid} x1={x(t)} x2={x(t)} y1={margin.top} y2={h - margin.bottom} />
-              <text className={styles.tick} x={x(t)} y={h - 26} textAnchor="middle">
+              <text className={styles.tick} x={x(t)} y={h - margin.bottom + 16} textAnchor="middle">
                 {t}
               </text>
             </g>
@@ -240,12 +251,18 @@ export function ForestPlot({
             0 = no difference
           </text>
           {rows.map((r, i) => {
-            const y = margin.top + i * rowH + rowH / 2;
+            const y = margin.top + i * rowH + (narrow ? rowH - 14 : rowH / 2);
             return (
               <g key={r.id}>
-                <text className={styles.label} x={margin.left - 10} y={y + 4} textAnchor="end">
-                  {r.label.length > (width < 480 ? 17 : 36) ? `${r.label.slice(0, width < 480 ? 16 : 35)}…` : r.label}
-                </text>
+                {narrow ? (
+                  <text className={styles.label} x={margin.left} y={y - 14}>
+                    {r.label}
+                  </text>
+                ) : (
+                  <text className={styles.label} x={margin.left - 10} y={y + 4} textAnchor="end">
+                    {r.label.length > 36 ? `${r.label.slice(0, 35)}…` : r.label}
+                  </text>
+                )}
                 <line x1={x(r.lo)} x2={x(r.hi)} y1={y} y2={y} stroke={r.color} strokeWidth={3} />
                 <line x1={x(r.lo)} x2={x(r.lo)} y1={y - 6} y2={y + 6} stroke={r.color} strokeWidth={2} />
                 <line x1={x(r.hi)} x2={x(r.hi)} y1={y - 6} y2={y + 6} stroke={r.color} strokeWidth={2} />
@@ -253,7 +270,7 @@ export function ForestPlot({
               </g>
             );
           })}
-          <text className={styles.tick} x={margin.left} y={h - 6}>
+          <text className={styles.tick} x={margin.left} y={narrow ? h - 24 : h - 6}>
             ← first model better
           </text>
           <text className={styles.tick} x={width - margin.right} y={h - 6} textAnchor="end">

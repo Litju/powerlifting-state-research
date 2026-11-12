@@ -12,15 +12,13 @@ export const metadata: Metadata = {
 export default function JourneyPage() {
   return (
     <div className={ui.page}>
-      <PageHeader eyebrow="Research journey" title="Nine stages, and what each one did not show">
+      <PageHeader eyebrow="Research journey" title="Nine stages, in the order they were done">
         <p>
-          The program asks what can be inferred about a hidden synthetic system from noisy observations. Most conclusions are bounded or negative, and they are reported that way. Choose a stage to read
-          the finding, its limits and its verified source.
+          Each stage asked one question about a hidden synthetic system observed through noise. Most answers are bounded or negative, and they are reported that way. Open a stage for the verified
+          statement, its limits, the hashed source and its lineage.
         </p>
       </PageHeader>
-      <div style={{ marginTop: 32 }}>
-        <JourneyExplorer data={{ facts: evidence.facts, studies: evidence.studies, sources: evidence.sources }} />
-      </div>
+      <JourneyExplorer data={{ facts: evidence.facts, studies: evidence.studies, sources: evidence.sources }} />
     </div>
   );
 }

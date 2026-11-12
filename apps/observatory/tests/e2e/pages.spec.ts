@@ -88,15 +88,20 @@ test.describe("publication honesty and rights", () => {
 });
 
 test.describe("research journey", () => {
-  test("stage navigation reveals findings, limits and sources", async ({ page }) => {
+  test("chronological stages expand to findings, limits and sources, and deep links open their stage", async ({ page }) => {
     await page.goto("/journey");
+    const stages = page.getByRole("list", { name: "Research stages in the order they were carried out" }).locator(":scope > li");
+    await expect(stages).toHaveCount(9);
+    await expect(page.getByTestId("stage-panel-G2")).toBeHidden();
     await page.getByTestId("stage-G2").click();
-    const panel = page.getByTestId("stage-panel");
+    const panel = page.getByTestId("stage-panel-G2");
     await expect(panel).toContainText("FULL_G2_IDENTIFICATION_UNSUPPORTED");
     await expect(panel).toContainText("not a proof of impossibility");
     await expect(panel.getByRole("link", { name: /g2-identifiability-decision/ })).toHaveAttribute("href", /github.com\/Litju\/powerlifting-state-research\/blob\/41191d6/);
-    await page.getByTestId("stage-RES-639").click();
-    await expect(panel).toContainText("+0.024194");
+    await expect(page).toHaveURL(/#G2$/);
+    await page.goto("/journey#RES-639");
+    await expect(page.getByTestId("stage-panel-RES-639")).toBeVisible();
+    await expect(page.getByTestId("stage-panel-RES-639")).toContainText("+0.024194");
   });
 });
 

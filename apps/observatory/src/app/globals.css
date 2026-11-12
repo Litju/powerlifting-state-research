@@ -135,6 +135,8 @@ body {
   font-size: 1rem;
   line-height: 1.6;
   font-feature-settings: "kern", "liga";
+  /* Long source paths and identifiers must wrap instead of widening the page on phones. */
+  overflow-wrap: break-word;
   /* Overflow must be fixed at its source, never hidden here: clipped content would be unreachable. */
   overflow-x: clip;
 }
