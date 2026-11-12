@@ -1,12 +1,13 @@
 # Public CI
 
-[`ci.yml`](ci.yml) runs on PRs to `main`, pushes to `main`, and manual dispatch with read-only repository permissions and the checked-in lock. Five jobs cover:
+[`ci.yml`](ci.yml) runs on PRs to `main`, pushes to `main`, and manual dispatch with read-only repository permissions and the checked-in lock. Five jobs cover (plus the Observatory job below):
 
 | Job | Python | Checks |
 | --- | --- | --- |
 | Quality / integrity | 3.12 | Gitleaks JSON full-history scan, locked sync, Ruff, strict mypy, exports, repository integrity, Markdown links/anchors, published model hashes/loading, frozen-source preservation, execution-era RES-284 publication replay |
 | Compatibility (three jobs) | 3.11, 3.12, 3.13 | Locked sync, package import, pytest (includes the ~15 s probabilistic reference smoke); opt-in full IID production and full probabilistic reference skipped |
 | Package smoke | 3.12 | Build sdist/wheel, isolated wheel install with locked runtime/research dependencies, dependency imports, model instantiation, nine registry records and distinct historical/public-native identities |
+| Observatory | Node 22 | `apps/observatory`: `npm ci`, production audit, evidence regeneration check, ESLint, strict `tsc`, Vitest, `next build`, build-output scan for paper/private artifacts, Playwright desktop, mobile, WebGL-off, layout/collision (five viewports) and axe tests |
 
 ## Local parity
 

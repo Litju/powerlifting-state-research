@@ -1,0 +1,119 @@
+.timeline {
+  list-style: none;
+  margin: 48px 0 0;
+  padding: 0;
+  position: relative;
+}
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 8px;
+  bottom: 8px;
+  width: 1px;
+  background: var(--rule-strong);
+}
+.stage {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 0 clamp(16px, 3vw, 40px);
+  padding: 0 0 56px;
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+.marker {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  padding-top: 2px;
+}
+.marker span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--rule-strong);
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--fg);
+}
+.stage[data-tone="negative"] .marker span {
+  border-color: var(--c-boundary);
+  box-shadow: inset 0 0 0 3px var(--bg), inset 0 0 0 40px color-mix(in srgb, var(--c-boundary) 14%, transparent);
+}
+.stage[data-tone="limited"] .marker span {
+  border-color: var(--c-expressed);
+}
+.body {
+  min-width: 0;
+  max-width: 72ch;
+}
+.label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg);
+  margin: 8px 0 10px;
+}
+.tone {
+  color: var(--fg-muted);
+  letter-spacing: 0.04em;
+}
+.question {
+  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+  font-weight: 400;
+  max-width: 30ch;
+  margin-bottom: 12px;
+}
+.verdict {
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  line-height: 1.45;
+  color: var(--fg-muted);
+  max-width: 60ch;
+}
+.details {
+  margin-top: 4px;
+}
+.details summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--link);
+}
+.panel {
+  border-left: 2px solid var(--rule);
+  padding: 4px 0 4px 20px;
+  margin-top: 8px;
+}
+.fact {
+  padding: 12px 0;
+}
+.fact + .fact {
+  border-top: 1px solid var(--rule);
+}
+.fact h3 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+.chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.limits,
+.lineage {
+  color: var(--fg-muted);
+  font-size: 0.92rem;
+}

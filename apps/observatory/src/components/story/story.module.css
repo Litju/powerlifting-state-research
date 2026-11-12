@@ -1,0 +1,568 @@
+/*
+ * Landing story layout.
+ *
+ * Safe zones (no element of one zone may overlap another; asserted by tests/e2e/layout.spec.ts):
+ *   header      global navigation, fixed height var(--header-h)
+ *   text        the reading column (one block per beat)
+ *   stage-bar   act index + illustration/evidence badge   (stage row 1)
+ *   stage-field 3D scene, fallback figure or evidence panel (stage row 2)
+ *   stage-controls legend/focus, view controls, readout    (stage row 3)
+ * The stage is a sticky grid cell below the header, never an overlay on top of the text.
+ * Without room for two columns (or with reduced motion) there is no sticky element at all: each beat carries its
+ * own inline figure.
+ */
+
+.root {
+  position: relative;
+  isolation: isolate;
+}
+.story {
+  position: relative;
+}
+.narrative {
+  padding: 0 max(var(--gutter), var(--safe-r)) 0 max(var(--gutter), var(--safe-l));
+}
+.act {
+  outline: none;
+}
+.beat {
+  padding: 56px 0 24px;
+}
+.hero {
+  padding-top: clamp(40px, 9vh, 96px);
+}
+.text {
+  max-width: 34rem;
+}
+.inlineVisual {
+  margin-top: 28px;
+  padding: 16px 0 8px;
+  border-top: 1px solid var(--rule);
+}
+.stage {
+  display: none;
+}
+
+/* ---------- typography of the story */
+
+.kicker {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  margin: 0 0 18px;
+}
+.numeral {
+  color: var(--fg);
+  font-weight: 500;
+}
+.numeral::after {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--rule-strong);
+  margin-left: 12px;
+  vertical-align: middle;
+}
+.display {
+  font-family: var(--font-serif);
+  font-size: clamp(2.6rem, 6.4vw, 5rem);
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  margin: 0 0 24px;
+  max-width: 12ch;
+}
+.question {
+  font-size: clamp(1.9rem, 3.6vw, 3rem);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 8px 0 24px;
+  max-width: 20ch;
+}
+.lede {
+  font-size: clamp(1.08rem, 1.4vw, 1.22rem);
+  line-height: 1.55;
+  color: var(--fg);
+}
+.text p {
+  color: var(--fg-muted);
+}
+.text p strong {
+  color: var(--fg);
+  font-weight: 500;
+}
+.text .lede,
+.text .display {
+  color: var(--fg);
+}
+.fine {
+  font-size: 0.84rem;
+  color: var(--fg-faint) !important;
+}
+.actHead h2 {
+  font-size: clamp(1.9rem, 3.2vw, 2.75rem);
+  max-width: 16ch;
+  margin-bottom: 28px;
+}
+.takeaway {
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 1.5vw, 1.32rem);
+  line-height: 1.35;
+  color: var(--fg) !important;
+  margin-top: 24px;
+  padding-top: 14px;
+  position: relative;
+}
+.takeaway::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 2px;
+  background: var(--c-latent);
+}
+.eq {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--fg) !important;
+  margin: 16px 0;
+}
+.code {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--fg) !important;
+  overflow-wrap: anywhere;
+  border-left: 2px solid var(--c-boundary);
+  padding-left: 12px;
+}
+.facts {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  font-family: var(--font-mono);
+  font-size: 0.92rem;
+}
+.facts li {
+  padding: 6px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.facts span {
+  color: var(--fg-muted);
+}
+.defs {
+  margin: 0;
+  display: grid;
+  gap: 10px;
+}
+.defs div {
+  display: grid;
+  grid-template-columns: 7.5rem 1fr;
+  gap: 12px;
+  align-items: baseline;
+}
+.defs dt {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--fg);
+}
+.defs dd {
+  margin: 0;
+  color: var(--fg-muted);
+}
+.toc ol {
+  list-style: none;
+  padding: 0;
+  margin: 28px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 13rem), 1fr));
+  gap: 0 20px;
+}
+.toc a {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  min-height: 44px;
+  padding: 10px 0;
+  border-top: 1px solid var(--rule);
+  color: var(--fg);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+.toc a:hover {
+  color: var(--link);
+}
+.tocNum {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--fg-faint);
+  min-width: 2.2em;
+}
+.ledger {
+  display: grid;
+  gap: 24px;
+}
+.ledger h3 {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--fg);
+  margin: 0 0 8px;
+}
+.ledger ul {
+  margin: 0;
+  padding: 0 0 0 1.1em;
+  color: var(--fg-muted);
+}
+.ledger li {
+  margin-bottom: 6px;
+}
+.next {
+  list-style: none;
+  padding: 0;
+  margin: 32px 0 0;
+}
+.next a {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 44px;
+  padding: 12px 0;
+  border-top: 1px solid var(--rule);
+  text-decoration: none;
+  color: var(--fg-muted);
+  font-size: 0.9rem;
+}
+.next a span {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  color: var(--fg);
+}
+.next a:hover span {
+  color: var(--link);
+}
+
+/* ---------- stage chrome (only rendered in stage mode) */
+
+.stageBar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-bottom: 12px;
+}
+.acts ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 4px;
+}
+.acts a {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 44px;
+  padding: 6px 4px 6px 0;
+  text-decoration: none;
+  color: var(--fg-faint);
+  font-size: 0.72rem;
+  line-height: 1.2;
+}
+.acts a:hover {
+  color: var(--fg);
+}
+.acts a[aria-current="step"] {
+  color: var(--fg);
+}
+.actNum {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+.actLabel {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.track {
+  display: block;
+  height: 2px;
+  background: var(--rule);
+  margin-top: 2px;
+  overflow: hidden;
+}
+.trackFill {
+  display: block;
+  height: 100%;
+  background: var(--c-latent);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+}
+.badge {
+  align-self: flex-start;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--fg-muted);
+  border: 1px solid var(--rule-strong);
+  padding: 4px 8px;
+}
+.badgeEvidence {
+  color: var(--fg);
+  border-color: var(--ok);
+}
+.stageField {
+  position: relative;
+  min-height: 0;
+}
+.sceneLayer {
+  position: absolute;
+  inset: 0;
+  transition: opacity 0.2s linear;
+}
+.canvasWrap {
+  position: absolute;
+  inset: 0;
+  touch-action: pan-y;
+  cursor: grab;
+  outline-offset: -3px;
+}
+.canvasWrap:active {
+  cursor: grabbing;
+}
+.canvasWrap > div {
+  position: absolute !important;
+  inset: 0;
+}
+.figureFallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  animation: fadeIn 0.5s ease;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+}
+.panelLayer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  overflow-y: auto;
+  overscroll-behavior: auto;
+  will-change: opacity, transform;
+}
+.panelCard {
+  width: 100%;
+  max-width: 640px;
+  margin: auto 0;
+  padding: 4px 4px 4px 0;
+}
+.stageFoot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+  min-height: 64px;
+}
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.legendBtn,
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 0 10px;
+  font-size: 0.78rem;
+  color: var(--fg);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: transparent;
+}
+.legendBtn {
+  cursor: pointer;
+}
+.legendBtn:hover {
+  border-color: var(--rule-strong);
+}
+.legendBtn[aria-pressed="true"] {
+  border-color: var(--fg);
+  background: var(--bg-sunken);
+}
+.swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+}
+.view {
+  display: inline-flex;
+  margin-left: auto;
+  border: 1px solid var(--rule-strong);
+  border-radius: 2px;
+}
+.view button {
+  background: transparent;
+  border: 0;
+  border-right: 1px solid var(--rule-strong);
+  min-height: 36px;
+  min-width: 40px;
+  padding: 0 10px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+.view button:last-child {
+  border-right: 0;
+}
+.view button:hover {
+  background: var(--bg-sunken);
+}
+.readout {
+  flex: 1 0 100%;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--fg-muted);
+  max-width: none;
+  min-height: 1.4em;
+}
+.footNote {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--fg-muted);
+  max-width: none;
+}
+
+:global(.scene-labels) {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+:global(.scene-label) {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.02em;
+  color: var(--fg);
+  white-space: nowrap;
+  padding: 2px 6px;
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
+  transition: opacity 0.25s ease;
+  user-select: none;
+}
+:global(.scene-label-axis) {
+  color: var(--fg-muted);
+  background: none;
+}
+
+/* ---------- inline layout refinements (phones, tablets portrait, reduced motion) */
+
+@media (min-width: 640px) {
+  .ledger {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .beat {
+    padding: 72px 0 32px;
+  }
+}
+
+/* ---------- stage layout: mirrors STAGE_QUERY in Story.tsx */
+
+@media (min-width: 960px) and (min-height: 600px) and (prefers-reduced-motion: no-preference) {
+  .story {
+    display: grid;
+    grid-template-columns: minmax(380px, 5fr) minmax(0, 7fr);
+    align-items: start;
+  }
+  .narrative {
+    grid-column: 1;
+    grid-row: 1;
+    padding-right: clamp(28px, 3.5vw, 64px);
+    padding-bottom: 20vh;
+  }
+  .beat {
+    min-height: calc((100dvh - var(--header-h)) * 0.92);
+    display: flex;
+    align-items: center;
+    padding: 48px 0;
+  }
+  .hero {
+    min-height: calc(100dvh - var(--header-h));
+    align-items: center;
+  }
+  /* The active beat is marked by a hairline, not by dimming the others: every paragraph keeps AA contrast. */
+  .text {
+    position: relative;
+  }
+  .text::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * clamp(14px, 1.6vw, 28px));
+    top: 4px;
+    bottom: 4px;
+    width: 2px;
+    background: var(--c-latent);
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 0.4s ease;
+  }
+  .beat[data-active="true"] .text::before {
+    transform: scaleY(1);
+  }
+  .inlineVisual {
+    display: none;
+  }
+  .ledger {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+  .stage {
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-column: 2;
+    grid-row: 1;
+    position: sticky;
+    top: var(--header-h);
+    height: calc(100dvh - var(--header-h));
+    padding: 18px max(var(--gutter), var(--safe-r)) 18px clamp(20px, 2.4vw, 36px);
+    border-left: 1px solid var(--rule);
+    background:
+      radial-gradient(90% 70% at 60% 45%, #121722 0%, transparent 70%),
+      var(--bg);
+  }
+}
+
+@media (min-width: 960px) and (max-width: 1199px) and (min-height: 600px) and (prefers-reduced-motion: no-preference) {
+  .actLabel {
+    display: none;
+  }
+  .acts a {
+    align-items: center;
+  }
+}

@@ -6,6 +6,8 @@
 - [Data](data/index.md), [models](models/reference-models.md), [audits](audits/index.md), [studies](studies/index.md), and [artifacts](../models/published/CURRENT_RELEASE.md)
 - [G2 identifiability decision](studies/g2-identifiability-decision.md) and [mechanistic-use contract](science/g2-mechanistic-use-contract.md)
 - [Public probabilistic reference](probabilistic-reference.md) (new CPU-only reference experiment),
+- [Observable strength-assessment forecasting (RES-616)](studies/observable-strength-forecasting.md) and [history-conditioned predictive uncertainty (RES-639)](studies/history-conditional-uncertainty.md)
+- [PSR Observatory](../apps/observatory/README.md), the interactive evidence-bound web app, and its [runbook](observatory-runbook.md)
 - [Reproducibility](reproducibility.md), [public/private firewall](current-research-state.md#artifact-access-and-rights), [roadmap](current-research-state.md#completed-and-deferred-work), and [contribution guidance](contributing.md)
 
 Start with the [probabilistic methods and claims](studies/probabilistic-capacity-forecasting.md), [research positioning and references](science/research-positioning.md), and [engineering qualification](../REPOSITORY_ENGINEERING_CLOSEOUT_REPORT.md).

@@ -1031,3 +1031,73 @@ results/studies/history_conditional_uncertainty/full/shift_degradation.csv,GENER
 results/studies/history_conditional_uncertainty/full/summary.json,GENERATED_PUBLIC_ARTIFACT,MIT,history-uncertainty,RES-639 authorized full-profile aggregate output or execution receipt; no cohort rows or coefficients.
 scripts/audit_history_uncertainty_results.py,NEWLY_AUTHORED,MIT,history-uncertainty,RES-639 independent read-only evidence audit that reimplements the frozen decision rules.
 scripts/preflight_history_uncertainty_ridge.py,NEWLY_AUTHORED,MIT,history-uncertainty,RES-639 independent Ridge preflight on historical RES-616 roles only.
+apps/observatory/.gitignore,NEWLY_AUTHORED,MIT,observatory,"Ignores local Node build output, test reports and local QA captures for the Observatory app."
+apps/observatory/data/evidence.v1.json,GENERATED_PUBLIC_ARTIFACT,MIT,observatory,Generated aggregate-only evidence with source paths and SHA-256 per record; regenerated and byte-checked by the build.
+apps/observatory/eslint.config.mjs,NEWLY_AUTHORED,MIT,observatory,ESLint flat configuration for the Observatory app.
+apps/observatory/package-lock.json,NEWLY_AUTHORED,MIT,observatory,"Exact npm dependency lock for the Observatory app (text, no binaries)."
+apps/observatory/package.json,NEWLY_AUTHORED,MIT,observatory,Observatory app manifest with exact-pinned dependencies and scripts.
+apps/observatory/scripts/build-evidence.mjs,NEWLY_AUTHORED,MIT,observatory,Reproducible build transform from tracked public sources to the evidence JSON; fails on missing or contradicted sources.
+apps/observatory/scripts/evidence-schema.mjs,NEWLY_AUTHORED,MIT,observatory,Versioned zod schema for the Observatory evidence file.
+apps/observatory/src/lib/evidence.ts,NEWLY_AUTHORED,MIT,observatory,Observatory typed evidence access and illustrative simulation library.
+apps/observatory/src/lib/forecast.ts,NEWLY_AUTHORED,MIT,observatory,Observatory typed evidence access and illustrative simulation library.
+apps/observatory/src/lib/format.ts,NEWLY_AUTHORED,MIT,observatory,Observatory typed evidence access and illustrative simulation library.
+apps/observatory/src/lib/sim.ts,NEWLY_AUTHORED,MIT,observatory,Observatory typed evidence access and illustrative simulation library.
+apps/observatory/tests/setup.ts,NEWLY_AUTHORED,MIT,observatory,"Observatory unit, component and end-to-end tests."
+apps/observatory/tests/unit/evidence.test.ts,NEWLY_AUTHORED,MIT,observatory,"Observatory unit, component and end-to-end tests."
+apps/observatory/tests/unit/sim.test.ts,NEWLY_AUTHORED,MIT,observatory,"Observatory unit, component and end-to-end tests."
+apps/observatory/tsconfig.json,NEWLY_AUTHORED,MIT,observatory,Strict TypeScript configuration for the Observatory app.
+apps/observatory/vitest.config.mts,NEWLY_AUTHORED,MIT,observatory,Vitest and React Testing Library configuration.
+apps/observatory/next.config.mjs,NEWLY_AUTHORED,MIT,observatory,Next.js configuration with security headers and a first-party-only Content-Security-Policy.
+apps/observatory/playwright.config.ts,NEWLY_AUTHORED,MIT,observatory,"Playwright projects for desktop, mobile and WebGL-off end-to-end runs."
+apps/observatory/src/app/about/page.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory App Router pages, layout and global design tokens."
+apps/observatory/src/app/benchmarks/page.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory App Router pages, layout and global design tokens."
+apps/observatory/src/app/forecast/page.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory App Router pages, layout and global design tokens."
+apps/observatory/src/app/globals.css,NEWLY_AUTHORED,MIT,observatory,"Observatory App Router pages, layout and global design tokens."
+apps/observatory/src/app/icon.svg,NEWLY_AUTHORED,MIT,observatory,"Hand-written SVG favicon (text, no binary asset)."
+apps/observatory/src/app/journey/page.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory App Router pages, layout and global design tokens."
+apps/observatory/src/app/lab/page.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory App Router pages, layout and global design tokens."
+apps/observatory/src/app/layout.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory App Router pages, layout and global design tokens."
+apps/observatory/src/app/not-found.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory App Router pages, layout and global design tokens."
+apps/observatory/src/app/page.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory App Router pages, layout and global design tokens."
+apps/observatory/src/app/publication/page.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory App Router pages, layout and global design tokens."
+apps/observatory/src/components/BenchmarksExplorer.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory design-system components, accessible SVG charts and evidence-bound explorers."
+apps/observatory/src/components/DataTable.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory design-system components, accessible SVG charts and evidence-bound explorers."
+apps/observatory/src/components/ForecastExplorer.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory design-system components, accessible SVG charts and evidence-bound explorers."
+apps/observatory/src/components/JourneyExplorer.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory design-system components, accessible SVG charts and evidence-bound explorers."
+apps/observatory/src/components/LabExplorer.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory design-system components, accessible SVG charts and evidence-bound explorers."
+apps/observatory/src/components/SiteFooter.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory design-system components, accessible SVG charts and evidence-bound explorers."
+apps/observatory/src/components/SiteHeader.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory design-system components, accessible SVG charts and evidence-bound explorers."
+apps/observatory/src/components/Ui.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory design-system components, accessible SVG charts and evidence-bound explorers."
+apps/observatory/src/components/charts.module.css,NEWLY_AUTHORED,MIT,observatory,"Observatory design-system components, accessible SVG charts and evidence-bound explorers."
+apps/observatory/src/components/charts.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory design-system components, accessible SVG charts and evidence-bound explorers."
+apps/observatory/src/components/journey.module.css,NEWLY_AUTHORED,MIT,observatory,"Observatory design-system components, accessible SVG charts and evidence-bound explorers."
+apps/observatory/src/components/shell.module.css,NEWLY_AUTHORED,MIT,observatory,"Observatory design-system components, accessible SVG charts and evidence-bound explorers."
+apps/observatory/src/components/story/StateSpaceScene.tsx,NEWLY_AUTHORED,MIT,observatory,"Scroll-linked 3D story, scene and semantic diagram fallback."
+apps/observatory/src/components/story/Story.tsx,NEWLY_AUTHORED,MIT,observatory,"Scroll-linked 3D story, scene and semantic diagram fallback."
+apps/observatory/src/components/story/story.module.css,NEWLY_AUTHORED,MIT,observatory,"Scroll-linked 3D story, scene and semantic diagram fallback."
+apps/observatory/src/components/ui.module.css,NEWLY_AUTHORED,MIT,observatory,"Observatory design-system components, accessible SVG charts and evidence-bound explorers."
+apps/observatory/src/lib/capabilities.ts,NEWLY_AUTHORED,MIT,observatory,"WebGL, low-end and reduced-motion capability detection hooks."
+apps/observatory/src/lib/journey.ts,NEWLY_AUTHORED,MIT,observatory,"Typed evidence access, selectors, formatting and publication list for the Observatory."
+apps/observatory/src/lib/publication.ts,NEWLY_AUTHORED,MIT,observatory,"Typed evidence access, selectors, formatting and publication list for the Observatory."
+apps/observatory/src/lib/scene-data.ts,NEWLY_AUTHORED,MIT,observatory,Conceptual (non-measured) scene trajectories derived from the public law.
+apps/observatory/src/lib/story.ts,NEWLY_AUTHORED,MIT,observatory,"Pure story chapters, camera keyframes and layer emphasis functions."
+apps/observatory/tests/unit/components.test.tsx,NEWLY_AUTHORED,MIT,observatory,"Observatory unit, component and end-to-end tests."
+apps/observatory/tests/unit/story.test.ts,NEWLY_AUTHORED,MIT,observatory,"Observatory unit, component and end-to-end tests."
+apps/observatory/README.md,NEWLY_AUTHORED,CC-BY-4.0,observatory,"Observatory application README: local development, evidence pipeline and rights boundary."
+apps/observatory/scripts/check-bundle.mjs,NEWLY_AUTHORED,MIT,observatory,"Build-output scan for paper, private and secret artifacts."
+apps/observatory/tests/e2e/a11y.spec.ts,NEWLY_AUTHORED,MIT,observatory,"Observatory unit, component and end-to-end tests."
+apps/observatory/tests/e2e/fallbacks.spec.ts,NEWLY_AUTHORED,MIT,observatory,"Observatory unit, component and end-to-end tests."
+apps/observatory/tests/e2e/helpers.ts,NEWLY_AUTHORED,MIT,observatory,"Observatory unit, component and end-to-end tests."
+apps/observatory/tests/e2e/pages.spec.ts,NEWLY_AUTHORED,MIT,observatory,"Observatory unit, component and end-to-end tests."
+apps/observatory/tests/e2e/story.spec.ts,NEWLY_AUTHORED,MIT,observatory,"Observatory unit, component and end-to-end tests."
+docs/observatory-runbook.md,NEWLY_AUTHORED,CC-BY-4.0,observatory,"Observatory runbook: development, evidence refresh, fallbacks and Vercel settings."
+apps/observatory/src/components/story/EvidencePanels.tsx,NEWLY_AUTHORED,MIT,observatory,"Story evidence panels rendering source-bound aggregate G2, RES-616 and RES-639 results."
+apps/observatory/src/components/story/StoryFigure.tsx,NEWLY_AUTHORED,MIT,observatory,Per-beat semantic SVG figure of the illustrative simulation (inline layout and WebGL fallback).
+apps/observatory/src/components/story/content.tsx,NEWLY_AUTHORED,MIT,observatory,Narrative text of the six-act landing story bound to aggregate evidence values.
+apps/observatory/src/components/story/figure.module.css,NEWLY_AUTHORED,MIT,observatory,"Scroll-linked 3D story, scene and semantic diagram fallback."
+apps/observatory/src/components/story/panels.module.css,NEWLY_AUTHORED,MIT,observatory,"Scroll-linked 3D story, scene and semantic diagram fallback."
+apps/observatory/src/lib/inverse.ts,NEWLY_AUTHORED,MIT,observatory,Illustrative grid-search inverse problem inside the public simulator law (not research evidence).
+apps/observatory/src/lib/story-evidence.ts,NEWLY_AUTHORED,MIT,observatory,Trimmed source-bound evidence payload for the landing story; fails on missing records.
+apps/observatory/scripts/source-env.mjs,NEWLY_AUTHORED,MIT,observatory,Build-time public repository and revision constants for client source links (keeps the evidence file out of client bundles).
+apps/observatory/src/lib/source.ts,NEWLY_AUTHORED,MIT,observatory,Client-safe permalinks to tracked public files at the pinned evidence revision.
+apps/observatory/tests/e2e/layout.spec.ts,NEWLY_AUTHORED,MIT,observatory,"Observatory unit, component and end-to-end tests."

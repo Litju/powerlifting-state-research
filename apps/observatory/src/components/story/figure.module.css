@@ -1,0 +1,102 @@
+.wrap {
+  width: 100%;
+  min-width: 0;
+}
+.svg {
+  display: block;
+  overflow: visible;
+}
+.grid {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+.tick {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  fill: var(--fg-faint);
+}
+.label {
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 500;
+  fill: var(--fg);
+}
+.note {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  fill: var(--fg-muted);
+}
+.C {
+  fill: none;
+  stroke: var(--c-latent);
+  stroke-width: 2.5;
+}
+.E {
+  fill: none;
+  stroke: var(--c-expressed);
+  stroke-width: 2.5;
+}
+.cand {
+  fill: none;
+  stroke: var(--c-latent);
+  stroke-width: 1.2;
+  opacity: 0.55;
+}
+.gap {
+  fill: var(--c-expressed);
+  opacity: 0.16;
+}
+.Y {
+  fill: var(--c-observed);
+  stroke: var(--bg);
+  stroke-width: 1.5;
+}
+.yFuture {
+  fill: var(--bg);
+  stroke: var(--c-observed);
+  stroke-width: 2;
+}
+.band {
+  stroke: var(--c-observed);
+  stroke-width: 6;
+  stroke-linecap: round;
+  opacity: 0.28;
+}
+.residual {
+  stroke: var(--c-observed);
+  stroke-width: 1.5;
+}
+.boundary {
+  stroke: var(--c-boundary);
+  stroke-width: 2;
+}
+.future {
+  fill: var(--c-boundary);
+  opacity: 0.06;
+}
+.dashed {
+  stroke-dasharray: 6 5;
+}
+.dotted {
+  stroke-dasharray: 2 4;
+  stroke-width: 2;
+}
+/* One-shot drawing when the figure first enters the viewport (no continuous motion). */
+.draw {
+  stroke-dasharray: 1600;
+  stroke-dashoffset: 0;
+}
+[data-inview="false"] .draw {
+  stroke-dashoffset: 1600;
+}
+[data-inview] .draw {
+  transition: stroke-dashoffset 1.4s cubic-bezier(0.3, 0.6, 0.2, 1);
+}
+.caption {
+  margin: 6px 0 0;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fg-faint);
+}
