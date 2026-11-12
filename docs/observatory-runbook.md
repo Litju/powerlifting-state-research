@@ -46,7 +46,7 @@ Deployed revision record (fill in after deployment):
 
 | Field | Value |
 | --- | --- |
-| Vercel project id | _pending_ |
+| Vercel project | `psr-observatory`, id `prj_BDvUsRLFmOOacv3htymZ1eATe3gv`, team `julitocrztuga-2084s-projects` (`team_1ectqIpJs0Z1LTgNra873SqP`), linked to `Litju/powerlifting-state-research`, production branch `main` |
 | Production URL | _pending_ |
 | Deployed commit | _pending_ |
 | Verified on | _pending_ |
