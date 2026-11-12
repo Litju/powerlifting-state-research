@@ -13,7 +13,7 @@
     "evidence:check": "node scripts/build-evidence.mjs --check",
     "prebuild": "node scripts/build-evidence.mjs --check",
     "build": "next build",
-    "start": "npx serve out",
+    "start": "next start",
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
