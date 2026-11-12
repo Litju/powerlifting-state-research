@@ -56,7 +56,7 @@ export const ACTS: Act[] = [
     title: "All we ever see is Y.",
     beats: [
       { id: "observe", layers: { Y: 1 }, pose: { az: 0, el: 0.06, r: 12.2, tx: 0, ty: -0.35, tz: 0.6 } },
-      { id: "question", layers: { Y: 1, band: 0.85 }, pose: { az: -0.38, el: 0.2, r: 12.6, tx: 0, ty: -0.1, tz: 0.6 } },
+      { id: "question", layers: { Y: 1, band: 0.85 }, pose: { az: -0.38, el: 0.2, r: 13.4, tx: -0.5, ty: -0.1, tz: 0.6 } },
     ],
   },
   {
@@ -67,8 +67,8 @@ export const ACTS: Act[] = [
     title: "Two hidden quantities sit behind every measurement.",
     beats: [
       { id: "capacity", layers: { Y: 0.25, C: 1 }, draws: ["C"], pose: { az: 0.18, el: 0.12, r: 11.4, tx: 0, ty: 0.2, tz: 0.4 } },
-      { id: "suppression", layers: { Y: 0.2, C: 1, E: 1, gap: 0.8 }, draws: ["E"], pose: { az: -0.6, el: 0.42, r: 11.8, tx: 0, ty: 0, tz: 1.0 } },
-      { id: "noise", layers: { Y: 1, C: 0.45, E: 1, gap: 0.25, residual: 1 }, pose: { az: -0.42, el: 0.22, r: 10.6, tx: -0.8, ty: 0, tz: 0.9 } },
+      { id: "suppression", layers: { Y: 0.2, C: 1, E: 1, gap: 0.8 }, draws: ["E"], pose: { az: -0.6, el: 0.42, r: 13.6, tx: -1.1, ty: 0, tz: 1.0 } },
+      { id: "noise", layers: { Y: 1, C: 0.45, E: 1, gap: 0.25, residual: 1 }, pose: { az: -0.42, el: 0.22, r: 12.2, tx: -1.7, ty: 0, tz: 0.9 } },
     ],
   },
   {
@@ -110,7 +110,7 @@ export const ACTS: Act[] = [
     kicker: "What the evidence supports",
     short: "Evidence",
     title: "What the evidence supports, and what it does not.",
-    beats: [{ id: "ledger", layers: FULL, pose: { az: -0.5, el: 0.34, r: 14.6, tx: 0, ty: 0, tz: 0.6 } }],
+    beats: [{ id: "ledger", layers: FULL, pose: { az: -0.5, el: 0.34, r: 15.6, tx: -0.7, ty: 0, tz: 0.6 } }],
   },
 ];
 
