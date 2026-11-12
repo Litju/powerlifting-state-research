@@ -1,12 +1,13 @@
 "use client";
 
 import { Line } from "@react-three/drei";
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useThree, type ThreeEvent } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import type { MotionValue } from "motion/react";
 import * as THREE from "three";
-import { buildSceneData, type V3 } from "@/lib/scene-data";
-import { cameraPose, layerWeights, type Layer } from "@/lib/story";
+import { inverseIllustration } from "@/lib/inverse";
+import { buildSceneData, type Assessment, type V3 } from "@/lib/scene-data";
+import { sceneState, type Layer, type SceneState } from "@/lib/story";
 
 export interface UserView {
   dAz: number;
@@ -14,59 +15,50 @@ export interface UserView {
   zoom: number;
 }
 
+export type FocusLayer = "C" | "E" | "Y" | "boundary" | null;
+
 export interface SceneProps {
-  progress: MotionValue<number> | null;
+  position: MotionValue<number>;
   userView: React.RefObject<UserView>;
-  toggles: { dynamics: boolean; noise: boolean; boundary: boolean };
+  focus: FocusLayer;
   lowEnd: boolean;
   reducedMotion: boolean;
   active: boolean;
-  /** Static focus used when the camera does not follow scroll. */
-  fixedProgress: number;
   onReady?: (invalidate: () => void) => void;
+  onHover?: (a: Assessment | null) => void;
 }
 
-const COLORS = {
-  C: "#5ed3d9",
-  E: "#f2a65a",
-  Y: "#bba8ff",
-  boundary: "#ff8d84",
-  grid: "#3a4252",
+/* Mark colours: the validated night palette (see globals.css). */
+const COLORS = { C: "#1fa0a8", E: "#d27a2a", Y: "#8a77e0", boundary: "#de5a52", grid: "#2a303b", axis: "#6b7385", band: "#8a77e0" };
+
+/** Which focus button keeps which scene layers bright. */
+const FOCUS_KEEP: Record<Exclude<FocusLayer, null>, Layer[]> = {
+  C: ["C", "candidates", "gap"],
+  E: ["E", "gap", "residual"],
+  Y: ["Y", "band", "residual"],
+  boundary: ["boundary", "future"],
 };
 
-type Opacity = { material: { opacity: number } };
-
-function setOpacity(ref: { node: unknown }, value: number) {
-  const target = ref.node as Opacity | null;
-  if (target?.material) target.material.opacity = value;
+function weight(st: SceneState, layer: Layer, focus: FocusLayer): number {
+  const w = st.layers[layer];
+  if (!focus) return w;
+  return FOCUS_KEEP[focus].includes(layer) ? Math.max(w, 0.35) : w * 0.12;
 }
 
-function Rig({ progress, userView, fixedProgress, lowEnd }: Pick<SceneProps, "progress" | "userView" | "fixedProgress" | "lowEnd">) {
-  const { camera, invalidate, size } = useThree();
+type Line2Like = THREE.Object3D & { material: { opacity: number; transparent: boolean }; geometry: THREE.InstancedBufferGeometry };
+
+function Rig({ position, userView, lowEnd, reducedMotion }: Pick<SceneProps, "position" | "userView" | "lowEnd" | "reducedMotion">) {
+  const { camera, invalidate } = useThree();
   const cur = useRef({ az: 0, el: 0, r: 0, tx: 0, ty: 0, tz: 0, init: false });
   const look = useMemo(() => new THREE.Vector3(), []);
-  useEffect(() => {
-    if (!progress) return;
-    return progress.on("change", () => invalidate());
-  }, [progress, invalidate]);
-  // On wide screens the text card sits on the left, so shift the optical centre of the scene to the right.
-  useEffect(() => {
-    const cam = camera as THREE.PerspectiveCamera;
-    if (size.width / size.height > 1.15) cam.setViewOffset(size.width, size.height, -size.width * 0.14, 0, size.width, size.height);
-    else cam.clearViewOffset();
-    invalidate();
-    return () => cam.clearViewOffset();
-  }, [camera, size, invalidate]);
+  useEffect(() => position.on("change", () => invalidate()), [position, invalidate]);
   useFrame((_, delta) => {
-    const p = progress ? progress.get() : fixedProgress;
-    const pose = cameraPose(p);
+    const pose = sceneState(position.get()).pose;
     const u = userView.current;
-    const target = { az: pose.az + u.dAz, el: Math.min(1.35, Math.max(-0.2, pose.el + u.dEl)), r: pose.r * u.zoom, tx: pose.tx, ty: pose.ty, tz: pose.tz };
+    const target = { az: pose.az + u.dAz, el: Math.min(1.3, Math.max(-0.15, pose.el + u.dEl)), r: pose.r * u.zoom, tx: pose.tx, ty: pose.ty, tz: pose.tz };
     const c = cur.current;
-    if (!c.init) {
-      Object.assign(c, target, { init: true });
-    }
-    const k = 1 - Math.exp(-delta * (lowEnd ? 12 : 9));
+    if (!c.init || reducedMotion) Object.assign(c, target, { init: true });
+    const k = 1 - Math.exp(-Math.min(delta, 0.1) * (lowEnd ? 10 : 7));
     let moving = false;
     for (const key of ["az", "el", "r", "tx", "ty", "tz"] as const) {
       const diff = target[key] - c[key];
@@ -83,124 +75,207 @@ function Rig({ progress, userView, fixedProgress, lowEnd }: Pick<SceneProps, "pr
   return null;
 }
 
-type Slot<T = unknown> = { node: T | null };
+type Slot<T> = { node: T | null };
 const slot = <T,>(): Slot<T> => ({ node: null });
-const bind = <T,>(s: Slot<T>) => (n: T | null) => {
-  s.node = n;
-};
 
-function makeContext(lowEnd: boolean) {
+function makeContext(lowEnd: boolean, data: ReturnType<typeof buildSceneData>, accepted: number) {
   return {
-    C: slot(),
-    E: slot(),
-    gap: slot(),
-    boundaryLine: slot(),
-    cCont: slot(),
-    cCess: slot(),
-    eCont: slot(),
-    residual: slot(),
+    lines: {} as Record<string, Line2Like | null>,
+    labels: {} as Record<string, HTMLDivElement>,
+    labelDefs: [
+      ["C", data.anchors.C, "C · latent capacity", ""],
+      ["E", data.anchors.E, "E · expressed performance", ""],
+      ["Y", data.anchors.Y, "Y · 32 noisy assessments", ""],
+      ["S", data.anchors.S, "depth: suppression S", "scene-label-axis"],
+      ["boundary", data.anchors.boundary, "history ends day 223 · forecasts from 224", ""],
+      ["cand", data.anchors.candidates, `${accepted} settings fit as well`, ""],
+      ["time", data.anchors.time, "time →", "scene-label-axis"],
+    ] as [string, V3, string, string][],
+    yMesh: slot<THREE.InstancedMesh>(),
+    yfMesh: slot<THREE.InstancedMesh>(),
     plane: slot<THREE.Mesh>(),
-    pulseC: slot<THREE.Mesh>(),
-    pulseE: slot<THREE.Mesh>(),
-    sphere: new THREE.SphereGeometry(0.075, lowEnd ? 6 : 12, lowEnd ? 6 : 12),
-    pulseGeo: new THREE.SphereGeometry(0.08, 10, 10),
-    yMat: new THREE.MeshBasicMaterial({ color: COLORS.Y, transparent: true }),
-    yFutMat: new THREE.MeshBasicMaterial({ color: COLORS.Y, transparent: true, wireframe: true }),
-    planeMat: new THREE.MeshBasicMaterial({ color: COLORS.boundary, transparent: true, side: THREE.DoubleSide, depthWrite: false }),
-    pulseMat: new THREE.MeshBasicMaterial({ color: "#ffffff" }),
-    clock: { t: 0 },
-    perf: { slow: 0, frames: 0, throttled: false },
+    hover: slot<THREE.Mesh>(),
+    mats: {
+      y: new THREE.MeshBasicMaterial({ color: COLORS.Y, transparent: true }),
+      yf: new THREE.MeshBasicMaterial({ color: COLORS.Y, transparent: true, wireframe: true }),
+      plane: new THREE.MeshBasicMaterial({ color: COLORS.boundary, transparent: true, side: THREE.DoubleSide, depthWrite: false }),
+      hover: new THREE.MeshBasicMaterial({ color: "#ffffff" }),
+    },
+    sphere: new THREE.SphereGeometry(0.075, lowEnd ? 8 : 14, lowEnd ? 6 : 10),
+    tmp: new THREE.Vector3(),
   };
 }
 type Ctx = ReturnType<typeof makeContext>;
 
-function updateLayers(ctx: Ctx, data: ReturnType<typeof buildSceneData>, p: number, toggles: SceneProps["toggles"], delta: number, animate: boolean): boolean {
-  const perf = ctx.perf;
-  perf.frames += 1;
-  if (delta > 0.05) perf.slow += 1;
-  if (perf.frames >= 12 && perf.slow / perf.frames > 0.5) perf.throttled = true;
-  const run = animate && !perf.throttled;
-  const w = layerWeights(p);
-  const val = (layer: Layer, on = true) => (on ? w[layer] : 0);
-  setOpacity(ctx.C, val("C"));
-  setOpacity(ctx.E, val("E"));
-  setOpacity(ctx.gap, val("gap") * 0.9);
-  setOpacity(ctx.residual, val("Y", toggles.noise) * 0.8);
-  setOpacity(ctx.boundaryLine, val("boundary", toggles.boundary));
-  setOpacity(ctx.cCont, val("future", toggles.boundary) * 0.9);
-  setOpacity(ctx.cCess, val("future", toggles.boundary) * 0.9);
-  setOpacity(ctx.eCont, val("future", toggles.boundary) * 0.9);
-  ctx.yMat.opacity = val("Y", toggles.noise);
-  ctx.yFutMat.opacity = val("future", toggles.boundary && toggles.noise);
-  ctx.planeMat.opacity = 0.16 * val("boundary", toggles.boundary);
-  if (ctx.plane.node) ctx.plane.node.visible = toggles.boundary;
+const bindSlot =
+  <T,>(s: Slot<T>) =>
+  (n: T | null) => {
+    s.node = n;
+  };
 
-  // Dynamics: a pulse travels along C and E, illustrating accumulation and suppression.
-  const pc = ctx.pulseC.node;
-  const pe = ctx.pulseE.node;
-  if (pc && pe) {
-    pc.visible = pe.visible = toggles.dynamics;
-    if (run) ctx.clock.t = (ctx.clock.t + delta * 0.12) % 1;
-    const f = ctx.clock.t * (data.c.length - 1);
-    const i = Math.floor(f);
-    const t = f - i;
-    const a = data.c[i]!;
-    const b = data.c[Math.min(i + 1, data.c.length - 1)]!;
-    const ea = data.e[i]!;
-    const eb = data.e[Math.min(i + 1, data.e.length - 1)]!;
-    pc.position.set(a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t, a[2] + (b[2] - a[2]) * t);
-    pe.position.set(ea[0] + (eb[0] - ea[0]) * t, ea[1] + (eb[1] - ea[1]) * t, ea[2] + (eb[2] - ea[2]) * t);
+const bindLine = (ctx: Ctx, key: string, segments: number) => (n: unknown) => {
+  const ln = n as Line2Like | null;
+  if (ln) {
+    ln.userData.segments = segments;
+    ln.material.transparent = true;
   }
-  return run;
+  ctx.lines[key] = ln;
+};
+
+function placeInstances(ctx: Ctx, data: ReturnType<typeof buildSceneData>) {
+  const m = new THREE.Matrix4();
+  const y = ctx.yMesh.node;
+  const yf = ctx.yfMesh.node;
+  data.y.forEach((p, i) => y?.setMatrixAt(i, m.makeTranslation(p[0], p[1], p[2])));
+  data.yFuture.forEach((p, i) => yf?.setMatrixAt(i, m.compose(new THREE.Vector3(...p), new THREE.Quaternion(), new THREE.Vector3(1.5, 1.5, 1.5))));
+  if (y) y.instanceMatrix.needsUpdate = true;
+  if (yf) yf.instanceMatrix.needsUpdate = true;
 }
 
-function Layers({ progress, toggles, fixedProgress, reducedMotion, active, lowEnd }: Pick<SceneProps, "progress" | "toggles" | "fixedProgress" | "reducedMotion" | "active" | "lowEnd">) {
-  const { invalidate } = useThree();
+/** Labels are plain DOM nodes in one overlay layer, projected from 3D anchors in the same frame as the camera. */
+function mountLabels(ctx: Ctx, host: HTMLElement): () => void {
+  const layer = document.createElement("div");
+  layer.className = "scene-labels";
+  layer.setAttribute("aria-hidden", "true");
+  for (const [key, , text, cls] of ctx.labelDefs) {
+    const el = document.createElement("div");
+    el.className = `scene-label ${cls}`.trim();
+    el.textContent = text;
+    el.style.opacity = "0";
+    layer.appendChild(el);
+    ctx.labels[key] = el;
+  }
+  host.appendChild(layer);
+  return () => {
+    layer.remove();
+    ctx.labels = {};
+  };
+}
+
+function frame(ctx: Ctx, p: number, focus: FocusLayer, accepted: number, camera: THREE.Camera, size: { width: number; height: number }) {
+  const st = sceneState(p);
+  const set = (key: string, layer: Layer, scale = 1) => {
+    const ln = ctx.lines[key];
+    if (!ln) return;
+    const o = weight(st, layer, focus) * scale;
+    ln.material.opacity = o;
+    ln.visible = o > 0.01;
+    const count = (ln.userData.segments as number | undefined) ?? Infinity;
+    ln.geometry.instanceCount = Math.max(0, Math.ceil(count * st.draw[layer]));
+  };
+  set("C", "C");
+  set("E", "E");
+  set("gap", "gap", 0.8);
+  set("residual", "residual", 0.9);
+  set("band", "band", 0.55);
+  set("boundaryLine", "boundary");
+  set("cCont", "future", 0.9);
+  set("cCess", "future", 0.9);
+  set("eCont", "future", 0.9);
+  for (let i = 0; i < accepted; i += 1) {
+    if (!ctx.lines[`candC${i}`]) break;
+    set(`candC${i}`, "candidates", 0.7);
+    set(`candE${i}`, "candidates", 0.28);
+  }
+  ctx.mats.y.opacity = weight(st, "Y", focus);
+  ctx.mats.yf.opacity = weight(st, "future", focus);
+  ctx.mats.plane.opacity = 0.14 * weight(st, "boundary", focus);
+  if (ctx.yMesh.node) ctx.yMesh.node.visible = ctx.mats.y.opacity > 0.01;
+  if (ctx.yfMesh.node) ctx.yfMesh.node.visible = ctx.mats.yf.opacity > 0.01;
+  if (ctx.plane.node) ctx.plane.node.visible = ctx.mats.plane.opacity > 0.002;
+  for (const [key, pos] of ctx.labelDefs) {
+    const el = ctx.labels[key];
+    if (!el) continue;
+    ctx.tmp.set(pos[0], pos[1], pos[2]).project(camera);
+    el.style.transform = `translate(-50%, -50%) translate(${((ctx.tmp.x + 1) / 2) * size.width}px, ${((1 - ctx.tmp.y) / 2) * size.height}px)`;
+    el.style.visibility = ctx.tmp.z > 1 ? "hidden" : "visible";
+  }
+  const lab = (key: string, o: number) => {
+    const el = ctx.labels[key];
+    if (el) el.style.opacity = String(o > 0.5 ? Math.min(1, (o - 0.5) * 2) : 0);
+  };
+  lab("C", weight(st, "C", focus) * st.draw.C);
+  lab("E", weight(st, "E", focus) * st.draw.E);
+  lab("Y", st.layers.C < 0.2 ? weight(st, "Y", focus) : 0);
+  lab("S", st.layers.gap);
+  lab("boundary", weight(st, "boundary", focus));
+  lab("cand", weight(st, "candidates", focus) * st.draw.candidates);
+  lab("time", st.act <= 1 ? 1 : 0);
+}
+
+function setHover(ctx: Ctx, p: V3 | undefined) {
+  const h = ctx.hover.node;
+  if (!h) return;
+  if (p) h.position.set(p[0], p[1], p[2]);
+  h.visible = Boolean(p);
+}
+
+function Scene({ position, focus, lowEnd, active, onHover }: Pick<SceneProps, "position" | "focus" | "lowEnd" | "active" | "onHover">) {
+  const { invalidate, gl, camera, size } = useThree();
   const data = useMemo(() => buildSceneData(lowEnd ? 4 : 2), [lowEnd]);
-  const ctx = useMemo(() => makeContext(lowEnd), [lowEnd]);
-  const animate = toggles.dynamics && !reducedMotion && active;
+  const inv = useMemo(() => inverseIllustration(), []);
+  const ctx = useMemo(() => makeContext(lowEnd, data, inv.accepted), [lowEnd, data, inv]);
 
   useEffect(() => {
+    placeInstances(ctx, data);
     invalidate();
-  }, [toggles, invalidate, active]);
+  }, [ctx, data, invalidate]);
+  useEffect(() => {
+    const host = gl.domElement.parentElement;
+    if (!host) return;
+    const unmount = mountLabels(ctx, host);
+    invalidate();
+    return unmount;
+  }, [ctx, gl, invalidate]);
+  useEffect(() => invalidate(), [focus, active, invalidate]);
+  useFrame(() => frame(ctx, position.get(), focus, inv.shown.length, camera, size));
 
-  useFrame((_, delta) => {
-    // Adaptive guard: if frames are consistently slow (software rendering, weak GPU), stop the continuous
-    // pulse animation. Scroll and drag still render on demand.
-    const run = updateLayers(ctx, data, progress ? progress.get() : fixedProgress, toggles, delta, animate);
-    if (run) invalidate();
-  });
+  function hover(e: ThreeEvent<PointerEvent>) {
+    const id = e.instanceId;
+    if (id === undefined || sceneState(position.get()).layers.Y < 0.3) return;
+    e.stopPropagation();
+    setHover(ctx, data.y[id]);
+    onHover?.(data.yInfo[id] ?? null);
+    invalidate();
+  }
+  function unhover() {
+    setHover(ctx, undefined);
+    onHover?.(null);
+    invalidate();
+  }
 
   const dash = { dashed: true, dashSize: 0.18, gapSize: 0.12 } as const;
   return (
     <group>
-      {/* floor grid and axes */}
-      <Line points={data.grid} segments color={COLORS.grid} lineWidth={0.6} transparent opacity={0.55} />
-      <Line points={data.axes.x} color="#8d96a8" lineWidth={1.2} />
-      <Line points={data.axes.y} color="#8d96a8" lineWidth={1.2} />
-      <Line points={data.axes.z} color="#8d96a8" lineWidth={1.2} />
+      <Line points={data.grid} segments color={COLORS.grid} lineWidth={0.6} transparent opacity={0.6} />
+      <Line points={data.axes.x} color={COLORS.axis} lineWidth={1.1} />
+      <Line points={data.axes.y} color={COLORS.axis} lineWidth={1.1} />
+      <Line points={data.axes.z} color={COLORS.axis} lineWidth={1.1} />
 
-      <Line ref={bind(ctx.C) as never} points={data.c} color={COLORS.C} lineWidth={3.2} transparent />
-      <Line ref={bind(ctx.E) as never} points={data.e} color={COLORS.E} lineWidth={3.2} transparent />
-      <Line ref={bind(ctx.gap) as never} points={data.gap} segments color="#9aa3b5" lineWidth={0.9} transparent />
-      <Line ref={bind(ctx.residual) as never} points={data.residual} segments color={COLORS.Y} lineWidth={0.9} transparent />
-
-      <Line ref={bind(ctx.cCont) as never} points={data.cContinue} color={COLORS.C} lineWidth={2.4} transparent {...dash} />
-      <Line ref={bind(ctx.cCess) as never} points={data.cCessation} color={COLORS.C} lineWidth={1.6} transparent {...dash} dashSize={0.06} gapSize={0.1} />
-      <Line ref={bind(ctx.eCont) as never} points={data.eContinue} color={COLORS.E} lineWidth={2.4} transparent {...dash} />
-
-      {data.y.map((p, i) => (
-        <mesh key={`y${i}`} position={p as V3} geometry={ctx.sphere} material={ctx.yMat} />
+      <Line ref={bindLine(ctx, "C", data.c.length - 1)} points={data.c} color={COLORS.C} lineWidth={3.4} />
+      <Line ref={bindLine(ctx, "E", data.e.length - 1)} points={data.e} color={COLORS.E} lineWidth={3.4} />
+      <Line ref={bindLine(ctx, "gap", data.gap.length / 2)} points={data.gap} segments color="#a0a8b8" lineWidth={0.9} />
+      <Line ref={bindLine(ctx, "residual", data.residual.length / 2)} points={data.residual} segments color={COLORS.Y} lineWidth={1.1} />
+      <Line ref={bindLine(ctx, "band", data.band.length / 2)} points={data.band} segments color={COLORS.band} lineWidth={5} />
+      {data.candidatesC.map((pts, i) => (
+        <Line key={`cc${i}`} ref={bindLine(ctx, `candC${i}`, pts.length - 1)} points={pts} color={COLORS.C} lineWidth={1.3} />
       ))}
-      {data.yFuture.map((p, i) => (
-        <mesh key={`f${i}`} position={p as V3} geometry={ctx.sphere} material={ctx.yFutMat} scale={1.5} />
+      {data.candidatesE.map((pts, i) => (
+        <Line key={`ce${i}`} ref={bindLine(ctx, `candE${i}`, pts.length - 1)} points={pts} color={COLORS.E} lineWidth={1} />
       ))}
+      <Line ref={bindLine(ctx, "cCont", data.cContinue.length - 1)} points={data.cContinue} color={COLORS.C} lineWidth={2.4} {...dash} />
+      <Line ref={bindLine(ctx, "cCess", data.cCessation.length - 1)} points={data.cCessation} color={COLORS.C} lineWidth={1.6} {...dash} dashSize={0.06} gapSize={0.1} />
+      <Line ref={bindLine(ctx, "eCont", data.eContinue.length - 1)} points={data.eContinue} color={COLORS.E} lineWidth={2.4} {...dash} />
 
-      <mesh ref={bind(ctx.plane) as never} position={[data.boundaryX, 0, 1]} rotation={[0, Math.PI / 2, 0]} material={ctx.planeMat}>
+      <instancedMesh ref={bindSlot(ctx.yMesh)} args={[ctx.sphere, ctx.mats.y, data.y.length]} onPointerMove={hover} onPointerOut={unhover} />
+      <instancedMesh ref={bindSlot(ctx.yfMesh)} args={[ctx.sphere, ctx.mats.yf, data.yFuture.length]} />
+      <mesh ref={bindSlot(ctx.hover)} geometry={ctx.sphere} material={ctx.mats.hover} scale={1.9} visible={false} />
+
+      <mesh ref={bindSlot(ctx.plane)} position={[data.boundaryX, 0, 1]} rotation={[0, Math.PI / 2, 0]} material={ctx.mats.plane}>
         <planeGeometry args={[4.4, 3.8]} />
       </mesh>
       <Line
-        ref={bind(ctx.boundaryLine) as never}
+        ref={bindLine(ctx, "boundaryLine", 4)}
         points={[
           [data.boundaryX, -1.9, -1.2],
           [data.boundaryX, -1.9, 3.2],
@@ -210,10 +285,7 @@ function Layers({ progress, toggles, fixedProgress, reducedMotion, active, lowEn
         ]}
         color={COLORS.boundary}
         lineWidth={1.8}
-        transparent
       />
-      <mesh ref={bind(ctx.pulseC) as never} geometry={ctx.pulseGeo} material={ctx.pulseMat} />
-      <mesh ref={bind(ctx.pulseE) as never} geometry={ctx.pulseGeo} material={ctx.pulseMat} />
     </group>
   );
 }
@@ -231,22 +303,15 @@ export default function StateSpaceScene(props: SceneProps) {
     <Canvas
       frameloop="demand"
       dpr={props.lowEnd ? [1, 1] : [1, 1.75]}
-      camera={{ fov: 38, near: 0.1, far: 80, position: [8, 4, 10] }}
+      camera={{ fov: 36, near: 0.1, far: 80, position: [0, 0.5, 12] }}
       gl={{ antialias: !props.lowEnd, alpha: true, powerPreference: props.lowEnd ? "low-power" : "default" }}
-      style={{ touchAction: "pan-y" }}
       aria-hidden="true"
       data-testid="scene-canvas"
+      raycaster={{ params: { Mesh: {}, Line: { threshold: 0.1 }, LOD: {}, Points: { threshold: 0.1 }, Sprite: {} } }}
     >
       <ReadyProbe onReady={props.onReady} />
-      <Rig progress={props.progress} userView={props.userView} fixedProgress={props.fixedProgress} lowEnd={props.lowEnd} />
-      <Layers
-        progress={props.progress}
-        toggles={props.toggles}
-        fixedProgress={props.fixedProgress}
-        reducedMotion={props.reducedMotion}
-        active={props.active}
-        lowEnd={props.lowEnd}
-      />
+      <Rig position={props.position} userView={props.userView} lowEnd={props.lowEnd} reducedMotion={props.reducedMotion} />
+      <Scene position={props.position} focus={props.focus} lowEnd={props.lowEnd} active={props.active} onHover={props.onHover} />
     </Canvas>
   );
 }

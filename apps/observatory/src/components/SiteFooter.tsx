@@ -26,7 +26,7 @@ export function SiteFooter() {
         <div>
           <strong>Status</strong>
           <p>
-            Manuscript under review, release pending. No DOI, no peer-review claim. See <Link href="/publication">Publication</Link>.
+            Manuscript in private preparation — public release pending. No DOI and no peer-review claim. See <Link href="/publication">Publication</Link>.
           </p>
         </div>
       </div>

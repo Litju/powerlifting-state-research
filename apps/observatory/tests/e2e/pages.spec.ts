@@ -70,7 +70,7 @@ test.describe("forecast selectors", () => {
 test.describe("publication honesty and rights", () => {
   test("publication page shows pending state and no PDF, DOI or private link", async ({ page }) => {
     await page.goto("/publication");
-    await expect(page.getByTestId("publication-status")).toContainText("Manuscript under review. Release pending.");
+    await expect(page.getByTestId("publication-status")).toContainText("Manuscript in private preparation — public release pending.");
     const hrefs = await page.locator("a").evaluateAll((as) => as.map((a) => (a as HTMLAnchorElement).href));
     expect(hrefs.filter((h) => /\.pdf(\?|$)/i.test(h))).toEqual([]);
     expect(hrefs.filter((h) => /powerlifting-state-research-paper/.test(h))).toEqual([]);

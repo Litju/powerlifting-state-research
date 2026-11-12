@@ -6,7 +6,7 @@ import { MATERIAL } from "@/lib/publication";
 
 export const metadata: Metadata = {
   title: "Publication and open science",
-  description: "Manuscript under review, release pending. Public research material, reproducibility levels, licenses and how to cite the software repository.",
+  description: "Manuscript in private preparation — public release pending. Public research material, reproducibility levels, licenses and how to cite the software repository.",
 };
 
 const KIND_TITLES = {
@@ -21,13 +21,13 @@ export default function PublicationPage() {
   const sha = (path: string) => evidence.sources.find((s) => s.path === path)?.sha256;
   return (
     <div className={ui.page}>
-      <PageHeader eyebrow="Publication and open science" title="Manuscript under review, release pending">
-        <p>The research reported on this site is public. A journal-style manuscript is still in preparation and review, and it is not available here.</p>
+      <PageHeader eyebrow="Publication and open science" title="Manuscript in private preparation — public release pending">
+        <p>The research reported on this site is public. A manuscript is in private preparation. It is not public, it is not available here, and no part of it is served by this site.</p>
       </PageHeader>
 
       <Banner title="Publication status" kind="warn">
         <p data-testid="publication-status">
-          <strong>Manuscript under review. Release pending.</strong> There is no DOI, no accepted or peer-reviewed article, no preprint identifier and no downloadable manuscript on this site.
+          <strong>Manuscript in private preparation — public release pending.</strong> There is no DOI, no accepted or peer-reviewed article, no preprint identifier and no downloadable manuscript on this site.
         </p>
         <p>
           <strong>Pending condition (publication gate).</strong> A reader and download will be added only after the exact manuscript file has been rebuilt and verified, and the owner has separately

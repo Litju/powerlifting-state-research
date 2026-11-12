@@ -116,7 +116,7 @@ describe("Lab", () => {
 describe("Publication page", () => {
   it("shows the pending state with no DOI, no PDF and no private repository link", () => {
     const { container } = render(<PublicationPage />);
-    expect(screen.getByTestId("publication-status")).toHaveTextContent(/under review/i);
+    expect(screen.getByTestId("publication-status")).toHaveTextContent(/in private preparation — public release pending/i);
     expect(screen.getByTestId("publication-status")).toHaveTextContent(/Release pending/i);
     const hrefs = [...container.querySelectorAll("a")].map((a) => a.getAttribute("href") ?? "");
     expect(hrefs.some((h) => /\.pdf($|\?)/i.test(h))).toBe(false);

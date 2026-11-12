@@ -70,21 +70,49 @@
   background: var(--bg);
   white-space: nowrap;
 }
+/* Identity is carried by a coloured dot and border; chip text always uses text tokens (never the series colour). */
+.chipC,
+.chipE,
+.chipY,
+.chipRestricted {
+  color: var(--fg);
+}
+.chipC::before,
+.chipE::before,
+.chipY::before,
+.chipRestricted::before {
+  content: "";
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: 1px;
+  background: currentColor;
+}
 .chipC {
   border-color: var(--c-latent);
-  color: var(--c-latent);
+}
+.chipC::before {
+  background: var(--c-latent);
 }
 .chipE {
   border-color: var(--c-expressed);
-  color: var(--c-expressed);
+}
+.chipE::before {
+  background: var(--c-expressed);
 }
 .chipY {
   border-color: var(--c-observed);
-  color: var(--c-observed);
+}
+.chipY::before {
+  background: var(--c-observed);
 }
 .chipRestricted {
   border-color: var(--c-boundary);
-  color: var(--c-boundary);
+}
+.chipRestricted::before {
+  background: var(--c-boundary);
 }
 .controls {
   display: flex;
